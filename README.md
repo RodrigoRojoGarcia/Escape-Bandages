@@ -6,7 +6,8 @@ ESCAPE BANDAGES
  
 Descripción 
 ================= 
-- Juego de plataformas y puzzles, de scroll lateral 2D. 
+- Juego de plataformas y puzzles multijugador, de scroll lateral 2D. 
 - Ambientado en Egipto, en el interior de una de sus pirámides, en faraones, momias y trampas. 
 - Objetivo: poder salir de la pirámide, solucionando diferentes puzzles; siendo la momia del faraón y de uno de sus sirvientes. 
 - Mecánicas: saltar, moverse, activar botones, tirar de palancas, resolución de puzzles, cooperación, etc.
+- Modo de juego: cooperativo de dos jugadores que juegan simultáneamente ayudándose entre ellos para seguir adelante.
