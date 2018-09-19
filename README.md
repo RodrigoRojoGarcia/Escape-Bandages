@@ -25,11 +25,17 @@ El otro personaje principal. Fue el sirviente del faraón y revive gracias a los
 - Vendaje agarrador: lanza sus vendas en una dirección y atrae objetos poco pesados o se mueve él hacia agarraderos para las vendas.
 - Ataque de vendas: lanza sus vendas hacia delante y hace daño a los enemigos que toca.
 
+### Vidas
+Cada jugador dispondrá de un número determinado de vidas. Si un enemigo toca a un jugador, éste pierde una vida. El jugador puede recoger vidas que se encuentre a lo largo del nivel, y si pierde todas sus vidas deberá volver a comenzar de nuevo. Los enemigos solo disponen de una vida excepto un posible enemigo final.
+
 ### Habitaciones
 Los jugadores se enfretaran a diversos retos a lo largo del juego, el mayor reto son los puzles de las salas de las que tienen que salir. Los jugadores deberán recoger piezas para abrir la puerta de las cámaras. Estas cámaras les supondrán diversos retos, tales como, que se llene la cámara con arena, que las paredes de la cámara se junten y el espacio se haga cada vez más pequeño; o con enemigos a los que tendrán que derrotar o sortear para completar la cámara.
 
 ### Enemigos
 En algunas cámaras del juego los jugadores se enfrentarán a enemigos. Estos harán daño por contacto y estarán tematizados en la ambientación de Egipto, el desierto y la magia.
+
+### Controles
+El faraón se moverá usando las teclas de flechas de dirección, el ratón para seleccionar los objetos que quiera mover usando la telequinesis y deberá hacer click izquierdo para usar su poder lanzallamas. El sirviente sin embargo solo podrá moverse usando las teclas wasd del teclado y el espacio para arrojar sus vendas a objetos, enganches, enemigos, etc... (Los controles son provisionales y pueden estar sujetos a cambios.)
 
 ### Concept Art
 ![mummy](https://user-images.githubusercontent.com/18311855/45764286-ad7f7c00-bc32-11e8-9130-e81fcb195a75.png)
