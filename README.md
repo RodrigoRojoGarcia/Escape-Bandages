@@ -7,22 +7,22 @@ ESCAPE BANDAGES
  
 ## Descripción 
 
-- Juego de plataformas y puzzles multijugador, de scroll lateral 2D. 
+- Juego de plataformas y puzles multijugador, de scroll lateral 2D. 
 - Ambientado en Egipto, en el interior de una de sus pirámides, en faraones, momias y trampas. 
-- Objetivo: poder salir de la pirámide, solucionando diferentes puzzles; siendo la momia del faraón y de uno de sus sirvientes. 
+- Objetivo: poder salir de la pirámide, solucionando diferentes puzzles; los jugadores controlarán a la momia del faraón y de uno de sus sirvientes. 
 - Modo de juego: cooperativo de dos jugadores que juegan simultáneamente ayudándose entre ellos para seguir adelante.
 
 ## Mecánicas
 ### Personajes
 ##### Faraón: 
-Uno de los dos personajes principales. Fue faraón y al revivir en momia los dioses le dieron poderes. Se mueve flotando a un nivel bajo del suelo, no puede volar, solo que tampoco pisa el suelo, aunque se puede impulsar un poco en el aire durante un pequeño periodo de tiempo.
+Uno de los dos personajes principales. Fue faraón y los dioses le revivieron y otorgaron poderes. Se mueve flotando a un nivel bajo con respecto suelo, no puede volar, solo que no pisa el suelo, aunque se puede impulsar un poco en el aire durante un pequeño periodo de tiempo.
 ###### Poderes
 - Telequinesis: Usa una reliquia para canalizar su poder de telequinesis con la cual puede hacer subir y bajar objetos sin tocarlos o sin verlos directamente.
-- Lanzallamas: Usa una reliquia para absorber calor del desierto y transformarlo en llamas místicas que lanza delante de él que quitan daño por tiempo a enemigos.
+- Lanzallamas: Usa una reliquia para absorber calor del desierto y transformarlo en llamas místicas que lanza delante de él que quitan vida por tiempo a enemigos.
 ##### Sirviente:
 El otro personaje principal. Fue el sirviente del faraón y revive gracias a los poderes de los dioses a la vez que su faraón en habitaciones separadas. Se mueve andando, puede saltar.
 ###### Poderes
-- Vendaje agarrador: lanza sus vendas en una dirección y atrae objetos poco pesados o se mueve él hacia agarraderos para las vendas.
+- Lanzamiento de vendas: lanza sus vendas en una dirección y atrae objetos poco pesados o se mueve él hacia agarraderos para las vendas.
 - Ataque de vendas: lanza sus vendas hacia delante y hace daño a los enemigos que toca.
 
 ### Vidas
@@ -35,7 +35,7 @@ Los jugadores se enfretaran a diversos retos a lo largo del juego, el mayor reto
 En algunas cámaras del juego los jugadores se enfrentarán a enemigos. Estos harán daño por contacto y estarán tematizados en la ambientación de Egipto, el desierto y la magia.
 
 ### Controles
-El faraón se moverá usando las teclas de flechas de dirección, el ratón para seleccionar los objetos que quiera mover usando la telequinesis y deberá hacer click izquierdo para usar su poder lanzallamas. El sirviente sin embargo solo podrá moverse usando las teclas wasd del teclado y el espacio para arrojar sus vendas a objetos, enganches, enemigos, etc... (Los controles son provisionales y pueden estar sujetos a cambios.)
+El faraón se moverá usando las teclas de flechas de dirección, el ratón para seleccionar los objetos que quiera mover usando la telequinesis y deberá hacer click izquierdo para usar su poder lanzallamas, click derecho para la telequinesis. El sirviente sin embargo solo podrá moverse usando las teclas 'wasd' del teclado y la tecla 'espacio' para arrojar sus vendas a objetos, enganches, enemigos, etc... (Los controles son provisionales y pueden estar sujetos a cambios.)
 
 ### Concept Art
 ![mummy](https://user-images.githubusercontent.com/18311855/45764286-ad7f7c00-bc32-11e8-9130-e81fcb195a75.png)
