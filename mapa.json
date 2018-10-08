@@ -7,15 +7,50 @@
          "id":1,
          "name":"Capa de Patrones 1",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"collider",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":16,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":2,
+         "name":"Capa de Objetos 1",
+         "objects":[
+                {
+                 "height":0,
+                 "id":1,
+                 "name":"SpawnPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":428,
+                 "y":442
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":2,
- "nextobjectid":1,
+ "nextlayerid":3,
+ "nextobjectid":2,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"collide",
+         "type":"bool",
+         "value":true
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.2.0",
  "tileheight":120,
@@ -31,7 +66,31 @@
          "spacing":0,
          "tilecount":1,
          "tileheight":120,
+         "tiles":[
+                {
+                 "id":0,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }],
          "tilewidth":120,
+         "transparentcolor":"#ff00ff"
+        }, 
+        {
+         "columns":5,
+         "firstgid":2,
+         "image":"Sprites\/brickpatternreescaladofinal.png",
+         "imageheight":120,
+         "imagewidth":120,
+         "margin":0,
+         "name":"brickpatternreescaladofinal",
+         "spacing":0,
+         "tilecount":25,
+         "tileheight":24,
+         "tilewidth":24,
          "transparentcolor":"#ff00ff"
         }],
  "tilewidth":120,
