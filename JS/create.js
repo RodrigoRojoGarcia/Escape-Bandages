@@ -5,10 +5,10 @@ function create(){
 	const layer = map.createStaticLayer("Capa de Patrones 1",tiles,0,0);
 
 	layer.setCollisionByProperty({ collider: true });
-
+    const spawnPoint = map.findObject("Capa de Objetos 1", obj => obj.name === "SpawnPoint");
 
 	player = this.physics.add
-    .sprite(50, 240, 'mummy');
+    .sprite(spawnPoint.x, spawnPoint.y, 'mummy');
 
     this.anims.create({
     	key: 'left',
