@@ -1,5 +1,5 @@
 function create(){
-	const map = this.make.tilemap({key:"map", tileWidth: 16, tileHeight: 16});
+	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
 	const tiles = map.addTilesetImage("brickpatternreescaladofinal","tile");
 
 	const layer = map.createStaticLayer("Capa de Patrones 1",tiles,0,0);
