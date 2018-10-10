@@ -5,8 +5,7 @@ var config = {
 	physics: {
 		default: 'arcade',
 		arcade:{
-			gravity:{y:300},
-			debug: false
+			gravity:{y:300}
 		}
 	},
 	scene:{
@@ -16,6 +15,8 @@ var config = {
 	}
 };
 
+var facingRight = true;
 var player;
- var game = new Phaser.Game(config);
+var game = new Phaser.Game(config);
+
 
