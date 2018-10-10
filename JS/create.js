@@ -4,11 +4,27 @@ function create(){
 
 	const layer = map.createStaticLayer("Capa de Patrones 1",tiles,0,0);
 
+    for(var i = 0; i < 4; i++){
+        torches.push(this.add.sprite(225 + 480*i,215,'torch'));
+    };
+
 	layer.setCollisionByProperty({ collider: true });
     const spawnPoint = map.findObject("Capa de Objetos 1", obj => obj.name === "SpawnPoint");
 
 	player = this.physics.add
     .sprite(spawnPoint.x, spawnPoint.y, 'mummy');
+
+
+    this.anims.create({
+        key: 'torchAnim',
+        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    for(var i = 0; i<4;i++){
+        torches[i].anims.play('torchAnim');
+    };
 
     this.anims.create({
     	key: 'left',

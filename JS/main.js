@@ -20,4 +20,6 @@ var facingRight = true;
 var player;
 var game = new Phaser.Game(config);
 
+var torches = [];
+
 
