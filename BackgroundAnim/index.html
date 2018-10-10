@@ -1,0 +1,188 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Making your first Phaser 3 Game - Part 4</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    var config = {
+        type: Phaser.AUTO,
+        width: 1920,
+        height: 1080,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 300 },
+                debug: false
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+    var cursors;
+    var platforms;
+    var background = [];
+    var player;
+
+    var score = 0;
+    var scoreText;
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+        //this.load.image('torches', 'assets/torchesFinal.gif'); //carga una imagen y la guarda en una string key que podemos usar mas adelante (linea 36)
+        this.load.spritesheet('torches', 'assets/torchesBackSheet.png',
+            {
+                frameWidth: 480,
+                frameHeight: 1080 
+            }
+        );
+        
+        this.load.image('bricks', 'assets/bricksFinal.png');
+        
+        this.load.spritesheet('dude', 
+            'assets/mummyRunSprites.png',
+            { 
+                frameWidth: 100, 
+                frameHeight: 125 
+            }
+        );
+    }
+
+    function create ()
+    {
+        //ANIMACION DE LAS ANTORCHAS DEL FONDO
+        for(var i = 0; i < 4; i++){
+            background.push(this.add.sprite(240 + 480*i, 540, 'torches')); //situa esta imagen usando la key cargada en el centro
+        };
+
+        this.anims.create({
+            key: 'torchAnim',
+            frames: this.anims.generateFrameNumbers('torches', {start: 0, end: 3}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        for(var i = 0; i < 4; i++){
+            background[i].anims.play('torchAnim');
+        };
+        
+
+        cursors = this.input.keyboard.createCursorKeys();
+
+        platforms = this.physics.add.staticGroup();
+
+        //platforms.create(400, 568, 'bricks').setScale(2).refreshBody();
+        for(var i = 0; i < 16; i++){
+            platforms.create(60 + 120*i, 1020, 'bricks');
+            platforms.create(60 + 120*i, 530, 'bricks');
+            platforms.create(60 + 120*i, 60, 'bricks');
+        }
+        
+        
+        //platforms.create(50, 250, 'bricks');
+        //platforms.create(750, 220, 'bricks');
+
+        player = this.physics.add.sprite(100, 450, 'dude');
+
+        player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
+        player.body.setGravityY(300)
+
+        
+
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'turn',
+            frames: [ { key: 'dude', frame: 4 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'right', //tecla derecha
+            frames: this.anims.generateFrameNumbers('dude', { start: 4, end: 7 }), //coge los sprites 5 a 8
+            frameRate: 10, //a 10 fps
+            repeat: -1 //loop animation
+        });
+
+        this.physics.add.collider(player, platforms); //crea una colision entre el jugador y las plataformas
+
+        /*stars = this.physics.add.group({ //CREA ESTRELLAS COLECCIONABLES
+            key: 'star',
+            repeat: 11,
+            setXY: { x: 12, y: 0, stepX: 70 }
+        });
+
+        stars.children.iterate(function (child) {
+
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+        });*/
+
+        //this.physics.add.collider(stars, platforms);
+
+        //this.physics.add.overlap(player, stars, collectStar, null, this); //si el jugador toca estrellas las recoge
+
+        //scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' }); //crea el score con texto
+    }
+
+    function update ()
+    {
+        if (cursors.left.isDown)
+        {
+            player.setVelocityX(-160);
+
+            player.anims.play('left', true);
+        }
+        else if (cursors.right.isDown)
+        {
+            player.setVelocityX(160);
+
+            player.anims.play('right', true);
+        }
+        else
+        {
+            player.setVelocityX(0);
+
+            player.anims.play('turn');
+        }
+
+        if (cursors.up.isDown && player.body.touching.down)
+        {
+            player.setVelocityY(-550);
+        }
+    }
+
+    
+    /*function collectStar (player, star)
+    {
+        star.disableBody(true, true); //desaparece la estrella
+        score += 10; //aumenta en 10 la puntuacion
+
+        scoreText.setText('Score: ' + score); //vuelve a escribir la puntuacion
+    }*/
+
+    </script>
+
+</body>
+</html>
