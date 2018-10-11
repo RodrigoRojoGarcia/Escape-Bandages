@@ -2,9 +2,9 @@
  "infinite":false,
  "layers":[
         {
-         "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
          "height":9,
-         "id":1,
+         "id":4,
          "name":"Capa de Patrones 1",
          "opacity":1,
          "properties":[
@@ -15,26 +15,60 @@
                 }],
          "type":"tilelayer",
          "visible":true,
-         "width":16,
+         "width":20,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
          "id":2,
-         "name":"Capa de Objetos 1",
+         "name":"Objects",
          "objects":[
                 {
                  "height":0,
                  "id":1,
-                 "name":"SpawnPoint",
+                 "name":"SpawnPointPharaoh",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":428,
-                 "y":442
+                 "x":360,
+                 "y":402
+                }, 
+                {
+                 "height":336,
+                 "id":2,
+                 "name":"Anubis",
+                 "rotation":0,
+                 "type":"Evento",
+                 "visible":true,
+                 "width":1292,
+                 "x":1100,
+                 "y":132
+                }, 
+                {
+                 "height":332,
+                 "id":3,
+                 "name":"Bastet",
+                 "rotation":0,
+                 "type":"Evento",
+                 "visible":true,
+                 "width":1292,
+                 "x":1096,
+                 "y":616
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"SpawnPointMummy",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":356,
+                 "y":880
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -42,8 +76,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":3,
- "nextobjectid":2,
+ "nextlayerid":5,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -96,5 +130,5 @@
  "tilewidth":120,
  "type":"map",
  "version":1.2,
- "width":16
+ "width":20
 }
