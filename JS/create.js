@@ -54,7 +54,7 @@ function create(){
 
     /////////////////////////////////////PHAROH ANIMATIONS////////////////////////////
     this.anims.create({
-        key: 'left',
+        key: 'leftP',
         frames: this.anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
         frameRate: 10,
         repeat: -1
@@ -62,18 +62,18 @@ function create(){
 
 
     this.anims.create({
-        key: 'right',
+        key: 'rightP',
         frames: this.anims.generateFrameNumbers('Pharaoh', {start: 4, end: 7}),
         frameRate: 10,
         repeat: -1
     });
     this.anims.create({
-        key: 'stayLeft',
+        key: 'stayLeftP',
         frames: [{key: 'Pharaoh', frame:0}],
         frameRate: 20
     });
     this.anims.create({
-        key: 'stayRight',
+        key: 'stayRightP',
         frames: [{key: 'Pharaoh', frame:7}],
         frameRate: 20
     });
@@ -81,7 +81,7 @@ function create(){
 
     /////////////////////////////////////MUMMY ANIMATIONS///////////////////////////////
     this.anims.create({
-    	key: 'left',
+    	key: 'leftM',
     	frames: this.anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
     	frameRate: 10,
     	repeat: -1
@@ -89,24 +89,32 @@ function create(){
 
 
     this.anims.create({
-    	key: 'right',
+    	key: 'rightM',
     	frames: this.anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
     	frameRate: 10,
     	repeat: -1
     });
     this.anims.create({
-    	key: 'stayLeft',
+    	key: 'stayLeftM',
     	frames: [{key: 'Mummy', frame:0}],
     	frameRate: 20
     });
 	this.anims.create({
-    	key: 'stayRight',
+    	key: 'stayRightM',
     	frames: [{key: 'Mummy', frame:7}],
     	frameRate: 20
     });
     ///////////////////////////////////////////////////////////////////////////
+    const { LEFT, RIGHT, UP, W, A, D } = Phaser.Input.Keyboard.KeyCodes;
+    this.keys = this.input.keyboard.addKeys({
+      left: LEFT,
+      right: RIGHT,
+      up: UP,
+      w: W,
+      a: A,
+      d: D
+    });
 
-	cursors = this.input.keyboard.createCursorKeys();
 	
 
     ////////////////////////////COLLIDERS//////////////////////////////////////
@@ -121,11 +129,12 @@ function create(){
     function eventAnubis (pharaoh, zoneAnubis){
         pharaoh.setTint(0xee0099);
     }
-    this.physics.add.overlap(mummy, zonebastet, eventBastet, null, this);
+    this.physics.add.overlap(mummy, zoneBastet, eventBastet, null, this);
 
     function eventBastet (mummy, zoneBastet){
         mummy.setTint(0x00ff00);
     }
+
 
 
 

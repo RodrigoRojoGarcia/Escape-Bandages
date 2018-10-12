@@ -16,7 +16,8 @@ var config = {
 	}
 };
 
-var facingRight = true;
+var facingRightP = true;
+var facingRightM = true;
 var player;
 var game = new Phaser.Game(config);
 

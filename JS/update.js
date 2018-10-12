@@ -1,57 +1,58 @@
 function update(time, delta){
+    const keys = this.keys;
     /////////////////////////////////PHARAOH////////////////////////////////
-	if (cursors.left.isDown)
+	if (keys.left.isDown)
     {
         pharaoh.setVelocityX(-160);
 
-        pharaoh.anims.play('left', true);
-        facingRight = false;
+        pharaoh.anims.play('leftP', true);
+        facingRightP = false;
     }
-    else if (cursors.right.isDown)
+    else if (keys.right.isDown)
     {
         pharaoh.setVelocityX(160);
 
-        pharaoh.anims.play('right', true);
-        facingRight = true;
+        pharaoh.anims.play('rightP', true);
+        facingRightP = true;
 
-    }else if(facingRight){
+    }else if(facingRightP){
     	pharaoh.setVelocityX(0);
 
-        pharaoh.anims.play('stayRight');	
+        pharaoh.anims.play('stayRightP');	
     }else{
     	pharaoh.setVelocityX(0);
 
-        pharaoh.anims.play('stayLeft');
+        pharaoh.anims.play('stayLeftP');
     }
-    if (cursors.up.isDown && pharaoh.body.onFloor())
+    if (keys.up.isDown && pharaoh.body.onFloor())
     {
         pharaoh.setVelocityY(-330);
     }
     //////////////////////////////MUMMY/////////////////////////////////
-        if (cursors.a.isDown)
+        if (keys.a.isDown)
     {
         mummy.setVelocityX(-160);
 
-        mummy.anims.play('left', true);
-        facingRight = false;
+        mummy.anims.play('leftM', true);
+        facingRightM = false;
     }
-    else if (cursors.d.isDown)
+    else if (keys.d.isDown)
     {
         mummy.setVelocityX(160);
 
-        mummy.anims.play('right', true);
-        facingRight = true;
+        mummy.anims.play('rightM', true);
+        facingRightM = true;
 
-    }else if(facingRight){
+    }else if(facingRightM){
         mummy.setVelocityX(0);
 
-        mummy.anims.play('stayRight'); 
+        mummy.anims.play('stayRightM'); 
     }else{
         mummy.setVelocityX(0);
 
-        mummy.anims.play('stayLeft');
+        mummy.anims.play('stayLeftM');
     }
-    if (cursors.w.isDown && mummy.body.onFloor())
+    if (keys.w.isDown && mummy.body.onFloor())
     {
         mummy.setVelocityY(-330);
     }
