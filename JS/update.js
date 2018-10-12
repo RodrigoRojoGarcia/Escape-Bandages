@@ -1,7 +1,7 @@
-function update(time, delta){
+function update(){
     const keys = this.keys;
     /////////////////////////////////PHARAOH////////////////////////////////
-	this.pharaoh.update();
+	pharaoh.update();
     //////////////////////////////MUMMY/////////////////////////////////
         if (keys.a.isDown)
     {

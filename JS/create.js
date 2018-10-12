@@ -1,4 +1,4 @@
-import Pharaoh from "../Escape-Bandages/JS/pharaoh.js"
+
 
 function create(){
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
@@ -35,7 +35,7 @@ function create(){
 
     ////////////////////////////PLAYERS///////////////////////////////////////////
 
-    this.pharaoh = new Player(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
+    pharaoh = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
 
     mummy = this.physics.add.sprite(spawnPointMummy.x, spawnPointMummy.y, 'Mummy');
 
