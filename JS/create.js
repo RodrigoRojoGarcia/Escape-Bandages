@@ -1,3 +1,5 @@
+import Pharaoh from "../Escape-Bandages/JS/pharaoh.js"
+
 function create(){
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
 	const tiles = map.addTilesetImage("brickpatternreescaladofinal","tile");
@@ -32,8 +34,8 @@ function create(){
    
 
     ////////////////////////////PLAYERS///////////////////////////////////////////
-	pharaoh = this.physics.add
-    .sprite(spawnPointPharaoh.x, spawnPointPharaoh.y, 'Pharaoh');
+
+    this.pharaoh = new Player(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
 
     mummy = this.physics.add.sprite(spawnPointMummy.x, spawnPointMummy.y, 'Mummy');
 
@@ -52,33 +54,7 @@ function create(){
     };
 
 
-    /////////////////////////////////////PHAROH ANIMATIONS////////////////////////////
-    this.anims.create({
-        key: 'leftP',
-        frames: this.anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
-
-
-    this.anims.create({
-        key: 'rightP',
-        frames: this.anims.generateFrameNumbers('Pharaoh', {start: 4, end: 7}),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'stayLeftP',
-        frames: [{key: 'Pharaoh', frame:0}],
-        frameRate: 20
-    });
-    this.anims.create({
-        key: 'stayRightP',
-        frames: [{key: 'Pharaoh', frame:7}],
-        frameRate: 20
-    });
-
-
+    
     /////////////////////////////////////MUMMY ANIMATIONS///////////////////////////////
     this.anims.create({
     	key: 'leftM',

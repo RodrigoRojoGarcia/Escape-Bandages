@@ -1,33 +1,7 @@
 function update(time, delta){
     const keys = this.keys;
     /////////////////////////////////PHARAOH////////////////////////////////
-	if (keys.left.isDown)
-    {
-        pharaoh.setVelocityX(-160);
-
-        pharaoh.anims.play('leftP', true);
-        facingRightP = false;
-    }
-    else if (keys.right.isDown)
-    {
-        pharaoh.setVelocityX(160);
-
-        pharaoh.anims.play('rightP', true);
-        facingRightP = true;
-
-    }else if(facingRightP){
-    	pharaoh.setVelocityX(0);
-
-        pharaoh.anims.play('stayRightP');	
-    }else{
-    	pharaoh.setVelocityX(0);
-
-        pharaoh.anims.play('stayLeftP');
-    }
-    if (keys.up.isDown && pharaoh.body.onFloor())
-    {
-        pharaoh.setVelocityY(-330);
-    }
+	this.pharaoh.update();
     //////////////////////////////MUMMY/////////////////////////////////
         if (keys.a.isDown)
     {
