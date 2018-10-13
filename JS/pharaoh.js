@@ -42,7 +42,7 @@ function Pharaoh(scene, x, y){
 	}
 	
 
-	
+
 	this.update = function(p, k){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		var pharaoh = p;
