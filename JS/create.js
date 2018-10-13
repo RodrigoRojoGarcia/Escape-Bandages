@@ -1,19 +1,60 @@
-function create(){
-	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
-	const tiles = map.addTilesetImage("brickpatternreescaladofinal","tile");
 
+function create(){
+    //TileMap creation
+	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
+    //We add the tileSet to the tileMap
+	const tiles = map.addTilesetImage("brickpatternreescaladofinal","tile");
+    //Extract a layer of tiles from the map (fron the JSON)
 	const layer = map.createStaticLayer("Capa de Patrones 1",tiles,0,0);
+    //We take the collider property from the JSON and make it a Collision for layer in Phaser
+    layer.setCollisionByProperty({ collider: true });
+
+    //Create the 4 sprites for the torches
 
     for(var i = 0; i < 4; i++){
         torches.push(this.add.sprite(225 + 480*i,215,'torch'));
     };
 
-	layer.setCollisionByProperty({ collider: true });
-    const spawnPoint = map.findObject("Capa de Objetos 1", obj => obj.name === "SpawnPoint");
+    //We extract the spawnPoints from the Objecto of the JSON
+    const spawnPointPharaoh = map.findObject("Objects", obj => obj.name === "SpawnPointPharaoh");
+    const spawnPointMummy = map.findObject("Objects", obj => obj.name === "SpawnPointMummy");
+    //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
+    const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
+    const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
 
-	player = this.physics.add
-    .sprite(spawnPoint.x, spawnPoint.y, 'mummy');
 
+    /////////////////////////////////EVENT ANUBIS////////////////////////////////////
+    //Create a zone with the size of the objecto from the JSON file
+    zoneAnubis = this.add.zone(Anubis.x, Anubis.y).setSize(Anubis.width, Anubis.height);
+    this.physics.world.enable(zoneAnubis,0);
+    //It doesn't have gravity nor its a movable object
+    zoneAnubis.body.setAllowGravity(false);
+    zoneAnubis.body.moves = false;
+
+    ///////////////////////////////EVENT BASTET///////////////////////////////////////
+    //Create a zone with the size of the objecto from the JSON file
+    zoneBastet = this.add.zone(Bastet.x, Bastet.y).setSize(Bastet.width, Bastet.height);
+    this.physics.world.enable(zoneBastet,0);
+    //It doesn't have gravity nor its a movable object
+    zoneBastet.body.setAllowGravity(false);
+    zoneBastet.body.moves = false;
+
+   
+
+    ////////////////////////////PLAYERS///////////////////////////////////////////
+    //Create a Pharaoh object from the function Pharaoh of the pharaoh.js file
+    p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
+    //We save the sprite that create() from Pharaoh returns in pharaoh
+    pharaoh = p.create();
+
+    //Create a Mummy object from the function Mummy of the mummy.js file
+    m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
+    //We save the sprite that create() from Mummy returns in mummy
+    mummy = m.create();
+
+
+    //////////////////ANIMATIONS////////////////////////////////////////////////
+    //Animation of the torches
 
     this.anims.create({
         key: 'torchAnim',
@@ -22,34 +63,6 @@ function create(){
         repeat: -1
     });
 
-    for(var i = 0; i<4;i++){
-        torches[i].anims.play('torchAnim');
-    };
-
-    this.anims.create({
-    	key: 'left',
-    	frames: this.anims.generateFrameNumbers('mummy', {start: 0, end: 3}),
-    	frameRate: 10,
-    	repeat: -1
-    });
-
-
-    this.anims.create({
-    	key: 'right',
-    	frames: this.anims.generateFrameNumbers('mummy', {start: 4, end: 7}),
-    	frameRate: 10,
-    	repeat: -1
-    });
-    this.anims.create({
-    	key: 'stayLeft',
-    	frames: [{key: 'mummy', frame:0}],
-    	frameRate: 20
-    });
-	this.anims.create({
-    	key: 'stayRight',
-    	frames: [{key: 'mummy', frame:7}],
-    	frameRate: 20
-    });
     this.anims.create({
         key: 'jumpRight',
         frames: this.anims.generateFrameNumbers('mummy', {start: 8, end: 10}),
@@ -64,12 +77,60 @@ function create(){
     });
 
 
-	cursors = this.input.keyboard.createCursorKeys();
-	
-	this.physics.add.collider(player, layer);
+    //We play the animation of the torches in all 4 of them
+    for(var i = 0; i<4;i++){
+        torches[i].anims.play('torchAnim');
+    };
+    ///////////////////////////////////////////////////////////////////////////
 
+	
+
+    ////////////////////////////COLLIDERS//////////////////////////////////////
+    //We set the colliders between the players (pharaoh and mummy) with the world (layer)
+	this.physics.add.collider(pharaoh, layer);
+    this.physics.add.collider(mummy, layer);
+
+
+
+    ///////////////////////////EVENTOS////////////////////////////////////////
+    //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
+    this.physics.add.overlap(pharaoh, zoneAnubis, eventAnubis, null, this);
+
+    function eventAnubis (pharaoh, zoneAnubis){
+        //Make the sprite of the pharaoh pink
+        pharaoh.setTint(0xee0099);
+    }
+    //Detect if mummy and zoneBastet overlap then call to eventBastet function
+    this.physics.add.overlap(mummy, zoneBastet, eventBastet, null, this);
+
+    function eventBastet (mummy, zoneBastet){
+        //Make the sprite of the mummy green
+        mummy.setTint(0x00ff00);
+    }
+
+
+
+
+    //Detect the keys pressed
+    const {LEFT, RIGHT, UP, W, A, D} = Phaser.Input.Keyboard.KeyCodes;
+
+    this.keys = this.input.keyboard.addKeys({
+        left: LEFT,
+        right: RIGHT,
+        up: UP,
+        w: W,
+        a: A,
+        d: D
+    });
+
+
+
+    ///////////////////////////CAMERA/////////////////////////////////////////
+    //Create a camera
 	const camera = this.cameras.main;
-	camera.startFollow(player);
+    //Make it follow the player pharaoh
+	camera.startFollow(pharaoh);
+    //The camera must not leave the boundaries of the map
 
 	camera.setBounds(0,0,map.widthInPixels,map.heightInPixels);
 }

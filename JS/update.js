@@ -1,3 +1,4 @@
+
 function update(time, delta){
 	
     if (cursors.left.isDown && player.body.onFloor() && !onAir)
@@ -44,7 +45,7 @@ function update(time, delta){
     if (cursors.up.isDown && player.body.onFloor())
     {   
         onAir = true;
-        player.anims.play('jumpRight', true);
+        m.anims.play('jumpRight', true);
         this.time.addEvent({
             delay: 60,
             callback: jump,
@@ -63,10 +64,12 @@ function jump(){
 } 
 
 
-   
-    
-    /*if (cursors.up.isDown && player.body.onFloor() && !facingRight)
-    {
-        player.anims.play('jumpLeft');
-        player.setVelocityY(-330);
-    }*/
+
+/*function update(){
+    const keys = this.keys;
+
+	p.update(pharaoh, keys); //Update of the pharaoh
+    m.update(mummy, keys); 	 //Update of the mummy
+
+}*/
+
