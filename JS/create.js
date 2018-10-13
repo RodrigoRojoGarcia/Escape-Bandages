@@ -63,18 +63,8 @@ function create(){
         repeat: -1
     });
 
-    this.anims.create({
-        key: 'jumpRight',
-        frames: this.anims.generateFrameNumbers('mummy', {start: 8, end: 10}),
-        frameRate: 30,
-        repeat: 0
-    });
-    this.anims.create({
-        key: 'jumpLeft',
-        frames: this.anims.generateFrameNumbers('mummy', {start: 13, end: 15}),
-        frameRate: 10,
-        repeat: 0
-    });
+
+    
 
 
     //We play the animation of the torches in all 4 of them

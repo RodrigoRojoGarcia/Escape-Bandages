@@ -20,7 +20,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-var onAir = false;
+
 
 //Array of torches, elements that are going to be in the scene
 var torches = [];

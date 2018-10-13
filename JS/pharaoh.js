@@ -3,7 +3,7 @@ function Pharaoh(scene, x, y){
 	this.scene = scene;
 
 	//boolean that says if the sprite is looking to the right
-	var facingRightP = false;
+	var onAirP = false;
 
 
 	this.create = function(){
@@ -11,13 +11,6 @@ function Pharaoh(scene, x, y){
 		var pharaoh = scene.physics.add.sprite(x,y,'Pharaoh');
 		//ANIMATIONS
 		const anims = scene.anims;
-		//Animation to the left
-		anims.create({
-			key: 'leftP',
-			frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
-			frameRate: 10,
-			repeat: -1
-		});
 		//Animation to the right
 		anims.create({
 			key: 'rightP',
@@ -25,18 +18,19 @@ function Pharaoh(scene, x, y){
 			frameRate: 10,
 			repeat: -1
 		});
-		//Staying still looking to the left
-		anims.create({
-			key: 'stayLeftP',
-			frames: [{key: 'Pharaoh', frame: 0}],
-			frameRate: 20
-		});
 		//Staying still looking to the right
 		anims.create({
 			key: 'stayRightP',
 			frames: [{key: 'Pharaoh', frame: 7}],
 			frameRate: 20
 		});
+		//Jumping to the right
+    	anims.create({
+	        key: 'jumpRightP',
+	        frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
+	        frameRate: 30,
+	        repeat: 0
+    	});
 		//We return the sprite of the pharaoh so it can be used in the general create function
 		return pharaoh;
 	}
@@ -48,30 +42,53 @@ function Pharaoh(scene, x, y){
 		var pharaoh = p;
 		var keys = k;
 		
-		if (keys.left.isDown){//Pressing LEFT (Walking left)
+	    if (keys.left.isDown && pharaoh.body.onFloor() && !onAirP)
+	    {
 	        pharaoh.setVelocityX(-160);
-
-	        pharaoh.anims.play('leftP', true);
-	        facingRightP = false;
-	    }
-	    else if (keys.right.isDown){//Pressing RIGHT (Walking right)
-	        pharaoh.setVelocityX(160);
-
 	        pharaoh.anims.play('rightP', true);
-	        facingRightP = true;
-
-	    }else if(facingRightP){//Not pressing anything but looking to the right (Staying still looking to the right)
-	    	pharaoh.setVelocityX(0);
-
-	        pharaoh.anims.play('stayRightP');	
-	    }else{//Not pressing anything and looking to the left (Staying still looking to the left)
-	    	pharaoh.setVelocityX(0);
-
-	        pharaoh.anims.play('stayLeftP');
+	        pharaoh.flipX = true;
 	    }
-	    if (keys.up.isDown && pharaoh.body.onFloor()){//Pressing up and touching the ground (JUMP)
-	        pharaoh.setVelocityY(-330);
+	    else if (keys.right.isDown && pharaoh.body.onFloor() && !onAirP)
+	    {
+	        pharaoh.setVelocityX(160);
+	        pharaoh.anims.play('rightM', true);
+	        pharaoh.flipX = false;
+
+	    }else if(pharaoh.body.onFloor() && !onAirP){
+	    	pharaoh.setVelocityX(0);
+	        pharaoh.anims.play('stayRightM');     
 	    }
+
+	    if (keys.left.isDown && !(pharaoh.body.onFloor()))
+	    {
+	        pharaoh.setVelocityX(-160);
+	        pharaoh.flipX = true;
+	    }
+	    else if (keys.right.isDown && !(pharaoh.body.onFloor()))
+	    {
+	        pharaoh.setVelocityX(160);
+	        pharaoh.flipX = false;
+
+	    }
+
+	    if (keys.up.isDown && pharaoh.body.onFloor())
+	    {   
+	        onAirP = true;
+	        pharaoh.anims.play('jumpRightP', true);
+	        scene.time.addEvent({
+	            delay: 60,
+	            callback: jump(pharaoh),
+	            callbackScope: scene
+	        });
+	    } 
 	}
+
+	function jump(p){
+		var pharaoh = p;
+    	pharaoh.setVelocityY(-330);
+    	onAirP = false;
+	}    
+	  
+
 	
 }

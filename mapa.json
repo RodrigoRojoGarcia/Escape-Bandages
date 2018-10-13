@@ -2,11 +2,9 @@
  "infinite":false,
  "layers":[
         {
-
          "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
          "height":9,
          "id":4,
-
          "name":"Capa de Patrones 1",
          "opacity":1,
          "properties":[
@@ -17,31 +15,24 @@
                 }],
          "type":"tilelayer",
          "visible":true,
-
          "width":20,
-
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
          "id":2,
-
          "name":"Objects",
-
          "objects":[
                 {
                  "height":0,
                  "id":1,
-
                  "name":"SpawnPointPharaoh",
-
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-
                  "x":360,
                  "y":402
                 }, 
@@ -78,7 +69,6 @@
                  "width":0,
                  "x":356,
                  "y":880
-
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -86,10 +76,8 @@
          "x":0,
          "y":0
         }],
-
  "nextlayerid":5,
  "nextobjectid":8,
-
  "orientation":"orthogonal",
  "properties":[
         {
@@ -142,7 +130,5 @@
  "tilewidth":120,
  "type":"map",
  "version":1.2,
-
  "width":20
-
 }
