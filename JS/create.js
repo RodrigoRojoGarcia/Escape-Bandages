@@ -35,10 +35,12 @@ function create(){
 
     ////////////////////////////PLAYERS///////////////////////////////////////////
 
-    pharaoh = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
+    p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
+    pharaoh = p.create();
 
-    mummy = this.physics.add.sprite(spawnPointMummy.x, spawnPointMummy.y, 'Mummy');
-
+    
+    m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
+    mummy = m.create();
 
 
     //////////////////ANIMATIONS////////////////////////////////////////////////
@@ -55,41 +57,9 @@ function create(){
 
 
     
-    /////////////////////////////////////MUMMY ANIMATIONS///////////////////////////////
-    this.anims.create({
-    	key: 'leftM',
-    	frames: this.anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
-    	frameRate: 10,
-    	repeat: -1
-    });
 
 
-    this.anims.create({
-    	key: 'rightM',
-    	frames: this.anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
-    	frameRate: 10,
-    	repeat: -1
-    });
-    this.anims.create({
-    	key: 'stayLeftM',
-    	frames: [{key: 'Mummy', frame:0}],
-    	frameRate: 20
-    });
-	this.anims.create({
-    	key: 'stayRightM',
-    	frames: [{key: 'Mummy', frame:7}],
-    	frameRate: 20
-    });
     ///////////////////////////////////////////////////////////////////////////
-    const { LEFT, RIGHT, UP, W, A, D } = Phaser.Input.Keyboard.KeyCodes;
-    this.keys = this.input.keyboard.addKeys({
-      left: LEFT,
-      right: RIGHT,
-      up: UP,
-      w: W,
-      a: A,
-      d: D
-    });
 
 	
 
@@ -112,6 +82,19 @@ function create(){
     }
 
 
+
+
+
+    const {LEFT, RIGHT, UP, W, A, D} = Phaser.Input.Keyboard.KeyCodes;
+
+    this.keys = this.input.keyboard.addKeys({
+        left: LEFT,
+        right: RIGHT,
+        up: UP,
+        w: W,
+        a: A,
+        d: D
+    });
 
 
 

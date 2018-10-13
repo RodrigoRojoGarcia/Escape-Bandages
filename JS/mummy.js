@@ -3,71 +3,68 @@ function Mummy(scene, x, y){
 	this.scene = scene;
 
 
-	var facingRight = false;
-	//ANIMATIONS
+	var facingRightM = false;
+
+	this.create = function(){
+	var mummy = scene.physics.add.sprite(x,y,'Mummy');
+		//ANIMATIONS
 	const anims = scene.anims;
 	anims.create({
-		key: 'left',
+		key: 'leftM',
 		frames: anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
 		frameRate: 10,
 		repeat: -1
 	});
 
 	anims.create({
-		key: 'right',
+		key: 'rightM',
 		frames: anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
 		framRate: 10,
 		repeat: -1
 	});
 
 	anims.create({
-		key: 'stayLeft',
+		key: 'stayLeftM',
 		frames: [{key: 'Mummy', frame: 0}],
 		frameRate: 20
 	});
 
 	anims.create({
-		key: 'stayRight',
+		key: 'stayRightM',
 		frames: [{key: 'Mummy', frame: 7}],
 		frameRate: 20
 	});
-
-	this.mummy = scene.physics.add.sprite(x,y,'Mummy');
-
-
-	const {W, A, D} = Phaser.Input.Keyboard.KeyCodes;
-
-	this.keys = scene.input.keyboard.addKeys({
-		w: W,
-		a: A,
-		d: D
-	});
+	return mummy;
+	}
+	
 
 
-	this.update = function (){
+	this.update = function (m,k){
+		var mummy = m;
+		var keys = k;
 		if (keys.a.isDown){
 	        mummy.setVelocityX(-160);
 
-	        mummy.anims.play('left', true);
-	        facingRight = false;
+	        mummy.anims.play('leftM', true);
+	        facingRightM = false;
 	    }
 	    else if (keys.d.isDown){
 	        mummy.setVelocityX(160);
 
-	        mummy.anims.play('right', true);
-	        facingRight = true;
+	        mummy.anims.play('rightM', true);
+	        facingRightM = true;
 
-	    }else if(facingRight){
+	    }else if(facingRightM){
 	    	mummy.setVelocityX(0);
 
-	        mummy.anims.play('stayRight');	
+	        mummy.anims.play('stayRightM');	
 	    }else{
 	    	mummy.setVelocityX(0);
 
-	        mummy.anims.play('stayLeft');
+	        mummy.anims.play('stayLeftM');
 	    }
 	    if (keys.w.isDown && mummy.body.onFloor()){
-	        pharaoh.setVelocityY(-330);
+	        mummy.setVelocityY(-330);
 	    }
 	}
 
