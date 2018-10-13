@@ -1,5 +1,4 @@
 
-
 function create(){
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
@@ -11,11 +10,10 @@ function create(){
     layer.setCollisionByProperty({ collider: true });
 
     //Create the 4 sprites for the torches
+
     for(var i = 0; i < 4; i++){
         torches.push(this.add.sprite(225 + 480*i,215,'torch'));
     };
-
-
 
     //We extract the spawnPoints from the Objecto of the JSON
     const spawnPointPharaoh = map.findObject("Objects", obj => obj.name === "SpawnPointPharaoh");
@@ -57,12 +55,18 @@ function create(){
 
     //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
+
     this.anims.create({
         key: 'torchAnim',
         frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
         frameRate: 10,
         repeat: -1
     });
+
+
+    
+
+
     //We play the animation of the torches in all 4 of them
     for(var i = 0; i<4;i++){
         torches[i].anims.play('torchAnim');
@@ -117,5 +121,6 @@ function create(){
     //Make it follow the player pharaoh
 	camera.startFollow(pharaoh);
     //The camera must not leave the boundaries of the map
+
 	camera.setBounds(0,0,map.widthInPixels,map.heightInPixels);
 }

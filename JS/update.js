@@ -1,3 +1,5 @@
+
+
 function update(){
     const keys = this.keys;
 
@@ -5,3 +7,4 @@ function update(){
     m.update(mummy, keys); 	 //Update of the mummy
 
 }
+

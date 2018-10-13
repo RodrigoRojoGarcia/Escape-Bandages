@@ -1,4 +1,6 @@
+
 //Creation of the Phaser enviroment
+
 var config = {
 	type: Phaser.AUTO,
 	width: 1920,
@@ -6,7 +8,7 @@ var config = {
 	physics: {
 		default: 'arcade',
 		arcade:{
-			gravity:{y:300},
+			gravity:{y:500},
 			debug: false
 		}
 	},
@@ -17,8 +19,9 @@ var config = {
 	}
 };
 
-
 var game = new Phaser.Game(config);
+
+
 //Array of torches, elements that are going to be in the scene
 var torches = [];
 
