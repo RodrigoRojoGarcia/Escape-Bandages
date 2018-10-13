@@ -20,7 +20,7 @@ function Pharaoh(scene, x, y){
 		anims.create({
 			key: 'rightP',
 			frames: anims.generateFrameNumbers('Pharaoh', {start: 4, end: 7}),
-			framRate: 10,
+			frameRate: 10,
 			repeat: -1
 		});
 
@@ -37,7 +37,7 @@ function Pharaoh(scene, x, y){
 		});
 
 
-		//CONTROLS
+		
 
 		return pharaoh;
 	}

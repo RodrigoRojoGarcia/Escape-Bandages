@@ -19,7 +19,7 @@ function Mummy(scene, x, y){
 	anims.create({
 		key: 'rightM',
 		frames: anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
-		framRate: 10,
+		frameRate: 10,
 		repeat: -1
 	});
 
