@@ -1,7 +1,7 @@
 function preload(){
 
 	//Load the tileSet
-	this.load.image("tile", "../Escape-Bandages/Sprites/brickpatternreescaladofinal.png");
+	this.load.image("tile", "../Escape-Bandages/Sprites/tileset.png");
 	//Load the tileMap
 	this.load.tilemapTiledJSON("map", "mapa.json");
 	//Loas the spriteSheet of the mummy
