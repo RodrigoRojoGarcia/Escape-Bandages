@@ -21,8 +21,9 @@ function Mummy(scene, x, y){
 		//Staying still looking to the right
 		anims.create({
 			key: 'stayRightM',
-			frames: [{key: 'Mummy', frame: 7}],
-			frameRate: 20
+			frames: anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
+			frameRate: 5,
+			repeat: -1
 		});
     	//Jumping to the right
     	anims.create({
@@ -57,7 +58,7 @@ function Mummy(scene, x, y){
 	    }else if(mummy.body.onFloor() && !onAirM){
 
 	    	mummy.setVelocityX(0);
-	        mummy.anims.play('stayRightM');     
+	        mummy.anims.play('stayRightM', true);     
 	    }
 
 	    if (keys.a.isDown && !(mummy.body.onFloor()))

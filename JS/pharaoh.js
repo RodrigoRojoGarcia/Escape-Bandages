@@ -21,8 +21,9 @@ function Pharaoh(scene, x, y){
 		//Staying still looking to the right
 		anims.create({
 			key: 'stayRightP',
-			frames: [{key: 'Pharaoh', frame: 7}],
-			frameRate: 20
+			frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
+			frameRate: 5,
+			repeat: -1
 		});
 		//Jumping to the right
     	anims.create({
@@ -51,12 +52,12 @@ function Pharaoh(scene, x, y){
 	    else if (keys.right.isDown && pharaoh.body.onFloor() && !onAirP)
 	    {
 	        pharaoh.setVelocityX(160);
-	        pharaoh.anims.play('rightM', true);
+	        pharaoh.anims.play('rightP', true);
 	        pharaoh.flipX = false;
 
 	    }else if(pharaoh.body.onFloor() && !onAirP){
 	    	pharaoh.setVelocityX(0);
-	        pharaoh.anims.play('stayRightM');     
+	        pharaoh.anims.play('stayRightP', true);     
 	    }
 
 	    if (keys.left.isDown && !(pharaoh.body.onFloor()))
