@@ -47,12 +47,12 @@ function create(){
     //Create a Pharaoh object from the function Pharaoh of the pharaoh.js file
     p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
     //We save the sprite that create() from Pharaoh returns in pharaoh
-    pharaoh = p.create();
+    p.create();
 
     //Create a Mummy object from the function Mummy of the mummy.js file
     m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //We save the sprite that create() from Mummy returns in mummy
-    mummy = m.create();
+    m.create();
 
 
     //////////////////ANIMATIONS////////////////////////////////////////////////
@@ -79,21 +79,21 @@ function create(){
 
     ////////////////////////////COLLIDERS//////////////////////////////////////
     //We set the colliders between the players (pharaoh and mummy) with the world (layer)
-	this.physics.add.collider(pharaoh, layer);
-    this.physics.add.collider(mummy, layer);
+	this.physics.add.collider(p.getSprite(), layer);
+    this.physics.add.collider(m.getSprite(), layer);
 
 
 
     ///////////////////////////EVENTOS////////////////////////////////////////
     //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
-    this.physics.add.overlap(pharaoh, zoneAnubis, eventAnubis, null, this);
+    this.physics.add.overlap(p.getSprite(), zoneAnubis, eventAnubis, null, this);
 
     function eventAnubis (pharaoh, zoneAnubis){
         //Make the sprite of the pharaoh pink
         pharaoh.setTint(0xee0099);
     }
     //Detect if mummy and zoneBastet overlap then call to eventBastet function
-    this.physics.add.overlap(mummy, zoneBastet, eventBastet, null, this);
+    this.physics.add.overlap(m.getSprite(), zoneBastet, eventBastet, null, this);
 
     function eventBastet (mummy, zoneBastet){
         //Make the sprite of the mummy green
@@ -121,7 +121,7 @@ function create(){
     //Create a camera
 	const camera = this.cameras.main;
     //Make it follow the player pharaoh
-	camera.startFollow(pharaoh);
+	camera.startFollow(p.getSprite());
     //The camera must not leave the boundaries of the map
 
 	camera.setBounds(0,0,map.widthInPixels,map.heightInPixels);

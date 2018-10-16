@@ -1,14 +1,17 @@
 function Mummy(scene, x, y){
 	
 	this.scene = scene;
-
+	//We create the sprite from Phaser
+	this.mummy = scene.physics.add.sprite(x,y,'Mummy');
 	//boolean that says if the sprite is on the air
-	var onAirM = false;
+	this.onAirM = false;
 
+	this.getSprite = function(){
+		return this.mummy;
+	}
 
 	this.create = function(){
-		//We create the sprite from Phaser
-		var mummy = scene.physics.add.sprite(x,y,'Mummy');
+		
 		//ANIMATIONS
 		const anims = scene.anims;
 		//Animation to the right
@@ -33,63 +36,60 @@ function Mummy(scene, x, y){
         	repeat: 0
     	});
 		//We return the sprite of the pharaoh so it can be used in the general create function
-		return mummy;
+		
 	}
 	
 
 
-	this.update = function (m,k){
+	this.update = function (k){
 		//We enter as parameters the sprite from Phaser and the keys to control it
-		var mummy = m;
 		var keys = k;
 
-	    if (keys.a.isDown && mummy.body.onFloor() && !onAirM)
+	    if (keys.a.isDown && this.mummy.body.onFloor() && !this.onAirM)
 	    {
-	        mummy.setVelocityX(-160);
-	        mummy.anims.play('rightM', true);
-	        mummy.flipX = true;
+	        this.mummy.setVelocityX(-160);
+	        this.mummy.anims.play('rightM', true);
+	        this.mummy.flipX = true;
 	    }
-	    else if (keys.d.isDown && mummy.body.onFloor() && !onAirM)
+	    else if (keys.d.isDown && this.mummy.body.onFloor() && !this.onAirM)
 	    {
-	        mummy.setVelocityX(160);
-	        mummy.anims.play('rightM', true);
-	        mummy.flipX = false;
+	        this.mummy.setVelocityX(160);
+	        this.mummy.anims.play('rightM', true);
+	        this.mummy.flipX = false;
 
-	    }else if(mummy.body.onFloor() && !onAirM){
+	    }else if(this.mummy.body.onFloor() && !this.onAirM){
 
-	    	mummy.setVelocityX(0);
-	        mummy.anims.play('stayRightM', true);     
-	    }
-
-	    if (keys.a.isDown && !(mummy.body.onFloor()))
-	    {
-	        mummy.setVelocityX(-160);
-	        mummy.flipX = true;
-	    }
-	    else if (keys.d.isDown && !(mummy.body.onFloor()))
-	    {
-	        mummy.setVelocityX(160);
-	        mummy.flipX = false;
-
+	    	this.mummy.setVelocityX(0);
+	        this.mummy.anims.play('stayRightM', true);     
 	    }
 
-	    if (keys.w.isDown && mummy.body.onFloor())
+	    if (keys.a.isDown && !(this.mummy.body.onFloor()))
+	    {
+	        this.mummy.setVelocityX(-160);
+	        this.mummy.flipX = true;
+	    }
+	    else if (keys.d.isDown && !(this.mummy.body.onFloor()))
+	    {
+	        this.mummy.setVelocityX(160);
+	        this.mummy.flipX = false;
+
+	    }
+
+	    if (keys.w.isDown && this.mummy.body.onFloor())
 	    {   
-	        onAirM = true;
-	        mummy.anims.play('jumpRightM', true);
+	        this.onAirM = true;
+	        this.mummy.anims.play('jumpRightM', true);
 	        scene.time.addEvent({
 	            delay: 60,
-	            callback: jump(mummy),
+	            callback: this.jump(),
 	            callbackScope: scene
 	        });
 	    } 
 	} 
 
-	function jump(m){
-		console.log(m);
-		var mummy = m;
-    	mummy.setVelocityY(-330);
-    	onAirM = false;
+	this.jump = function(){
+		this.mummy.setVelocityY(-330);
+    	this.onAirM = false;
 	}    
 	    
 	        

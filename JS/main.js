@@ -6,6 +6,12 @@ var config = {
 	width: 1920,
 	height: 1080,
 	physics: {
+		/*default: 'matter',
+		matter:{
+			gravity:{y:1},
+			debug: false
+		}*/
+
 		default: 'arcade',
 		arcade:{
 			gravity:{y:300},

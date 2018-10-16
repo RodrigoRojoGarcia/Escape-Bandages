@@ -1,14 +1,18 @@
 function Pharaoh(scene, x, y){
 	
 	this.scene = scene;
-
+	//We create the sprite from Phaser
+	this.pharaoh = scene.physics.add.sprite(x,y,'Pharaoh');
 	//boolean that says if the sprite is looking to the right
-	var onAirP = false;
+	this.onAirP = false;
 
-
+	this.getSprite = function(){
+		return this.pharaoh;
+	}
+	
 	this.create = function(){
-		//We create the sprite from Phaser
-		var pharaoh = scene.physics.add.sprite(x,y,'Pharaoh');
+		
+		
 		//ANIMATIONS
 		const anims = scene.anims;
 		//Animation to the right
@@ -33,61 +37,59 @@ function Pharaoh(scene, x, y){
 	        repeat: 0
     	});
 		//We return the sprite of the pharaoh so it can be used in the general create function
-		return pharaoh;
+		//return pharaoh;
 	}
-	
 
-
-	this.update = function(p, k){
+	this.update = function(k){
 		//We enter as parameters the sprite from Phaser and the keys to control it
-		var pharaoh = p;
+		//var pharaoh = p;
 		var keys = k;
 		
-	    if (keys.left.isDown && pharaoh.body.onFloor() && !onAirP)
+	    if (keys.left.isDown && this.pharaoh.body.onFloor() && !this.onAirP)
 	    {
-	        pharaoh.setVelocityX(-160);
-	        pharaoh.anims.play('rightP', true);
-	        pharaoh.flipX = true;
+	        this.pharaoh.setVelocityX(-160);
+	        this.pharaoh.anims.play('rightP', true);
+	        this.pharaoh.flipX = true;
 	    }
-	    else if (keys.right.isDown && pharaoh.body.onFloor() && !onAirP)
+	    else if (keys.right.isDown && this.pharaoh.body.onFloor() && !this.onAirP)
 	    {
-	        pharaoh.setVelocityX(160);
-	        pharaoh.anims.play('rightP', true);
-	        pharaoh.flipX = false;
+	        this.pharaoh.setVelocityX(160);
+	        this.pharaoh.anims.play('rightP', true);
+	        this.pharaoh.flipX = false;
 
-	    }else if(pharaoh.body.onFloor() && !onAirP){
-	    	pharaoh.setVelocityX(0);
-	        pharaoh.anims.play('stayRightP', true);     
-	    }
-
-	    if (keys.left.isDown && !(pharaoh.body.onFloor()))
-	    {
-	        pharaoh.setVelocityX(-160);
-	        pharaoh.flipX = true;
-	    }
-	    else if (keys.right.isDown && !(pharaoh.body.onFloor()))
-	    {
-	        pharaoh.setVelocityX(160);
-	        pharaoh.flipX = false;
-
+	    }else if(this.pharaoh.body.onFloor() && !this.onAirP){
+	    	this.pharaoh.setVelocityX(0);
+	        this.pharaoh.anims.play('stayRightP', true);     
 	    }
 
-	    if (keys.up.isDown && pharaoh.body.onFloor())
+	    if (keys.left.isDown && !(this.pharaoh.body.onFloor()))
+	    {
+	        this.pharaoh.setVelocityX(-160);
+	        this.pharaoh.flipX = true;
+	    }
+	    else if (keys.right.isDown && !(this.pharaoh.body.onFloor()))
+	    {
+	        this.pharaoh.setVelocityX(160);
+	        this.pharaoh.flipX = false;
+
+	    }
+
+	    if (keys.up.isDown && this.pharaoh.body.onFloor())
 	    {   
-	        onAirP = true;
-	        pharaoh.anims.play('jumpRightP', true);
+	        this.onAirP = true;
+	        this.pharaoh.anims.play('jumpRightP', true);
 	        scene.time.addEvent({
 	            delay: 60,
-	            callback: jump(pharaoh),
+	            callback: this.jump(),
 	            callbackScope: scene
 	        });
 	    } 
 	}
 
-	function jump(p){
-		var pharaoh = p;
-    	pharaoh.setVelocityY(-330);
-    	onAirP = false;
+	this.jump = function(){
+		//var pharaoh = p;
+    	this.pharaoh.setVelocityY(-330);
+    	this.onAirP = false;
 	}    
 	  
 
