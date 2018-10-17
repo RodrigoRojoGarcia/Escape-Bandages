@@ -2,7 +2,7 @@ function Mummy(scene, x, y){
 	
 	this.scene = scene;
 	//We create the sprite from Phaser
-	this.mummy = scene.physics.add.sprite(x,y,'Mummy');
+	this.mummy = scene.matter.add.sprite(x,y,'Mummy');
 	//boolean that says if the sprite is on the air
 	this.onAirM = false;
 

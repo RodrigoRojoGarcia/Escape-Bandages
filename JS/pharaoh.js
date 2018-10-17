@@ -2,7 +2,7 @@ function Pharaoh(scene, x, y){
 	
 	this.scene = scene;
 	//We create the sprite from Phaser
-	this.pharaoh = scene.physics.add.sprite(x,y,'Pharaoh');
+	this.pharaoh = scene.matter.add.sprite(x,y,'Pharaoh');
 	//boolean that says if the sprite is looking to the right
 	this.onAirP = false;
 

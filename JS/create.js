@@ -5,11 +5,12 @@ function create(){
     //We add the tileSet to the tileMap
 	const tiles = map.addTilesetImage("tileset","tile");
     //Extract a layer of tiles from the map (fron the JSON)
-    const bg= map.createStaticLayer("Background", tiles, 0,0);
-	const layer = map.createStaticLayer("Foreground",tiles,0,0);
+    const bg= map.createDynamicLayer("Background", tiles, 0,0);
+	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
 
     //We take the collider property from the JSON and make it a Collision for layer in Phaser
     layer.setCollisionByProperty({ collider: true });
+    this.matter.world.convertTilemapLayer(layer);
 
     //Create the 4 sprites for the torches
 
@@ -27,19 +28,11 @@ function create(){
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the objecto from the JSON file
-    zoneAnubis = this.add.zone(Anubis.x, Anubis.y).setSize(Anubis.width, Anubis.height);
-    this.physics.world.enable(zoneAnubis,0);
-    //It doesn't have gravity nor its a movable object
-    zoneAnubis.body.setAllowGravity(false);
-    zoneAnubis.body.moves = false;
-
+    zoneAnubis = new Phaser.Geom.Rectangle(Anubis.x, Anubis.y, Anubis.width, Anubis.height);
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
     //Create a zone with the size of the objecto from the JSON file
-    zoneBastet = this.add.zone(Bastet.x, Bastet.y).setSize(Bastet.width, Bastet.height);
-    this.physics.world.enable(zoneBastet,0);
-    //It doesn't have gravity nor its a movable object
-    zoneBastet.body.setAllowGravity(false);
-    zoneBastet.body.moves = false;
+    zoneBastet = new Phaser.Geom.Rectangle(Bastet.x, Bastet.y, Bastet.width, Bastet.height);
+    
 
    
 
@@ -79,21 +72,20 @@ function create(){
 
     ////////////////////////////COLLIDERS//////////////////////////////////////
     //We set the colliders between the players (pharaoh and mummy) with the world (layer)
-	this.physics.add.collider(p.getSprite(), layer);
-    this.physics.add.collider(m.getSprite(), layer);
+
 
 
 
     ///////////////////////////EVENTOS////////////////////////////////////////
     //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
-    this.physics.add.overlap(p.getSprite(), zoneAnubis, eventAnubis, null, this);
+    //this.matter.add.overlap(p.getSprite(), GetSize(zoneAnubis), eventAnubis, null, this);
 
     function eventAnubis (pharaoh, zoneAnubis){
         //Make the sprite of the pharaoh pink
         pharaoh.setTint(0xee0099);
     }
     //Detect if mummy and zoneBastet overlap then call to eventBastet function
-    this.physics.add.overlap(m.getSprite(), zoneBastet, eventBastet, null, this);
+   // this.matter.add.overlap(m.getSprite(), zoneBastet.GetSize(), eventBastet, null, this);
 
     function eventBastet (mummy, zoneBastet){
         //Make the sprite of the mummy green
