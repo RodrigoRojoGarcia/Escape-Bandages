@@ -3,8 +3,70 @@ function Pharaoh(scene, x, y){
 	this.scene = scene;
 	//We create the sprite from Phaser
 	this.pharaoh = scene.matter.add.sprite(x,y,'Pharaoh');
-	//boolean that says if the sprite is looking to the right
+	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
+	const {width: w, height: h} = this.pharaoh;
+	const mainBody = Bodies.rectangle(0,0,w*0.6,h,{chamfer: {radius:10}});
+	this.sensors = {
+		bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
+		left: Bodies.rectangle(-w*0.35,0,2,h*0.5, {isSensor: true}),
+		right: Bodies.rectangle(w*0.35,0,2,h*0.5, {isSensor: true})
+	};
+
+	const compoundBody = Body.create({
+		parts: [mainBody, this.sensors.bottom, this.sensors.right, this.sensors.left],
+		frictionStatic: 0,
+		frictionAir: 0.02,
+		friction: 0.1
+	});
+	this.pharaoh.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
+
+	
+	this.isColliding = {left: false, right: false, bottom: false};
 	this.onAirP = false;
+
+
+	this.onSensorCollide = function({bodyA, bodyB, pair}){
+		if(bodyB.isSensor){
+			return;
+		}
+		if(bodyA===this.sensors.left){
+			this.isColliding.left = true;
+			if(pair.separation > 0.5){
+				this.pharaoh.x += pair.separation - 0.5;
+			}
+		}else if(bodyA===this.sensors.right){
+			this.isColliding.right = true;
+			if(pair.separation > 0.5){
+				this.pharaoh.x -= pair.separation -0.5;
+			}
+		}else if(bodyA===this.sensors.bottom){
+			this.isColliding.bottom = true;
+		}
+	}
+
+
+	scene.matterCollision.addOnCollideStart({
+		objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
+		callback: this.onSensorCollide,
+		context: this
+
+	});
+
+	scene.matterCollision.addOnCollideActive({
+		objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
+		callback: this.onSensorCollide,
+		context: this
+	});
+
+	
+
+	this.resetColliding = function(){
+		this.isColliding.left = false;
+		this.isColliding.bottom = false;
+		this.isColliding.right = false;
+	}
+
+
 
 	this.getSprite = function(){
 		return this.pharaoh;
@@ -44,37 +106,37 @@ function Pharaoh(scene, x, y){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		//var pharaoh = p;
 		var keys = k;
-		
-	    if (keys.left.isDown && this.pharaoh.body.onFloor() && !this.onAirP)
+
+	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP)
 	    {
-	        this.pharaoh.setVelocityX(-160);
+	        this.pharaoh.setVelocityX(-8);
 	        this.pharaoh.anims.play('rightP', true);
 	        this.pharaoh.flipX = true;
 	    }
-	    else if (keys.right.isDown && this.pharaoh.body.onFloor() && !this.onAirP)
+	    else if (keys.right.isDown && this.isColliding.bottom && !this.onAirP)
 	    {
-	        this.pharaoh.setVelocityX(160);
+	        this.pharaoh.setVelocityX(8);
 	        this.pharaoh.anims.play('rightP', true);
 	        this.pharaoh.flipX = false;
 
-	    }else if(this.pharaoh.body.onFloor() && !this.onAirP){
+	    }else if(this.isColliding.bottom && !this.onAirP){
 	    	this.pharaoh.setVelocityX(0);
 	        this.pharaoh.anims.play('stayRightP', true);     
 	    }
 
-	    if (keys.left.isDown && !(this.pharaoh.body.onFloor()))
+	    if (keys.left.isDown && !(this.isColliding.bottom))
 	    {
-	        this.pharaoh.setVelocityX(-160);
+	        this.pharaoh.setVelocityX(-8);
 	        this.pharaoh.flipX = true;
 	    }
-	    else if (keys.right.isDown && !(this.pharaoh.body.onFloor()))
+	    else if (keys.right.isDown && !(this.isColliding.bottom))
 	    {
-	        this.pharaoh.setVelocityX(160);
+	        this.pharaoh.setVelocityX(8);
 	        this.pharaoh.flipX = false;
 
 	    }
 
-	    if (keys.up.isDown && this.pharaoh.body.onFloor())
+	    if (keys.up.isDown && this.isColliding.bottom)
 	    {   
 	        this.onAirP = true;
 	        this.pharaoh.anims.play('jumpRightP', true);

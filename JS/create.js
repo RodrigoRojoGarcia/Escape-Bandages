@@ -11,7 +11,7 @@ function create(){
     //We take the collider property from the JSON and make it a Collision for layer in Phaser
     layer.setCollisionByProperty({ collider: true });
     this.matter.world.convertTilemapLayer(layer);
-
+    this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     //Create the 4 sprites for the torches
 
     for(var i = 0; i < 4; i++){
@@ -43,9 +43,9 @@ function create(){
     p.create();
 
     //Create a Mummy object from the function Mummy of the mummy.js file
-    m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
+    //m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //We save the sprite that create() from Mummy returns in mummy
-    m.create();
+    //m.create();
 
 
     //////////////////ANIMATIONS////////////////////////////////////////////////
@@ -89,7 +89,7 @@ function create(){
 
     function eventBastet (mummy, zoneBastet){
         //Make the sprite of the mummy green
-        mummy.setTint(0x00ff00);
+    //    mummy.setTint(0x00ff00);
     }
 
 
