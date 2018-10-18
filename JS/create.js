@@ -122,22 +122,15 @@ function create(){
     const arena = [];
 
     for(var i = 0; i < 100; i++){
-        arena[i] = this.matter.add.image(400 + i*2, 120 + i, 'sand', { restitution: 1, friction: 0.25 });
+        arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', "1f92c", { restitution: 1, friction: 0 });
     }
-    // Create a physics-enabled image
-    /*const image1 = this.matter.add.image(275, 100, "sand", "1f92c");
-    // Change it's body to a circle and configure its body parameters
-    image1.setCircle(image1.width / 2, { restitution: 1, friction: 0.25 });
-    //image1.setScale(0.5);
-
-    const image2 = this.matter.add.image(300, 75, "sand", "1f60d");
-    image2.setCircle(image2.width / 2, { restitution: 1, friction: 0.25 });
-    //image2.setScale(0.5);
-
-    // We can also pass in our Matter body options directly into to this.matter.add.image, along with
-    // a Phaser "shape" property for controlling the type & size of the body
-    const image3 = this.matter.add
-      .image(325, 100, "sand", { restitution: 1, friction: 0, shape: "circle" })*/
+    for(var i = 0; i < 100; i++){
+        arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0 });
+    }
+    for(var i = 0; i < 100; i++){
+        arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0 });
+    }
+    
 
 
 }
