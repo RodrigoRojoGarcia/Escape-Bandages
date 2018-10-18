@@ -1,5 +1,7 @@
 
 function create(){
+    const {Body, Bodies} = Phaser.Physics.Matter.Matter;
+
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -28,10 +30,10 @@ function create(){
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the objecto from the JSON file
-    zoneAnubis = new Phaser.Geom.Rectangle(Anubis.x, Anubis.y, Anubis.width, Anubis.height);
+    zoneAnubis = Bodies.rectangle(Anubis.x, Anubis.y, Anubis.width, Anubis.height, {isSensor: true});
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
     //Create a zone with the size of the objecto from the JSON file
-    zoneBastet = new Phaser.Geom.Rectangle(Bastet.x, Bastet.y, Bastet.width, Bastet.height);
+    zoneBastet = Bodies.rectangle(Bastet.x, Bastet.y, Bastet.width, Bastet.height, {isSensor: true});
     
 
    
@@ -78,14 +80,14 @@ function create(){
 
     ///////////////////////////EVENTOS////////////////////////////////////////
     //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
-    //this.matter.add.overlap(p.getSprite(), GetSize(zoneAnubis), eventAnubis, null, this);
+    this.matterCollision.addOnCollideStart({
+        objectA: p.getSprite(),
+        objectB: zoneAnubis,
+        callback: () =>(console.log("Holi"))
+    })
 
-    function eventAnubis (pharaoh, zoneAnubis){
-        //Make the sprite of the pharaoh pink
-        pharaoh.setTint(0xee0099);
-    }
     //Detect if mummy and zoneBastet overlap then call to eventBastet function
-   // this.matter.add.overlap(m.getSprite(), zoneBastet.GetSize(), eventBastet, null, this);
+   //this.matter.add.overlap(m.getSprite(), zoneBastet, eventBastet, null, this);
 
     function eventBastet (mummy, zoneBastet){
         //Make the sprite of the mummy green
