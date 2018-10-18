@@ -11,5 +11,7 @@ function preload(){
 	//Load the spriteSheet of the torches
 	this.load.spritesheet("torch","../Escape-Bandages/Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
 
-	this.load.spritesheet("sand","../Escape-Bandages/Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
+	this.load.image("sand","../Escape-Bandages/Sprites/sand.png");
+
+	this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
 }
