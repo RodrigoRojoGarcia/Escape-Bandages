@@ -3,7 +3,7 @@ function preload(){
 	//Load the tileSet
 	this.load.image("tile", "../Escape-Bandages/Sprites/tileset.png");
 	//Load the tileMap
-	this.load.tilemapTiledJSON("map", "mapa.json");
+	this.load.tilemapTiledJSON("map", "map.json");
 	//Loas the spriteSheet of the mummy
 	this.load.spritesheet("Mummy","../Escape-Bandages/Sprites/mummySprites2.png", {frameWidth: 100, frameHeight: 150});
 	//Load the spriteSheet of the pharaoh

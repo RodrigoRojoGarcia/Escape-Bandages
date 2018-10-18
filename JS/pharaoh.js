@@ -106,22 +106,20 @@ function Pharaoh(scene, x, y){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		//var pharaoh = p;
 		var keys = k;
+		var movingForce = 0.1;
 
 	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP)
 	    {
-	        this.pharaoh.setVelocityX(-8);
-	        this.pharaoh.anims.play('rightP', true);
+	        this.pharaoh.applyForce({x:-movingForce, y:0});
 	        this.pharaoh.flipX = true;
 	    }
 	    else if (keys.right.isDown && this.isColliding.bottom && !this.onAirP)
 	    {
-	        this.pharaoh.setVelocityX(8);
-	        this.pharaoh.anims.play('rightP', true);
+	        this.pharaoh.applyForce({x:movingForce, y:0});
 	        this.pharaoh.flipX = false;
 
 	    }else if(this.isColliding.bottom && !this.onAirP){
-	    	this.pharaoh.setVelocityX(0);
-	        this.pharaoh.anims.play('stayRightP', true);     
+	    	this.pharaoh.setVelocityX(0);    
 	    }
 
 	    if (keys.left.isDown && !(this.isColliding.bottom))
@@ -135,6 +133,16 @@ function Pharaoh(scene, x, y){
 	        this.pharaoh.flipX = false;
 
 	    }
+
+	    if(this.pharaoh.body.velocity > 5){
+	    	this.pharaoh.setVelocity(5);
+	    }else if(this.pharaoh.body.velocity < -5){
+	    	this.pharaoh.setVelocity(-5);
+	    }
+
+
+
+
 
 	    if (keys.up.isDown && this.isColliding.bottom)
 	    {   
