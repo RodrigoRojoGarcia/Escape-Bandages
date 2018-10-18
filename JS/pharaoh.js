@@ -107,7 +107,6 @@ function Pharaoh(scene, x, y){
 		//var pharaoh = p;
 		var keys = k;
 		var movingForce = 0.1;
-
 	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP)
 	    {
 	        this.pharaoh.applyForce({x:-movingForce, y:0});
@@ -124,43 +123,47 @@ function Pharaoh(scene, x, y){
 
 	    if (keys.left.isDown && !(this.isColliding.bottom))
 	    {
-	        this.pharaoh.setVelocityX(-8);
+	        this.pharaoh.applyForce({x:-movingForce, y:0});
 	        this.pharaoh.flipX = true;
 	    }
 	    else if (keys.right.isDown && !(this.isColliding.bottom))
 	    {
-	        this.pharaoh.setVelocityX(8);
+	        this.pharaoh.applyForce({x:movingForce, y:0});
 	        this.pharaoh.flipX = false;
 
 	    }
 
-	    if(this.pharaoh.body.velocity > 5){
-	    	this.pharaoh.setVelocity(5);
-	    }else if(this.pharaoh.body.velocity < -5){
-	    	this.pharaoh.setVelocity(-5);
+	    if(this.pharaoh.body.velocity.x > 2){
+	    	this.pharaoh.setVelocityX(2);
+	    }else if(this.pharaoh.body.velocity.x < -2){
+	    	this.pharaoh.setVelocityX(-2);
 	    }
-
-
-
 
 
 	    if (keys.up.isDown && this.isColliding.bottom)
 	    {   
 	        this.onAirP = true;
-	        this.pharaoh.anims.play('jumpRightP', true);
+	        this.pharaoh.setVelocityY(-11);
 	        scene.time.addEvent({
 	            delay: 60,
-	            callback: this.jump(),
+	            callback: ()=>(this.onAirP=false),
 	            callbackScope: scene
 	        });
 	    } 
-	}
 
-	this.jump = function(){
-		//var pharaoh = p;
-    	this.pharaoh.setVelocityY(-330);
-    	this.onAirP = false;
-	}    
+
+	    if(this.isColliding.bottom){
+	    	if(this.pharaoh.body.force.x !== 0){
+	    		this.pharaoh.anims.play("rightP", true);
+	    	}else{
+	    		this.pharaoh.anims.play("stayRightP", true);
+	    	}
+	    }else{
+	    	this.pharaoh.anims.stop();
+	    	this.pharaoh.setTexture("Pharaoh", 10);
+	    }
+
+	}   
 	  
 
 	
