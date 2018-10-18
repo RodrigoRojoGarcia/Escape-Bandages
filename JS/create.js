@@ -43,9 +43,9 @@ function create(){
     p.create();
 
     //Create a Mummy object from the function Mummy of the mummy.js file
-    //m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
+    m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //We save the sprite that create() from Mummy returns in mummy
-    //m.create();
+    m.create();
 
 
     //////////////////ANIMATIONS////////////////////////////////////////////////
@@ -89,7 +89,7 @@ function create(){
 
     function eventBastet (mummy, zoneBastet){
         //Make the sprite of the mummy green
-    //    mummy.setTint(0x00ff00);
+        mummy.setTint(0x00ff00);
     }
 
 
@@ -122,7 +122,7 @@ function create(){
     const arena = [];
 
     for(var i = 0; i < 100; i++){
-        arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', "1f92c", { restitution: 1, friction: 0 });
+        arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0 });
     }
     for(var i = 0; i < 100; i++){
         arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0 });
