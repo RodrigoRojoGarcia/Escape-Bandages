@@ -1,6 +1,7 @@
 
 function create(){
-    const {Body, Bodies} = Phaser.Physics.Matter.Matter;
+    const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
+    const engine = Engine.create();
 
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
@@ -30,12 +31,15 @@ function create(){
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the objecto from the JSON file
-    zoneAnubis = Bodies.rectangle(Anubis.x, Anubis.y, Anubis.width, Anubis.height, {isSensor: true});
+    zoneAnubis = Bodies.rectangle(Anubis.x, Anubis.y, Anubis.width, Anubis.height, {isStatic: true});
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
     //Create a zone with the size of the objecto from the JSON file
     zoneBastet = Bodies.rectangle(Bastet.x, Bastet.y, Bastet.width, Bastet.height, {isSensor: true});
     
 
+    World.add(engine.world, [zoneAnubis, zoneBastet]);
+
+    console.log(zoneAnubis);
    
 
     ////////////////////////////PLAYERS///////////////////////////////////////////
@@ -74,7 +78,12 @@ function create(){
 
     ////////////////////////////COLLIDERS//////////////////////////////////////
     //We set the colliders between the players (pharaoh and mummy) with the world (layer)
-
+    this.matter.world.createDebugGraphic();
+    this.matter.world.drawDebug = false;
+    this.input.keyboard.on("keydown_D", event => {
+      this.matter.world.drawDebug = !this.matter.world.drawDebug;
+      this.matter.world.debugGraphic.clear();
+    });
 
 
 
@@ -82,9 +91,16 @@ function create(){
     //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
     this.matterCollision.addOnCollideStart({
         objectA: p.getSprite(),
-        objectB: zoneAnubis,
-        callback: () =>(console.log("Holi"))
+        callback: eventAnubis,
+        context: p.getSprite()
     })
+
+    function eventAnubis({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB===zoneAnubis){
+            console.log("Holi");
+        }
+    }
 
     //Detect if mummy and zoneBastet overlap then call to eventBastet function
    //this.matter.add.overlap(m.getSprite(), zoneBastet, eventBastet, null, this);
