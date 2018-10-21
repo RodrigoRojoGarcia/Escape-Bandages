@@ -32,12 +32,12 @@ function Mummy(scene, x, y){
 		if(bodyA===this.sensors.left){
 			this.isColliding.left = true;
 			if(pair.separation > 0.5){
-				this.pharaoh.x += pair.separation - 0.5;
+				this.mummy.x += pair.separation - 0.5;
 			}
 		}else if(bodyA===this.sensors.right){
 			this.isColliding.right = true;
 			if(pair.separation > 0.5){
-				this.pharaoh.x -= pair.separation -0.5;
+				this.mummy.x -= pair.separation -0.5;
 			}
 		}else if(bodyA===this.sensors.bottom){
 			this.isColliding.bottom = true;
@@ -98,13 +98,13 @@ function Mummy(scene, x, y){
 	        frameRate: 30,
 	        repeat: 0
     	});
-		//We return the sprite of the pharaoh so it can be used in the general create function
-		//return pharaoh;
+		//We return the sprite of the mummy so it can be used in the general create function
+		//return mummy;
 	}
 
 	this.update = function(k){
 		//We enter as parameters the sprite from Phaser and the keys to control it
-		//var pharaoh = p;
+		//var mummy = p;
 		var keys = k;
 		var movingForce = 0.1;
 	    if (keys.a.isDown && this.isColliding.bottom && !this.onAirM)

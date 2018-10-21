@@ -30,14 +30,14 @@ function create(){
 
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
-    //Create a zone with the size of the objecto from the JSON file
-    zoneAnubis = Bodies.rectangle(Anubis.x, Anubis.y, Anubis.width, Anubis.height, {isStatic: true});
+    //Create a zone with the size of the object from the JSON file
+    zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
-    //Create a zone with the size of the objecto from the JSON file
-    zoneBastet = Bodies.rectangle(Bastet.x, Bastet.y, Bastet.width, Bastet.height, {isSensor: true});
+    //Create a zone with the size of the object from the JSON file
+    zoneBastet = this.matter.add.rectangle(Bastet.x+(Bastet.width/2), Bastet.y+(Bastet.height/2), Bastet.width, Bastet.height, {isSensor: true, isStatic: true});
     
 
-    World.add(engine.world, [zoneAnubis, zoneBastet]);
+
 
     console.log(zoneAnubis);
    
@@ -80,7 +80,7 @@ function create(){
     //We set the colliders between the players (pharaoh and mummy) with the world (layer)
     this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
-    this.input.keyboard.on("keydown_D", event => {
+    this.input.keyboard.on("keydown_F", event => {
       this.matter.world.drawDebug = !this.matter.world.drawDebug;
       this.matter.world.debugGraphic.clear();
     });
@@ -97,19 +97,22 @@ function create(){
 
     function eventAnubis({bodyA, bodyB, pair}){
         console.log("UwU");
-        if(bodyB===zoneAnubis){
-            console.log("Holi");
+        if(bodyB === zoneAnubis){
+            p.getSprite().setTint(0xff00ff);
         }
     }
+    this.matterCollision.addOnCollideStart({
+        objectA: m.getSprite(),
+        callback: eventBastet,
+        context: m.getSprite()
+    })
 
-    //Detect if mummy and zoneBastet overlap then call to eventBastet function
-   //this.matter.add.overlap(m.getSprite(), zoneBastet, eventBastet, null, this);
-
-    function eventBastet (mummy, zoneBastet){
-        //Make the sprite of the mummy green
-        mummy.setTint(0x00ff00);
+    function eventBastet({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB === zoneBastet){
+            m.getSprite().setTint(0x00ff00);
+        }
     }
-
 
 
 
@@ -139,13 +142,13 @@ function create(){
     //////////// ARENA //////////////////
     const arena = [];
 
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0 });
     }
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0 });
     }
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0 });
     }
     
