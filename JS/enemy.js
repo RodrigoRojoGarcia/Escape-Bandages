@@ -2,7 +2,7 @@ function Enemy(scene, x, y){
 	this.scene = scene;
 	
 
-	this.enemy = scene.matter.add.sprite(x,y,'Mummy');
+	this.enemy = scene.matter.add.sprite(x,y,'snake');
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 	const {width: w, height: h} = this.enemy;
 	const mainBody = Bodies.rectangle(0,0,w*0.6,h,{chamfer: {radius:10}});
@@ -75,25 +75,19 @@ function Enemy(scene, x, y){
 		const anims = scene.anims;
 		//Animation to the right
 		anims.create({
-			key: 'rightM',
-			frames: anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
+			key: 'rightS',
+			frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
 			frameRate: 10,
 			repeat: -1
 		});
 		//Staying still looking to the right
 		anims.create({
-			key: 'stayRightM',
-			frames: anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
+			key: 'stayRightS',
+			frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
 			frameRate: 5,
 			repeat: -1
 		});
-		//Jumping to the right
-    	anims.create({
-	        key: 'jumpRightM',
-	        frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
-	        frameRate: 30,
-	        repeat: 0
-    	});
+		
 		//We return the sprite of the mummy so it can be used in the general create function
 		//return mummy;
 	}
@@ -105,12 +99,12 @@ function Enemy(scene, x, y){
 		var pharaoh = p.getX();
 		var distance = this.enemy.x - pharaoh;
 		var movingForce = 0.1;
-	    if (pharaoh < this.enemy.x && distance > 0 && distance < 500 && this.isColliding.bottom && !this.onAirM)
+	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && this.isColliding.bottom && !this.onAirM)
 	    {
 	        this.enemy.applyForce({x:-movingForce, y:0});
 	        this.enemy.flipX = true;
 	    }
-	    else if (pharaoh > this.enemy.x  && distance < 0 && distance > -500 && this.isColliding.bottom && !this.onAirM)
+	    else if (pharaoh > this.enemy.x  && distance < 0 && distance > -400 && this.isColliding.bottom && !this.onAirM)
 	    {
 	        this.enemy.applyForce({x:movingForce, y:0});
 	        this.enemy.flipX = false;
@@ -119,22 +113,22 @@ function Enemy(scene, x, y){
 	    	this.enemy.setVelocityX(0);    
 	    }
 
-	    if (pharaoh < this.enemy.x && distance > 0 && distance < 300 && !(this.isColliding.bottom))
+	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && !(this.isColliding.bottom))
 	    {
 	        this.enemy.applyForce({x:-movingForce, y:0});
 	        this.enemy.flipX = true;
 	    }
-	    else if (pharaoh > this.enemy.x  && distance > 0 && distance > -300 && !(this.isColliding.bottom))
+	    else if (pharaoh > this.enemy.x  && distance > 0 && distance > -400 && !(this.isColliding.bottom))
 	    {
 	        this.enemy.applyForce({x:movingForce, y:0});
 	        this.enemy.flipX = false;
 
 	    }
 
-	    if(this.enemy.body.velocity.x > 1){
-	    	this.enemy.setVelocityX(1);
-	    }else if(this.enemy.body.velocity.x < -1){
-	    	this.enemy.setVelocityX(-1);
+	    if(this.enemy.body.velocity.x > 0.5){
+	    	this.enemy.setVelocityX(0.5);
+	    }else if(this.enemy.body.velocity.x < -0.5){
+	    	this.enemy.setVelocityX(-0.5);
 	    }
 
 
@@ -152,13 +146,13 @@ function Enemy(scene, x, y){
 
 	    if(this.isColliding.bottom){
 	    	if(this.enemy.body.force.x !== 0){
-	    		this.enemy.anims.play("rightM", true);
+	    		this.enemy.anims.play("rightS", true);
 	    	}else{
-	    		this.enemy.anims.play("stayRightM", true);
+	    		this.enemy.anims.play("stayRightS", true);
 	    	}
 	    }else{
 	    	this.enemy.anims.stop();
-	    	this.enemy.setTexture("Mummy", 10);
+	    	this.enemy.setTexture("snake", 0);
 	    }
 
 	}  
