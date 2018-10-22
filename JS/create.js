@@ -53,6 +53,10 @@ function create(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
+    //////////////////ENEMIES//////////////////////////////////////////////////
+    e = new Enemy(this, 1800, 400);
+    e.create();
+
 
     //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches

@@ -1,10 +1,10 @@
-function Pharaoh(scene, x, y){
-	
+function Enemy(scene, x, y){
 	this.scene = scene;
-	//We create the sprite from Phaser
-	this.pharaoh = scene.matter.add.sprite(x,y,'Pharaoh');
+	
+
+	this.enemy = scene.matter.add.sprite(x,y,'Mummy');
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
-	const {width: w, height: h} = this.pharaoh;
+	const {width: w, height: h} = this.enemy;
 	const mainBody = Bodies.rectangle(0,0,w*0.6,h,{chamfer: {radius:10}});
 	this.sensors = {
 		bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
@@ -18,12 +18,11 @@ function Pharaoh(scene, x, y){
 		frictionAir: 0.02,
 		friction: 0.1
 	});
-	this.pharaoh.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
+	this.enemy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
 
 	
 	this.isColliding = {left: false, right: false, bottom: false};
-	this.onAirP = false;
-
+	this.onAirM = false;
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
 		if(bodyB.isSensor){
@@ -32,18 +31,17 @@ function Pharaoh(scene, x, y){
 		if(bodyA===this.sensors.left){
 			this.isColliding.left = true;
 			if(pair.separation > 0.5){
-				this.pharaoh.x += pair.separation - 0.5;
+				this.enemy.x += pair.separation - 0.5;
 			}
 		}else if(bodyA===this.sensors.right){
 			this.isColliding.right = true;
 			if(pair.separation > 0.5){
-				this.pharaoh.x -= pair.separation -0.5;
+				this.enemy.x -= pair.separation -0.5;
 			}
 		}else if(bodyA===this.sensors.bottom){
 			this.isColliding.bottom = true;
 		}
 	}
-
 
 	scene.matterCollision.addOnCollideStart({
 		objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
@@ -58,8 +56,6 @@ function Pharaoh(scene, x, y){
 		context: this
 	});
 
-	
-
 	this.resetColliding = function(){
 		this.isColliding.left = false;
 		this.isColliding.bottom = false;
@@ -69,17 +65,9 @@ function Pharaoh(scene, x, y){
 
 
 	this.getSprite = function(){
-		return this.pharaoh;
+		return this.enemy;
 	}
 
-	this.getX = function(){
-		return this.pharaoh.x;
-	}
-
-	this.getY = function(){
-		return this.pharaoh.y;
-	}
-	
 	this.create = function(){
 		
 		
@@ -87,92 +75,93 @@ function Pharaoh(scene, x, y){
 		const anims = scene.anims;
 		//Animation to the right
 		anims.create({
-			key: 'rightP',
-			frames: anims.generateFrameNumbers('Pharaoh', {start: 4, end: 7}),
+			key: 'rightM',
+			frames: anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
 			frameRate: 10,
 			repeat: -1
 		});
 		//Staying still looking to the right
 		anims.create({
-			key: 'stayRightP',
-			frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
+			key: 'stayRightM',
+			frames: anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
 			frameRate: 5,
 			repeat: -1
 		});
 		//Jumping to the right
     	anims.create({
-	        key: 'jumpRightP',
-	        frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
+	        key: 'jumpRightM',
+	        frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
 	        frameRate: 30,
 	        repeat: 0
     	});
-		//We return the sprite of the pharaoh so it can be used in the general create function
-		//return pharaoh;
+		//We return the sprite of the mummy so it can be used in the general create function
+		//return mummy;
 	}
 
-	this.update = function(k){
+	this.update = function(){
 		//We enter as parameters the sprite from Phaser and the keys to control it
-		//var pharaoh = p;
-		var keys = k;
+		//var mummy = p;
+		
+		var pharaoh = p.getX();
+		var distance = this.enemy.x - pharaoh;
 		var movingForce = 0.1;
-	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP)
+	    if (pharaoh < this.enemy.x && distance > 0 && distance < 500 && this.isColliding.bottom && !this.onAirM)
 	    {
-	        this.pharaoh.applyForce({x:-movingForce, y:0});
-	        this.pharaoh.flipX = true;
+	        this.enemy.applyForce({x:-movingForce, y:0});
+	        this.enemy.flipX = true;
 	    }
-	    else if (keys.right.isDown && this.isColliding.bottom && !this.onAirP)
+	    else if (pharaoh > this.enemy.x  && distance < 0 && distance > -500 && this.isColliding.bottom && !this.onAirM)
 	    {
-	        this.pharaoh.applyForce({x:movingForce, y:0});
-	        this.pharaoh.flipX = false;
+	        this.enemy.applyForce({x:movingForce, y:0});
+	        this.enemy.flipX = false;
 
-	    }else if(this.isColliding.bottom && !this.onAirP){
-	    	this.pharaoh.setVelocityX(0);    
+	    }else if(this.isColliding.bottom && !this.onAirM){
+	    	this.enemy.setVelocityX(0);    
 	    }
 
-	    if (keys.left.isDown && !(this.isColliding.bottom))
+	    if (pharaoh < this.enemy.x && distance > 0 && distance < 300 && !(this.isColliding.bottom))
 	    {
-	        this.pharaoh.applyForce({x:-movingForce, y:0});
-	        this.pharaoh.flipX = true;
+	        this.enemy.applyForce({x:-movingForce, y:0});
+	        this.enemy.flipX = true;
 	    }
-	    else if (keys.right.isDown && !(this.isColliding.bottom))
+	    else if (pharaoh > this.enemy.x  && distance > 0 && distance > -300 && !(this.isColliding.bottom))
 	    {
-	        this.pharaoh.applyForce({x:movingForce, y:0});
-	        this.pharaoh.flipX = false;
+	        this.enemy.applyForce({x:movingForce, y:0});
+	        this.enemy.flipX = false;
 
 	    }
 
-	    if(this.pharaoh.body.velocity.x > 2){
-	    	this.pharaoh.setVelocityX(2);
-	    }else if(this.pharaoh.body.velocity.x < -2){
-	    	this.pharaoh.setVelocityX(-2);
+	    if(this.enemy.body.velocity.x > 1){
+	    	this.enemy.setVelocityX(1);
+	    }else if(this.enemy.body.velocity.x < -1){
+	    	this.enemy.setVelocityX(-1);
 	    }
 
 
-	    if (keys.up.isDown && this.isColliding.bottom)
+	    /*if (keys.w.isDown && this.isColliding.bottom)
 	    {   
 	        this.onAirP = true;
-	        this.pharaoh.setVelocityY(-14);
+	        this.mummy.setVelocityY(-11);
 	        scene.time.addEvent({
 	            delay: 60,
-	            callback: ()=>(this.onAirP=false),
+	            callback: ()=>(this.onAirM=false),
 	            callbackScope: scene
 	        });
-	    } 
+	    } */
 
 
 	    if(this.isColliding.bottom){
-	    	if(this.pharaoh.body.force.x !== 0){
-	    		this.pharaoh.anims.play("rightP", true);
+	    	if(this.enemy.body.force.x !== 0){
+	    		this.enemy.anims.play("rightM", true);
 	    	}else{
-	    		this.pharaoh.anims.play("stayRightP", true);
+	    		this.enemy.anims.play("stayRightM", true);
 	    	}
 	    }else{
-	    	this.pharaoh.anims.stop();
-	    	this.pharaoh.setTexture("Pharaoh", 10);
+	    	this.enemy.anims.stop();
+	    	this.enemy.setTexture("Mummy", 10);
 	    }
 
-	}   
-	  
+	}  
 
-	
+
 }
