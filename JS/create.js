@@ -95,26 +95,48 @@ function create(){
     //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
     this.matterCollision.addOnCollideStart({
         objectA: p.getSprite(),
-        callback: eventAnubis,
+        callback: eventAnubisIn,
+        context: p.getSprite()
+    })
+    this.matterCollision.addOnCollideEnd({
+        objectA: p.getSprite(),
+        callback: eventAnubisOut,
         context: p.getSprite()
     })
 
-    function eventAnubis({bodyA, bodyB, pair}){
+    function eventAnubisIn({bodyA, bodyB, pair}){
         console.log("UwU");
         if(bodyB === zoneAnubis){
             p.getSprite().setTint(0xff00ff);
         }
     }
+    function eventAnubisOut({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB === zoneAnubis){
+            p.getSprite().setTint(0xffffff);
+        }
+    }
     this.matterCollision.addOnCollideStart({
         objectA: m.getSprite(),
-        callback: eventBastet,
+        callback: eventBastetIn,
+        context: m.getSprite()
+    })
+    this.matterCollision.addOnCollideEnd({
+        objectA: m.getSprite(),
+        callback: eventBastetOut,
         context: m.getSprite()
     })
 
-    function eventBastet({bodyA, bodyB, pair}){
+    function eventBastetIn({bodyA, bodyB, pair}){
         console.log("UwU");
         if(bodyB === zoneBastet){
             m.getSprite().setTint(0x00ff00);
+        }
+    }
+    function eventBastetOut({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB === zoneBastet){
+            m.getSprite().setTint(0xffffff);
         }
     }
 
