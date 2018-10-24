@@ -2,11 +2,13 @@
 function create(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
-
+    const scene = this;
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
 	const tiles = map.addTilesetImage("tileset","tile");
+
+
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
@@ -77,7 +79,7 @@ function create(){
         torches[i].anims.play('torchAnim');
     };
     ///////////////////////////////////////////////////////////////////////////
-
+    const camera = this.cameras.main;
 	
 
     ////////////////////////////COLLIDERS//////////////////////////////////////
@@ -103,10 +105,14 @@ function create(){
         callback: eventAnubisOut,
         context: p.getSprite()
     })
-
+    var anubisText = scene.matter.add.sprite(-180,-600,'textBox',null,{isStatic:true});
+    var bastetText;
     function eventAnubisIn({bodyA, bodyB, pair}){
     
         if(bodyB === zoneAnubis){
+            anubisText.x = camera.x+camera.width/2;
+            anubisText.y = camera.y+camera.height/2; 
+
             p.getSprite().setTint(0xff00ff);
         }
     }
@@ -130,6 +136,7 @@ function create(){
     function eventBastetIn({bodyA, bodyB, pair}){
     
         if(bodyB === zoneBastet){
+
             m.getSprite().setTint(0x00ff00);
         }
     }
@@ -158,7 +165,7 @@ function create(){
 
     ///////////////////////////CAMERA/////////////////////////////////////////
     //Create a camera
-	const camera = this.cameras.main;
+	
     //Make it follow the player pharaoh
 	camera.startFollow(p.getSprite());
     //The camera must not leave the boundaries of the map
