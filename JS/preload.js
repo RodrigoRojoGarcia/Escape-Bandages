@@ -14,4 +14,8 @@ function preload(){
 	this.load.spritesheet("sand","../Escape-Bandages/Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
 
 	this.load.spritesheet("snake","../Escape-Bandages/Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
+
+
+	this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
+
 }
