@@ -122,15 +122,17 @@ function create(){
     const arena = [];
 
     for(var i = 0; i < 100; i++){
-        arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0 });
+        arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
     }
     for(var i = 0; i < 100; i++){
-        arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0 });
+        arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0.1 });
     }
     for(var i = 0; i < 100; i++){
-        arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0 });
+        arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0.1 });
     }
     
+    //CAJAS
+    const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
 
 
 }
