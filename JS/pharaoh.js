@@ -151,7 +151,7 @@ function Pharaoh(scene, x, y){
 	    if (keys.up.isDown && this.isColliding.bottom)
 	    {   
 	        this.onAirP = true;
-	        this.pharaoh.setVelocityY(-14);
+	        this.pharaoh.setVelocityY(-12);
 	        scene.time.addEvent({
 	            delay: 60,
 	            callback: ()=>(this.onAirP=false),

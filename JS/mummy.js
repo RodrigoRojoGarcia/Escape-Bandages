@@ -143,7 +143,7 @@ function Mummy(scene, x, y){
 	    if (keys.w.isDown && this.isColliding.bottom)
 	    {   
 	        this.onAirP = true;
-	        this.mummy.setVelocityY(-11);
+	        this.mummy.setVelocityY(-12);
 	        scene.time.addEvent({
 	            delay: 60,
 	            callback: ()=>(this.onAirM=false),
