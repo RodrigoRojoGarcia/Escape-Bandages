@@ -1,10 +1,10 @@
-function Mummy(scene, x, y){
-	
+function Enemy(scene, x, y){
 	this.scene = scene;
-	//We create the sprite from Phaser
-	this.mummy = scene.matter.add.sprite(x,y,'Mummy');
+	
+
+	this.enemy = scene.matter.add.sprite(x,y,'snake');
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
-	const {width: w, height: h} = this.mummy;
+	const {width: w, height: h} = this.enemy;
 	const mainBody = Bodies.rectangle(0,0,w*0.6,h,{chamfer: {radius:10}});
 	this.sensors = {
 		bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
@@ -18,12 +18,11 @@ function Mummy(scene, x, y){
 		frictionAir: 0.02,
 		friction: 0.1
 	});
-	this.mummy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
+	this.enemy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
 
 	
 	this.isColliding = {left: false, right: false, bottom: false};
 	this.onAirM = false;
-
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
 		if(bodyB.isSensor){
@@ -32,18 +31,17 @@ function Mummy(scene, x, y){
 		if(bodyA===this.sensors.left){
 			this.isColliding.left = true;
 			if(pair.separation > 0.5){
-				this.mummy.x += pair.separation - 0.5;
+				this.enemy.x += pair.separation - 0.5;
 			}
 		}else if(bodyA===this.sensors.right){
 			this.isColliding.right = true;
 			if(pair.separation > 0.5){
-				this.mummy.x -= pair.separation -0.5;
+				this.enemy.x -= pair.separation -0.5;
 			}
 		}else if(bodyA===this.sensors.bottom){
 			this.isColliding.bottom = true;
 		}
 	}
-
 
 	scene.matterCollision.addOnCollideStart({
 		objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
@@ -58,8 +56,6 @@ function Mummy(scene, x, y){
 		context: this
 	});
 
-	
-
 	this.resetColliding = function(){
 		this.isColliding.left = false;
 		this.isColliding.bottom = false;
@@ -69,9 +65,9 @@ function Mummy(scene, x, y){
 
 
 	this.getSprite = function(){
-		return this.mummy;
+		return this.enemy;
 	}
-	
+
 	this.create = function(){
 		
 		
@@ -79,92 +75,87 @@ function Mummy(scene, x, y){
 		const anims = scene.anims;
 		//Animation to the right
 		anims.create({
-			key: 'rightM',
-			frames: anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
+			key: 'rightS',
+			frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
 			frameRate: 10,
 			repeat: -1
 		});
 		//Staying still looking to the right
 		anims.create({
-			key: 'stayRightM',
-			frames: anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
+			key: 'stayRightS',
+			frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
 			frameRate: 5,
 			repeat: -1
 		});
-		//Jumping to the right
-    	anims.create({
-	        key: 'jumpRightM',
-	        frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
-	        frameRate: 30,
-	        repeat: 0
-    	});
+		
 		//We return the sprite of the mummy so it can be used in the general create function
 		//return mummy;
 	}
 
-	this.update = function(k){
+	this.update = function(){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		//var mummy = p;
-		var keys = k;
+		
+		var pharaoh = p.getX();
+		var distance = this.enemy.x - pharaoh;
 		var movingForce = 0.1;
-	    if (keys.a.isDown && this.isColliding.bottom && !this.onAirM)
+	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && this.isColliding.bottom && !this.onAirM)
 	    {
-	        this.mummy.applyForce({x:-movingForce, y:0});
-	        this.mummy.flipX = true;
+	        this.enemy.applyForce({x:-movingForce, y:0});
+	        this.enemy.flipX = true;
 	    }
-	    else if (keys.d.isDown && this.isColliding.bottom && !this.onAirM)
+	    else if (pharaoh > this.enemy.x  && distance < 0 && distance > -400 && this.isColliding.bottom && !this.onAirM)
 	    {
-	        this.mummy.applyForce({x:movingForce, y:0});
-	        this.mummy.flipX = false;
+	        this.enemy.applyForce({x:movingForce, y:0});
+	        this.enemy.flipX = false;
 
 	    }else if(this.isColliding.bottom && !this.onAirM){
-	    	this.mummy.setVelocityX(0);    
+	    	this.enemy.setVelocityX(0);    
 	    }
 
-	    if (keys.a.isDown && !(this.isColliding.bottom))
+	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && !(this.isColliding.bottom))
 	    {
-	        this.mummy.applyForce({x:-movingForce, y:0});
-	        this.mummy.flipX = true;
+	        this.enemy.applyForce({x:-movingForce, y:0});
+	        this.enemy.flipX = true;
 	    }
-	    else if (keys.d.isDown && !(this.isColliding.bottom))
+	    else if (pharaoh > this.enemy.x  && distance > 0 && distance > -400 && !(this.isColliding.bottom))
 	    {
-	        this.mummy.applyForce({x:movingForce, y:0});
-	        this.mummy.flipX = false;
+	        this.enemy.applyForce({x:movingForce, y:0});
+	        this.enemy.flipX = false;
 
 	    }
 
-	    if(this.mummy.body.velocity.x > 2){
-	    	this.mummy.setVelocityX(2);
-	    }else if(this.mummy.body.velocity.x < -2){
-	    	this.mummy.setVelocityX(-2);
+	    if(this.enemy.body.velocity.x > 0.5){
+	    	this.enemy.setVelocityX(0.5);
+	    }else if(this.enemy.body.velocity.x < -0.5){
+	    	this.enemy.setVelocityX(-0.5);
 	    }
 
 
-	    if (keys.w.isDown && this.isColliding.bottom)
+	    /*if (keys.w.isDown && this.isColliding.bottom)
 	    {   
 	        this.onAirP = true;
-	        this.mummy.setVelocityY(-12);
+	        this.mummy.setVelocityY(-11);
 	        scene.time.addEvent({
 	            delay: 60,
 	            callback: ()=>(this.onAirM=false),
 	            callbackScope: scene
 	        });
-	    } 
+	    } */
 
 
 	    if(this.isColliding.bottom){
-	    	if(this.mummy.body.force.x !== 0){
-	    		this.mummy.anims.play("rightM", true);
+	    	if(this.enemy.body.force.x !== 0){
+	    		this.enemy.anims.play("rightS", true);
 	    	}else{
-	    		this.mummy.anims.play("stayRightM", true);
+	    		this.enemy.anims.play("stayRightS", true);
 	    	}
 	    }else{
-	    	this.mummy.anims.stop();
-	    	this.mummy.setTexture("Mummy", 10);
+	    	this.enemy.anims.stop();
+	    	this.enemy.setTexture("snake", 0);
 	    }
 
-	}   
-	  
+	}  
 
-	
+
 }

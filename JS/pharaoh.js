@@ -71,6 +71,14 @@ function Pharaoh(scene, x, y){
 	this.getSprite = function(){
 		return this.pharaoh;
 	}
+
+	this.getX = function(){
+		return this.pharaoh.x;
+	}
+
+	this.getY = function(){
+		return this.pharaoh.y;
+	}
 	
 	this.create = function(){
 		
@@ -143,7 +151,7 @@ function Pharaoh(scene, x, y){
 	    if (keys.up.isDown && this.isColliding.bottom)
 	    {   
 	        this.onAirP = true;
-	        this.pharaoh.setVelocityY(-11);
+	        this.pharaoh.setVelocityY(-12);
 	        scene.time.addEvent({
 	            delay: 60,
 	            callback: ()=>(this.onAirP=false),
