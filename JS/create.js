@@ -105,13 +105,13 @@ function create(){
     })
 
     function eventAnubisIn({bodyA, bodyB, pair}){
-        console.log("UwU");
+    
         if(bodyB === zoneAnubis){
             p.getSprite().setTint(0xff00ff);
         }
     }
     function eventAnubisOut({bodyA, bodyB, pair}){
-        console.log("UwU");
+    
         if(bodyB === zoneAnubis){
             p.getSprite().setTint(0xffffff);
         }
@@ -128,13 +128,13 @@ function create(){
     })
 
     function eventBastetIn({bodyA, bodyB, pair}){
-        console.log("UwU");
+    
         if(bodyB === zoneBastet){
             m.getSprite().setTint(0x00ff00);
         }
     }
     function eventBastetOut({bodyA, bodyB, pair}){
-        console.log("UwU");
+    
         if(bodyB === zoneBastet){
             m.getSprite().setTint(0xffffff);
         }

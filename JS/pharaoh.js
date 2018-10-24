@@ -99,20 +99,10 @@ function Pharaoh(scene, x, y){
 			frameRate: 5,
 			repeat: -1
 		});
-		//Jumping to the right
-    	anims.create({
-	        key: 'jumpRightP',
-	        frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
-	        frameRate: 30,
-	        repeat: 0
-    	});
-		//We return the sprite of the pharaoh so it can be used in the general create function
-		//return pharaoh;
 	}
 
 	this.update = function(k){
 		//We enter as parameters the sprite from Phaser and the keys to control it
-		//var pharaoh = p;
 		var keys = k;
 		var movingForce = 0.1;
 	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP)
@@ -157,22 +147,23 @@ function Pharaoh(scene, x, y){
 	            callback: ()=>(this.onAirP=false),
 	            callbackScope: scene
 	        });
+
 	    } 
 
-
-	    if(this.isColliding.bottom){
+	    console.log(this.isColliding.bottom+" "+this.onAirP)
+	    if(this.isColliding.bottom && !this.onAirP){
 	    	if(this.pharaoh.body.force.x !== 0){
 	    		this.pharaoh.anims.play("rightP", true);
 	    	}else{
 	    		this.pharaoh.anims.play("stayRightP", true);
 	    	}
-	    }else{
+	    }else 
+	   	{
 	    	this.pharaoh.anims.stop();
 	    	this.pharaoh.setTexture("Pharaoh", 10);
 	    }
 
 	}   
-	  
-
+	
 	
 }

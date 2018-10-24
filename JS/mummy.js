@@ -91,15 +91,6 @@ function Mummy(scene, x, y){
 			frameRate: 5,
 			repeat: -1
 		});
-		//Jumping to the right
-    	anims.create({
-	        key: 'jumpRightM',
-	        frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
-	        frameRate: 30,
-	        repeat: 0
-    	});
-		//We return the sprite of the mummy so it can be used in the general create function
-		//return mummy;
 	}
 
 	this.update = function(k){
