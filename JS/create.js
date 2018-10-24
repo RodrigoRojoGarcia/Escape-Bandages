@@ -1,16 +1,20 @@
 
 function create(){
+    const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
+    const engine = Engine.create();
+
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
 	const tiles = map.addTilesetImage("tileset","tile");
     //Extract a layer of tiles from the map (fron the JSON)
-    const bg= map.createStaticLayer("Background", tiles, 0,0);
-	const layer = map.createStaticLayer("Foreground",tiles,0,0);
+    const bg= map.createDynamicLayer("Background", tiles, 0,0);
+	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
 
     //We take the collider property from the JSON and make it a Collision for layer in Phaser
     layer.setCollisionByProperty({ collider: true });
-
+    this.matter.world.convertTilemapLayer(layer);
+    this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     //Create the 4 sprites for the torches
 
     for(var i = 0; i < 4; i++){
@@ -26,21 +30,16 @@ function create(){
 
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
-    //Create a zone with the size of the objecto from the JSON file
-    zoneAnubis = this.add.zone(Anubis.x, Anubis.y).setSize(Anubis.width, Anubis.height);
-    this.physics.world.enable(zoneAnubis,0);
-    //It doesn't have gravity nor its a movable object
-    zoneAnubis.body.setAllowGravity(false);
-    zoneAnubis.body.moves = false;
-
+    //Create a zone with the size of the object from the JSON file
+    zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
-    //Create a zone with the size of the objecto from the JSON file
-    zoneBastet = this.add.zone(Bastet.x, Bastet.y).setSize(Bastet.width, Bastet.height);
-    this.physics.world.enable(zoneBastet,0);
-    //It doesn't have gravity nor its a movable object
-    zoneBastet.body.setAllowGravity(false);
-    zoneBastet.body.moves = false;
+    //Create a zone with the size of the object from the JSON file
+    zoneBastet = this.matter.add.rectangle(Bastet.x+(Bastet.width/2), Bastet.y+(Bastet.height/2), Bastet.width, Bastet.height, {isSensor: true, isStatic: true});
+    
 
+
+
+    console.log(zoneAnubis);
    
 
     ////////////////////////////PLAYERS///////////////////////////////////////////
@@ -53,6 +52,10 @@ function create(){
     m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
+
+    //////////////////ENEMIES//////////////////////////////////////////////////
+    e = new Enemy(this, 1800, 400);
+    e.create();
 
 
     //////////////////ANIMATIONS////////////////////////////////////////////////
@@ -79,27 +82,63 @@ function create(){
 
     ////////////////////////////COLLIDERS//////////////////////////////////////
     //We set the colliders between the players (pharaoh and mummy) with the world (layer)
-	this.physics.add.collider(p.getSprite(), layer);
-    this.physics.add.collider(m.getSprite(), layer);
+    this.matter.world.createDebugGraphic();
+    this.matter.world.drawDebug = false;
+    this.input.keyboard.on("keydown_F", event => {
+      this.matter.world.drawDebug = !this.matter.world.drawDebug;
+      this.matter.world.debugGraphic.clear();
+    });
 
 
 
     ///////////////////////////EVENTOS////////////////////////////////////////
     //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
-    this.physics.add.overlap(p.getSprite(), zoneAnubis, eventAnubis, null, this);
+    this.matterCollision.addOnCollideStart({
+        objectA: p.getSprite(),
+        callback: eventAnubisIn,
+        context: p.getSprite()
+    })
+    this.matterCollision.addOnCollideEnd({
+        objectA: p.getSprite(),
+        callback: eventAnubisOut,
+        context: p.getSprite()
+    })
 
-    function eventAnubis (pharaoh, zoneAnubis){
-        //Make the sprite of the pharaoh pink
-        pharaoh.setTint(0xee0099);
+    function eventAnubisIn({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB === zoneAnubis){
+            p.getSprite().setTint(0xff00ff);
+        }
     }
-    //Detect if mummy and zoneBastet overlap then call to eventBastet function
-    this.physics.add.overlap(m.getSprite(), zoneBastet, eventBastet, null, this);
-
-    function eventBastet (mummy, zoneBastet){
-        //Make the sprite of the mummy green
-        mummy.setTint(0x00ff00);
+    function eventAnubisOut({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB === zoneAnubis){
+            p.getSprite().setTint(0xffffff);
+        }
     }
+    this.matterCollision.addOnCollideStart({
+        objectA: m.getSprite(),
+        callback: eventBastetIn,
+        context: m.getSprite()
+    })
+    this.matterCollision.addOnCollideEnd({
+        objectA: m.getSprite(),
+        callback: eventBastetOut,
+        context: m.getSprite()
+    })
 
+    function eventBastetIn({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB === zoneBastet){
+            m.getSprite().setTint(0x00ff00);
+        }
+    }
+    function eventBastetOut({bodyA, bodyB, pair}){
+        console.log("UwU");
+        if(bodyB === zoneBastet){
+            m.getSprite().setTint(0xffffff);
+        }
+    }
 
 
 
@@ -125,4 +164,21 @@ function create(){
     //The camera must not leave the boundaries of the map
 
 	camera.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+
+    //////////// ARENA //////////////////
+    const arena = [];
+    for(var i = 0; i < 100; i++){
+        arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
+    }
+    for(var i = 0; i < 100; i++){
+        arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0.1 });
+    }
+    for(var i = 0; i < 100; i++){
+        arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0.1 });
+    }
+    
+    //CAJAS
+    const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
+
+
 }

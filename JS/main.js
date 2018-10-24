@@ -5,23 +5,29 @@ var config = {
 	type: Phaser.AUTO,
 	width: 1920,
 	height: 1080,
+	parent: "GAME",
 	physics: {
-		/*default: 'matter',
+		default: 'matter',
 		matter:{
 			gravity:{y:1},
-			debug: false
-		}*/
-
-		default: 'arcade',
-		arcade:{
-			gravity:{y:300},
-			debug: false
+			debug: false,
+			enableSleep: true
 		}
+
 	},
 	scene:{
 		preload: preload,
 		create: create,
 		update: update
+	},
+	plugins:{
+		scene:[
+		{
+			plugin: PhaserMatterCollisionPlugin,
+			key: "matterCollision",
+			mapping: "matterCollision"
+		}
+		]
 	}
 };
 
