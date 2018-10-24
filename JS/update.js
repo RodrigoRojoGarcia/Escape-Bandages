@@ -5,9 +5,9 @@ function update(){
    
 	p.update(keys); //Update of the pharaoh
     m.update(keys); 	 //Update of the mummy
-    e.update();
+    //e.update();
     p.resetColliding();
     m.resetColliding();
-    e.resetColliding();
+    //e.resetColliding();
 }
 
