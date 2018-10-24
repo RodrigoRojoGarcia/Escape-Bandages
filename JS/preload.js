@@ -15,6 +15,10 @@ function preload(){
 
 	this.load.spritesheet("snake","../Escape-Bandages/Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
 
+	this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 120});
+
+
+
 
 	this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
 
