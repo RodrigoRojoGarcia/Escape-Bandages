@@ -11,7 +11,7 @@ var config = {
 			enableSleep: true
 		}
 	},
-	/*plugins:{
+	plugins:{
 		scene:[
 		{
 			plugin: PhaserMatterCollisionPlugin,
@@ -19,8 +19,8 @@ var config = {
 			mapping: "matterCollision"
 		}
 		]
-	},*/
-	scene:[menu]
+	},
+	scene:[menu, offline]
 }
 
 var game = new Phaser.Game(config);
