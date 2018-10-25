@@ -105,7 +105,8 @@ function create(){
         callback: eventAnubisOut,
         context: p.getSprite()
     })
-    var anubisText = scene.matter.add.sprite(-180,-600,'textBox',null,{isStatic:true});
+    var anubisText = scene.matter.add.sprite(-180,-600,'textBox',null,{isStatic:true,isSensor: true});
+    anubisText.depth = 100;
     var bastetText;
     function eventAnubisIn({bodyA, bodyB, pair}){
     
