@@ -29,7 +29,7 @@ function create(){
     //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
-
+    const texto = map.findObject("Objects", obj => obj.name === "Text");
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
@@ -108,11 +108,20 @@ function create(){
     var anubisText = scene.matter.add.sprite(-180,-600,'textBox',null,{isStatic:true,isSensor: true});
     anubisText.depth = 100;
     var bastetText;
+
+
+
+    var textAnubis = ["Hola, soy Anubis, Dios de la Muerte.",
+    "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
+    "Para ello necesitaréis salir de la pirámide JUNTOS"];
+    var textito = this.add.text(texto.x, texto.y, textAnubis).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#8F6E03');
+    textito.depth = 100;
+    textito.setVisible(false);
+
     function eventAnubisIn({bodyA, bodyB, pair}){
     
         if(bodyB === zoneAnubis){
-            anubisText.x = camera.x+camera.width/2;
-            anubisText.y = camera.y+camera.height/2; 
+            textito.setVisible(true);
 
             p.getSprite().setTint(0xff00ff);
         }
