@@ -7,7 +7,7 @@ function textBox(bitMapText,text,x,y,siz,s) {
 	this.parr = text;
 	this.textB = scene.add.bitmapText(this.x,this.y,this.bitMap,this.parr,this.siz);
 	this.create = function(){
-
+		
 	};
 	this.update = function(){
 

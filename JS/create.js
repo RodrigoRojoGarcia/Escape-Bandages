@@ -122,7 +122,8 @@ function create(){
     
         if(bodyB === zoneAnubis){
             textito.setVisible(true);
-
+            p.steady = true;
+          
             p.getSprite().setTint(0xff00ff);
         }
     }
