@@ -46,7 +46,7 @@ function create(){
 
    
 
-    ////////////////////////////PLAYERS///////////////////////////////////////////
+////////////////////////////PLAYERS///////////////////////////////////////////
     //Create a Pharaoh object from the function Pharaoh of the pharaoh.js file
     p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
     //We save the sprite that create() from Pharaoh returns in pharaoh
@@ -57,12 +57,10 @@ function create(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
-    //////////////////ENEMIES//////////////////////////////////////////////////
-    //e = new Enemy(this, 1800, 400);
-    //e.create();
+    
 
 
-    //////////////////ANIMATIONS////////////////////////////////////////////////
+//////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
 
     this.anims.create({
@@ -84,7 +82,7 @@ function create(){
     const camera = this.cameras.main;
 	
 
-    ////////////////////////////COLLIDERS//////////////////////////////////////
+////////////////////////////DEBUG//////////////////////////////////////
     //We set the colliders between the players (pharaoh and mummy) with the world (layer)
     this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
@@ -95,7 +93,7 @@ function create(){
 
 
 
-    ///////////////////////////EVENTOS////////////////////////////////////////
+///////////////////////////EVENTOS////////////////////////////////////////
     //Text for Anubis tutorial
     var wordsAnubis = ["Hola, soy Anubis, maestro de la Necropolis.",
     "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
@@ -192,7 +190,7 @@ function create(){
         }
     }
 
-
+///////////////////////////////CONTROLES////////////////////////////////////
     this.input.on('pointerdown',function(pointer){
         scene.sayAnubis.setVisible(false);
         p.steady = false;
@@ -215,7 +213,7 @@ function create(){
 
 
 
-    ///////////////////////////CAMERA/////////////////////////////////////////
+///////////////////////////CAMERA/////////////////////////////////////////
     //Create a camera
 	
     //Make it follow the player pharaoh
