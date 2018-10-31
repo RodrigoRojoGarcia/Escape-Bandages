@@ -9,5 +9,9 @@ function update(){
     p.resetColliding();
     m.resetColliding();
     //e.resetColliding();
+    for(var i = 0; i < buttons.length; i++){
+        buttons[i].update();
+        buttons[i].resetColliding();
+    }
 }
 

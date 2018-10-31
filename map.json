@@ -74,37 +74,39 @@
                  "width":632,
                  "x":1120,
                  "y":624
-                }, 
-                {
-                 "gid":4,
-                 "height":120,
-                 "id":13,
-                 "name":"Boton",
-                 "properties":
-                    {
-                     "static":true
-                    },
-                 "propertytypes":
-                    {
-                     "static":"bool"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":120,
-                 "x":2160,
-                 "y":479.75
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"Buttons",
+         "objects":[
+                {
+                 "gid":4,
+                 "height":120,
+                 "id":18,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":false,
+                 "width":120,
+                 "x":2040,
+                 "y":479.333333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":false,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":14,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.1.6",
+ "tiledversion":"1.1.0",
  "tileheight":120,
  "tilesets":[
         {

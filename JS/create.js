@@ -28,7 +28,20 @@ function create(){
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
 
-    var Boton = map.createFromObjects('Botones', 13, {key: 'button'});
+    ///////////////BUTTONS GROUP///////////////////////
+
+    //const butt = map.createDynamicLayer("Buttons", tiles, 0, 0);
+    buttons = map.createFromObjects('Buttons', 18, { key: 'button' });
+    //this.buttons.setCollisionByProperty({collider: true});
+
+    for(var i = 0; i < buttons.length; i++){
+        buttons[i] = new Button(this, buttons[i].x, buttons[i].y);
+    }
+    
+
+   
+
+    
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
     zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
@@ -37,7 +50,7 @@ function create(){
     zoneBastet = this.matter.add.rectangle(Bastet.x+(Bastet.width/2), Bastet.y+(Bastet.height/2), Bastet.width, Bastet.height, {isSensor: true, isStatic: true});
     
 
-    button = new Button(this, 0, 0, Boton);
+    //button = new Button(this, 0, 0, Boton);
 
     console.log(zoneAnubis);
    
