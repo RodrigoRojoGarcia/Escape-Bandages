@@ -23,7 +23,7 @@ function Mummy(scene, x, y){
 	
 	this.isColliding = {left: false, right: false, bottom: false};
 	this.onAirM = false;
-
+	this.steady = false;
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
 		if(bodyB.isSensor){
@@ -98,26 +98,26 @@ function Mummy(scene, x, y){
 		//var mummy = p;
 		var keys = k;
 		var movingForce = 0.1;
-	    if (keys.a.isDown && this.isColliding.bottom && !this.onAirM)
+	    if (keys.a.isDown && this.isColliding.bottom && !this.onAirM && !this.steady)
 	    {
 	        this.mummy.applyForce({x:-movingForce, y:0});
 	        this.mummy.flipX = true;
 	    }
-	    else if (keys.d.isDown && this.isColliding.bottom && !this.onAirM)
+	    else if (keys.d.isDown && this.isColliding.bottom && !this.onAirM && !this.steady)
 	    {
 	        this.mummy.applyForce({x:movingForce, y:0});
 	        this.mummy.flipX = false;
 
-	    }else if(this.isColliding.bottom && !this.onAirM){
+	    }else if(this.isColliding.bottom && !this.onAirM && !this.steady){
 	    	this.mummy.setVelocityX(0);    
 	    }
 
-	    if (keys.a.isDown && !(this.isColliding.bottom))
+	    if (keys.a.isDown && !(this.isColliding.bottom) && !this.steady)
 	    {
 	        this.mummy.applyForce({x:-movingForce, y:0});
 	        this.mummy.flipX = true;
 	    }
-	    else if (keys.d.isDown && !(this.isColliding.bottom))
+	    else if (keys.d.isDown && !(this.isColliding.bottom) && !this.steady)
 	    {
 	        this.mummy.applyForce({x:movingForce, y:0});
 	        this.mummy.flipX = false;
@@ -131,7 +131,7 @@ function Mummy(scene, x, y){
 	    }
 
 
-	    if (keys.w.isDown && this.isColliding.bottom)
+	    if (keys.w.isDown && this.isColliding.bottom && !this.steady)
 	    {   
 	        this.onAirP = true;
 	        this.mummy.setVelocityY(-12);

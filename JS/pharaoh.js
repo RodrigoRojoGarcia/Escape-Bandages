@@ -120,12 +120,12 @@ function Pharaoh(scene, x, y){
 	    	this.pharaoh.setVelocityX(0);    
 	    }
 
-	    if (keys.left.isDown && !(this.isColliding.bottom))
+	    if (keys.left.isDown && !(this.isColliding.bottom) && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:-movingForce, y:0});
 	        this.pharaoh.flipX = true;
 	    }
-	    else if (keys.right.isDown && !(this.isColliding.bottom))
+	    else if (keys.right.isDown && !(this.isColliding.bottom) && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:movingForce, y:0});
 	        this.pharaoh.flipX = false;

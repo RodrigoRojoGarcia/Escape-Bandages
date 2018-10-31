@@ -29,7 +29,8 @@ function create(){
     //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
-    const texto = map.findObject("Objects", obj => obj.name === "Text");
+    const textAnubis = map.findObject("Objects", obj => obj.name === "TextAnubis");
+    const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
@@ -41,7 +42,7 @@ function create(){
 
 
 
-    console.log(zoneAnubis);
+
    
 
     ////////////////////////////PLAYERS///////////////////////////////////////////
@@ -105,32 +106,45 @@ function create(){
         callback: eventAnubisOut,
         context: p.getSprite()
     })
-    var anubisText = scene.matter.add.sprite(-180,-600,'textBox',null,{isStatic:true,isSensor: true});
-    anubisText.depth = 100;
-    var bastetText;
 
 
 
-    var textAnubis = ["Hola, soy Anubis, Dios de la Muerte.",
+
+    var wordsAnubis = ["Hola, soy Anubis, maestro de la Necropolis.",
     "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
     "Para ello necesitaréis salir de la pirámide JUNTOS"];
-    var textito = this.add.text(texto.x, texto.y, textAnubis).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#8F6E03');
-    textito.depth = 100;
-    textito.setVisible(false);
+
+    var sayAnubis = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#8F6E03');
+
+    var wordsBastet = ["Hola, soy Bastet, Diosa de la armonía del hogar.",
+    "Te he revivido porque en vida te enamoraste de una\npersona de la que no deberías, por lo que os doy la\n oportunidad de vivir juntos.",
+    "Para ello necesitaréis salir de la pirámide JUNTOS"];
+
+    var sayBastet = this.add.text(textBastet.x, textBastet.y, wordsBastet).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#8F6E03');
+
+    sayAnubis.depth = 100;
+    sayAnubis.setVisible(false);
+
+    sayBastet.depth = 100;
+    sayBastet.setVisible(false);
 
     function eventAnubisIn({bodyA, bodyB, pair}){
     
         if(bodyB === zoneAnubis){
-            textito.setVisible(true);
-            p.steady = true;
-          
-            p.getSprite().setTint(0xff00ff);
+            sayAnubis.setVisible(true);
+
+            scene.time.addEvent({
+                delay: 200,
+                callback: ()=>( p.steady = true),
+                callbackScope: this
+            });
+
         }
     }
     function eventAnubisOut({bodyA, bodyB, pair}){
     
         if(bodyB === zoneAnubis){
-            p.getSprite().setTint(0xffffff);
+            sayAnubis.setVisible(false);
         }
     }
     this.matterCollision.addOnCollideStart({
@@ -147,14 +161,20 @@ function create(){
     function eventBastetIn({bodyA, bodyB, pair}){
     
         if(bodyB === zoneBastet){
+            sayBastet.setVisible(true);
+            scene.time.addEvent({
+                delay: 200,
+                callback: ()=>( m.steady = true),
+                callbackScope: this
+            });
 
-            m.getSprite().setTint(0x00ff00);
+           
         }
     }
     function eventBastetOut({bodyA, bodyB, pair}){
     
         if(bodyB === zoneBastet){
-            m.getSprite().setTint(0xffffff);
+            sayBastet.setVisible(false);
         }
     }
 
@@ -185,13 +205,13 @@ function create(){
 
     //////////// ARENA //////////////////
     const arena = [];
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
     }
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0.1 });
     }
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0.1 });
     }
     

@@ -78,13 +78,24 @@
                 {
                  "height":172,
                  "id":6,
-                 "name":"Text",
+                 "name":"TextAnubis",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":588,
                  "x":1144,
-                 "y":440
+                 "y":429
+                }, 
+                {
+                 "height":172,
+                 "id":7,
+                 "name":"TextBastet",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":588,
+                 "x":1144,
+                 "y":907
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -92,7 +103,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":7,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.6",
