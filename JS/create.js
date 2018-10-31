@@ -7,7 +7,8 @@ function create(){
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
 	const tiles = map.addTilesetImage("tileset","tile");
-
+    this.learnedA = false;
+    this.learnedB = false;
 
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
@@ -95,44 +96,48 @@ function create(){
 
 
     ///////////////////////////EVENTOS////////////////////////////////////////
-    //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
+    //Text for Anubis tutorial
+    var wordsAnubis = ["Hola, soy Anubis, maestro de la Necropolis.",
+    "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
+    "Para ello necesitaréis salir de la pirámide JUNTOS"];
+    //The text appears in the same position as the object textAnubis from Tiled
+    this.sayAnubis = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+
+    //Text for Bastet Tutorial
+    var wordsBastet = ["Hola, soy Bastet, Diosa de la armonía del hogar.",
+    "Te he revivido porque en vida te enamoraste de una\npersona de la que no deberías, por lo que os doy la\n oportunidad de vivir juntos.",
+    "Para ello necesitaréis salir de la pirámide JUNTOS"];
+    //The text appears in the same position as the object textBastet from Tiled
+    this.sayBastet = this.add.text(textBastet.x, textBastet.y, wordsBastet).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+
+    //Sets the depth of the text to 100 (in front of everything) and set its visible value to false 
+    this.sayAnubis.depth = 100;
+    this.sayAnubis.setVisible(false);
+    this.sayBastet.depth = 100;
+    this.sayBastet.setVisible(false);
+
+
+
+    //At the start of a collision between the pharaoh and something calls eventAnubisIn
     this.matterCollision.addOnCollideStart({
         objectA: p.getSprite(),
         callback: eventAnubisIn,
         context: p.getSprite()
     })
+    //At the end of a collision between the pharaoh and something calls eventAnubisOut
     this.matterCollision.addOnCollideEnd({
         objectA: p.getSprite(),
         callback: eventAnubisOut,
         context: p.getSprite()
     })
-
-
-
-
-    var wordsAnubis = ["Hola, soy Anubis, maestro de la Necropolis.",
-    "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
-    "Para ello necesitaréis salir de la pirámide JUNTOS"];
-
-    var sayAnubis = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#8F6E03');
-
-    var wordsBastet = ["Hola, soy Bastet, Diosa de la armonía del hogar.",
-    "Te he revivido porque en vida te enamoraste de una\npersona de la que no deberías, por lo que os doy la\n oportunidad de vivir juntos.",
-    "Para ello necesitaréis salir de la pirámide JUNTOS"];
-
-    var sayBastet = this.add.text(textBastet.x, textBastet.y, wordsBastet).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#8F6E03');
-
-    sayAnubis.depth = 100;
-    sayAnubis.setVisible(false);
-
-    sayBastet.depth = 100;
-    sayBastet.setVisible(false);
-
+    //Event called when the pharaoh collides with something
     function eventAnubisIn({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneAnubis){
-            sayAnubis.setVisible(true);
-
+        //If this something is the zoneAnubis
+        if(bodyB === zoneAnubis && !scene.learnedA){
+            scene.learnedA = true;
+            //Text visible
+            scene.sayAnubis.setVisible(true);
+            //Steady value of pharaoh changed to true after a delay (so there is no problem with the edge of the collision box)
             scene.time.addEvent({
                 delay: 200,
                 callback: ()=>( p.steady = true),
@@ -141,47 +146,56 @@ function create(){
 
         }
     }
+    //Event called when the pharaoh stops colliding with something
     function eventAnubisOut({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneAnubis){
-            sayAnubis.setVisible(false);
+        //If this something is zoneAnubis
+        if(bodyB === zoneAnubis && !scene.learnedA){
+            //Hide the text
+            scene.sayAnubis.setVisible(false);
         }
     }
+
+    //At the start of a collision between the mummy and something calls eventBastetIn
     this.matterCollision.addOnCollideStart({
         objectA: m.getSprite(),
         callback: eventBastetIn,
         context: m.getSprite()
     })
+    //At the end of a collision between the mummy and something calls eventBastetOut
     this.matterCollision.addOnCollideEnd({
         objectA: m.getSprite(),
         callback: eventBastetOut,
         context: m.getSprite()
     })
-
+    //Event called when the mummy collides with something
     function eventBastetIn({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneBastet){
-            sayBastet.setVisible(true);
+        //If this something is the zoneBastet
+        if(bodyB === zoneBastet && !scene.learnedB){
+            scene.learnedB = true;
+            //Text visible
+            scene.sayBastet.setVisible(true);
+            //Steady value of mummy changed to true after a delay (so there is no problem with the edge of the collision box)
             scene.time.addEvent({
                 delay: 200,
                 callback: ()=>( m.steady = true),
                 callbackScope: this
             });
-
-           
         }
     }
+
+    //Event called when the mummy stops colliding with something
     function eventBastetOut({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneBastet){
-            sayBastet.setVisible(false);
+        //If this something is the zoneBastet
+        if(bodyB === zoneBastet && !scene.learnedB){
+            //The text hides
+            scene.sayBastet.setVisible(false);
         }
     }
 
 
 
     //Detect the keys pressed
-    const {LEFT, RIGHT, UP, W, A, D} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
 
     this.keys = this.input.keyboard.addKeys({
         left: LEFT,
@@ -189,7 +203,8 @@ function create(){
         up: UP,
         w: W,
         a: A,
-        d: D
+        d: D,
+        space: SPACE
     });
 
 

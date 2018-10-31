@@ -8,6 +8,13 @@ function update(){
     //e.update();
     p.resetColliding();
     m.resetColliding();
+    if(keys.space.isDown){
+    	
+    	m.steady = false;
+    	
+    	this.sayBastet.setVisible(false);
+    }
+
     //e.resetColliding();
 }
 
