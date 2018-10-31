@@ -193,6 +193,12 @@ function create(){
     }
 
 
+    this.input.on('pointerdown',function(pointer){
+        scene.sayAnubis.setVisible(false);
+        p.steady = false;
+    },this);
+
+
 
     //Detect the keys pressed
     const {LEFT, RIGHT, UP, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
