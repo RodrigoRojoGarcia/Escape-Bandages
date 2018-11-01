@@ -43,7 +43,7 @@ function create(){
 
     /////////////BUTTONS GROUP////////////////////
     //create button objects from the buttons layer in tiled
-    buttons = map.createFromObjects('Buttons', 18, { key: 'button' });
+    buttons = map.createFromObjects('Buttons', 10, { key: 'button' });
     //for each object create one button
     for(var i = 0; i < buttons.length; i++){
         buttons[i] = new Button(this, buttons[i].x, buttons[i].y);
