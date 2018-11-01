@@ -2,7 +2,7 @@
 function create(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
-
+    scene = this;
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -10,10 +10,13 @@ function create(){
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
+    const door = map.createDynamicLayer("Door", tiles, 0,0);
 
     //We take the collider property from the JSON and make it a Collision for layer in Phaser
     layer.setCollisionByProperty({ collider: true });
+    door.setCollisionByProperty({ collider: true});
     this.matter.world.convertTilemapLayer(layer);
+    this.matter.world.convertTilemapLayer(door);
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     //Create the 4 sprites for the torches
 
@@ -30,13 +33,40 @@ function create(){
 
     ///////////////BUTTONS GROUP///////////////////////
 
-    //const butt = map.createDynamicLayer("Buttons", tiles, 0, 0);
+    //create button objects from the buttons layer in tiled
     buttons = map.createFromObjects('Buttons', 18, { key: 'button' });
-    //this.buttons.setCollisionByProperty({collider: true});
-
+    //for each object create one button
     for(var i = 0; i < buttons.length; i++){
         buttons[i] = new Button(this, buttons[i].x, buttons[i].y);
     }
+    var done = true;
+    var that = this.matter.world
+
+
+    updateButtons = function(){
+
+        if(buttons[0].active){
+            var tile1 = map.getTileAtWorldXY(15*120, 6*120); 
+            var tile2 = map.getTileAtWorldXY(15*120, 7*120);
+            
+            map.replaceByIndex(tile1.index, 12);
+            
+           
+            door.setCollisionByProperty({collider: false});
+            door.setVisibility(false);
+            that.convertTilemapLayer(door);
+            
+
+            
+            
+            
+            //scene.matter.world.remove(door);
+            //door.destroy();
+            
+            
+        }
+    }
+
     
 
    
@@ -80,6 +110,7 @@ function create(){
         frameRate: 10,
         repeat: -1
     });
+
 
 
     

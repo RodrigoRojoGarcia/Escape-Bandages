@@ -13,5 +13,7 @@ function update(){
         buttons[i].update();
         buttons[i].resetColliding();
     }
+
+    updateButtons();
 }
 

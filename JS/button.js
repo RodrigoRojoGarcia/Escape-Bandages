@@ -43,7 +43,9 @@ function Button(scene, x, y){
 	}
 
 	this.activating = function(elem){
-		elem = true;
+		if(this.active){
+			elem = true;
+		}
 	}
 	//Activa un booleano que le metemos (puertas o lo que sea)
 
@@ -62,7 +64,6 @@ function Button(scene, x, y){
 	this.update = function(){
 
 		if(this.isColliding.top){
-			console.log("wiii");
 			this.active = true;
 		}
 		if(this.active){
