@@ -18,7 +18,7 @@ function Mummy(scene, x, y){
 		frictionAir: 0.02,
 		friction: 0.1
 	});
-	this.mummy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
+	this.mummy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y).setMass(20);
 
 	
 	this.isColliding = {left: false, right: false, bottom: false};
@@ -74,7 +74,7 @@ function Mummy(scene, x, y){
 	
 	this.create = function(){
 		
-		
+
 		//ANIMATIONS
 		const anims = scene.anims;
 		//Animation to the right
@@ -165,13 +165,36 @@ function Mummy(scene, x, y){
 	        }else if(scene.bastetText === 2){
 	            scene.sayBastet2.setVisible(false);
 	            this.steady = false;
+	            scene.bastetText = 3;
+	        }else{
+	        	this.createRope();
 	        }
         
         }
+        
 	}   
 	
 
-	
+	this.createRope = function(){
+		block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true});
+		k=1;
+		var prev = block
+		x = block.x;
+		y = block.y;
+		for(var i = 0; i<9; i++){
+			rope = scene.matter.add.image(block.position.x, block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
+			scene.matter.add.joint(prev,rope,10,1);
+			prev = rope;
+		
+		}
+		if(!this.mummy.flipX){
+			rope.applyForce({x:0.01,y:0});
+		}else{
+			rope.applyForce({x:-0.01,y:0});
+		}
+		
+
+	};
 
 	
 
