@@ -21,9 +21,11 @@ var config = {
 		]
 	},
 	scene:[menu, offline]
-}
+};
 
 var game = new Phaser.Game(config);
+
+var torches = [];
 
 var w = window.innerWidth -15;
 var h = window.innerHeight -15;
