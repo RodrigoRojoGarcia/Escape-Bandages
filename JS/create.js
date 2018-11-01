@@ -214,7 +214,12 @@ function create(){
         }
     },this);
 
-        
+
+     cameraPharaoh.ignore(this.sayBastet1);
+     cameraPharaoh.ignore(this.sayBastet2);
+     cameraMummy.ignore(this.sayAnubis1);
+     cameraMummy.ignore(this.sayAnubis2);
+
 ///////////////////////////////CONTROLES////////////////////////////////////
     //Detect the keys pressed
     const {LEFT, RIGHT, UP, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
