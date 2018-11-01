@@ -2,11 +2,14 @@
 function create(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
-
+    const scene = this;
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
 	const tiles = map.addTilesetImage("tileset","tile");
+    this.learnedA = false;
+    this.learnedB = false;
+
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
@@ -27,7 +30,8 @@ function create(){
     //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
-
+    const textAnubis = map.findObject("Objects", obj => obj.name === "TextAnubis");
+    const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
 
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
@@ -39,10 +43,10 @@ function create(){
 
 
 
-    console.log(zoneAnubis);
+
    
 
-    ////////////////////////////PLAYERS///////////////////////////////////////////
+////////////////////////////PLAYERS///////////////////////////////////////////
     //Create a Pharaoh object from the function Pharaoh of the pharaoh.js file
     p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
     //We save the sprite that create() from Pharaoh returns in pharaoh
@@ -53,12 +57,10 @@ function create(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
-    //////////////////ENEMIES//////////////////////////////////////////////////
-    //e = new Enemy(this, 1800, 400);
-    //e.create();
+    
 
 
-    //////////////////ANIMATIONS////////////////////////////////////////////////
+//////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
 
     this.anims.create({
@@ -77,10 +79,11 @@ function create(){
         torches[i].anims.play('torchAnim');
     };
     ///////////////////////////////////////////////////////////////////////////
-
+    const cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
+    const cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
 	
 
-    ////////////////////////////COLLIDERS//////////////////////////////////////
+////////////////////////////DEBUG//////////////////////////////////////
     //We set the colliders between the players (pharaoh and mummy) with the world (layer)
     this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
@@ -89,61 +92,136 @@ function create(){
       this.matter.world.debugGraphic.clear();
     });
 
+   
+///////////////////////////EVENTOS////////////////////////////////////////
+    //Text for Anubis tutorial
+    var wordsAnubis1 = ["Hola, soy Anubis, maestro de la Necropolis.",
+    "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
+    "Para ello necesitaréis salir de la pirámide JUNTOS"];
+    var wordsAnubis2 = ["Te otorgo el poder del fuego místico, podrás recoger\nel calor de tu alrededor y concentrarlo en llamas",
+    "delante de tí para lograrlo solo has de apuntar\ncon este cetro"];
+    //The text appears in the same position as the object textAnubis from Tiled
+    this.sayAnubis1 = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis1).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+    this.sayAnubis2 = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis2).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+    //Text for Bastet Tutorial
+    var wordsBastet1 = ["Hola, soy Bastet, Diosa de la armonía del hogar.",
+    "Te he revivido porque en vida te enamoraste de una\npersona de la que no deberías, por lo que os doy la\n oportunidad de vivir juntos.",
+    "Para ello necesitaréis salir de la pirámide JUNTOS"];
+    var wordsBastet2 = ["Te otorgo el poder de las vendas malditas\npodrás estirar tus vendas en el ESPACIO y de",
+    "esta manera podrás derrotar los enemigos\nque se antepongan"];
+    //The text appears in the same position as the object textBastet from Tiled
+    this.sayBastet1 = this.add.text(textBastet.x, textBastet.y, wordsBastet1).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+    this.sayBastet2 = this.add.text(textBastet.x, textBastet.y, wordsBastet2).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+    this.anubisText = 0;
+    this.bastetText = 0;
+    //Sets the depth of the text to 100 (in front of everything) and set its visible value to false 
+    this.sayAnubis1.depth = 100;
+    this.sayAnubis1.setVisible(false);
+    this.sayAnubis2.depth = 100;
+    this.sayAnubis2.setVisible(false);
+    this.sayBastet1.depth = 100;
+    this.sayBastet1.setVisible(false);
+    this.sayBastet2.depth = 100;
+    this.sayBastet2.setVisible(false);
 
 
-    ///////////////////////////EVENTOS////////////////////////////////////////
-    //Detect if pharaoh and zoneAnubis overlap then call to eventAnubis function
+    //At the start of a collision between the pharaoh and something calls eventAnubisIn
     this.matterCollision.addOnCollideStart({
         objectA: p.getSprite(),
         callback: eventAnubisIn,
         context: p.getSprite()
     })
+    //At the end of a collision between the pharaoh and something calls eventAnubisOut
     this.matterCollision.addOnCollideEnd({
         objectA: p.getSprite(),
         callback: eventAnubisOut,
         context: p.getSprite()
     })
-
+    //Event called when the pharaoh collides with something
     function eventAnubisIn({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneAnubis){
-            p.getSprite().setTint(0xff00ff);
+        //If this something is the zoneAnubis
+        if(bodyB === zoneAnubis && !scene.learnedA && scene.anubisText === 0){
+            scene.learnedA = true;
+            scene.anubisText = 1;
+            //Text visible
+            scene.sayAnubis1.setVisible(true);
+            //Steady value of pharaoh changed to true after a delay (so there is no problem with the edge of the collision box)
+            scene.time.addEvent({
+                delay: 200,
+                callback: ()=>( p.steady = true),
+                callbackScope: this
+            });
+
         }
     }
+    //Event called when the pharaoh stops colliding with something
     function eventAnubisOut({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneAnubis){
-            p.getSprite().setTint(0xffffff);
+        //If this something is zoneAnubis
+        if(bodyB === zoneAnubis && !scene.learnedA){
+            //Hide the text
+            scene.sayAnubis1.setVisible(false);
+            scene.sayAnubis2.setVisible(false);
         }
     }
+
+    //At the start of a collision between the mummy and something calls eventBastetIn
     this.matterCollision.addOnCollideStart({
         objectA: m.getSprite(),
         callback: eventBastetIn,
         context: m.getSprite()
     })
+    //At the end of a collision between the mummy and something calls eventBastetOut
     this.matterCollision.addOnCollideEnd({
         objectA: m.getSprite(),
         callback: eventBastetOut,
         context: m.getSprite()
     })
-
+    //Event called when the mummy collides with something
     function eventBastetIn({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneBastet){
-            m.getSprite().setTint(0x00ff00);
+        //If this something is the zoneBastet
+        if(bodyB === zoneBastet && !scene.learnedB && scene.bastetText === 0){
+            scene.learnedB = true;
+            //Text visible
+            scene.sayBastet1.setVisible(true);
+            scene.bastetText = 1;
+            //Steady value of mummy changed to true after a delay (so there is no problem with the edge of the collision box)
+            scene.time.addEvent({
+                delay: 200,
+                callback: ()=>( m.steady = true),
+                callbackScope: this
+            });
         }
     }
+
+    //Event called when the mummy stops colliding with something
     function eventBastetOut({bodyA, bodyB, pair}){
-    
-        if(bodyB === zoneBastet){
-            m.getSprite().setTint(0xffffff);
+        //If this something is the zoneBastet
+        if(bodyB === zoneBastet && !scene.learnedB){
+            //The text hides
+            scene.sayBastet1.setVisible(false);
+            scene.sayBastet2.setVisible(false);
         }
     }
+    this.input.on('pointerdown',function(pointer){
+        if(scene.anubisText === 1){
+            scene.sayAnubis1.setVisible(false);
+            scene.sayAnubis2.setVisible(true);
+            scene.anubisText = 2;
+        }else if(scene.anubisText === 2){
+            scene.sayAnubis2.setVisible(false);
+            p.steady = false;
+        }
+    },this);
 
 
+     cameraPharaoh.ignore(this.sayBastet1);
+     cameraPharaoh.ignore(this.sayBastet2);
+     cameraMummy.ignore(this.sayAnubis1);
+     cameraMummy.ignore(this.sayAnubis2);
 
+///////////////////////////////CONTROLES////////////////////////////////////
     //Detect the keys pressed
-    const {LEFT, RIGHT, UP, W, A, D} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
 
     this.keys = this.input.keyboard.addKeys({
         left: LEFT,
@@ -151,29 +229,32 @@ function create(){
         up: UP,
         w: W,
         a: A,
-        d: D
+        d: D,
+        space: SPACE
     });
 
 
 
-    ///////////////////////////CAMERA/////////////////////////////////////////
+///////////////////////////CAMERA/////////////////////////////////////////
     //Create a camera
-	const camera = this.cameras.main;
+	
     //Make it follow the player pharaoh
-	camera.startFollow(p.getSprite());
+	cameraPharaoh.startFollow(p.getSprite(), true, 0.8, 0.8, -200);
+    cameraMummy.startFollow(m.getSprite(), true, 0.8, 0.8, -200);
     //The camera must not leave the boundaries of the map
 
-	camera.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+	cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+    cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
 
     //////////// ARENA //////////////////
     const arena = [];
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
     }
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0.1 });
     }
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0.1 });
     }
     

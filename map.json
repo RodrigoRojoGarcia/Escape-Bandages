@@ -74,6 +74,28 @@
                  "width":632,
                  "x":1120,
                  "y":624
+                }, 
+                {
+                 "height":172,
+                 "id":6,
+                 "name":"TextAnubis",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":588,
+                 "x":1144,
+                 "y":429
+                }, 
+                {
+                 "height":172,
+                 "id":7,
+                 "name":"TextBastet",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":588,
+                 "x":1144,
+                 "y":907
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -81,7 +103,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":6,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.6",
@@ -365,6 +387,19 @@
                     }
                 }
             },
+         "tilewidth":120
+        }, 
+        {
+         "columns":5,
+         "firstgid":10,
+         "image":"Sprites\/textBox.png",
+         "imageheight":180,
+         "imagewidth":600,
+         "margin":0,
+         "name":"textBox",
+         "spacing":0,
+         "tilecount":5,
+         "tileheight":120,
          "tilewidth":120
         }],
  "tilewidth":120,
