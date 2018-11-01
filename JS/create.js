@@ -79,7 +79,8 @@ function create(){
         torches[i].anims.play('torchAnim');
     };
     ///////////////////////////////////////////////////////////////////////////
-    const camera = this.cameras.main;
+    const cameraPharaoh = this.cameras.main.setSize(map.widthInPixels, map.heightInPixels/2).setName('camPharaoh');
+    const cameraMummy = this.cameras.add(0,map.heightInPixels/2,map.widthInPixels,map.heightInPixels/2).setName('camMummy');
 	
 
 ////////////////////////////DEBUG//////////////////////////////////////
@@ -234,10 +235,12 @@ function create(){
     //Create a camera
 	
     //Make it follow the player pharaoh
-	camera.startFollow(p.getSprite());
+	cameraPharaoh.startFollow(p.getSprite());
+    cameraMummy.startFollow(m.getSprite());
     //The camera must not leave the boundaries of the map
 
-	camera.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+	cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+    cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
 
     //////////// ARENA //////////////////
     const arena = [];
