@@ -79,8 +79,8 @@ function create(){
         torches[i].anims.play('torchAnim');
     };
     ///////////////////////////////////////////////////////////////////////////
-    const cameraPharaoh = this.cameras.main.setSize(map.widthInPixels, map.heightInPixels/2).setName('camPharaoh');
-    const cameraMummy = this.cameras.add(0,map.heightInPixels/2,map.widthInPixels,map.heightInPixels/2).setName('camMummy');
+    const cameraPharaoh = this.cameras.main.setSize(1920,1080).setName('camPharaoh');
+    const cameraMummy = this.cameras.add(1960,0,1920,1080).setName('camMummy');
 	
 
 ////////////////////////////DEBUG//////////////////////////////////////
