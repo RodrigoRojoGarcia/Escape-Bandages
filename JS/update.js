@@ -8,13 +8,18 @@ function update(){
     //e.update();
     p.resetColliding();
     m.resetColliding();
-    if(keys.space.isDown){
-    	
-    	m.steady = false;
-    	
-    	this.sayBastet.setVisible(false);
-    }
 
+    if(Phaser.Input.Keyboard.JustDown(keys.space)){
+            if(this.bastetText === 1){
+                this.sayBastet1.setVisible(false);
+                this.sayBastet2.setVisible(true);
+                this.bastetText = 2;
+            }else if(this.bastetText === 2){
+                this.sayBastet2.setVisible(false);
+                m.steady = false;
+            }
+        
+        }
     //e.resetColliding();
 }
 

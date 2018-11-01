@@ -153,9 +153,21 @@ function Mummy(scene, x, y){
 	    	this.mummy.anims.stop();
 	    	this.mummy.setTexture("Mummy", 10);
 	    }
-
+        if(Phaser.Input.Keyboard.JustDown(keys.space)){
+	        if(scene.bastetText === 1){
+	            scene.sayBastet1.setVisible(false);
+	            scene.sayBastet2.setVisible(true);
+	            scene.bastetText = 2;
+	        }else if(scene.bastetText === 2){
+	            scene.sayBastet2.setVisible(false);
+	            this.steady = false;
+	        }
+        
+        }
 	}   
-	  
+	
+
+	
 
 	
 }
