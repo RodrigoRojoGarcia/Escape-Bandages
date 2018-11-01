@@ -89,8 +89,8 @@ function Pharaoh(scene, x, y){
 		//Animation to the right
 		anims.create({
 			key: 'rightP',
-			frames: anims.generateFrameNumbers('Pharaoh', {start: 4, end: 7}),
-			frameRate: 10,
+			frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
+			frameRate: 5,
 			repeat: -1
 		});
 		//Staying still looking to the right
