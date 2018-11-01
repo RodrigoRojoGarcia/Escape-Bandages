@@ -65,6 +65,8 @@ function Button(scene, x, y){
 
 		if(this.isColliding.top){
 			this.active = true;
+		}else{
+			this.active = false;
 		}
 		if(this.active){
 			this.button.setTexture('button', 1);

@@ -17,6 +17,8 @@ function preload(){
 
 	this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 30});
 
+	this.load.image("door","../Escape-Bandages/Sprites/door.png");
+
 
 
 
