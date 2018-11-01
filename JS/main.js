@@ -1,6 +1,4 @@
-
 //Creation of the Phaser enviroment
-
 var config = {
 	type: Phaser.AUTO,
 	width: 1920,
@@ -13,28 +11,18 @@ var config = {
 			debug: false,
 			enableSleep: true
 		}
-
-	},
-	scene:{
-		preload: preload,
-		create: create,
-		update: update
 	},
 	plugins:{
-		scene:[
-		{
+		scene:[{
 			plugin: PhaserMatterCollisionPlugin,
 			key: "matterCollision",
 			mapping: "matterCollision"
-		}
-		]
-	}
+		}]
+	},
+	scene: [offline]
 };
 
 var game = new Phaser.Game(config);
 
-
 //Array of torches, elements that are going to be in the scene
 var torches = [];
-
-

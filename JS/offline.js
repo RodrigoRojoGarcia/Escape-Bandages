@@ -1,10 +1,31 @@
+var offline = new Phaser.Scene('Offline');
 
-function create(){
+offline.preload = function(){
+    //Load the tileSet
+    this.load.image("tile", "../Escape-Bandages/Sprites/tileset.png");
+    //Load the tileMap
+    this.load.tilemapTiledJSON("map", "map.json");
+    //Loas the spriteSheet of the mummy
+    this.load.spritesheet("Mummy","../Escape-Bandages/Sprites/mummySprites2.png", {frameWidth: 100, frameHeight: 150});
+    //Load the spriteSheet of the pharaoh
+    this.load.spritesheet("Pharaoh","../Escape-Bandages/Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
+    //Load the spriteSheet of the torches
+    this.load.spritesheet("torch","../Escape-Bandages/Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+
+    this.load.spritesheet("sand","../Escape-Bandages/Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
+
+    this.load.spritesheet("snake","../Escape-Bandages/Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
+
+    this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 30});
+    this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 120});
+    this.load.image("door","../Escape-Bandages/Sprites/door.png");
+    this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
+    this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
+}
+
+offline.create = function(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
-
-    
-
     const scene = this;
 
     //TileMap creation
@@ -13,7 +34,6 @@ function create(){
 	const tiles = map.addTilesetImage("tileset","tile");
     this.learnedA = false;
     this.learnedB = false;
-
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
@@ -22,10 +42,9 @@ function create(){
     layer.setCollisionByProperty({ collider: true });
     
     this.matter.world.convertTilemapLayer(layer);
-    
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    //Create the 4 sprites for the torches
 
+    //Create the 4 sprites for the torches
     for(var i = 0; i < 4; i++){
         torches.push(this.add.sprite(225 + 480*i,215,'torch'));
     };
@@ -37,9 +56,9 @@ function create(){
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
 
-
     const textAnubis = map.findObject("Objects", obj => obj.name === "TextAnubis");
     const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
+
 
     /////////////BUTTONS GROUP////////////////////
     //create button objects from the buttons layer in tiled
@@ -51,7 +70,6 @@ function create(){
     
     const door1 = this.matter.add.image(15*120 + 60, 6*120 + 60, 'door', null, { isStatic: true });
     const door2 = this.matter.add.image(15*120 + 60, 7*120 + 60, 'door', null, { isStatic: true });
-
 
     updateButtons = function(){
 
@@ -67,24 +85,16 @@ function create(){
             door2.setSensor(false);
         }
     }
-
     
 
-   
-
-    
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
     zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
     zoneBastet = this.matter.add.rectangle(Bastet.x+(Bastet.width/2), Bastet.y+(Bastet.height/2), Bastet.width, Bastet.height, {isSensor: true, isStatic: true});
-    
-
     //button = new Button(this, 0, 0, Boton);
 
-
-   
 
 ////////////////////////////PLAYERS///////////////////////////////////////////
     //Create a Pharaoh object from the function Pharaoh of the pharaoh.js file
@@ -97,28 +107,20 @@ function create(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
-    
-
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
-
     this.anims.create({
         key: 'torchAnim',
         frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
         frameRate: 10,
         repeat: -1
     });
-
-
-
-    
-
-
     //We play the animation of the torches in all 4 of them
     for(var i = 0; i<4;i++){
         torches[i].anims.play('torchAnim');
     };
+
     ///////////////////////////////////////////////////////////////////////////
     const cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
     const cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
@@ -165,7 +167,6 @@ function create(){
     this.sayBastet2.depth = 100;
     this.sayBastet2.setVisible(false);
 
-
     //At the start of a collision between the pharaoh and something calls eventAnubisIn
     this.matterCollision.addOnCollideStart({
         objectA: p.getSprite(),
@@ -192,7 +193,6 @@ function create(){
                 callback: ()=>( p.steady = true),
                 callbackScope: this
             });
-
         }
     }
     //Event called when the pharaoh stops colliding with something
@@ -254,11 +254,11 @@ function create(){
         }
     },this);
 
-
      cameraPharaoh.ignore(this.sayBastet1);
      cameraPharaoh.ignore(this.sayBastet2);
      cameraMummy.ignore(this.sayAnubis1);
      cameraMummy.ignore(this.sayAnubis2);
+
 
 ///////////////////////////////CONTROLES////////////////////////////////////
     //Detect the keys pressed
@@ -275,17 +275,15 @@ function create(){
     });
 
 
-
 ///////////////////////////CAMERA/////////////////////////////////////////
     //Create a camera
-	
     //Make it follow the player pharaoh
 	cameraPharaoh.startFollow(p.getSprite(), true, 0.8, 0.8, -200);
     cameraMummy.startFollow(m.getSprite(), true, 0.8, 0.8, -200);
     //The camera must not leave the boundaries of the map
-
 	cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
     cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+
 
     //////////// ARENA //////////////////
     const arena = [];
@@ -303,5 +301,32 @@ function create(){
     const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
 
     //Botones
-    
+}
+
+offline.update = function(){
+    const keys = this.keys;
+   
+    p.update(keys); //Update of the pharaoh
+    m.update(keys);      //Update of the mummy
+    //e.update();
+    p.resetColliding();
+    m.resetColliding();
+
+    if(Phaser.Input.Keyboard.JustDown(keys.space)){
+            if(this.bastetText === 1){
+                this.sayBastet1.setVisible(false);
+                this.sayBastet2.setVisible(true);
+                this.bastetText = 2;
+            }else if(this.bastetText === 2){
+                this.sayBastet2.setVisible(false);
+                m.steady = false;
+            }
+        
+        }
+    //e.resetColliding();
+    for(var i = 0; i < buttons.length; i++){
+        buttons[i].update();
+        buttons[i].resetColliding();
+    }
+    updateButtons();
 }
