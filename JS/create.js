@@ -79,8 +79,8 @@ function create(){
         torches[i].anims.play('torchAnim');
     };
     ///////////////////////////////////////////////////////////////////////////
-    const cameraPharaoh = this.cameras.main.setSize(1920,1080).setName('camPharaoh');
-    const cameraMummy = this.cameras.add(1960,0,1920,1080).setName('camMummy');
+    const cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
+    const cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
 	
 
 ////////////////////////////DEBUG//////////////////////////////////////
@@ -92,8 +92,7 @@ function create(){
       this.matter.world.debugGraphic.clear();
     });
 
-
-
+   
 ///////////////////////////EVENTOS////////////////////////////////////////
     //Text for Anubis tutorial
     var wordsAnubis1 = ["Hola, soy Anubis, maestro de la Necropolis.",
@@ -240,8 +239,8 @@ function create(){
     //Create a camera
 	
     //Make it follow the player pharaoh
-	cameraPharaoh.startFollow(p.getSprite());
-    cameraMummy.startFollow(m.getSprite());
+	cameraPharaoh.startFollow(p.getSprite(), true, 0.8, 0.8, -200);
+    cameraMummy.startFollow(m.getSprite(), true, 0.8, 0.8, -200);
     //The camera must not leave the boundaries of the map
 
 	cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);

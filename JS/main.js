@@ -3,7 +3,7 @@
 
 var config = {
 	type: Phaser.AUTO,
-	width: 3880,
+	width: 1920,
 	height: 1080,
 	parent: "GAME",
 	physics: {
