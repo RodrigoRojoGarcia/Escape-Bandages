@@ -151,7 +151,6 @@ function Pharaoh(scene, x, y){
 
 	    } 
 
-	
 	    if(this.isColliding.bottom && !this.onAirP){
 	    	if(this.pharaoh.body.force.x !== 0 && !this.steady){
 	    		this.pharaoh.anims.play("rightP", true);

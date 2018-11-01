@@ -2,7 +2,11 @@
 function create(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
+
+    
+
     const scene = this;
+
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -13,10 +17,12 @@ function create(){
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
-
+    
     //We take the collider property from the JSON and make it a Collision for layer in Phaser
     layer.setCollisionByProperty({ collider: true });
+    
     this.matter.world.convertTilemapLayer(layer);
+    
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     //Create the 4 sprites for the torches
 
@@ -30,9 +36,43 @@ function create(){
     //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
+
+
     const textAnubis = map.findObject("Objects", obj => obj.name === "TextAnubis");
     const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
 
+    /////////////BUTTONS GROUP////////////////////
+    //create button objects from the buttons layer in tiled
+    buttons = map.createFromObjects('Buttons', 18, { key: 'button' });
+    //for each object create one button
+    for(var i = 0; i < buttons.length; i++){
+        buttons[i] = new Button(this, buttons[i].x, buttons[i].y);
+    }
+    
+    const door1 = this.matter.add.image(15*120 + 60, 6*120 + 60, 'door', null, { isStatic: true });
+    const door2 = this.matter.add.image(15*120 + 60, 7*120 + 60, 'door', null, { isStatic: true });
+
+
+    updateButtons = function(){
+
+        if(buttons[0].active){
+            door1.setVisible(false);
+            door2.setVisible(false);
+            door1.setSensor(true);
+            door2.setSensor(true);
+        }else{
+            door1.setVisible(true);
+            door2.setVisible(true);
+            door1.setSensor(false);
+            door2.setSensor(false);
+        }
+    }
+
+    
+
+   
+
+    
     /////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
     zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
@@ -41,7 +81,7 @@ function create(){
     zoneBastet = this.matter.add.rectangle(Bastet.x+(Bastet.width/2), Bastet.y+(Bastet.height/2), Bastet.width, Bastet.height, {isSensor: true, isStatic: true});
     
 
-
+    //button = new Button(this, 0, 0, Boton);
 
 
    
@@ -69,6 +109,7 @@ function create(){
         frameRate: 10,
         repeat: -1
     });
+
 
 
     

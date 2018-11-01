@@ -118,7 +118,7 @@ function Enemy(scene, x, y){
 	        this.enemy.applyForce({x:-movingForce, y:0});
 	        this.enemy.flipX = true;
 	    }
-	    else if (pharaoh > this.enemy.x  && distance > 0 && distance > -400 && !(this.isColliding.bottom))
+	    else if (pharaoh > this.enemy.x && distance > 0 && distance > -400 && !(this.isColliding.bottom))
 	    {
 	        this.enemy.applyForce({x:movingForce, y:0});
 	        this.enemy.flipX = false;
@@ -145,7 +145,7 @@ function Enemy(scene, x, y){
 
 
 	    if(this.isColliding.bottom){
-	    	if(this.enemy.body.force.x !== 0){
+	    	if(this.enemy.body.velocity.x !== 0){
 	    		this.enemy.anims.play("rightS", true);
 	    	}else{
 	    		this.enemy.anims.play("stayRightS", true);
