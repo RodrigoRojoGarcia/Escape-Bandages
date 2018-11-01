@@ -1,5 +1,7 @@
 function Mummy(scene, x, y){
-	
+	m = this;
+
+
 	this.scene = scene;
 	//We create the sprite from Phaser
 	this.mummy = scene.matter.add.sprite(x,y,'Mummy');
@@ -18,7 +20,7 @@ function Mummy(scene, x, y){
 		frictionAir: 0.02,
 		friction: 0.1
 	});
-	this.mummy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
+	this.mummy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y).setMass(20);
 
 	
 	this.isColliding = {left: false, right: false, bottom: false};
@@ -58,7 +60,8 @@ function Mummy(scene, x, y){
 		context: this
 	});
 
-	
+	this.shackle = [];
+	this.block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true})
 
 	this.resetColliding = function(){
 		this.isColliding.left = false;
@@ -72,9 +75,11 @@ function Mummy(scene, x, y){
 		return this.mummy;
 	}
 	
+
+
 	this.create = function(){
 		
-		
+
 		//ANIMATIONS
 		const anims = scene.anims;
 		//Animation to the right
@@ -91,6 +96,12 @@ function Mummy(scene, x, y){
 			frameRate: 5,
 			repeat: -1
 		});
+		anims.create({
+			key: 'jumpRightM',
+			frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
+			frameRate: 5,
+			repeat: 0
+		})
 	}
 
 	this.update = function(k){
@@ -98,31 +109,23 @@ function Mummy(scene, x, y){
 		//var mummy = p;
 		var keys = k;
 		var movingForce = 0.1;
-	    if (keys.a.isDown && this.isColliding.bottom && !this.onAirM && !this.steady)
+	    if (keys.a.isDown && !this.steady)
 	    {
 	        this.mummy.applyForce({x:-movingForce, y:0});
 	        this.mummy.flipX = true;
 	    }
-	    else if (keys.d.isDown && this.isColliding.bottom && !this.onAirM && !this.steady)
+	    else if (keys.d.isDown && !this.steady)
 	    {
 	        this.mummy.applyForce({x:movingForce, y:0});
 	        this.mummy.flipX = false;
 
-	    }else if(this.isColliding.bottom && !this.onAirM && !this.steady){
+	    }else if(this.isColliding.bottom && !this.steady){
 	    	this.mummy.setVelocityX(0);    
 	    }
-
-	    if (keys.a.isDown && !(this.isColliding.bottom) && !this.steady)
-	    {
-	        this.mummy.applyForce({x:-movingForce, y:0});
-	        this.mummy.flipX = true;
-	    }
-	    else if (keys.d.isDown && !(this.isColliding.bottom) && !this.steady)
-	    {
-	        this.mummy.applyForce({x:movingForce, y:0});
-	        this.mummy.flipX = false;
-
-	    }
+	    
+	   
+	    
+		
 
 	    if(this.mummy.body.velocity.x > 2){
 	    	this.mummy.setVelocityX(2);
@@ -131,32 +134,23 @@ function Mummy(scene, x, y){
 	    }
 
 
-	    if (keys.w.isDown && this.isColliding.bottom && !this.steady)
-	    {   
-	        this.onAirM = true;
-	        this.mummy.setVelocityY(-12);
-	        
-	        scene.time.addEvent({
-	            delay: 60,
-	            callback: ()=>(this.onAirM=false),
-	            callbackScope: scene
-	        });
-	    } 
-
-
-	    if(this.isColliding.bottom){
+	    if(this.isColliding.bottom && !this.onAirM){
 	    	if(this.mummy.body.force.x !== 0){
 	    		this.mummy.anims.play("rightM", true);
-	    	}else{
+	    	}else if(!this.onAirM){
 	    		this.mummy.anims.play("stayRightM", true);
 	    	}
-	    }else {
-	    	this.mummy.anims.stop();
-	    	this.mummy.setTexture("Mummy", 10);
-	    	
-	    
 	    }
+	    if(Phaser.Input.Keyboard.JustDown(keys.w) && this.isColliding.bottom && !this.steady){
+	    	this.onAirM = true;
+	 		this.mummy.play("jumpRightM", true);
 
+	    	scene.time.addEvent({
+	            delay: 60,
+	            callback: this.jump,
+	            callbackScope: scene
+	        });
+	    }
         if(Phaser.Input.Keyboard.JustDown(keys.space)){
 	        if(scene.bastetText === 1){
 	            scene.sayBastet1.setVisible(false);
@@ -165,16 +159,49 @@ function Mummy(scene, x, y){
 	        }else if(scene.bastetText === 2){
 	            scene.sayBastet2.setVisible(false);
 	            this.steady = false;
+	            scene.bastetText = 3;
+	        }else{
+	        	this.createRope();
 	        }
         
         }
+        
 	}   
 	
 
-	
+	this.createRope = function(){
+		this.block.position.x = this.mummy.x+15;
+		this.block.position.y = this.mummy.y;
+		
+		var prev = this.block
+		for(var i = 0; i<9; i++){
+			rope = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
+			scene.matter.add.joint(prev,rope,10,1);
+			prev = rope;
+			this.shackle[i]= rope;
+		}
+		if(!this.mummy.flipX){
+			rope.applyForce({x:0.01,y:0});
+		}else{
+			rope.applyForce({x:-0.01,y:0});
+		}
+		scene.time.addEvent({
+	        delay: 100,
+	        callback: this.destroyRopes,
+	        callbackScope: scene
+	    });
 
-	
+	};
 
+	this.jump = function(){
+		m.mummy.setVelocityY(-12);
+		m.onAirM=false;
+	};
 
+	this.destroyRopes = function(){
+		for(var i =0;i<9;i++){
+			m.shackle[i].destroy();
+		}
+	};
 
 }

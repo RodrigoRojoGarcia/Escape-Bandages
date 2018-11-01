@@ -26,5 +26,5 @@ function preload(){
 
 
 	this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
-
+	this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
 }
