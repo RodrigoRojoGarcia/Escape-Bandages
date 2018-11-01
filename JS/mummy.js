@@ -133,8 +133,9 @@ function Mummy(scene, x, y){
 
 	    if (keys.w.isDown && this.isColliding.bottom && !this.steady)
 	    {   
-	        this.onAirP = true;
+	        this.onAirM = true;
 	        this.mummy.setVelocityY(-12);
+	        
 	        scene.time.addEvent({
 	            delay: 60,
 	            callback: ()=>(this.onAirM=false),
@@ -149,10 +150,13 @@ function Mummy(scene, x, y){
 	    	}else{
 	    		this.mummy.anims.play("stayRightM", true);
 	    	}
-	    }else{
+	    }else {
 	    	this.mummy.anims.stop();
 	    	this.mummy.setTexture("Mummy", 10);
+	    	
+	    
 	    }
+
         if(Phaser.Input.Keyboard.JustDown(keys.space)){
 	        if(scene.bastetText === 1){
 	            scene.sayBastet1.setVisible(false);
@@ -170,4 +174,7 @@ function Mummy(scene, x, y){
 	
 
 	
+
+
+
 }
