@@ -23,6 +23,7 @@ function Pharaoh(scene, x, y){
 	
 	this.isColliding = {left: false, right: false, bottom: false};
 	this.onAirP = false;
+	this.steady = false;
 
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
@@ -105,12 +106,12 @@ function Pharaoh(scene, x, y){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		var keys = k;
 		var movingForce = 0.1;
-	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP)
+	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:-movingForce, y:0});
 	        this.pharaoh.flipX = true;
 	    }
-	    else if (keys.right.isDown && this.isColliding.bottom && !this.onAirP)
+	    else if (keys.right.isDown && this.isColliding.bottom && !this.onAirP && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:movingForce, y:0});
 	        this.pharaoh.flipX = false;
@@ -119,12 +120,12 @@ function Pharaoh(scene, x, y){
 	    	this.pharaoh.setVelocityX(0);    
 	    }
 
-	    if (keys.left.isDown && !(this.isColliding.bottom))
+	    if (keys.left.isDown && !(this.isColliding.bottom) && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:-movingForce, y:0});
 	        this.pharaoh.flipX = true;
 	    }
-	    else if (keys.right.isDown && !(this.isColliding.bottom))
+	    else if (keys.right.isDown && !(this.isColliding.bottom) && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:movingForce, y:0});
 	        this.pharaoh.flipX = false;
@@ -138,7 +139,7 @@ function Pharaoh(scene, x, y){
 	    }
 
 
-	    if (keys.up.isDown && this.isColliding.bottom)
+	    if (keys.up.isDown && this.isColliding.bottom && !this.steady)
 	    {   
 	        this.onAirP = true;
 	        this.pharaoh.setVelocityY(-12);
@@ -150,9 +151,8 @@ function Pharaoh(scene, x, y){
 
 	    } 
 
-	    
 	    if(this.isColliding.bottom && !this.onAirP){
-	    	if(this.pharaoh.body.force.x !== 0){
+	    	if(this.pharaoh.body.force.x !== 0 && !this.steady){
 	    		this.pharaoh.anims.play("rightP", true);
 	    	}else{
 	    		this.pharaoh.anims.play("stayRightP", true);
