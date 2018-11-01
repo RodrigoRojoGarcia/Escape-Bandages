@@ -1,5 +1,7 @@
 function Mummy(scene, x, y){
 	m = this;
+
+
 	this.scene = scene;
 	//We create the sprite from Phaser
 	this.mummy = scene.matter.add.sprite(x,y,'Mummy');
@@ -58,7 +60,8 @@ function Mummy(scene, x, y){
 		context: this
 	});
 
-	
+	this.shackle = [];
+	this.block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true})
 
 	this.resetColliding = function(){
 		this.isColliding.left = false;
@@ -72,6 +75,8 @@ function Mummy(scene, x, y){
 		return this.mummy;
 	}
 	
+
+
 	this.create = function(){
 		
 
@@ -141,7 +146,7 @@ function Mummy(scene, x, y){
 	 		this.mummy.play("jumpRightM", true);
 
 	    	scene.time.addEvent({
-	            delay: 200,
+	            delay: 60,
 	            callback: this.jump,
 	            callbackScope: scene
 	        });
@@ -165,23 +170,26 @@ function Mummy(scene, x, y){
 	
 
 	this.createRope = function(){
-		block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true});
-		k=1;
-		var prev = block
-		x = block.x;
-		y = block.y;
+		this.block.position.x = this.mummy.x+15;
+		this.block.position.y = this.mummy.y;
+		
+		var prev = this.block
 		for(var i = 0; i<9; i++){
-			rope = scene.matter.add.image(block.position.x, block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
+			rope = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
 			scene.matter.add.joint(prev,rope,10,1);
 			prev = rope;
-		
+			this.shackle[i]= rope;
 		}
 		if(!this.mummy.flipX){
 			rope.applyForce({x:0.01,y:0});
 		}else{
 			rope.applyForce({x:-0.01,y:0});
 		}
-		
+		scene.time.addEvent({
+	        delay: 100,
+	        callback: this.destroyRopes,
+	        callbackScope: scene
+	    });
 
 	};
 
@@ -190,6 +198,10 @@ function Mummy(scene, x, y){
 		m.onAirM=false;
 	};
 
-
+	this.destroyRopes = function(){
+		for(var i =0;i<9;i++){
+			m.shackle[i].destroy();
+		}
+	};
 
 }
