@@ -1,5 +1,5 @@
 function Pharaoh(scene, x, y){
-	
+	p = this;
 	this.scene = scene;
 	//We create the sprite from Phaser
 	this.pharaoh = scene.matter.add.sprite(x,y,'Pharaoh');
@@ -100,38 +100,32 @@ function Pharaoh(scene, x, y){
 			frameRate: 5,
 			repeat: -1
 		});
+		anims.create({
+			key: 'jumpRightP',
+			frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
+			frameRate: 20,
+			repeat: 0
+		})
 	}
 
 	this.update = function(k){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		var keys = k;
 		var movingForce = 0.1;
-	    if (keys.left.isDown && this.isColliding.bottom && !this.onAirP && !this.steady)
+
+		if (keys.left.isDown && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:-movingForce, y:0});
 	        this.pharaoh.flipX = true;
 	    }
-	    else if (keys.right.isDown && this.isColliding.bottom && !this.onAirP && !this.steady)
+	    else if (keys.right.isDown && !this.steady)
 	    {
 	        this.pharaoh.applyForce({x:movingForce, y:0});
 	        this.pharaoh.flipX = false;
 
-	    }else if(this.isColliding.bottom && !this.onAirP){
+	    }else if(this.isColliding.bottom && !this.steady){
 	    	this.pharaoh.setVelocityX(0);    
 	    }
-
-	    if (keys.left.isDown && !(this.isColliding.bottom) && !this.steady)
-	    {
-	        this.pharaoh.applyForce({x:-movingForce, y:0});
-	        this.pharaoh.flipX = true;
-	    }
-	    else if (keys.right.isDown && !(this.isColliding.bottom) && !this.steady)
-	    {
-	        this.pharaoh.applyForce({x:movingForce, y:0});
-	        this.pharaoh.flipX = false;
-
-	    }
-
 	    if(this.pharaoh.body.velocity.x > 2){
 	    	this.pharaoh.setVelocityX(2);
 	    }else if(this.pharaoh.body.velocity.x < -2){
@@ -139,31 +133,28 @@ function Pharaoh(scene, x, y){
 	    }
 
 
-	    if (keys.up.isDown && this.isColliding.bottom && !this.steady)
-	    {   
-	        this.onAirP = true;
-	        this.pharaoh.setVelocityY(-12);
-	        scene.time.addEvent({
-	            delay: 60,
-	            callback: ()=>(this.onAirP=false),
-	            callbackScope: scene
-	        });
-
-	    } 
-
 	    if(this.isColliding.bottom && !this.onAirP){
-	    	if(this.pharaoh.body.force.x !== 0 && !this.steady){
+	    	if(this.pharaoh.body.force.x !== 0){
 	    		this.pharaoh.anims.play("rightP", true);
-	    	}else{
+	    	}else if(!this.onAirP){
 	    		this.pharaoh.anims.play("stayRightP", true);
 	    	}
-	    }else 
-	   	{
-	    	this.pharaoh.anims.stop();
-	    	this.pharaoh.setTexture("Pharaoh", 10);
+	    }
+	    if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
+	    	this.onAirP = true;
+	 		this.pharaoh.play("jumpRightP", true);
+
+	    	scene.time.addEvent({
+	            delay: 40,
+	            callback: this.jump,
+	            callbackScope: scene
+	        });
 	    }
 
 	}   
-	
+	this.jump = function(){
+		p.pharaoh.setVelocityY(-12);
+		p.onAirP=false;
+	};
 	
 }

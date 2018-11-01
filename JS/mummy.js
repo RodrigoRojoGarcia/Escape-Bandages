@@ -20,7 +20,7 @@ function Mummy(scene, x, y){
 		frictionAir: 0.02,
 		friction: 0.1
 	});
-	this.mummy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y).setMass(20);
+	this.mummy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y).setMass(10);
 
 	
 	this.isColliding = {left: false, right: false, bottom: false};
@@ -99,7 +99,7 @@ function Mummy(scene, x, y){
 		anims.create({
 			key: 'jumpRightM',
 			frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
-			frameRate: 5,
+			frameRate: 20,
 			repeat: 0
 		})
 	}
@@ -146,7 +146,7 @@ function Mummy(scene, x, y){
 	 		this.mummy.play("jumpRightM", true);
 
 	    	scene.time.addEvent({
-	            delay: 60,
+	            delay: 40,
 	            callback: this.jump,
 	            callbackScope: scene
 	        });
