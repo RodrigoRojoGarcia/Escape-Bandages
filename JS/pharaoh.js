@@ -103,7 +103,7 @@ function Pharaoh(scene, x, y){
 		anims.create({
 			key: 'jumpRightP',
 			frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
-			frameRate: 20,
+			frameRate: 10,
 			repeat: 0
 		})
 	}

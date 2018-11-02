@@ -27,7 +27,9 @@ offline.create = function(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
     const scene = this;
-
+    cat1 = this.matter.world.nextCategory();
+    cat2 = scene.matter.world.nextCategory();
+    cat3 = scene.matter.world.nextCategory();
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -37,11 +39,13 @@ offline.create = function(){
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
-    
+
     //We take the collider property from the JSON and make it a Collision for layer in Phaser
     layer.setCollisionByProperty({ collider: true });
     
     this.matter.world.convertTilemapLayer(layer);
+
+
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     //Create the 4 sprites for the torches
@@ -113,6 +117,7 @@ offline.create = function(){
     s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
     s.create();
 
+
     this.matterCollision.addOnCollideStart({
         objectA: s.getSprite(),
         callback: enemyHit,
@@ -121,8 +126,8 @@ offline.create = function(){
     function enemyHit({bodyA, bodyB, pair}){
         //If this something is the zoneAnubis
 
-        if(bodyB === arena ){
-            console.log(m.shackle[8])
+        if(bodyB === m.shackle[8] ){
+
             s.getSprite().setTint(0xff00ff);
         }
     }
