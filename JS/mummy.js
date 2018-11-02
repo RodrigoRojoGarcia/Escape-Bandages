@@ -74,8 +74,13 @@ function Mummy(scene, x, y){
 	this.getSprite = function(){
 		return this.mummy;
 	}
-	
+	this.getX = function(){
+		return this.mummy.x;
+	}
 
+	this.getY = function(){
+		return this.mummy.y;
+	}
 
 	this.create = function(){
 		

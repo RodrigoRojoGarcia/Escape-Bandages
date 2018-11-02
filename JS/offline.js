@@ -19,6 +19,8 @@ offline.preload = function(){
     this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 30});
 
     this.load.spritesheet("Anubis","../Escape-Bandages/Sprites/anubisSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
+
+    this.load.spritesheet("Bastet","../Escape-Bandages/Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
     
     this.load.image("door","../Escape-Bandages/Sprites/door.png");
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
@@ -112,8 +114,11 @@ offline.create = function(){
 
 ///////////////////GODS//////////////////////////////////////
     const spawnPointAnubis = map.findObject("Objects", obj => obj.name === "GodAnubis");
-    a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2);
+    const spawnPointBastet = map.findObject("Objects", obj => obj.name === "GodBastet");
+    a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2, "Anubis");
     a.create();
+    b = new God(this, spawnPointBastet.x + 60/2, spawnPointBastet.y + 90/2, "Bastet");
+    b.create();
     console.log(spawnPointAnubis.x);
     console.log(spawnPointAnubis.y);
 
@@ -319,6 +324,7 @@ offline.update = function(){
     m.update(keys);      //Update of the mummy
     //e.update();
     a.update();
+    b.update();
     p.resetColliding();
     m.resetColliding();
 
