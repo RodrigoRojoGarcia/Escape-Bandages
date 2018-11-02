@@ -17,7 +17,9 @@ offline.preload = function(){
     this.load.spritesheet("snake","../Escape-Bandages/Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
 
     this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 30});
-    this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 120});
+
+    this.load.spritesheet("Anubis","../Escape-Bandages/Sprites/anubisSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
+    
     this.load.image("door","../Escape-Bandages/Sprites/door.png");
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
     this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
@@ -52,6 +54,7 @@ offline.create = function(){
     //We extract the spawnPoints from the Objecto of the JSON
     const spawnPointPharaoh = map.findObject("Objects", obj => obj.name === "SpawnPointPharaoh");
     const spawnPointMummy = map.findObject("Objects", obj => obj.name === "SpawnPointMummy");
+
     //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
@@ -107,6 +110,12 @@ offline.create = function(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
+///////////////////GODS//////////////////////////////////////
+    const spawnPointAnubis = map.findObject("Objects", obj => obj.name === "GodAnubis");
+    a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2);
+    a.create();
+    console.log(spawnPointAnubis.x);
+    console.log(spawnPointAnubis.y);
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
@@ -309,8 +318,10 @@ offline.update = function(){
     p.update(keys); //Update of the pharaoh
     m.update(keys);      //Update of the mummy
     //e.update();
+    a.update();
     p.resetColliding();
     m.resetColliding();
+
 
     if(Phaser.Input.Keyboard.JustDown(keys.space)){
             if(this.bastetText === 1){
