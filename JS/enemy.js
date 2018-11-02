@@ -95,34 +95,23 @@ function Enemy(scene, x, y){
 	this.update = function(){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		//var mummy = p;
-		
+		var mummy = m.getX();
 		var pharaoh = p.getX();
-		var distance = this.enemy.x - pharaoh;
+		var distanceP = this.enemy.x - pharaoh;
+		var distanceM = this.enemy.x - mummy;
 		var movingForce = 0.1;
-	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && this.isColliding.bottom && !this.onAirM)
+	    if ((pharaoh < this.enemy.x && distanceP > 0 && distanceP < 400)|| (mummy<this.enemy.x && distanceM > 0 && distanceM < 400))
 	    {
 	        this.enemy.applyForce({x:-movingForce, y:0});
 	        this.enemy.flipX = true;
 	    }
-	    else if (pharaoh > this.enemy.x  && distance < 0 && distance > -400 && this.isColliding.bottom && !this.onAirM)
+	    else if ((pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -400) || (mummy>this.enemy.x && distanceM < 0 && distanceM > -400) )
 	    {
 	        this.enemy.applyForce({x:movingForce, y:0});
 	        this.enemy.flipX = false;
 
 	    }else if(this.isColliding.bottom && !this.onAirM){
 	    	this.enemy.setVelocityX(0);    
-	    }
-
-	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && !(this.isColliding.bottom))
-	    {
-	        this.enemy.applyForce({x:-movingForce, y:0});
-	        this.enemy.flipX = true;
-	    }
-	    else if (pharaoh > this.enemy.x && distance > 0 && distance > -400 && !(this.isColliding.bottom))
-	    {
-	        this.enemy.applyForce({x:movingForce, y:0});
-	        this.enemy.flipX = false;
-
 	    }
 
 	    if(this.enemy.body.velocity.x > 0.5){

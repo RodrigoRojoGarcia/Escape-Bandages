@@ -96,6 +96,18 @@
                  "width":588,
                  "x":1144,
                  "y":907
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"Shek",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1704,
+                 "y":921
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -125,10 +137,10 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":11,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.1.0",
+ "tiledversion":"1.1.6",
  "tileheight":120,
  "tilesets":[
         {

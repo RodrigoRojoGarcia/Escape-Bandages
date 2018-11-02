@@ -52,6 +52,8 @@ offline.create = function(){
     //We extract the spawnPoints from the Objecto of the JSON
     const spawnPointPharaoh = map.findObject("Objects", obj => obj.name === "SpawnPointPharaoh");
     const spawnPointMummy = map.findObject("Objects", obj => obj.name === "SpawnPointMummy");
+
+    const spawnPointShek = map.findObject("Objects", obj => obj.name === "Shek");
     //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
@@ -60,7 +62,7 @@ offline.create = function(){
     const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
 
 
-    /////////////BUTTONS GROUP////////////////////
+/////////////BUTTONS GROUP////////////////////
     //create button objects from the buttons layer in tiled
     buttons = map.createFromObjects('Buttons', 10, { key: 'button' });
     //for each object create one button
@@ -87,7 +89,7 @@ offline.create = function(){
     }
     
 
-    /////////////////////////////////EVENT ANUBIS////////////////////////////////////
+/////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
     zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
@@ -107,6 +109,23 @@ offline.create = function(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
+////////////////////////////ENEMIES/////////////////////////////////////////////
+    s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
+    s.create();
+
+    this.matterCollision.addOnCollideStart({
+        objectA: s.getSprite(),
+        callback: enemyHit,
+        context: s.getSprite()
+    })
+    function enemyHit({bodyA, bodyB, pair}){
+        //If this something is the zoneAnubis
+
+        if(bodyB === arena ){
+            console.log(m.shackle[8])
+            s.getSprite().setTint(0xff00ff);
+        }
+    }
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
@@ -284,8 +303,7 @@ offline.create = function(){
 	cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
     cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
 
-
-    //////////// ARENA //////////////////
+//////////// ARENA //////////////////
     const arena = [];
     for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
@@ -308,7 +326,7 @@ offline.update = function(){
    
     p.update(keys); //Update of the pharaoh
     m.update(keys);      //Update of the mummy
-    //e.update();
+    s.update();
     p.resetColliding();
     m.resetColliding();
 
