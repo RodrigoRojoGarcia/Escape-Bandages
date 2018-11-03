@@ -118,19 +118,6 @@ offline.create = function(){
     s.create();
 
 
-    this.matterCollision.addOnCollideStart({
-        objectA: s.getSprite(),
-        callback: enemyHit,
-        context: s.getSprite()
-    })
-    function enemyHit({bodyA, bodyB, pair}){
-        //If this something is the zoneAnubis
-
-        if(bodyB === m.shackle[8] ){
-
-            s.getSprite().setTint(0xff00ff);
-        }
-    }
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches

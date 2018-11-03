@@ -25,8 +25,8 @@ function Enemy(scene, x, y){
 	this.onAirM = false;
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
-		if(bodyB.isSensor){
-			return;
+		if(bodyB === attackRope){
+			this.enemy.setTint(0xff00ff)
 		}
 		if(bodyA===this.sensors.left){
 			this.isColliding.left = true;
@@ -55,6 +55,19 @@ function Enemy(scene, x, y){
 		callback: this.onSensorCollide,
 		context: this
 	});
+
+	this.onAttack = function({bodyA, bodyB, pair}){
+		if(bodyB === this.enemy){
+			this.enemy.setTint(0xff00ff)
+		}
+	}
+
+
+	scene.matterCollision.addOnCollideActive({
+		objectA: attackRope,
+		callback: this.onAttack,
+		context: this
+	})
 
 	this.resetColliding = function(){
 		this.isColliding.left = false;
@@ -120,17 +133,6 @@ function Enemy(scene, x, y){
 	    	this.enemy.setVelocityX(-0.5);
 	    }
 
-
-	    /*if (keys.w.isDown && this.isColliding.bottom)
-	    {   
-	        this.onAirP = true;
-	        this.mummy.setVelocityY(-11);
-	        scene.time.addEvent({
-	            delay: 60,
-	            callback: ()=>(this.onAirM=false),
-	            callbackScope: scene
-	        });
-	    } */
 
 
 	    if(this.isColliding.bottom){

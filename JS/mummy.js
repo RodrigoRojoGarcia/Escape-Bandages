@@ -12,6 +12,7 @@ function Mummy(scene, x, y){
 		bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
 		left: Bodies.rectangle(-w*0.35,0,2,h*0.5, {isSensor: true}),
 		right: Bodies.rectangle(w*0.35,0,2,h*0.5, {isSensor: true})
+
 	};
 
 	const compoundBody = Body.create({
@@ -60,26 +61,9 @@ function Mummy(scene, x, y){
 		context: this
 	});
 	this.block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true});
-	this.shackle = [];
-	this.shackle[0] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[1] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[2] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[3] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[4] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[5] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[6] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[7] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	this.shackle[8] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-	var prev = this.block;
-	for(var i = 0; i<9; i++){
-			scene.matter.add.joint(prev,this.shackle[i],10,1);
-			prev = this.shackle[i];
-
-			this.shackle[i].setVisible(false);
-	}
-
-	
-
+	attackRope = scene.matter.add.rectangle(this.block.position.x, this.block.position.y, 20, 10, {isStatic: true, isSensor: true})
+	shackle = [];
+	this.onAttack = false;
 	this.resetColliding = function(){
 		this.isColliding.left = false;
 		this.isColliding.bottom = false;
@@ -91,6 +75,8 @@ function Mummy(scene, x, y){
 	this.getSprite = function(){
 		return this.mummy;
 	}
+
+
 	this.getX = function(){
 		return this.mummy.x;
 	}
@@ -128,8 +114,7 @@ function Mummy(scene, x, y){
 	}
 
 	this.update = function(k){
-		//We enter as parameters the sprite from Phaser and the keys to control it
-		//var mummy = p;
+
 		var keys = k;
 		var movingForce = 0.1;
 	    if (keys.a.isDown && !this.steady)
@@ -193,41 +178,34 @@ function Mummy(scene, x, y){
 	
 
 	this.createRope = function(){
+		this.onAttack = true;
 		this.block.position.x = this.mummy.x+15;
 		this.block.position.y = this.mummy.y;
 		
 		var prev = this.block
 		for(var i =0;i<9;i++){
-			this.shackle[i].setPosition(this.block.position.x,this.block.position.y)
-			this.shackle[i].setVisible(true);
+
+			var rope = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
+			scene.matter.add.joint(prev,rope,10,1);
+			prev = rope;
+			shackle[i] = rope;
 		}
+		attackRope.position.x = shackle[8].x
+		attackRope.position.y = shackle[8].y
 		if(!this.mummy.flipX){
-			this.shackle[8].applyForce({x:0.01,y:0});
+			shackle[8].applyForce({x:0.01,y:0});
 		}else{
-			this.shackle[8].applyForce({x:-0.01,y:0});
+			shackle[8].applyForce({x:-0.01,y:0});
 		}
-		scene.matterCollision.addOnCollideStart({
-        	objectA: this.shackle[8],
-        	callback: enemyHit,
-        	context: this.shackle[8]
-    	})
 
 		scene.time.addEvent({
 	        delay: 100,
 	        callback: this.destroyRopes,
 	        callbackScope: scene
 	    });
-
 	};
 
 
-    function enemyHit({bodyA, bodyB, pair}){
-        //If this something is the zoneAnubis
-        console.log(bodyB)
-        if(bodyB === s.getSprite() ){
-            s.getSprite().setTint(0xff00ff);
-        }
-    }
 
 
 
@@ -239,8 +217,10 @@ function Mummy(scene, x, y){
 
 	this.destroyRopes = function(){
 		for(var i =0;i<9;i++){
-			m.shackle[i].setVisible(false);
+			shackle[i].destroy();
+
 		}
+		m.onAttack = false;
 	};
 
 }
