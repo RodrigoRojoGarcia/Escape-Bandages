@@ -33,6 +33,9 @@ function Enemy(scene, x, y){
 			}
 			return;
 		}
+		if(bodyB.isSensor){
+			return;
+		}
 		if(bodyA===this.sensors.left){
 			this.isColliding.left = true;
 			if(pair.separation > 0.5){
