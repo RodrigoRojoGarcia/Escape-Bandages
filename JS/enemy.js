@@ -26,7 +26,7 @@ function Enemy(scene, x, y){
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
 
-		if(bodyB === m.shackle.rope1.body || bodyB === m.shackle.rope2.body || bodyB === m.shackle.rope3.body|| bodyB === m.shackle.rope4.body || bodyB === m.shackle.rope5.body||bodyB === m.shackle.rope5.body||bodyB === m.shackle.rope6.body||bodyB === m.shackle.rope7.body||bodyB === m.shackle.rope8.body){
+		if(bodyB === m.shackle[0].body || bodyB === m.shackle[1].body || bodyB === m.shackle[2].body|| bodyB === m.shackle[3].body || bodyB === m.shackle[4].body||bodyB === m.shackle[5].body||bodyB === m.shackle[6].body||bodyB === m.shackle[7].body||bodyB === m.shackle[8].body){
 			this.enemy.setTint(0xff00ff)
 			return;
 		}
