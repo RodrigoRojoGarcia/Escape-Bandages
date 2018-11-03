@@ -99,15 +99,19 @@
                 }, 
                 {
                  "height":0,
-                 "id":11,
-                 "name":"Shek",
+
+                 "id":12,
+                 "name":"GodAnubis",
+
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":810.060606060606,
-                 "y":896.757575757576
+
+                 "x":1560,
+                 "y":360
+
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -129,7 +133,7 @@
                  "visible":false,
                  "width":120,
                  "x":2040,
-                 "y":960
+                 "y":480
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -137,7 +141,9 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":12,
+
+ "nextobjectid":13,
+
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.6",
