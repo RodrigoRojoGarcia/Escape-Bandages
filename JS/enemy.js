@@ -25,7 +25,9 @@ function Enemy(scene, x, y){
 	this.onAirM = false;
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
-		if(bodyB.isSensor){
+
+		if(bodyB === m.shackle[0].body || bodyB === m.shackle[1].body || bodyB === m.shackle[2].body|| bodyB === m.shackle[3].body || bodyB === m.shackle[4].body||bodyB === m.shackle[5].body||bodyB === m.shackle[6].body||bodyB === m.shackle[7].body||bodyB === m.shackle[8].body){
+			this.enemy.setTint(0xff00ff)
 			return;
 		}
 		if(bodyA===this.sensors.left){
@@ -55,6 +57,8 @@ function Enemy(scene, x, y){
 		callback: this.onSensorCollide,
 		context: this
 	});
+
+
 
 	this.resetColliding = function(){
 		this.isColliding.left = false;
@@ -95,16 +99,17 @@ function Enemy(scene, x, y){
 	this.update = function(){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		//var mummy = p;
-		
+		var mummy = m.getX();
 		var pharaoh = p.getX();
-		var distance = this.enemy.x - pharaoh;
+		var distanceP = this.enemy.x - pharaoh;
+		var distanceM = this.enemy.x - mummy;
 		var movingForce = 0.1;
-	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && this.isColliding.bottom && !this.onAirM)
+	    if ((pharaoh < this.enemy.x && distanceP > 0 && distanceP < 400)|| (mummy<this.enemy.x && distanceM > 0 && distanceM < 400))
 	    {
 	        this.enemy.applyForce({x:-movingForce, y:0});
 	        this.enemy.flipX = true;
 	    }
-	    else if (pharaoh > this.enemy.x  && distance < 0 && distance > -400 && this.isColliding.bottom && !this.onAirM)
+	    else if ((pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -400) || (mummy>this.enemy.x && distanceM < 0 && distanceM > -400) )
 	    {
 	        this.enemy.applyForce({x:movingForce, y:0});
 	        this.enemy.flipX = false;
@@ -113,35 +118,12 @@ function Enemy(scene, x, y){
 	    	this.enemy.setVelocityX(0);    
 	    }
 
-	    if (pharaoh < this.enemy.x && distance > 0 && distance < 400 && !(this.isColliding.bottom))
-	    {
-	        this.enemy.applyForce({x:-movingForce, y:0});
-	        this.enemy.flipX = true;
-	    }
-	    else if (pharaoh > this.enemy.x && distance > 0 && distance > -400 && !(this.isColliding.bottom))
-	    {
-	        this.enemy.applyForce({x:movingForce, y:0});
-	        this.enemy.flipX = false;
-
-	    }
-
 	    if(this.enemy.body.velocity.x > 0.5){
 	    	this.enemy.setVelocityX(0.5);
 	    }else if(this.enemy.body.velocity.x < -0.5){
 	    	this.enemy.setVelocityX(-0.5);
 	    }
 
-
-	    /*if (keys.w.isDown && this.isColliding.bottom)
-	    {   
-	        this.onAirP = true;
-	        this.mummy.setVelocityY(-11);
-	        scene.time.addEvent({
-	            delay: 60,
-	            callback: ()=>(this.onAirM=false),
-	            callbackScope: scene
-	        });
-	    } */
 
 
 	    if(this.isColliding.bottom){

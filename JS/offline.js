@@ -29,7 +29,9 @@ offline.create = function(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
     const scene = this;
-
+    cat1 = this.matter.world.nextCategory();
+    cat2 = scene.matter.world.nextCategory();
+    cat3 = scene.matter.world.nextCategory();
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -39,11 +41,13 @@ offline.create = function(){
     //Extract a layer of tiles from the map (fron the JSON)
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
-    
+
     //We take the collider property from the JSON and make it a Collision for layer in Phaser
     layer.setCollisionByProperty({ collider: true });
     
     this.matter.world.convertTilemapLayer(layer);
+
+
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     //Create the 4 sprites for the torches
@@ -55,6 +59,10 @@ offline.create = function(){
     const spawnPointPharaoh = map.findObject("Objects", obj => obj.name === "SpawnPointPharaoh");
     const spawnPointMummy = map.findObject("Objects", obj => obj.name === "SpawnPointMummy");
 
+
+    const spawnPointShek = map.findObject("Objects", obj => obj.name === "Shek");
+
+
     //We extract the Objects Anubis and Bastet from the JSON so we can make an area of action in the game
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
@@ -63,7 +71,7 @@ offline.create = function(){
     const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
 
 
-    /////////////BUTTONS GROUP////////////////////
+/////////////BUTTONS GROUP////////////////////
     //create button objects from the buttons layer in tiled
     buttons = map.createFromObjects('Buttons', 10, { key: 'button' });
     //for each object create one button
@@ -90,7 +98,7 @@ offline.create = function(){
     }
     
 
-    /////////////////////////////////EVENT ANUBIS////////////////////////////////////
+/////////////////////////////////EVENT ANUBIS////////////////////////////////////
     //Create a zone with the size of the object from the JSON file
     zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
     ///////////////////////////////EVENT BASTET///////////////////////////////////////
@@ -110,12 +118,20 @@ offline.create = function(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
+
+////////////////////////////ENEMIES/////////////////////////////////////////////
+    s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
+    s.create();
+
+
+
 ///////////////////GODS//////////////////////////////////////
     const spawnPointAnubis = map.findObject("Objects", obj => obj.name === "GodAnubis");
     a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2);
     a.create();
     console.log(spawnPointAnubis.x);
     console.log(spawnPointAnubis.y);
+
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
@@ -293,8 +309,7 @@ offline.create = function(){
 	cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
     cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
 
-
-    //////////// ARENA //////////////////
+//////////// ARENA //////////////////
     const arena = [];
     for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
@@ -308,7 +323,7 @@ offline.create = function(){
     
     //CAJAS
     const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
-
+    console.log(caja)
     //Botones
 }
 
@@ -317,8 +332,12 @@ offline.update = function(){
    
     p.update(keys); //Update of the pharaoh
     m.update(keys);      //Update of the mummy
-    //e.update();
+
+    s.update();
+
+
     a.update();
+
     p.resetColliding();
     m.resetColliding();
 
@@ -334,7 +353,7 @@ offline.update = function(){
             }
         
         }
-    //e.resetColliding();
+
     for(var i = 0; i < buttons.length; i++){
         buttons[i].update();
         buttons[i].resetColliding();

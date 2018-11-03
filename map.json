@@ -99,15 +99,19 @@
                 }, 
                 {
                  "height":0,
+
                  "id":12,
                  "name":"GodAnubis",
+
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
+
                  "x":1560,
                  "y":360
+
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -137,10 +141,12 @@
          "x":0,
          "y":0
         }],
+
  "nextobjectid":13,
+
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.1.0",
+ "tiledversion":"1.1.6",
  "tileheight":120,
  "tilesets":[
         {
