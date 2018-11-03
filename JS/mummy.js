@@ -60,10 +60,9 @@ function Mummy(scene, x, y){
 		callback: this.onSensorCollide,
 		context: this
 	});
-	this.block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true});
-	attackRope = scene.matter.add.rectangle(this.block.position.x, this.block.position.y, 20, 10, {isStatic: true, isSensor: true})
-	shackle = [];
-	this.onAttack = false;
+
+
+
 	this.resetColliding = function(){
 		this.isColliding.left = false;
 		this.isColliding.bottom = false;
@@ -84,6 +83,41 @@ function Mummy(scene, x, y){
 	this.getY = function(){
 		return this.mummy.y;
 	}
+
+	this.block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true});
+	
+	this.shackle = {
+		rope1:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope2:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope3:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope4:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope5:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope6:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope7:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope8:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		rope9:scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true})
+	};
+
+	this.shackle.rope1.setVisible(false)
+	this.shackle.rope2.setVisible(false)
+	this.shackle.rope3.setVisible(false)
+	this.shackle.rope4.setVisible(false)
+	this.shackle.rope5.setVisible(false)
+	this.shackle.rope6.setVisible(false)
+	this.shackle.rope7.setVisible(false)
+	this.shackle.rope8.setVisible(false)
+	this.shackle.rope9.setVisible(false)
+
+
+	scene.matter.add.joint(this.block,this.shackle.rope1,10,1);
+	scene.matter.add.joint(this.shackle.rope1,this.shackle.rope2,10,1);
+	scene.matter.add.joint(this.shackle.rope2,this.shackle.rope3,10,1);
+	scene.matter.add.joint(this.shackle.rope3,this.shackle.rope4,10,1);
+	scene.matter.add.joint(this.shackle.rope4,this.shackle.rope5,10,1);
+	scene.matter.add.joint(this.shackle.rope5,this.shackle.rope6,10,1);
+	scene.matter.add.joint(this.shackle.rope6,this.shackle.rope7,10,1);
+	scene.matter.add.joint(this.shackle.rope7,this.shackle.rope8,10,1);
+	scene.matter.add.joint(this.shackle.rope8,this.shackle.rope9,10,1);
 
 
 	this.create = function(){
@@ -179,23 +213,44 @@ function Mummy(scene, x, y){
 
 	this.createRope = function(){
 		this.onAttack = true;
-		this.block.position.x = this.mummy.x+15;
+		this.block.position.x = this.mummy.x;
 		this.block.position.y = this.mummy.y;
 		
-		var prev = this.block
-		for(var i =0;i<9;i++){
+		this.shackle.rope1.x = this.block.position.x
+		this.shackle.rope1.y = this.block.position.y
+		this.shackle.rope2.x = this.block.position.x
+		this.shackle.rope2.y = this.block.position.y
+		this.shackle.rope3.x = this.block.position.x
+		this.shackle.rope3.y = this.block.position.y
+		this.shackle.rope4.x = this.block.position.x
+		this.shackle.rope4.y = this.block.position.y
+		this.shackle.rope5.x = this.block.position.x
+		this.shackle.rope5.y = this.block.position.y
+		this.shackle.rope6.x = this.block.position.x
+		this.shackle.rope6.y = this.block.position.y
+		this.shackle.rope7.x = this.block.position.x
+		this.shackle.rope7.y = this.block.position.y
+		this.shackle.rope8.x = this.block.position.x
+		this.shackle.rope8.y = this.block.position.y
+		this.shackle.rope9.x = this.block.position.x
+		this.shackle.rope9.y = this.block.position.y
 
-			var rope = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-			scene.matter.add.joint(prev,rope,10,1);
-			prev = rope;
-			shackle[i] = rope;
-		}
-		attackRope.position.x = shackle[8].x
-		attackRope.position.y = shackle[8].y
+
+		this.shackle.rope1.setVisible(true)
+		this.shackle.rope2.setVisible(true)
+		this.shackle.rope3.setVisible(true)
+		this.shackle.rope4.setVisible(true)
+		this.shackle.rope5.setVisible(true)
+		this.shackle.rope6.setVisible(true)
+		this.shackle.rope7.setVisible(true)
+		this.shackle.rope8.setVisible(true)
+		this.shackle.rope9.setVisible(true)
+
+
 		if(!this.mummy.flipX){
-			shackle[8].applyForce({x:0.01,y:0});
+			this.shackle.rope9.applyForce({x:0.01,y:0});
 		}else{
-			shackle[8].applyForce({x:-0.01,y:0});
+			this.shackle.rope9.applyForce({x:-0.01,y:0});
 		}
 
 		scene.time.addEvent({
@@ -216,11 +271,16 @@ function Mummy(scene, x, y){
 	};
 
 	this.destroyRopes = function(){
-		for(var i =0;i<9;i++){
-			shackle[i].destroy();
+		m.shackle.rope1.setVisible(false)
+		m.shackle.rope2.setVisible(false)
+		m.shackle.rope3.setVisible(false)
+		m.shackle.rope4.setVisible(false)
+		m.shackle.rope5.setVisible(false)
+		m.shackle.rope6.setVisible(false)
+		m.shackle.rope7.setVisible(false)
+		m.shackle.rope8.setVisible(false)
+		m.shackle.rope9.setVisible(false)
 
-		}
-		m.onAttack = false;
 	};
 
 }

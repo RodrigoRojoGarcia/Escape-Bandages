@@ -309,7 +309,7 @@ offline.create = function(){
     
     //CAJAS
     const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
-
+    console.log(caja)
     //Botones
 }
 

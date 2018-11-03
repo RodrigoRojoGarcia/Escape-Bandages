@@ -25,8 +25,10 @@ function Enemy(scene, x, y){
 	this.onAirM = false;
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
-		if(bodyB === attackRope){
+
+		if(bodyB === m.shackle.rope1.body || bodyB === m.shackle.rope2.body || bodyB === m.shackle.rope3.body|| bodyB === m.shackle.rope4.body || bodyB === m.shackle.rope5.body||bodyB === m.shackle.rope5.body||bodyB === m.shackle.rope6.body||bodyB === m.shackle.rope7.body||bodyB === m.shackle.rope8.body){
 			this.enemy.setTint(0xff00ff)
+			return;
 		}
 		if(bodyA===this.sensors.left){
 			this.isColliding.left = true;
@@ -56,18 +58,7 @@ function Enemy(scene, x, y){
 		context: this
 	});
 
-	this.onAttack = function({bodyA, bodyB, pair}){
-		if(bodyB === this.enemy){
-			this.enemy.setTint(0xff00ff)
-		}
-	}
 
-
-	scene.matterCollision.addOnCollideActive({
-		objectA: attackRope,
-		callback: this.onAttack,
-		context: this
-	})
 
 	this.resetColliding = function(){
 		this.isColliding.left = false;
