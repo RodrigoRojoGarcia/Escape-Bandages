@@ -21,6 +21,8 @@ offline.preload = function(){
     this.load.spritesheet("Anubis","../Escape-Bandages/Sprites/anubisSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
 
     this.load.spritesheet("Bastet","../Escape-Bandages/Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
+
+    this.load.spritesheet("PurpleBox1", "../Escape-Bandages/Sprites/purpleBoxSpriteSheet.png",{frameWidth: 130, frameHeight: 150});
     
     this.load.image("door","../Escape-Bandages/Sprites/door.png");
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
@@ -112,15 +114,18 @@ offline.create = function(){
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
-///////////////////GODS//////////////////////////////////////
+///////////////////GODS////////thi//////////////////////////////
     const spawnPointAnubis = map.findObject("Objects", obj => obj.name === "GodAnubis");
     const spawnPointBastet = map.findObject("Objects", obj => obj.name === "GodBastet");
     a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2, "Anubis");
     a.create();
     b = new God(this, spawnPointBastet.x + 60/2, spawnPointBastet.y + 90/2, "Bastet");
     b.create();
-    console.log(spawnPointAnubis.x);
-    console.log(spawnPointAnubis.y);
+    
+//////////////////PURPLE BOXES///////////////////////////////////////////
+    const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
+    box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 'PurpleBox1', 1, 1, 1, 30);
+    box1.create();
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
@@ -324,6 +329,8 @@ offline.update = function(){
     m.update(keys);      //Update of the mummy
     //e.update();
     a.update();
+    box1.update();
+
     b.update();
     p.resetColliding();
     m.resetColliding();
