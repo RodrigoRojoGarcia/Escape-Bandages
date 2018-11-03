@@ -335,7 +335,10 @@ offline.update = function(){
     p.update(keys); //Update of the pharaoh
     m.update(keys);      //Update of the mummy
 
-    s.update();
+    if(!s.dead){
+        s.update();
+    }
+    
 
 
     a.update();

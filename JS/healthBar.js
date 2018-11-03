@@ -17,4 +17,7 @@ function healthBar (maxHealth, x, y, width, height) {
 	this.damage = function(dmg){
 		this.health -= dmg;
 	}
+	this.destroy = function(){
+		graphics.clear();
+	}
 }
