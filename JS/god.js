@@ -2,20 +2,13 @@ function God(scene, x, y){
 	this.scene = scene;
 	
 
-	this.god = scene.matter.add.sprite(x,y,'Anubis');
+	this.god = scene.add.sprite(x,y,'Anubis');
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 	const {width: w, height: h} = this.god;
-	const mainBody = Bodies.rectangle(0,0,w,h,{chamfer: {radius:10}});
 	
-
-	const compoundBody = Body.create({
-		parts: [mainBody],
-		//isStatic: true,
-		isSensor: true
-	});
+	this.god.depth = 0
 
 
-	this.god.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y).setStatic(true);
 
 	this.getSprite = function(){
 		return this.god;

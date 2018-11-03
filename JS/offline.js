@@ -28,7 +28,7 @@ offline.preload = function(){
 offline.create = function(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
-    const scene = this;
+    scene = this;
     cat1 = this.matter.world.nextCategory();
     cat2 = scene.matter.world.nextCategory();
     cat3 = scene.matter.world.nextCategory();
@@ -49,6 +49,8 @@ offline.create = function(){
 
 
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+    graphics = this.add.graphics({ x: map.widthInPixels, y: map.heightInPixels });
 
     //Create the 4 sprites for the torches
     for(var i = 0; i < 4; i++){
@@ -112,13 +114,13 @@ offline.create = function(){
     p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
     //We save the sprite that create() from Pharaoh returns in pharaoh
     p.create();
-
+    p.getSprite().depth = 1
     //Create a Mummy object from the function Mummy of the mummy.js file
     m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
 
-
+    m.getSprite().depth = 1
 ////////////////////////////ENEMIES/////////////////////////////////////////////
     s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
     s.create();
