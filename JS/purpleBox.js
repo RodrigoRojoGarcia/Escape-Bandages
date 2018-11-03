@@ -1,11 +1,13 @@
 function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frictionArg, massArg){
 	this.scene = scene;
 	
-	this.purpleBox = scene.matter.add.sprite(x,y,sprite);
+	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive();
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 	const {width: w, height: h} = this.purpleBox;
 	const mainBody = Bodies.rectangle(0,0,w,h);
+	this.move = false;
 	
+	var moveable = this.move;
 	const compoundBody = Body.create({
 		parts: [mainBody],
 		frictionStatic: frictionStaticArg,
@@ -38,6 +40,8 @@ function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frict
 	}
 
 	var k;
+	var image = this.purpleBox;
+	
 	this.create = function(){
 		if(sprite === "PurpleBox1"){
 			k = 'box1';
@@ -45,6 +49,16 @@ function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frict
 		if(sprite === "PurpleBox2"){
 			k = 'box2';
 		}
+		
+	    scene.input.setDraggable(image);
+	   
+	    
+	    scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+        	if(move){
+        		gameObject.y = dragY;
+        	}
+        });
+		
 
 		//ANIMATIONS
 		const anims = scene.anims;
@@ -57,19 +71,20 @@ function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frict
 		});
 	}
 
+	
+
 	this.update = function(){
-		
-		
 		var playerX = p.getX();
 		var distance = this.purpleBox.x - playerX;
 		
-	    if (playerX < this.purpleBox.x && distance > 0 && distance < 600 || playerX > this.purpleBox.x  && distance < 0 && distance > -600)
+	    if (playerX < this.purpleBox.x && distance > 0 && distance < 500 || playerX > this.purpleBox.x  && distance < 0 && distance > -500)
 	    {
 	    	//izquierda o derecha
 	    	this.purpleBox.anims.play(k, true);
-	        
+	    	this.move = true;
 	    }else{
 	    	this.purpleBox.setTexture(sprite, 0);
+	    	this.move = false;
 	    }
 	}  
 }

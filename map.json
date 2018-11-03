@@ -132,6 +132,18 @@
                  "width":0,
                  "x":3000,
                  "y":240
+                }, 
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"PurpleBox2",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":360,
+                 "y":240
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -161,7 +173,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":17,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.0",

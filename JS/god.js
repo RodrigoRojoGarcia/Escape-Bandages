@@ -2,20 +2,8 @@ function God(scene, x, y, sprite){
 	this.scene = scene;
 	
 
-	this.god = scene.matter.add.sprite(x,y,sprite);
-	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
-	const {width: w, height: h} = this.god;
-	const mainBody = Bodies.rectangle(0,0,w,h,{chamfer: {radius:10}});
+	this.god = scene.add.sprite(x,y,sprite);
 	
-
-	const compoundBody = Body.create({
-		parts: [mainBody],
-		//isStatic: true,
-		isSensor: true
-	});
-
-
-	this.god.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y).setStatic(true);
 
 	this.getSprite = function(){
 		return this.god;

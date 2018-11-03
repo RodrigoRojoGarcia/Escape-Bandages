@@ -33,7 +33,7 @@ offline.create = function(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
     const scene = this;
-
+    inputEnabled = true;
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -108,11 +108,13 @@ offline.create = function(){
     p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
     //We save the sprite that create() from Pharaoh returns in pharaoh
     p.create();
+    p.getSprite().depth = 1;
 
     //Create a Mummy object from the function Mummy of the mummy.js file
     m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
+    m.getSprite().depth = 1;
 
 ///////////////////GODS////////thi//////////////////////////////
     const spawnPointAnubis = map.findObject("Objects", obj => obj.name === "GodAnubis");
@@ -124,8 +126,15 @@ offline.create = function(){
     
 //////////////////PURPLE BOXES///////////////////////////////////////////
     const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
-    box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 'PurpleBox1', 1, 1, 1, 30);
+    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 'PurpleBox1', 0, 0.1, 1, 100);
     box1.create();
+
+    //const spawnBox2 = map.findObject("Objects", obj => obj.name === "PurpleBox2");
+    //const box2 = new PurpleBox(this, spawnBox2.x, spawnBox2.y, 'PurpleBox1', 0, 0.1, 1, 100);
+    //box2.create();
+
+    box = [box1];
+
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
     //Animation of the torches
@@ -324,14 +333,14 @@ offline.create = function(){
 
 offline.update = function(){
     const keys = this.keys;
-   
+    move = false;
+
     p.update(keys); //Update of the pharaoh
     m.update(keys);      //Update of the mummy
     //e.update();
     a.update();
-    box1.update();
-
     b.update();
+    
     p.resetColliding();
     m.resetColliding();
 
@@ -348,6 +357,11 @@ offline.update = function(){
         
         }
     //e.resetColliding();
+    for(var i = 0; i < box.length; i++){
+        move = move || box[i].move;
+        box[i].update();
+    }
+
     for(var i = 0; i < buttons.length; i++){
         buttons[i].update();
         buttons[i].resetColliding();
