@@ -70,7 +70,7 @@ function Mummy(scene, x, y){
 					this.getHit();
 					m.mummy.setTint(0xff3333)
 					scene.time.addEvent({
-			            delay: 100,
+			            delay: 300,
 			            callback: this.invulnerable,
 			            callbackScope: scene
 			        });

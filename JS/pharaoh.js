@@ -48,7 +48,7 @@ function Pharaoh(scene, x, y){
 					this.getHit();
 					p.pharaoh.setTint(0xff3333)
 					scene.time.addEvent({
-			            delay: 100,
+			            delay: 300,
 			            callback: this.invulnerable,
 			            callbackScope: scene
 			        });
