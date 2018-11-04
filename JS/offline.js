@@ -32,9 +32,11 @@ offline.preload = function(){
 offline.create = function(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
-    const scene = this;
+
+    scene = this;
 
     inputEnabled = true;
+
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -52,6 +54,8 @@ offline.create = function(){
 
 
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+    graphics = this.add.graphics({ x: map.widthInPixels, y: map.heightInPixels });
 
     //Create the 4 sprites for the torches
     for(var i = 0; i < 4; i++){
@@ -115,6 +119,9 @@ offline.create = function(){
     p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
     //We save the sprite that create() from Pharaoh returns in pharaoh
     p.create();
+
+    p.getSprite().depth = 1
+
     p.getSprite().depth = 1;
 
     //Create a Mummy object from the function Mummy of the mummy.js file
@@ -123,7 +130,7 @@ offline.create = function(){
     m.create();
     m.getSprite().depth = 1;
 
-
+    m.getSprite().depth = 1
 ////////////////////////////ENEMIES/////////////////////////////////////////////
     s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
     s.create();
@@ -353,7 +360,10 @@ offline.update = function(){
     p.update(keys); //Update of the pharaoh
     m.update(keys);      //Update of the mummy
 
-    s.update();
+    if(!s.dead){
+        s.update();
+    }
+    
 
 
     a.update();

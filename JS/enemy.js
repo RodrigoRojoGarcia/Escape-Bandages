@@ -1,6 +1,6 @@
 function Enemy(scene, x, y){
 	this.scene = scene;
-	
+
 
 	this.enemy = scene.matter.add.sprite(x,y,'snake');
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
@@ -20,14 +20,20 @@ function Enemy(scene, x, y){
 	});
 	this.enemy.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
 
-	
+	this.healthBar = new healthBar(100, this.enemy.x-(this.enemy.width/2), this.enemy.y-(this.enemy.height/2)+5,this.enemy.width,5);
 	this.isColliding = {left: false, right: false, bottom: false};
 	this.onAirM = false;
-
+	this.dead = false;
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
 
 		if(bodyB === m.shackle[0].body || bodyB === m.shackle[1].body || bodyB === m.shackle[2].body|| bodyB === m.shackle[3].body || bodyB === m.shackle[4].body||bodyB === m.shackle[5].body||bodyB === m.shackle[6].body||bodyB === m.shackle[7].body||bodyB === m.shackle[8].body){
-			this.enemy.setTint(0xff00ff)
+			if(m.onHit){
+				this.healthBar.damage(50)
+				m.onHit = false;
+			}
+			return;
+		}
+		if(bodyB.isSensor){
 			return;
 		}
 		if(bodyA===this.sensors.left){
@@ -57,6 +63,8 @@ function Enemy(scene, x, y){
 		callback: this.onSensorCollide,
 		context: this
 	});
+
+	
 
 
 
@@ -99,6 +107,7 @@ function Enemy(scene, x, y){
 	this.update = function(){
 		//We enter as parameters the sprite from Phaser and the keys to control it
 		//var mummy = p;
+
 		var mummy = m.getX();
 		var pharaoh = p.getX();
 		var distanceP = this.enemy.x - pharaoh;
@@ -136,7 +145,13 @@ function Enemy(scene, x, y){
 	    	this.enemy.anims.stop();
 	    	this.enemy.setTexture("snake", 0);
 	    }
-
+	    
+	    this.healthBar.update(this.enemy.x, this.enemy.y, this.enemy.width, this.enemy.height)
+	    if(this.healthBar.health <=0){
+	    	this.dead = true;
+	    	this.enemy.destroy();
+	    	this.healthBar.destroy();
+	    }
 	}  
 
 

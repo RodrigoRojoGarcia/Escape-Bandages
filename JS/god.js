@@ -2,8 +2,15 @@ function God(scene, x, y, sprite){
 	this.scene = scene;
 	
 
+
 	this.god = scene.add.sprite(x,y,sprite);
+
 	
+	this.god.depth = 0
+
+
+
+
 
 	this.getSprite = function(){
 		return this.god;

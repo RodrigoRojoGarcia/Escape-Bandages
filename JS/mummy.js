@@ -27,6 +27,7 @@ function Mummy(scene, x, y){
 	this.isColliding = {left: false, right: false, bottom: false};
 	this.onAirM = false;
 	this.steady = false;
+	this.onHit = false;
 
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
 		if(bodyB.isSensor){
@@ -197,7 +198,7 @@ function Mummy(scene, x, y){
 	
 
 	this.createRope = function(){
-		this.onAttack = true;
+		this.onHit = true;
 		this.block.position.x = this.mummy.x;
 		this.block.position.y = this.mummy.y;
 		
@@ -226,6 +227,9 @@ function Mummy(scene, x, y){
 
 
 
+
+
+
 	this.jump = function(){
 		m.mummy.setVelocityY(-12);
 		m.onAirM=false;
@@ -235,7 +239,7 @@ function Mummy(scene, x, y){
 		for(var i=0;i<9;i++){
 			m.shackle[i].setVisible(false)
 		}
-
+		m.onHit = false;
 	};
 
 }
