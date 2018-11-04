@@ -12,6 +12,7 @@ function Mummy(scene, x, y){
 		bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
 		left: Bodies.rectangle(-w*0.35,0,2,h*0.5, {isSensor: true}),
 		right: Bodies.rectangle(w*0.35,0,2,h*0.5, {isSensor: true})
+
 	};
 
 	const compoundBody = Body.create({
@@ -60,8 +61,7 @@ function Mummy(scene, x, y){
 		context: this
 	});
 
-	this.shackle = [];
-	this.block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true})
+
 
 	this.resetColliding = function(){
 		this.isColliding.left = false;
@@ -74,6 +74,8 @@ function Mummy(scene, x, y){
 	this.getSprite = function(){
 		return this.mummy;
 	}
+
+
 	this.getX = function(){
 		return this.mummy.x;
 	}
@@ -81,6 +83,27 @@ function Mummy(scene, x, y){
 	this.getY = function(){
 		return this.mummy.y;
 	}
+
+	this.block = scene.matter.add.rectangle(this.mummy.x+15, this.mummy.y, this.mummy.width/2, this.mummy.height/2,{isStatic: true, isSensor:true});
+	
+	this.shackle = [
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),
+		scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true})
+	];
+	var prev = this.block;
+	for(var i =0;i<9;i++){
+		this.shackle[i].setVisible(false)
+		scene.matter.add.joint(prev,this.shackle[i],10,1)
+		prev = this.shackle[i]
+	}
+	
 
 	this.create = function(){
 		
@@ -110,8 +133,7 @@ function Mummy(scene, x, y){
 	}
 
 	this.update = function(k){
-		//We enter as parameters the sprite from Phaser and the keys to control it
-		//var mummy = p;
+
 		var keys = k;
 		var movingForce = 0.1;
 	    if (keys.a.isDown && !this.steady)
@@ -175,28 +197,34 @@ function Mummy(scene, x, y){
 	
 
 	this.createRope = function(){
-		this.block.position.x = this.mummy.x+15;
+		this.onAttack = true;
+		this.block.position.x = this.mummy.x;
 		this.block.position.y = this.mummy.y;
 		
-		var prev = this.block
-		for(var i = 0; i<9; i++){
-			rope = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope', null, {mass: 0.01, isSensor: true});
-			scene.matter.add.joint(prev,rope,10,1);
-			prev = rope;
-			this.shackle[i]= rope;
+		for(var i=0;i<9;i++){
+			this.shackle[i].x = this.block.position.x
+			this.shackle[i].y = this.block.position.y
+			this.shackle[i].setVisible(true)
 		}
+
+
 		if(!this.mummy.flipX){
-			rope.applyForce({x:0.01,y:0});
+			this.shackle[8].applyForce({x:0.01,y:0});
 		}else{
-			rope.applyForce({x:-0.01,y:0});
+			this.shackle[8].applyForce({x:-0.01,y:0});
 		}
+
 		scene.time.addEvent({
 	        delay: 100,
 	        callback: this.destroyRopes,
 	        callbackScope: scene
 	    });
-
 	};
+
+
+
+
+
 
 	this.jump = function(){
 		m.mummy.setVelocityY(-12);
@@ -204,9 +232,10 @@ function Mummy(scene, x, y){
 	};
 
 	this.destroyRopes = function(){
-		for(var i =0;i<9;i++){
-			m.shackle[i].destroy();
+		for(var i=0;i<9;i++){
+			m.shackle[i].setVisible(false)
 		}
+
 	};
 
 }

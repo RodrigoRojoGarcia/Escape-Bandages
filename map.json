@@ -118,6 +118,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
+
                  "x":1560,
                  "y":840
                 }, 
@@ -144,6 +145,8 @@
                  "width":0,
                  "x":360,
                  "y":240
+
+
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -173,10 +176,13 @@
          "x":0,
          "y":0
         }],
+
  "nextobjectid":18,
+
+
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.1.0",
+ "tiledversion":"1.1.6",
  "tileheight":120,
  "tilesets":[
         {
