@@ -1,13 +1,14 @@
 function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAirArg, frictionArg, massArg){
 	this.scene = scene;
-	
-	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive();
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
+
+///////////////////////////////////CREACIÓN///////////////////////////////////
+	//Sprite
+	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive();
 	const {width: w, height: h} = this.purpleBox;
+	//Cuerpo de la caja
 	const mainBody = Bodies.rectangle(0,0,w,h);
-	this.move = false;
-	
-	var moveable = this.move;
+	//Composición de las partes del cuerpo
 	const compoundBody = Body.create({
 		parts: [mainBody],
 		frictionStatic: frictionStaticArg,
@@ -15,26 +16,32 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 		friction: frictionArg,
 		mass: massArg
 	});
-
-
+	//Cambiamos el mainBody del sprite
 	this.purpleBox.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
 
+///////////////////////////////////ATRIBUTOS///////////////////////////////////
+	//Se puede mover?
+	this.move = false;
+
+///////////////////////////////////MÉTODOS///////////////////////////////////
+	//Devuelve el sprite	
 	this.getSprite = function(){
 		return this.purpleBox;
 	}
 
+	//Devuelve la X del sprite
 	this.getX = function(){
 		return this.purpleBox.x;
 	}
-
+	//Devuelve la Y del sprite
 	this.getY = function(){
 		return this.purpleBox.y;
 	}
-
+	//Devuelve la anchura del sprite
 	this.getWidth = function(){
 		return w;
 	}
-
+	//Devuelve la altura del sprite
 	this.getHeight = function(){
 		return h;
 	}
