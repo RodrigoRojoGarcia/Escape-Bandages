@@ -118,7 +118,6 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-
                  "x":1560,
                  "y":840
                 }, 
@@ -145,8 +144,18 @@
                  "width":0,
                  "x":360,
                  "y":240
-
-
+                }, 
+                {
+                 "height":0,
+                 "id":18,
+                 "name":"Shek",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2293.93939393939,
+                 "y":918.181818181818
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -176,10 +185,7 @@
          "x":0,
          "y":0
         }],
-
- "nextobjectid":18,
-
-
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.6",
