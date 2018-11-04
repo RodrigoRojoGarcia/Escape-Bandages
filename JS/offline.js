@@ -19,6 +19,10 @@ offline.preload = function(){
     this.load.spritesheet("button","../Escape-Bandages/Sprites/button.png",{frameWidth: 120, frameHeight: 30});
 
     this.load.spritesheet("Anubis","../Escape-Bandages/Sprites/anubisSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
+
+    this.load.spritesheet("Bastet","../Escape-Bandages/Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
+
+    this.load.spritesheet("PurpleBox1", "../Escape-Bandages/Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
     
     this.load.image("door","../Escape-Bandages/Sprites/door.png");
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
@@ -28,10 +32,11 @@ offline.preload = function(){
 offline.create = function(){
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
+
     scene = this;
-    cat1 = this.matter.world.nextCategory();
-    cat2 = scene.matter.world.nextCategory();
-    cat3 = scene.matter.world.nextCategory();
+
+    inputEnabled = true;
+
     //TileMap creation
 	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //We add the tileSet to the tileMap
@@ -81,8 +86,8 @@ offline.create = function(){
         buttons[i] = new Button(this, buttons[i].x, buttons[i].y);
     }
     
-    const door1 = this.matter.add.image(15*120 + 60, 6*120 + 60, 'door', null, { isStatic: true });
-    const door2 = this.matter.add.image(15*120 + 60, 7*120 + 60, 'door', null, { isStatic: true });
+    const door1 = this.matter.add.image(15*120 + 60, 2*120 + 60, 'door', null, { isStatic: true });
+    const door2 = this.matter.add.image(15*120 + 60, 3*120 + 60, 'door', null, { isStatic: true });
 
     updateButtons = function(){
 
@@ -114,11 +119,16 @@ offline.create = function(){
     p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
     //We save the sprite that create() from Pharaoh returns in pharaoh
     p.create();
+
     p.getSprite().depth = 1
+
+    p.getSprite().depth = 1;
+
     //Create a Mummy object from the function Mummy of the mummy.js file
     m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //We save the sprite that create() from Mummy returns in mummy
     m.create();
+    m.getSprite().depth = 1;
 
     m.getSprite().depth = 1
 ////////////////////////////ENEMIES/////////////////////////////////////////////
@@ -128,11 +138,25 @@ offline.create = function(){
 
 
 ///////////////////GODS//////////////////////////////////////
+
     const spawnPointAnubis = map.findObject("Objects", obj => obj.name === "GodAnubis");
-    a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2);
+    const spawnPointBastet = map.findObject("Objects", obj => obj.name === "GodBastet");
+    a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2, "Anubis");
     a.create();
-    console.log(spawnPointAnubis.x);
-    console.log(spawnPointAnubis.y);
+    b = new God(this, spawnPointBastet.x + 60/2, spawnPointBastet.y + 90/2, "Bastet");
+    b.create();
+    
+//////////////////PURPLE BOXES///////////////////////////////////////////
+    const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
+    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 705, 860, 'PurpleBox1', 0, 0.01, 0.1, 100);
+    box1.create();
+
+    //const spawnBox2 = map.findObject("Objects", obj => obj.name === "PurpleBox2");
+    //const box2 = new PurpleBox(this, spawnBox2.x, spawnBox2.y, 'PurpleBox1', 0, 0.1, 1, 100);
+    //box2.create();
+
+    box = [box1];
+
 
 
 //////////////////ANIMATIONS////////////////////////////////////////////////
@@ -331,7 +355,8 @@ offline.create = function(){
 
 offline.update = function(){
     const keys = this.keys;
-   
+    move = false;
+
     p.update(keys); //Update of the pharaoh
     m.update(keys);      //Update of the mummy
 
@@ -342,6 +367,8 @@ offline.update = function(){
 
 
     a.update();
+    b.update();
+    
 
     p.resetColliding();
     m.resetColliding();
@@ -358,6 +385,12 @@ offline.update = function(){
             }
         
         }
+
+    //e.resetColliding();
+    for(var i = 0; i < box.length; i++){
+        move = move || box[i].move;
+        box[i].update();
+    }
 
     for(var i = 0; i < buttons.length; i++){
         buttons[i].update();
