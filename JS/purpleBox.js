@@ -51,13 +51,25 @@ function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frict
 		}
 		
 	    scene.input.setDraggable(image);
-	   
+	   	scene.input.on('dragstart', function (pointer, gameObject) {
+
+        	image.setStatic(true);
+
+    	});
 	    
 	    scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
         	if(move){
+        		
         		gameObject.y = dragY;
         	}
         });
+
+	    scene.input.on('dragend', function (pointer, gameObject) {
+
+        	image.setStatic(false);
+
+    	});
+
 		
 
 		//ANIMATIONS
@@ -74,6 +86,7 @@ function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frict
 	
 
 	this.update = function(){
+		this.purpleBox.setPosition(x, this.purpleBox.y);
 		var playerX = p.getX();
 		var distance = this.purpleBox.x - playerX;
 		
