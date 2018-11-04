@@ -42,6 +42,9 @@ offline.create = function(){
     const engine = Engine.create();
     scene = this;
     inputEnabled = true;
+    //Creamos dos cámaras en las dos mitades de la pantalla con 40 píxeles de por medio
+    cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
+    cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
 
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //Creación del TILEMAP
@@ -124,12 +127,9 @@ offline.create = function(){
     b.create();
 
 ///////////////////////////////////CAMERA///////////////////////////////////
-    //Creamos dos cámaras en las dos mitades de la pantalla con 40 píxeles de por medio
-    const cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
-    const cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
     //Hacemos que cada una siga a un personaje
-    cameraPharaoh.startFollow(p.getSprite(), true, 0.8, 0.8, -200);
-    cameraMummy.startFollow(m.getSprite(), true, 0.8, 0.8, -200);
+    cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
+    cameraMummy.startFollow(m.getSprite(), false, 1, 1, -200);
     //Ponemos a las dos los límites del mapa
     cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
     cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
@@ -400,16 +400,25 @@ offline.update = function(){
     p.update(keys);
     //Actualizamos momia
     m.update(keys);
-    //Resetamos el estado de colisiones de los sensores del faraón
-    p.resetColliding();
-    //Resetamos el estado de colisiones de los sensores de la momia
-    m.resetColliding();
+    if(!p.dead){
+        //Resetamos el estado de colisiones de los sensores del faraón
+        p.resetColliding();
+    }
+    if(!m.dead){
+        //Resetamos el estado de colisiones de los sensores de la momia
+        m.resetColliding();
+    }else{
+        cameraMummy.stopFollow();
+    }
+    
     //Si Shek no está muerto
     if(!s.dead){
         //Actualizamos Shek
         s.update();
         //Reseteamos el estado de colisiones de los sensores del Shek
         s.resetColliding();
+    }else{
+        cameraPharaoh.stopFollow()
     }
     //Actualizamos Anubis
     a.update();

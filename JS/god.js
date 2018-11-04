@@ -47,11 +47,16 @@ function God(scene, x, y, sprite){
 		var player;
 		//Si somos Anubis, miramos al faraón
 		if(sprite === "Anubis"){
-			player = p.getX();
+			if(!p.dead){
+				player = p.getX();	
+			}
+			
 		}
 		//Si somos Bastet, miramos a la momia
 		if(sprite === "Bastet"){
-			player = m.getX();
+			if(!m.dead){
+				player = m.getX();
+			}
 		}
 		//Distancia al jugador
 		var distance = this.god.x - player;

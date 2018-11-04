@@ -31,7 +31,12 @@ function Pharaoh(scene, x, y){
 	this.onAirP = false;
 	//Si no se puede mover
 	this.steady = false;
-
+	//Se está moviendo?
+	this.moving = false;
+	//Vida
+	this.health = new heart("Pharaoh");
+	//Muerto?
+	this.dead = false;
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
@@ -142,7 +147,8 @@ function Pharaoh(scene, x, y){
 		var keys = k;
 		//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
 		var movingForce = 0.1;
-
+		//Actualizamos la vida
+		this.health.update();
 ///////////////////////////////////CONTROLES///////////////////////////////////
 		//Cuando flecha a la izquierda está presionado y el sprite no está quieto
 		if (keys.left.isDown && !this.steady)
@@ -159,12 +165,15 @@ function Pharaoh(scene, x, y){
 	        this.pharaoh.applyForce({x:movingForce, y:0});
 	        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
 	        this.pharaoh.flipX = false;
+
 	    }
 		//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
 	    else if(this.isColliding.bottom && !this.steady){
 	    	//Ponemos la velocidad a 0
-	    	this.pharaoh.setVelocityX(0);    
+	    	this.pharaoh.setVelocityX(0);
+   
 	    }
+
 	    //Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
 		if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
 			//Estamos en el aire
@@ -191,6 +200,14 @@ function Pharaoh(scene, x, y){
 	    	this.pharaoh.setVelocityX(-2);
 	    }
 
+	    //Si la velocidad en X es diferente a 0
+	    if(this.pharaoh.body.velocity.x != 0){
+	    	//Nos movemos
+	    	this.moving = true
+	    }else{
+	    	//Si no, pues no nos movemos
+	    	this.moving = false
+	    }
 ///////////////////////////////////ANIMACIONES///////////////////////////////////
 	    //Nota: la animación de salto se encuentra incluida en el apartado de controles
 

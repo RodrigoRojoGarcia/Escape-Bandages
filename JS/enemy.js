@@ -47,10 +47,12 @@ function Enemy(scene, x, y){
 			//No hacemos más
 			return;
 		}
+
 		//Si con lo que colisiona es un sensor: no hacemos nada (a menos que sea un trozo de cuerda, que no llega a esta parte)
 		if(bodyB.isSensor){
 			return;
 		}
+
 		//Si colisiona el sensor de la izquierda
 		if(bodyA===this.sensors.left){
 			//Estamos colisionando por la izquierda
@@ -128,35 +130,57 @@ function Enemy(scene, x, y){
 
 ///////////////////////////////////UPDATE///////////////////////////////////
 	this.update = function(){
-		var mummy = m.getX();
-		var pharaoh = p.getX();
-		//Distancia hasta los personajes
-		var distanceP = this.enemy.x - pharaoh;
-		var distanceM = this.enemy.x - mummy;
 		//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
 		var movingForce = 0.1;
-		//Si alguno de los personajes está a la izquierda del enemigo y sus distancia es menor a 400
-	    if ((pharaoh < this.enemy.x && distanceP > 0 && distanceP < 400)|| (mummy<this.enemy.x && distanceM > 0 && distanceM < 400))
-	    {
-	    	//Nos movemos a la izquierda
-	        this.enemy.applyForce({x:-movingForce, y:0});
-	        //Miramos a la izquierda
-	        this.enemy.flipX = true;
-	    }
-	    //Si alguno de los personajes está a la derecha del enemigo y sus distancia es menor a 400
-	    else if ((pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -400) || (mummy>this.enemy.x && distanceM < 0 && distanceM > -400) )
-	    {
-	    	//Nos movemos a la derecha
-	        this.enemy.applyForce({x:movingForce, y:0});
-	        //Miramos a la derecha
-	        this.enemy.flipX = false;
+		if(!m.dead){
+			var mummy = m.getX();
+			var distanceM = this.enemy.x - mummy;
+			if (mummy<this.enemy.x && distanceM > 0 && distanceM < 400)
+	    	{
+	    		//Nos movemos a la izquierda
+	        	this.enemy.applyForce({x:-movingForce, y:0});
+	        	//Miramos a la izquierda
+	        	this.enemy.flipX = true;
+	    	}
+	    	//Si alguno de los personajes está a la derecha del enemigo y sus distancia es menor a 400
+	    	else if (mummy>this.enemy.x && distanceM < 0 && distanceM > -400)
+	    	{
+	    		//Nos movemos a la derecha
+	        	this.enemy.applyForce({x:movingForce, y:0});
+	        	//Miramos a la derecha
+	        	this.enemy.flipX = false;
+	    	}
+	    		//Si no está cerca de ninguno y está tocando el suelo
+	    		else if(this.isColliding.bottom){
+	    		//Velocidad a 0
+	    		this.enemy.setVelocityX(0);    
+	    	}
+		}
+		if(!p.dead){
+			var pharaoh = p.getX();
+			var distanceP = this.enemy.x - pharaoh;
+			if (pharaoh < this.enemy.x && distanceP > 0 && distanceP < 400)
+		    {
+		    	//Nos movemos a la izquierda
+		        this.enemy.applyForce({x:-movingForce, y:0});
+		        //Miramos a la izquierda
+		        this.enemy.flipX = true;
+		    }
+		    //Si alguno de los personajes está a la derecha del enemigo y sus distancia es menor a 400
+		    else if (pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -400)
+		    {
+		    	//Nos movemos a la derecha
+		        this.enemy.applyForce({x:movingForce, y:0});
+		        //Miramos a la derecha
+		        this.enemy.flipX = false;
 
-	    }
-	    //Si no está cerca de ninguno y está tocando el suelo
-	    else if(this.isColliding.bottom){
-	    	//Velocidad a 0
-	    	this.enemy.setVelocityX(0);    
-	    }
+		    }
+		    //Si no está cerca de ninguno y está tocando el suelo
+		    else if(this.isColliding.bottom){
+		    	//Velocidad a 0
+		    	this.enemy.setVelocityX(0);    
+		    }
+		}
 
 	    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |0.5|
 	    //Si la velocidad del sprite supera 0.5
