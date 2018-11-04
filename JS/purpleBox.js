@@ -49,7 +49,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	var k;
 	//variable auxiliar para usar el sprite dentro del evento del ratón
 	var image = this.purpleBox;
-	
+///////////////////////////////////CREATE///////////////////////////////////
 	this.create = function(){
 		//seleccion de nombre de animación
 		if(sprite === "PurpleBox1"){
@@ -79,8 +79,8 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
         	image.setStatic(false);
 
     	});
-////////////ANIMACIONES/////////////
-//Animación de la caja cuando se vuelve morada
+///////////////////////////////////ANIMATIONS///////////////////////////////////
+		//Animación de la caja cuando se vuelve morada
 		const anims = scene.anims;
 		//Animation to the right
 		anims.create({
