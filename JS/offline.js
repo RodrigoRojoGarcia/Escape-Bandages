@@ -372,6 +372,7 @@ offline.create = function(){
 ///////////////////////////////////OBJETOS///////////////////////////////////
     //ARENA
     //Añadimos a un array de arena 30 granos de arena (10 por for)
+    arena = []
     for(var i = 0; i < 10; i++){
         arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
     }

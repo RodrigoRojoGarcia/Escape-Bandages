@@ -40,7 +40,7 @@ function Mummy(scene, x, y){
 	this.shackle = []
 	for(var i=0;i<9;i++){
 		//Se generan todos los trozos de cuerda en el lugar del bloque
-		this.shackle[i] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true}),;
+		this.shackle[i] = scene.matter.add.image(this.block.position.x, this.block.position.y, 'rope',null,{mass:0.01,isSensor: true});
 	}
 	//Creación de una variable auxiliar "previa" que es el eslabón al que unir el siguiente trozo de cuerda (empezamos con el bloque)
 	var prev = this.block;
