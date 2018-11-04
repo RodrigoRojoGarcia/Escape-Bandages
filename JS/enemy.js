@@ -132,9 +132,13 @@ function Enemy(scene, x, y){
 	this.update = function(){
 		//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
 		var movingForce = 0.1;
+		//Si la momia no es´ta muerta
 		if(!m.dead){
+			//Cogemos su valor de la X
 			var mummy = m.getX();
+			//Para la distancia
 			var distanceM = this.enemy.x - mummy;
+			//Si está a la derecha del enemigo y su distancia es menor a 400
 			if (mummy<this.enemy.x && distanceM > 0 && distanceM < 400)
 	    	{
 	    		//Nos movemos a la izquierda
@@ -142,7 +146,7 @@ function Enemy(scene, x, y){
 	        	//Miramos a la izquierda
 	        	this.enemy.flipX = true;
 	    	}
-	    	//Si alguno de los personajes está a la derecha del enemigo y sus distancia es menor a 400
+	    	//Si está a la derecha del enemigo y sus distancia es menor a 400
 	    	else if (mummy>this.enemy.x && distanceM < 0 && distanceM > -400)
 	    	{
 	    		//Nos movemos a la derecha
@@ -156,9 +160,13 @@ function Enemy(scene, x, y){
 	    		this.enemy.setVelocityX(0);    
 	    	}
 		}
+		//Si el faraón no está muerto
 		if(!p.dead){
+			//Cogemos su valor de la X
 			var pharaoh = p.getX();
+			//Para la distancia
 			var distanceP = this.enemy.x - pharaoh;
+			//Si está a la derecha del enemigo y su distancia es menor a 400
 			if (pharaoh < this.enemy.x && distanceP > 0 && distanceP < 400)
 		    {
 		    	//Nos movemos a la izquierda
@@ -166,7 +174,7 @@ function Enemy(scene, x, y){
 		        //Miramos a la izquierda
 		        this.enemy.flipX = true;
 		    }
-		    //Si alguno de los personajes está a la derecha del enemigo y sus distancia es menor a 400
+		    //Si está a la derecha del enemigo y sus distancia es menor a 400
 		    else if (pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -400)
 		    {
 		    	//Nos movemos a la derecha

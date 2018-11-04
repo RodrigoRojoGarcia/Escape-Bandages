@@ -64,11 +64,17 @@ function Mummy(scene, x, y){
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
+		//Si el shek no está muerto
 		if(!s.dead){
+			//Si el bodyB es el shek
 			if(bodyB === s.getSprite().body.parts[1]){
+				//Si no estamos en periodo de invulnerabilidad
 				if(!this.gettingHit){
+					//Nos golpean
 					this.getHit();
+					//Nos ponemos rojos
 					m.mummy.setTint(0xff3333)
+					//Al cabo de un tiempo llamamos a invulnerable
 					scene.time.addEvent({
 			            delay: 300,
 			            callback: this.invulnerable,
@@ -192,12 +198,12 @@ function Mummy(scene, x, y){
 		m.onHit = false;
 	}
 
-
+	//Nos pone en periodo de estar golpeados y llama a getHit de la vida
 	this.getHit = function(){
 		this.gettingHit = true;
 		this.health.getHit();
 	}
-
+	//Cambia el sprite al original y termina el periodo de invulnerabilidad
 	this.invulnerable = function(){
 		m.mummy.setTint(0xffffff)
 		m.gettingHit = false;
@@ -238,7 +244,7 @@ function Mummy(scene, x, y){
 		//Actualizamos la vida
 		this.health.update()
 
-
+		//Si no estoy muerto
 		if(!this.dead){
 
 ///////////////////////////////////CONTROLES///////////////////////////////////
@@ -341,6 +347,7 @@ function Mummy(scene, x, y){
 		    	}
 		    }
 	    }else{
+	    	//Si estoy muerto me destruyo
 	    	this.mummy.destroy();
 	    }  
 	}//FIN UPDATE

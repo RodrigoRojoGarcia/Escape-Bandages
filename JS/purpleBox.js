@@ -95,8 +95,9 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 ///////////////////////////////////UPDATE///////////////////////////////////
 	this.update = function(){
 		//Solo se mueve en su eje Y
-		//Variable que coge la coordenada x del faraón
+		//Si el faraón no está muerto
 		if(!p.dead){
+		//Variable que coge la coordenada x del faraón
 		var playerX = p.getX();			
 		}
 

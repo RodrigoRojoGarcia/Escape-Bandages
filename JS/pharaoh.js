@@ -42,11 +42,17 @@ function Pharaoh(scene, x, y){
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
+		//Si el shek no está muerto
 		if(!s2.dead){
+			//Si el bodyB es el shek
 			if(bodyB === s2.getSprite().body.parts[1]){
+				//Si no estamos en periodo de invulnerabilidad
 				if(!this.gettingHit){
+					//Nos golpean
 					this.getHit();
+					//Nos ponemos rojos
 					p.pharaoh.setTint(0xff3333)
+					//Al cabo de un tiempo llamamos a invulnerable
 					scene.time.addEvent({
 			            delay: 300,
 			            callback: this.invulnerable,
@@ -134,10 +140,13 @@ function Pharaoh(scene, x, y){
 		//Dejamos de estar en el aire
 		p.onAirP=false;
 	};
+
+	//Nos pone en periodo de estar golpeados y llama a getHit de la vida
 	this.getHit = function(){
 		this.gettingHit = true;
 		this.health.getHit();
 	}
+	//Cambia el sprite al original y termina el periodo de invulnerabilidad
 	this.invulnerable = function(){
 		p.pharaoh.setTint(0xffffff)
 		p.gettingHit = false;
@@ -180,6 +189,7 @@ function Pharaoh(scene, x, y){
 		//Actualizamos la vida
 		this.health.update();
 
+		//Si no estoy muerto
 		if(!this.dead){
 ///////////////////////////////////CONTROLES///////////////////////////////////
 			//Cuando flecha a la izquierda está presionado y el sprite no está quieto
@@ -257,6 +267,7 @@ function Pharaoh(scene, x, y){
 		    	}
 		    }
 		}else{
+			//Si estoy muerto me destruyo
 			this.pharaoh.destroy()
 		}
 

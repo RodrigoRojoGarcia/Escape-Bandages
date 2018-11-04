@@ -5,6 +5,7 @@ function healthBar (maxHealth, x, y, width, height) {
 	this.maxHealth = maxHealth;
 	//Vida restante
 	this.health = maxHealth;
+	//Los gráficos dónde dibujamos las barras de vida
 	this.graphics = scene.add.graphics({ x: map.widthInPixels, y: map.heightInPixels });
 ///////////////////////////////////MÉTODOS///////////////////////////////////
 	//Quitamos vida
