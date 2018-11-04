@@ -64,20 +64,22 @@ function Mummy(scene, x, y){
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
-		
-		if(bodyB === s.getSprite().body.parts[1]){
-			if(!this.gettingHit){
-				this.getHit();
-				scene.time.addEvent({
-		            delay: 100,
-		            callback: this.invulnerable,
-		            callbackScope: scene
-		        });
-			}else{
-				return;
-			}
-			
+		if(!s.dead){
+			if(bodyB === s.getSprite().body.parts[1]){
+				if(!this.gettingHit){
+					this.getHit();
+					m.mummy.setTint(0xff3333)
+					scene.time.addEvent({
+			            delay: 100,
+			            callback: this.invulnerable,
+			            callbackScope: scene
+			        });
+				}else{
+					return;
+				}
+			}	
 		}
+
 
 		//Si con lo que colisiona es un sensor: no hacemos nada
 		if(bodyB.isSensor){
@@ -197,9 +199,7 @@ function Mummy(scene, x, y){
 	}
 
 	this.invulnerable = function(){
-		m.mummy.setTint(0xff3333)
 		m.mummy.setTint(0xffffff)
-		console.log("UwU")
 		m.gettingHit = false;
 	}
 
@@ -239,7 +239,7 @@ function Mummy(scene, x, y){
 		this.health.update()
 
 
-		if(this.health.life != 0){
+		if(!this.dead){
 
 ///////////////////////////////////CONTROLES///////////////////////////////////
 			//Cuando a está presionado y el sprite no está quieto		

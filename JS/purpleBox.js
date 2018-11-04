@@ -96,7 +96,10 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	this.update = function(){
 		//Solo se mueve en su eje Y
 		//Variable que coge la coordenada x del faraón
-		var playerX = p.getX();
+		if(!p.dead){
+		var playerX = p.getX();			
+		}
+
 		//Se calcula la distancia entre la caja y el faraón
 		var distance = this.purpleBox.x - playerX;
 		

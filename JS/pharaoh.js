@@ -35,11 +35,31 @@ function Pharaoh(scene, x, y){
 	this.moving = false;
 	//Vida
 	this.health = new heart("Pharaoh");
+	//Me están dando?
+	this.gettingHit = false;
 	//Muerto?
 	this.dead = false;
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
+		if(!s2.dead){
+			if(bodyB === s2.getSprite().body.parts[1]){
+				if(!this.gettingHit){
+					this.getHit();
+					p.pharaoh.setTint(0xff3333)
+					scene.time.addEvent({
+			            delay: 100,
+			            callback: this.invulnerable,
+			            callbackScope: scene
+			        });
+				}else{
+					return;
+				}
+			}
+		}
+		
+
+
 		//Si con lo que colisiona es un sensor: no hacemos nada
 		if(bodyB.isSensor){
 			return;
@@ -114,6 +134,16 @@ function Pharaoh(scene, x, y){
 		//Dejamos de estar en el aire
 		p.onAirP=false;
 	};
+	this.getHit = function(){
+		this.gettingHit = true;
+		this.health.getHit();
+	}
+	this.invulnerable = function(){
+		p.pharaoh.setTint(0xffffff)
+		p.gettingHit = false;
+
+	}
+
 
 ///////////////////////////////////CREATE///////////////////////////////////	
 	this.create = function(){
@@ -149,81 +179,87 @@ function Pharaoh(scene, x, y){
 		var movingForce = 0.1;
 		//Actualizamos la vida
 		this.health.update();
+
+		if(!this.dead){
 ///////////////////////////////////CONTROLES///////////////////////////////////
-		//Cuando flecha a la izquierda está presionado y el sprite no está quieto
-		if (keys.left.isDown && !this.steady)
-	    {
-	    	//Le aplicamos la fuerza hacia la izquierda
-	        this.pharaoh.applyForce({x:-movingForce, y:0});
-	        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
-	        this.pharaoh.flipX = true;
-	    }
-	    //Cuando flecha a la derecha está presionado y el sprite no está quieto
-	    else if (keys.right.isDown && !this.steady)
-	    {
-	    	//Le aplicamos la fuerza hacia la derecha
-	        this.pharaoh.applyForce({x:movingForce, y:0});
-	        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
-	        this.pharaoh.flipX = false;
+			//Cuando flecha a la izquierda está presionado y el sprite no está quieto
+			if (keys.left.isDown && !this.steady)
+		    {
+		    	//Le aplicamos la fuerza hacia la izquierda
+		        this.pharaoh.applyForce({x:-movingForce, y:0});
+		        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
+		        this.pharaoh.flipX = true;
+		    }
+		    //Cuando flecha a la derecha está presionado y el sprite no está quieto
+		    else if (keys.right.isDown && !this.steady)
+		    {
+		    	//Le aplicamos la fuerza hacia la derecha
+		        this.pharaoh.applyForce({x:movingForce, y:0});
+		        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
+		        this.pharaoh.flipX = false;
 
-	    }
-		//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
-	    else if(this.isColliding.bottom && !this.steady){
-	    	//Ponemos la velocidad a 0
-	    	this.pharaoh.setVelocityX(0);
-   
-	    }
+		    }
+			//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
+		    else if(this.isColliding.bottom && !this.steady){
+		    	//Ponemos la velocidad a 0
+		    	this.pharaoh.setVelocityX(0);
+	   
+		    }
 
-	    //Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
-		if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
-			//Estamos en el aire
-	    	this.onAirP = true;
-	    	//Reproducimos la animación de salto
-	 		this.pharaoh.play("jumpRightP", true);
-	 		//Después de un tiempo llamamos a JUMP
-	    	scene.time.addEvent({
-	            delay: 40,
-	            callback: this.jump,
-	            callbackScope: scene
-	        });
-	    }
+		    //Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
+			if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
+				//Estamos en el aire
+		    	this.onAirP = true;
+		    	//Reproducimos la animación de salto
+		 		this.pharaoh.play("jumpRightP", true);
+		 		//Después de un tiempo llamamos a JUMP
+		    	scene.time.addEvent({
+		            delay: 40,
+		            callback: this.jump,
+		            callbackScope: scene
+		        });
+		    }
 
-	    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
-	    //Si la velocidad del sprite supera 2
-	    if(this.pharaoh.body.velocity.x > 2){
-	    	//Dejamos la velocidad en 2
-	    	this.pharaoh.setVelocityX(2);
-	    }
-	    //Si la velocidad del sprite baja de -2
-	    else if(this.pharaoh.body.velocity.x < -2){
-	    	//Dejamos la velocidad en -2
-	    	this.pharaoh.setVelocityX(-2);
-	    }
+		    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
+		    //Si la velocidad del sprite supera 2
+		    if(this.pharaoh.body.velocity.x > 2){
+		    	//Dejamos la velocidad en 2
+		    	this.pharaoh.setVelocityX(2);
+		    }
+		    //Si la velocidad del sprite baja de -2
+		    else if(this.pharaoh.body.velocity.x < -2){
+		    	//Dejamos la velocidad en -2
+		    	this.pharaoh.setVelocityX(-2);
+		    }
 
-	    //Si la velocidad en X es diferente a 0
-	    if(this.pharaoh.body.velocity.x != 0){
-	    	//Nos movemos
-	    	this.moving = true
-	    }else{
-	    	//Si no, pues no nos movemos
-	    	this.moving = false
-	    }
+		    //Si la velocidad en X es diferente a 0
+		    if(this.pharaoh.body.velocity.x != 0){
+		    	//Nos movemos
+		    	this.moving = true
+		    }else{
+		    	//Si no, pues no nos movemos
+		    	this.moving = false
+		    }
 ///////////////////////////////////ANIMACIONES///////////////////////////////////
-	    //Nota: la animación de salto se encuentra incluida en el apartado de controles
+		    //Nota: la animación de salto se encuentra incluida en el apartado de controles
 
-		//Si estamos en el suelo y no estamos en el aire
-	    if(this.isColliding.bottom && !this.onAirP){
-	    	//Si la fuerza en X del sprite no es 0
-	    	if(this.pharaoh.body.force.x !== 0){
-	    		//Reproducimos la animación de andar
-	    		this.pharaoh.anims.play("rightP", true);
-	    	}
-			//Si no estamos en el aire
-	    	else if(!this.onAirP){
-	    		//Reproducimos la animación de estar quieto
-	    		this.pharaoh.anims.play("stayRightP", true);
-	    	}
-	    }
+			//Si estamos en el suelo y no estamos en el aire
+		    if(this.isColliding.bottom && !this.onAirP){
+		    	//Si la fuerza en X del sprite no es 0
+		    	if(this.pharaoh.body.force.x !== 0){
+		    		//Reproducimos la animación de andar
+		    		this.pharaoh.anims.play("rightP", true);
+		    	}
+				//Si no estamos en el aire
+		    	else if(!this.onAirP){
+		    		//Reproducimos la animación de estar quieto
+		    		this.pharaoh.anims.play("stayRightP", true);
+		    	}
+		    }
+		}else{
+			this.pharaoh.destroy()
+		}
+
 	}//FIN UPDATE   
 
 	

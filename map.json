@@ -156,6 +156,18 @@
                  "width":0,
                  "x":2293.93939393939,
                  "y":918.181818181818
+                }, 
+                {
+                 "height":0,
+                 "id":20,
+                 "name":"Shek2",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2766.66666666667,
+                 "y":409.090909090909
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -185,7 +197,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":20,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.6",
