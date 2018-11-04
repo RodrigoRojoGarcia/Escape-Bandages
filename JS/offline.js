@@ -75,8 +75,8 @@ offline.create = function(){
         buttons[i] = new Button(this, buttons[i].x, buttons[i].y);
     }
     
-    const door1 = this.matter.add.image(15*120 + 60, 6*120 + 60, 'door', null, { isStatic: true });
-    const door2 = this.matter.add.image(15*120 + 60, 7*120 + 60, 'door', null, { isStatic: true });
+    const door1 = this.matter.add.image(15*120 + 60, 2*120 + 60, 'door', null, { isStatic: true });
+    const door2 = this.matter.add.image(15*120 + 60, 3*120 + 60, 'door', null, { isStatic: true });
 
     updateButtons = function(){
 
@@ -126,7 +126,7 @@ offline.create = function(){
     
 //////////////////PURPLE BOXES///////////////////////////////////////////
     const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
-    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 200, 405, 'PurpleBox1', 0, 0.01, 0.1, 100);
+    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 680, 885, 'PurpleBox1', 0, 0.01, 0.1, 100);
     box1.create();
 
     //const spawnBox2 = map.findObject("Objects", obj => obj.name === "PurpleBox2");

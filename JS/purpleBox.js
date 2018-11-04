@@ -102,7 +102,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 		}
 
 
-	    if (playerX < this.purpleBox.x && distance > 0 && distance < 500 || playerX > this.purpleBox.x  && distance < 0 && distance > -500)
+	    if (playerX < this.purpleBox.x && distance > 0 && distance < 300 || playerX > this.purpleBox.x  && distance < 0 && distance > -300)
 	    {
 	    	//izquierda o derecha
 	    	this.purpleBox.anims.play(k, true);
