@@ -22,7 +22,7 @@ offline.preload = function(){
 
     this.load.spritesheet("Bastet","../Escape-Bandages/Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
 
-    this.load.spritesheet("PurpleBox1", "../Escape-Bandages/Sprites/purpleBoxSpriteSheet.png",{frameWidth: 130, frameHeight: 150});
+    this.load.spritesheet("PurpleBox1", "../Escape-Bandages/Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
     
     this.load.image("door","../Escape-Bandages/Sprites/door.png");
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
@@ -126,7 +126,7 @@ offline.create = function(){
     
 //////////////////PURPLE BOXES///////////////////////////////////////////
     const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
-    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 680, 885, 'PurpleBox1', 0, 0.01, 0.1, 100);
+    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 705, 860, 'PurpleBox1', 0, 0.01, 0.1, 100);
     box1.create();
 
     //const spawnBox2 = map.findObject("Objects", obj => obj.name === "PurpleBox2");
