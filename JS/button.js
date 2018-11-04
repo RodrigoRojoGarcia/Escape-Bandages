@@ -6,7 +6,7 @@ function Button(scene, x, y){
 	const {width: w, height: h} = this.button;
 	const mainBody = Bodies.rectangle(0,0,w,h*0.5);
 	this.sensors = {
-		top: Bodies.rectangle(w*0.25,-h*0.5,w*0.75,h*0.5, {isSensor: true})
+		top: Bodies.rectangle(0,-h*0.5,80,h*0.5, {isSensor: true})
 	};
 
 	const compoundBody = Body.create({
