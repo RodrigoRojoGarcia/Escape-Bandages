@@ -1,7 +1,7 @@
 var config = {
 	type: Phaser.AUTO,
-	width: window.innerWidth -15,
-	height: window.innerHeight -15,
+	width: 1920,
+	height: 1080,
 	parent: "GAME",
 	physics: {
 		default: 'matter',
@@ -20,12 +20,10 @@ var config = {
 		}
 		]
 	},
-	scene:[menu, offline]
+	scene:[menu, offline, submenu]
 };
 
 var game = new Phaser.Game(config);
 
-var torches = [];
-
-var w = window.innerWidth -15;
-var h = window.innerHeight -15;
+var torchesM = [];
+var torchesM2 = [];
