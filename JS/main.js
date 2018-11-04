@@ -1,9 +1,10 @@
-//Creation of the Phaser enviroment
+
+
 var config = {
 	type: Phaser.AUTO,
-	width: 1920,
-	height: 1080,
-	parent: "GAME",
+	width: 1922,
+	height: 1082,
+	parent: 'GAME',
 	physics: {
 		default: 'matter',
 		matter:{

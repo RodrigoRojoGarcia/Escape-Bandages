@@ -52,10 +52,41 @@ function Mummy(scene, x, y){
 		//Hacemos que el elemento previo sea el elemento de cuerda en el que estamos
 		prev = this.shackle[i]
 	}
+	//Vida
+	this.health = new heart("Mummy");
+	//Se mueve?
+	this.moving = false;
+	//Me acaban de dar?
+	this.gettingHit = false;
+	//Muerto?
+	this.dead = false;
 
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
+		//Si el shek no está muerto
+		if(!s.dead){
+			//Si el bodyB es el shek
+			if(bodyB === s.getSprite().body.parts[1]){
+				//Si no estamos en periodo de invulnerabilidad
+				if(!this.gettingHit){
+					//Nos golpean
+					this.getHit();
+					//Nos ponemos rojos
+					m.mummy.setTint(0xff3333)
+					//Al cabo de un tiempo llamamos a invulnerable
+					scene.time.addEvent({
+			            delay: 300,
+			            callback: this.invulnerable,
+			            callbackScope: scene
+			        });
+				}else{
+					return;
+				}
+			}	
+		}
+
+
 		//Si con lo que colisiona es un sensor: no hacemos nada
 		if(bodyB.isSensor){
 			return;
@@ -167,6 +198,17 @@ function Mummy(scene, x, y){
 		m.onHit = false;
 	}
 
+	//Nos pone en periodo de estar golpeados y llama a getHit de la vida
+	this.getHit = function(){
+		this.gettingHit = true;
+		this.health.getHit();
+	}
+	//Cambia el sprite al original y termina el periodo de invulnerabilidad
+	this.invulnerable = function(){
+		m.mummy.setTint(0xffffff)
+		m.gettingHit = false;
+	}
+
 ///////////////////////////////////CREATE///////////////////////////////////
 	this.create = function(){
 ///////////////////////////////////ANIMATIONS///////////////////////////////////
@@ -199,95 +241,114 @@ function Mummy(scene, x, y){
 		var keys = k;
 		//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
 		var movingForce = 0.1;
+		//Actualizamos la vida
+		this.health.update()
+
+		//Si no estoy muerto
+		if(!this.dead){
 
 ///////////////////////////////////CONTROLES///////////////////////////////////
-		//Cuando a está presionado y el sprite no está quieto		
-	    if (keys.a.isDown && !this.steady)
-	    {	
-	    	//Le aplicamos la fuerza hacia la izquierda
-	        this.mummy.applyForce({x:-movingForce, y:0});
-	        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
-	        this.mummy.flipX = true;
-	    }
-	    //Cuando d está presionado y el sprite no está quieto	
-	    else if (keys.d.isDown && !this.steady)
-	    {
-	    	//Le aplicamos la fuerza hacia la derecha
-	        this.mummy.applyForce({x:movingForce, y:0});
-	        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
-	        this.mummy.flipX = false;
-	    }
-	    //Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
-	    else if(this.isColliding.bottom && !this.steady){
-	    	//Ponemos la velocidad a 0
-	    	this.mummy.setVelocityX(0);    
-	    }
-	    //Si acabas de presionar w y estás tocando el suelo y no está quieto
-	    if(Phaser.Input.Keyboard.JustDown(keys.w) && this.isColliding.bottom && !this.steady){
-	    	//Estamos en el aire
-	    	this.onAirM = true;
-	    	//Reproducimos la animación de salto
-	 		this.mummy.play("jumpRightM", true);
-	 		//Después de un tiempo llamamos a JUMP
-	    	scene.time.addEvent({
-	            delay: 40,
-	            callback: this.jump,
-	            callbackScope: scene
-	        });
-	    }
-		//Si se acaba de pulsar el espacio
-        if(Phaser.Input.Keyboard.JustDown(keys.space)){
-        	//Si tiene que mostrar el segundo texto
-	        if(scene.bastetText === 1){
-	        	//Hace invisible el primer texto y visible el segundo
-	            scene.sayBastet1.setVisible(false);
-	            scene.sayBastet2.setVisible(true);
-	            //El siguiente texto que se muestra es el tercero
-	            scene.bastetText = 2;
-	        }
-			//Si se tiene que mostrar el "tercero", que no existe
-	        else if(scene.bastetText === 2){
-	        	//Escondemos el texto 2
-	            scene.sayBastet2.setVisible(false);
-	            //Permitimos movimiento al sprite
-	            this.steady = false;
-	            //El siguiente que se tiene que mostrar es el cuarto (esto es para que no vuelva a entrar en esta rama del if)
-	            scene.bastetText = 3;
-	        }else{
-	        	//Creamos la cuerda
-	        	this.createRope();
-	        }
-        
-        }
+			//Cuando a está presionado y el sprite no está quieto		
+		    if (keys.a.isDown && !this.steady)
+		    {	
+		    	//Le aplicamos la fuerza hacia la izquierda
+		        this.mummy.applyForce({x:-movingForce, y:0});
+		        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
+		        this.mummy.flipX = true;
 
-	    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
-	    //Si la velocidad del sprite supera 2
-	    if(this.mummy.body.velocity.x > 2){
-	    	//Dejamos la velocidad en 2
-	    	this.mummy.setVelocityX(2);
-	    }
-	    //Si la velocidad del sprite baja de -2
-	    else if(this.mummy.body.velocity.x < -2){
-	    	//Dejamos la velocidad en -2
-	    	this.mummy.setVelocityX(-2);
-	    }
+		    }
+		    //Cuando d está presionado y el sprite no está quieto	
+		    else if (keys.d.isDown && !this.steady)
+		    {
+		    	//Le aplicamos la fuerza hacia la derecha
+		        this.mummy.applyForce({x:movingForce, y:0});
+		        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
+		        this.mummy.flipX = false;
 
+		    }
+		    //Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
+		    else if(this.isColliding.bottom && !this.steady){
+		    	//Ponemos la velocidad a 0
+		    	this.mummy.setVelocityX(0);
+
+		    }
+		    //Si acabas de presionar w y estás tocando el suelo y no está quieto
+		    if(Phaser.Input.Keyboard.JustDown(keys.w) && this.isColliding.bottom && !this.steady){
+		    	//Estamos en el aire
+		    	this.onAirM = true;
+		    	//Reproducimos la animación de salto
+		 		this.mummy.play("jumpRightM", true);
+		 		//Después de un tiempo llamamos a JUMP
+		    	scene.time.addEvent({
+		            delay: 40,
+		            callback: this.jump,
+		            callbackScope: scene
+		        });
+		    }
+			//Si se acaba de pulsar el espacio
+	        if(Phaser.Input.Keyboard.JustDown(keys.space)){
+	        	//Si tiene que mostrar el segundo texto
+		        if(scene.bastetText === 1){
+		        	//Hace invisible el primer texto y visible el segundo
+		            scene.sayBastet1.setVisible(false);
+		            scene.sayBastet2.setVisible(true);
+		            //El siguiente texto que se muestra es el tercero
+		            scene.bastetText = 2;
+		        }
+				//Si se tiene que mostrar el "tercero", que no existe
+		        else if(scene.bastetText === 2){
+		        	//Escondemos el texto 2
+		            scene.sayBastet2.setVisible(false);
+		            //Permitimos movimiento al sprite
+		            this.steady = false;
+		            //El siguiente que se tiene que mostrar es el cuarto (esto es para que no vuelva a entrar en esta rama del if)
+		            scene.bastetText = 3;
+		        }else{
+		        	//Creamos la cuerda
+		        	this.createRope();
+		        }
+	        
+	        }
+
+		    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
+		    //Si la velocidad del sprite supera 2
+		    if(this.mummy.body.velocity.x > 2){
+		    	//Dejamos la velocidad en 2
+		    	this.mummy.setVelocityX(2);
+		    }
+		    //Si la velocidad del sprite baja de -2
+		    else if(this.mummy.body.velocity.x < -2){
+		    	//Dejamos la velocidad en -2
+		    	this.mummy.setVelocityX(-2);
+		    }
+
+		    //Si la velocidad en X es diferente a 0
+		   	if(this.mummy.body.force.x != 0){
+		   		//Nos movemos
+		    	this.moving = true
+		    }else{
+		    	//Si no, pues no nos movemos
+		    	this.moving = false
+		    }
 ///////////////////////////////////ANIMACIONES///////////////////////////////////
-		//Nota: la animación de salto se encuentra incluida en el apartado de controles
+			//Nota: la animación de salto se encuentra incluida en el apartado de controles
 
-		//Si estamos en el suelo y no estamos en el aire
-	    if(this.isColliding.bottom && !this.onAirM){
-	    	//Si la fuerza en X del sprite no es 0
-	    	if(this.mummy.body.force.x !== 0){
-	    		//Reproducimos la animación de andar
-	    		this.mummy.anims.play("rightM", true);
-	    	}
-	    	//Si no estamos en el aire
-	    	else if(!this.onAirM){
-	    		//Reproducimos la animación de estar quieto
-	    		this.mummy.anims.play("stayRightM", true);
-	    	}
-	    }
-	      
+			//Si estamos en el suelo y no estamos en el aire
+		    if(this.isColliding.bottom && !this.onAirM){
+		    	//Si la fuerza en X del sprite no es 0
+		    	if(this.mummy.body.force.x !== 0){
+		    		//Reproducimos la animación de andar
+		    		this.mummy.anims.play("rightM", true);
+		    	}
+		    	//Si no estamos en el aire
+		    	else if(!this.onAirM){
+		    		//Reproducimos la animación de estar quieto
+		    		this.mummy.anims.play("stayRightM", true);
+		    	}
+		    }
+	    }else{
+	    	//Si estoy muerto me destruyo
+	    	this.mummy.destroy();
+	    }  
 	}//FIN UPDATE
 }
