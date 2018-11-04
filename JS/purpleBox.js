@@ -1,4 +1,4 @@
-function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frictionArg, massArg){
+function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAirArg, frictionArg, massArg){
 	this.scene = scene;
 	
 	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive();
@@ -86,10 +86,22 @@ function PurpleBox(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frict
 	
 
 	this.update = function(){
-		this.purpleBox.setPosition(x, this.purpleBox.y);
+		//Solo se mueve en su eje Y
+		
 		var playerX = p.getX();
 		var distance = this.purpleBox.x - playerX;
 		
+		//Colisiones con paredes (ARRIBA)
+		console.log(this.purpleBox.y);
+		if(this.purpleBox.y < min){
+			this.purpleBox.setPosition(x, min);
+		}else if(this.purpleBox.y > max){
+			this.purpleBox.setPosition(x, max);
+		}else{
+			this.purpleBox.setPosition(x, this.purpleBox.y);
+		}
+
+
 	    if (playerX < this.purpleBox.x && distance > 0 && distance < 500 || playerX > this.purpleBox.x  && distance < 0 && distance > -500)
 	    {
 	    	//izquierda o derecha

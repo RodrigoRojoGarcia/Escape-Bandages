@@ -126,7 +126,7 @@ offline.create = function(){
     
 //////////////////PURPLE BOXES///////////////////////////////////////////
     const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
-    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 'PurpleBox1', 0, 0.1, 1, 100);
+    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 200, 405, 'PurpleBox1', 0, 0.01, 0.1, 100);
     box1.create();
 
     //const spawnBox2 = map.findObject("Objects", obj => obj.name === "PurpleBox2");
