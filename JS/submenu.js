@@ -47,9 +47,29 @@ submenu.create = function(){
 
 
 ////////////////////////BOTONES//////////////////////////////////
+/////////////////////BOTON ONLINE//////////////////////////////
+	//cargar boton Online
+	this.bon = this.add.sprite(650, 550, 'on').setInteractive();
+	//hacer boton invisible
+	this.bon.setAlpha(1);
+	/*//accion al poner el cursor sobre el boton Online
+	this.bon.on('pointerover', function(){
+		submenu.bon.scaleX += 0.15;
+		submenu.bon.scaleY += 0.15;
+	})
+	//accion al quitar el cursor del boton Online
+	this.bon.on('pointerout', function(){
+		submenu.bon.scaleX -= 0.15;
+		submenu.bon.scaleY -= 0.15;
+	})
+	//accion al hacer click sobre el boton Online
+	this.bon.on('pointerdown', function(){
+
+	})*/
+
 /////////////////////BOTON OFFLINE//////////////////////////////
 	//cargar boton Offline
-	this.boff = this.add.sprite(1100, 550, 'off').setInteractive();
+	this.boff = this.add.sprite(1200, 550, 'off').setInteractive();
 	//hacer boton invisible
 	this.boff.setAlpha(1);
 	//accion al poner el cursor sobre el boton Offline
@@ -66,26 +86,6 @@ submenu.create = function(){
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
 		submenu.scene.switch(offline);
-	})
-
-/////////////////////BOTON ONLINE//////////////////////////////
-	//cargar boton Online
-	this.bon = this.add.sprite(800, 550, 'on').setInteractive();
-	//hacer boton invisible
-	this.bon.setAlpha(1);
-	//accion al poner el cursor sobre el boton Online
-	this.bon.on('pointerover', function(){
-		submenu.bon.scaleX += 0.15;
-		submenu.bon.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Online
-	this.bon.on('pointerout', function(){
-		submenu.bon.scaleX -= 0.15;
-		submenu.bon.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Online
-	this.bon.on('pointerdown', function(){
-
 	})
 
 //////////////////////BOTON BACK////////////////////////////////
