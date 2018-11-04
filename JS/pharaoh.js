@@ -134,7 +134,21 @@ function Pharaoh(scene, x, y){
 			frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
 			frameRate: 10,
 			repeat: 0
-		})
+		});
+		//Fuego llano
+		anims.create({
+			key: 'planeFire',
+			frames: anims.generateFrameNumbers('Fire', {start: 0, end: 1}),
+			frameRate: 10,
+			repeat: -1
+		});
+		//Llamarada
+		anims.create({
+			key: 'endFire',
+			frames: anims.generateFrameNumbers('Fire', {start: 2, end: 3}),
+			frameRate: 10,
+			repeat: -1
+		});
 	}//FIN CREATE
 
 ///////////////////////////////////UPDATE///////////////////////////////////
@@ -209,5 +223,9 @@ function Pharaoh(scene, x, y){
 	    }
 	}//FIN UPDATE   
 
+///////////////////////////////////FUEGO///////////////////////////////////
+	this.createFire = function(){
+		
+	}
 	
 }

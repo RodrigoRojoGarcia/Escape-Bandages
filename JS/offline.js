@@ -26,6 +26,8 @@ offline.preload = function(){
     this.load.spritesheet("Bastet","../Escape-Bandages/Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
     //CAJA CON EFECTO
     this.load.spritesheet("PurpleBox1", "../Escape-Bandages/Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
+    //FUEGO DEL FARAÓN
+    this.load.spritesheet("Fire", "../Escape-Bandages/Sprites/firePharaohSprites.png",{frameWidth: 125, frameHeight: 125});
     
 ///////////////////////////////////IMAGENES///////////////////////////////////
     //PUERTA
@@ -34,6 +36,8 @@ offline.preload = function(){
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
+    //CURSOR
+    this.load.image("cursor", "../Escape-Bandages/Sprites/cursor.png");
 }//FIN DEL PRELOAD
 
 offline.create = function(){
@@ -42,6 +46,7 @@ offline.create = function(){
     const engine = Engine.create();
     scene = this;
     inputEnabled = true;
+    this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
 
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //Creación del TILEMAP
@@ -366,6 +371,8 @@ offline.create = function(){
             scene.sayAnubis2.setVisible(false);
             //Permitimos movimiento del faraón
             p.steady = false;
+            //Cambiamos el puntero al cetro
+            scene.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cetro.png), pointer');
         }
     },this);
 

@@ -4,7 +4,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 
 ///////////////////////////////////CREACIÓN///////////////////////////////////
 	//Sprite
-	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive();
+	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cetro2.png), pointer' });
 	const {width: w, height: h} = this.purpleBox;
 	//Cuerpo de la caja
 	const mainBody = Bodies.rectangle(0,0,w,h);
@@ -70,7 +70,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	    
 	    scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
         	if(move){
-        		//Solo arrastable en el eje Y
+        		//Solo arrastable en el eje Y        		
         		gameObject.y = dragY;
         	}
         });
