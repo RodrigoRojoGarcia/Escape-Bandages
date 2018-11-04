@@ -49,6 +49,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	var k;
 	//variable auxiliar para usar el sprite dentro del evento del ratón
 	var image = this.purpleBox;
+
 ///////////////////////////////////CREATE///////////////////////////////////
 	this.create = function(){
 		//seleccion de nombre de animación
@@ -79,6 +80,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
         	image.setStatic(false);
 
     	});
+
 ///////////////////////////////////ANIMATIONS///////////////////////////////////
 		//Animación de la caja cuando se vuelve morada
 		const anims = scene.anims;
@@ -89,7 +91,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 			frameRate: 5,
 			repeat: -1
 		});
-	}
+	}//FIN CREATE
 ///////////////////////////////////UPDATE///////////////////////////////////
 	this.update = function(){
 		//Solo se mueve en su eje Y
@@ -116,5 +118,5 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	    	this.purpleBox.setTexture(sprite, 0);
 	    	this.move = false;
 	    }
-	}  
+	} //FIN UPDATE
 }

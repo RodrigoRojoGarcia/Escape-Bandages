@@ -72,7 +72,7 @@ function God(scene, x, y, sprite){
 
 	    //Reproducimos animación de estar quieto
 		this.god.anims.play(k, true);
-	}  
+	}  //FIN UPDATE
 
 
 }

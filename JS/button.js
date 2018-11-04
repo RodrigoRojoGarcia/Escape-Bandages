@@ -85,5 +85,5 @@ function Button(scene, x, y){
 		}
 
 
-	}
+	} //FIN UPDATE
 }
