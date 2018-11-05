@@ -345,12 +345,13 @@ offline.create = function(){
 
 ///////////////////////////////////CONTROLES///////////////////////////////////
     //Extraemos las teclas de dirección, W,A,D y barra espaciadora de las KeyCodes de Phaser
-    const {LEFT, RIGHT, UP, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, DOWN, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
     //Les atribuimos a variables nuestras los KeyCodes de las teclas de dirección
     this.keys = this.input.keyboard.addKeys({
         left: LEFT,
         right: RIGHT,
         up: UP,
+        down: DOWN,
         w: W,
         a: A,
         d: D,
