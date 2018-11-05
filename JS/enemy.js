@@ -44,8 +44,12 @@ function Enemy(scene, x, y){
 				//Ya me has atacado una vez, ya no estás atacando
 				m.onHit = false;
 			}
-			//No hacemos más
-			return;
+		}
+		if(bodyB === p.fire[0].body ||bodyB === p.fire[1].body ||bodyB === p.fire[2].body){
+			if(p.onHit){
+				this.healthBar.damage(20)
+				p.onHit = false
+			}
 		}
 		//Si con lo que colisiona es un sensor: no hacemos nada (a menos que sea un trozo de cuerda, que no llega a esta parte)
 		if(bodyB.isSensor){
