@@ -51,8 +51,9 @@ offline.create = function(){
     this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
 
     //Creamos dos cámaras en las dos mitades de la pantalla con 40 píxeles de por medio
-    cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
-    cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
+    
+    cameraMummy = this.cameras.main.setSize(940,1080).setName('camMummy');
+    cameraPharaoh = this.cameras.add(980,0,940,1080).setName('camPharaoh');
 
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //Creación del TILEMAP
