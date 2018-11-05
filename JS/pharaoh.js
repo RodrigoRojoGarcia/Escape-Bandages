@@ -31,6 +31,20 @@ function Pharaoh(scene, x, y){
 	this.onAirP = false;
 	//Si no se puede mover
 	this.steady = false;
+	//Si esta atacando
+	this.onHit = false;
+	//Bloque donde empieza el fuego
+	this.block = scene.matter.add.rectangle(this.pharaoh.x+15, this.pharaoh.y, this.pharaoh.width/2, this.pharaoh.height/2,{isStatic: true, isSensor:true});
+	//Array que contiene los sprites del fuego en distintas posiciones
+	this.fire = [];
+	for(var i = 0; i < 3; i++){
+		this.fire[i] = scene.add.sprite(this.block.position.x+125+(i*125), this.block.position.y, 'Fire', null, {isSensor: true}); 
+	}
+	this.fire[2].setTexture('Fire', 2);
+	for(var i = 0; i < 3; i++){
+		this.fire[i].setVisible(false);
+	}
+
 	//Se está moviendo?
 	this.moving = false;
 	//Vida
@@ -39,6 +53,7 @@ function Pharaoh(scene, x, y){
 	this.gettingHit = false;
 	//Muerto?
 	this.dead = false;
+
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
@@ -178,7 +193,21 @@ function Pharaoh(scene, x, y){
 			frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
 			frameRate: 10,
 			repeat: 0
-		})
+		});
+		//Fuego llano
+		anims.create({
+			key: 'planeFire',
+			frames: anims.generateFrameNumbers('Fire', {start: 0, end: 1}),
+			frameRate: 10,
+			repeat: -1
+		});
+		//Llamarada
+		anims.create({
+			key: 'endFire',
+			frames: anims.generateFrameNumbers('Fire', {start: 2, end: 3}),
+			frameRate: 10,
+			repeat: -1
+		});
 	}//FIN CREATE
 
 ///////////////////////////////////UPDATE///////////////////////////////////
@@ -192,43 +221,76 @@ function Pharaoh(scene, x, y){
 		//Si no estoy muerto
 		if(!this.dead){
 ///////////////////////////////////CONTROLES///////////////////////////////////
-			//Cuando flecha a la izquierda está presionado y el sprite no está quieto
-			if (keys.left.isDown && !this.steady)
-		    {
-		    	//Le aplicamos la fuerza hacia la izquierda
-		        this.pharaoh.applyForce({x:-movingForce, y:0});
-		        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
-		        this.pharaoh.flipX = true;
-		    }
-		    //Cuando flecha a la derecha está presionado y el sprite no está quieto
-		    else if (keys.right.isDown && !this.steady)
-		    {
-		    	//Le aplicamos la fuerza hacia la derecha
-		        this.pharaoh.applyForce({x:movingForce, y:0});
-		        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
-		        this.pharaoh.flipX = false;
+		//Cuando flecha a la izquierda está presionado y el sprite no está quieto
+		if (keys.left.isDown && !this.steady)
+	    {
+	    	//Le aplicamos la fuerza hacia la izquierda
+	        this.pharaoh.applyForce({x:-movingForce, y:0});
+	        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
+	        this.pharaoh.flipX = true;
+	    }
+	    //Cuando flecha a la derecha está presionado y el sprite no está quieto
+	    else if (keys.right.isDown && !this.steady)
+	    {
+	    	//Le aplicamos la fuerza hacia la derecha
+	        this.pharaoh.applyForce({x:movingForce, y:0});
+	        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
+	        this.pharaoh.flipX = false;
+	    }
+		//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
+	    else if(this.isColliding.bottom && !this.steady){
+	    	//Ponemos la velocidad a 0
+	    	this.pharaoh.setVelocityX(0);    
+	    }
+	    //Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
+		if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
+			//Estamos en el aire
+	    	this.onAirP = true;
+	    	//Reproducimos la animación de salto
+	 		this.pharaoh.play("jumpRightP", true);
+	 		//Después de un tiempo llamamos a JUMP
+	    	scene.time.addEvent({
+	            delay: 40,
+	            callback: this.jump,
+	            callbackScope: scene
+	        });
+	    }
+	    if(Phaser.Input.Keyboard.JustDown(keys.down) && this.isColliding.bottom && !this.steady){
+	    	if(!this.onHit){
+	    		this.createFire();
+	    	}
+	    }
+	    
 
-		    }
-			//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
-		    else if(this.isColliding.bottom && !this.steady){
-		    	//Ponemos la velocidad a 0
-		    	this.pharaoh.setVelocityX(0);
-	   
-		    }
+	    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
+	    //Si la velocidad del sprite supera 2
+	    if(this.pharaoh.body.velocity.x > 2){
+	    	//Dejamos la velocidad en 2
+	    	this.pharaoh.setVelocityX(2);
+	    }
+	    //Si la velocidad del sprite baja de -2
+	    else if(this.pharaoh.body.velocity.x < -2){
+	    	//Dejamos la velocidad en -2
+	    	this.pharaoh.setVelocityX(-2);
+	    }
+	    ///////////////////Colocación del fuego del faraón//////////////
+	    this.block.position.x = this.pharaoh.x;
+		this.block.position.y = this.pharaoh.y;
+	    if(!this.pharaoh.flipX){
+			for(var i = 0; i < 3; i++){
+				this.fire[i].flipX = false;
+				this.fire[i].x = this.block.position.x+62+(i*125);
+				this.fire[i].y = this.block.position.y;
+				
+			}
+		}else{
+			for(var i = 0; i < 3; i++){
+				this.fire[i].flipX = true;
+				this.fire[i].x = this.block.position.x-62-(i*125);
+				this.fire[i].y = this.block.position.y;
+			}
+		}
 
-		    //Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
-			if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
-				//Estamos en el aire
-		    	this.onAirP = true;
-		    	//Reproducimos la animación de salto
-		 		this.pharaoh.play("jumpRightP", true);
-		 		//Después de un tiempo llamamos a JUMP
-		    	scene.time.addEvent({
-		            delay: 40,
-		            callback: this.jump,
-		            callbackScope: scene
-		        });
-		    }
 
 		    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
 		    //Si la velocidad del sprite supera 2
@@ -251,27 +313,87 @@ function Pharaoh(scene, x, y){
 		    	this.moving = false
 		    }
 ///////////////////////////////////ANIMACIONES///////////////////////////////////
-		    //Nota: la animación de salto se encuentra incluida en el apartado de controles
 
-			//Si estamos en el suelo y no estamos en el aire
-		    if(this.isColliding.bottom && !this.onAirP){
-		    	//Si la fuerza en X del sprite no es 0
-		    	if(this.pharaoh.body.force.x !== 0){
-		    		//Reproducimos la animación de andar
-		    		this.pharaoh.anims.play("rightP", true);
-		    	}
-				//Si no estamos en el aire
-		    	else if(!this.onAirP){
-		    		//Reproducimos la animación de estar quieto
-		    		this.pharaoh.anims.play("stayRightP", true);
-		    	}
-		    }
-		}else{
-			//Si estoy muerto me destruyo
-			this.pharaoh.destroy()
-		}
+	    //Nota: la animación de salto se encuentra incluida en el apartado de controles
+	    //Animación del fuego del faraón
+	    for(var i = 0; i < 2; i++){
+	    	this.fire[i].anims.play("planeFire", true);
+	    }
+	    this.fire[2].anims.play("endFire", true);
+
+		//Si estamos en el suelo y no estamos en el aire
+	    if(this.isColliding.bottom && !this.onAirP){
+	    	//Si la fuerza en X del sprite no es 0
+	    	if(this.pharaoh.body.force.x !== 0){
+	    		//Reproducimos la animación de andar
+	    		this.pharaoh.anims.play("rightP", true);
+	    	}
+			//Si no estamos en el aire
+	    	else if(!this.onAirP){
+	    		//Reproducimos la animación de estar quieto
+	    		this.pharaoh.anims.play("stayRightP", true);
+	    	}
+	    }
 
 	}//FIN UPDATE   
 
+///////////////////////////////////FUEGO///////////////////////////////////
+	this.createFire = function(){
+		this.onHit = true;
+		this.block.position.x = this.pharaoh.x;
+		this.block.position.y = this.pharaoh.y;
+		//Coloca los sprites del fuego donde tienen que ir
+		if(!this.pharaoh.flipX){
+			for(var i = 0; i < 3; i++){
+				this.fire[i].flipX = false;
+				this.fire[i].x = this.block.position.x+62+(i*125);
+				this.fire[i].y = this.block.position.y;
+				
+			}
+		}else{
+			for(var i = 0; i < 3; i++){
+				this.fire[i].flipX = true;
+				this.fire[i].x = this.block.position.x-62-(i*125);
+				this.fire[i].y = this.block.position.y;
+			}
+		}
+		this.fire[0].setTexture('Fire', 2).setVisible(true);
+		scene.time.addEvent({
+	        delay: 100,
+	        callback: this.fireSecondTick,
+	        callbackScope: scene
+	    });
+
+	    scene.time.addEvent({
+	    	delay: 200,
+	        callback: this.fireThirdTick,
+	        callbackScope: scene
+	    });	
+
+
+		scene.time.addEvent({
+	        delay: 500,
+	        callback: this.destroyFire,
+	        callbackScope: scene
+	    });
+	}
+	this.fireSecondTick = function(){
+		p.fire[0].setTexture('Fire', 0);
+		p.fire[1].setTexture('Fire', 2);
+		p.fire[1].setVisible(true);
+	}
+	this.fireThirdTick = function(){
+		p.fire[1].setTexture('Fire', 0);
+		p.fire[2].setTexture('Fire', 2);
+		p.fire[2].setVisible(true);
+	}
+
+	this.destroyFire = function(){
+		for(var i = 0; i < 3; i++){
+			p.fire[i].setVisible(false);
+		}
+		p.onHit = false;
+
+	}
 	
 }

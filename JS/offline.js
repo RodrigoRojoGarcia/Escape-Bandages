@@ -26,6 +26,8 @@ offline.preload = function(){
     this.load.spritesheet("Bastet","../Escape-Bandages/Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
     //CAJA CON EFECTO
     this.load.spritesheet("PurpleBox1", "../Escape-Bandages/Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
+    //FUEGO DEL FARAÓN
+    this.load.spritesheet("Fire", "../Escape-Bandages/Sprites/firePharaohSprites.png",{frameWidth: 125, frameHeight: 125});
     
 ///////////////////////////////////IMAGENES///////////////////////////////////
     //PUERTA
@@ -34,6 +36,8 @@ offline.preload = function(){
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
+    //CURSOR
+    this.load.image("cursor", "../Escape-Bandages/Sprites/cursor.png");
     //CORAZÓN
     this.load.image("heart","../Escape-Bandages/Sprites/heart.png");
 }//FIN DEL PRELOAD
@@ -44,6 +48,8 @@ offline.create = function(){
     const engine = Engine.create();
     scene = this;
     inputEnabled = true;
+    this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
+
     //Creamos dos cámaras en las dos mitades de la pantalla con 40 píxeles de por medio
     cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
     cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
@@ -331,11 +337,11 @@ offline.create = function(){
 
 ///////////////////////////////////PURPLE BOXES///////////////////////////////////
     //Creamos una objeto PurpleBox con las coordenadas del objeto del tilemap
-    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 705, 860, 'PurpleBox1', 0, 0.01, 0.1, 100);
+    this.box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 705, 860, 'PurpleBox1', 0, 0.01, 0.1, 100);
     //Llamamos a create que crea las animaciones del objeto
-    box1.create();
+    this.box1.create();
     //Lo introducimos en el array de cajas
-    box = [box1];
+    box = [this.box1];
 
 ///////////////////////////////////DEBUG///////////////////////////////////
     //Muestra las líneas de colisión de los elementos del mundo pulsando la F
@@ -348,12 +354,13 @@ offline.create = function(){
 
 ///////////////////////////////////CONTROLES///////////////////////////////////
     //Extraemos las teclas de dirección, W,A,D y barra espaciadora de las KeyCodes de Phaser
-    const {LEFT, RIGHT, UP, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, DOWN, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
     //Les atribuimos a variables nuestras los KeyCodes de las teclas de dirección
     this.keys = this.input.keyboard.addKeys({
         left: LEFT,
         right: RIGHT,
         up: UP,
+        down: DOWN,
         w: W,
         a: A,
         d: D,
@@ -374,6 +381,8 @@ offline.create = function(){
             scene.sayAnubis2.setVisible(false);
             //Permitimos movimiento del faraón
             p.steady = false;
+            //Cambiamos el puntero al cetro
+            scene.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cetro.png), pointer');
         }
     },this);
 
