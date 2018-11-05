@@ -109,14 +109,14 @@ offline.create = function(){
     p.create();
     //Le atribuímos una profundidad de 1, por lo que pasará por delante de objetos a los que no le introduzcamos ningún valor de depth modificado
     //(El valor de depth por defecto es 0)
-    p.getSprite().depth = 1
+    p.getSprite().depth = 2
     //MOMIA
     //Creamos un objeto Momia, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
     //Llamamos a la función crear, que crea las animaciones del mismo
     m.create();
     //Le atribuímos una profundidad de 1, por lo que pasará por delante de objetos a los que no le introduzcamos ningún valor de depth modificado
-    m.getSprite().depth = 1
+    m.getSprite().depth = 2
 
 ///////////////////////////////////ENEMIES///////////////////////////////////
     //SHEK

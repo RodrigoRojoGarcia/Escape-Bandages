@@ -40,14 +40,14 @@ function Enemy(scene, x, y){
 			//Si la momia está atacando
 			if(m.onHit){
 				//Quitamos vida al enemigo
-				this.healthBar.damage(50)
+				this.healthBar.damage(20)
 				//Ya me has atacado una vez, ya no estás atacando
 				m.onHit = false;
 			}
 		}
 		if(bodyB === p.fire[0].body ||bodyB === p.fire[1].body ||bodyB === p.fire[2].body){
 			if(p.onHit){
-				this.healthBar.damage(20)
+				this.healthBar.damage(50)
 				p.onHit = false
 			}
 		}
