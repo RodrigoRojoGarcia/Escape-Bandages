@@ -34,6 +34,8 @@ offline.preload = function(){
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
+    //CORAZÓN
+    this.load.image("heart","../Escape-Bandages/Sprites/heart.png");
 }//FIN DEL PRELOAD
 
 offline.create = function(){

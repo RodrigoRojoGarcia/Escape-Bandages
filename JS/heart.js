@@ -7,13 +7,13 @@ function heart(player){
 	if(player==="Pharaoh"){
 		
 		for(var i =0;i<3;i++){
-			this.health[i] = scene.add.image(cameraPharaoh.worldView.left+(spriteWidth/2)+(spriteWidth*i),cameraPharaoh.worldView.bottom-(spriteHeight/2),'box');
+			this.health[i] = scene.add.image(cameraPharaoh.worldView.left+(spriteWidth/2)+(spriteWidth*i),cameraPharaoh.worldView.bottom-(spriteHeight/2),'heart');
 			cameraMummy.ignore(this.health[i])
 		}
 	}else if(player==="Mummy"){
 		
 		for(var i =0;i<3;i++){
-			this.health[i] = scene.add.image(cameraMummy.worldView.left+(spriteWidth/2)+(spriteWidth*i),cameraMummy.worldView.bottom-(spriteHeight/2),'box');
+			this.health[i] = scene.add.image(cameraMummy.worldView.left+(spriteWidth/2)+(spriteWidth*i),cameraMummy.worldView.bottom-(spriteHeight/2),'heart');
 			cameraPharaoh.ignore(this.health[i])
 		}
 	}
