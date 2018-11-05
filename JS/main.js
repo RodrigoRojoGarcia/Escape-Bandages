@@ -20,7 +20,7 @@ var config = {
 		}
 		]
 	},
-	scene:[menu, offline, victoria, submenu]
+	scene:[menu, offline, victoria, gameover, submenu]
 };
 
 var game = new Phaser.Game(config);

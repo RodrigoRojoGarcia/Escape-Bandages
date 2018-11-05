@@ -5,26 +5,23 @@ menu.preload = function(){
 	this.load.image('bgmenu','../Escape-Bandages/Sprites/bgmenu.png');
 	this.load.image('title','../Escape-Bandages/Sprites/title.png');
 	this.load.image('play','../Escape-Bandages/Sprites/play.png');
-	this.load.image('out','../Escape-Bandages/Sprites/salir.png');
 	this.load.image('options','../Escape-Bandages/Sprites/options.png');
 	this.load.image('back', '../Escape-Bandages/Sprites/back.png');
 }
 
 menu.create = function(){
-	var bground = this.add.image(-100, -20, 'bgmenu').setOrigin(0);
-	bground.scaleX += 1;
-	bground.scaleY += 1;
-/////////////////////BOTON TITLE//////////////////////////////
+	//background
+	var bground = this.add.image(0, 0, 'bgmenu').setOrigin(0);
+
+/////////////////////TITLE//////////////////////////////
 	//cargar boton Title
-	this.btit = this.add.sprite(960, 200, 'title').setInteractive();
-	//hacer boton visible
-	this.btit.setAlpha(1);
+	this.btit = this.add.sprite(960, 200, 'title');
+	this.btit.scaleX += 0.1;
+	this.btit.scaleY += 0.1;
 
 ////////////////////BOTON PLAY/////////////////////////////////
 	//cargar boton Play
 	this.bplay = this.add.sprite(400, 500, 'play').setInteractive();
-	this.bplay.scaleX -= 0.2;
-	this.bplay.scaleY -= 0.2;
 	//hacer boton visible
 	this.bplay.setAlpha(1);
 	//accion al poner el cursor sobre el boton Play
@@ -61,6 +58,7 @@ menu.create = function(){
 	})
 	//accion al hacer click sobre el boton Options
 	this.bopt.on('pointerdown', function(){
+		menu.scene.switch(gameover);
 		/*//hacer botones invisibles
 		menu.bopt.setAlpha(0);
 		menu.bplay.setAlpha(0);
@@ -68,28 +66,6 @@ menu.create = function(){
 		menu.btit.setAlpha(0);
 		//hacer botones visibles
 		menu.bback.setAlpha(1);*/
-	})
-
-//////////////////////BOTON SALIR///////////////////////////////
-	//cargar boton Salir
-	this.bout = this.add.sprite(400, 700, 'out').setInteractive();
-	this.bout.scaleX -= 0.2;
-	this.bout.scaleY -= 0.2;
-	//hacer boton visible
-	this.bout.setAlpha(1);
-	//accion al poner el cursor sobre el boton Salir
-	this.bout.on('pointerover', function(){
-		menu.bout.scaleX += 0.15;
-		menu.bout.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Salir
-	this.bout.on('pointerout', function(){
-		menu.bout.scaleX -= 0.15;
-		menu.bout.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Salir
-	this.bout.on('pointerdown', function(){
-		menu.scene.switch(victoria);
 	})
 }
 

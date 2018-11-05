@@ -7,19 +7,19 @@ submenu.preload = function(){
 	this.load.image('back', '../Escape-Bandages/Sprites/back.png');
 	///////////////////////////////////MAPA///////////////////////////////////
     //tileset
-    this.load.image("tile", "../Escape-Bandages/Sprites/tileset.png");
+    this.load.image("tilem", "../Escape-Bandages/Sprites/tileset.png");
     //tilemap
-    this.load.tilemapTiledJSON("background", "background.json");
+    this.load.tilemapTiledJSON("backgroundm", "background.json");
     //ANTORCHAS
-    this.load.spritesheet("torch","../Escape-Bandages/Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+    this.load.spritesheet("torchm","../Escape-Bandages/Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
 }
 
 submenu.create = function(){
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
-	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});
+	const backg = this.make.tilemap({key:"backgroundm", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
-	const tiles = backg.addTilesetImage("tileset","tile");
+	const tiles = backg.addTilesetImage("tileset","tilem");
     //Extraemos las capas del TILEMAP
     const bg= backg.createDynamicLayer("Background", tiles, 0,0);
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
@@ -29,20 +29,20 @@ submenu.create = function(){
 	var torchesM2 = [];
     //Creamos un array de antorchas y les atribuimos un sprite de Phaser, que no de Matter
     for(var i = 0; i < 2; i++){
-        torchesM.push(this.add.sprite(225 + 1400*i,250,'torch'));
-        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torch'));
+        torchesM.push(this.add.sprite(225 + 1400*i,250,'torchm'));
+        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torchm'));
     };
     //Animación de las antorchas
     this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
+        key: 'torchmAnim',
+        frames: this.anims.generateFrameNumbers('torchm',{start: 0, end: 3}),
         frameRate: 10,
         repeat: -1
     });
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<2;i++){
-        torchesM[i].anims.play('torchAnim');
-        torchesM2[i].anims.play('torchAnim');
+        torchesM[i].anims.play('torchmAnim');
+        torchesM2[i].anims.play('torchmAnim');
     };
 
 
@@ -111,3 +111,5 @@ submenu.create = function(){
 		submenu.scene.switch(menu);
 	})
 }
+
+submenu.update = function(){}
