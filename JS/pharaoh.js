@@ -205,8 +205,10 @@ function Pharaoh(scene, x, y){
 	            callbackScope: scene
 	        });
 	    }
-	    if(Phaser.Input.Keyboard.JustDown(keys.down)){
-	    	this.createFire();
+	    if(Phaser.Input.Keyboard.JustDown(keys.down) && this.isColliding.bottom && !this.steady){
+	    	if(!this.onHit){
+	    		this.createFire();
+	    	}
 	    }
 	    
 
