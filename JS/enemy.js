@@ -140,58 +140,70 @@ function Enemy(scene, x, y){
 		if(!m.dead){
 			//Cogemos su valor de la X
 			var mummy = m.getX();
+			var mummyY = m.getY();
 			//Para la distancia
 			var distanceM = this.enemy.x - mummy;
-			//Si está a la derecha del enemigo y su distancia es menor a 400
-			if (mummy<this.enemy.x && distanceM > 0 && distanceM < 400)
-	    	{
-	    		//Nos movemos a la izquierda
-	        	this.enemy.applyForce({x:-movingForce, y:0});
-	        	//Miramos a la izquierda
-	        	this.enemy.flipX = true;
-	    	}
-	    	//Si está a la derecha del enemigo y sus distancia es menor a 400
-	    	else if (mummy>this.enemy.x && distanceM < 0 && distanceM > -400)
-	    	{
-	    		//Nos movemos a la derecha
-	        	this.enemy.applyForce({x:movingForce, y:0});
-	        	//Miramos a la derecha
-	        	this.enemy.flipX = false;
-	    	}
-	    		//Si no está cerca de ninguno y está tocando el suelo
-	    		else if(this.isColliding.bottom){
-	    		//Velocidad a 0
-	    		this.enemy.setVelocityX(0);    
-	    	}
+			var distanceY = this.enemy.y -mummyY
+			
+			if(Math.abs(distanceY) < 160){
+				//Si está a la derecha del enemigo y su distancia es menor a 400
+				if (mummy<this.enemy.x && distanceM > 0 && distanceM < 400)
+		    	{
+		    		//Nos movemos a la izquierda
+		        	this.enemy.applyForce({x:-movingForce, y:0});
+		        	//Miramos a la izquierda
+		        	this.enemy.flipX = true;
+		    	}
+		    	//Si está a la derecha del enemigo y sus distancia es menor a 400
+		    	else if (mummy>this.enemy.x && distanceM < 0 && distanceM > -400)
+		    	{
+		    		//Nos movemos a la derecha
+		        	this.enemy.applyForce({x:movingForce, y:0});
+		        	//Miramos a la derecha
+		        	this.enemy.flipX = false;
+		    	}
+		    		//Si no está cerca de ninguno y está tocando el suelo
+		    		else if(this.isColliding.bottom){
+		    		//Velocidad a 0
+		    		this.enemy.setVelocityX(0);    
+		    	}
+			}
+			
 		}
 		//Si el faraón no está muerto
 		if(!p.dead){
 			//Cogemos su valor de la X
 			var pharaoh = p.getX();
+			var pharaohY = p.getY()
 			//Para la distancia
 			var distanceP = this.enemy.x - pharaoh;
-			//Si está a la derecha del enemigo y su distancia es menor a 400
-			if (pharaoh < this.enemy.x && distanceP > 0 && distanceP < 400)
-		    {
-		    	//Nos movemos a la izquierda
-		        this.enemy.applyForce({x:-movingForce, y:0});
-		        //Miramos a la izquierda
-		        this.enemy.flipX = true;
-		    }
-		    //Si está a la derecha del enemigo y sus distancia es menor a 400
-		    else if (pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -400)
-		    {
-		    	//Nos movemos a la derecha
-		        this.enemy.applyForce({x:movingForce, y:0});
-		        //Miramos a la derecha
-		        this.enemy.flipX = false;
+			var distanceY = this.enemy.y -pharaohY
 
-		    }
-		    //Si no está cerca de ninguno y está tocando el suelo
-		    else if(this.isColliding.bottom){
-		    	//Velocidad a 0
-		    	this.enemy.setVelocityX(0);    
-		    }
+			if(Math.abs(distanceY)<160){
+				//Si está a la derecha del enemigo y su distancia es menor a 400
+				if (pharaoh < this.enemy.x && distanceP > 0 && distanceP < 400)
+			    {
+			    	//Nos movemos a la izquierda
+			        this.enemy.applyForce({x:-movingForce, y:0});
+			        //Miramos a la izquierda
+			        this.enemy.flipX = true;
+			    }
+			    //Si está a la derecha del enemigo y sus distancia es menor a 400
+			    else if (pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -400)
+			    {
+			    	//Nos movemos a la derecha
+			        this.enemy.applyForce({x:movingForce, y:0});
+			        //Miramos a la derecha
+			        this.enemy.flipX = false;
+
+			    }
+			    //Si no está cerca de ninguno y está tocando el suelo
+			    else if(this.isColliding.bottom){
+			    	//Velocidad a 0
+			    	this.enemy.setVelocityX(0);    
+			    }
+			}
+			
 		}
 
 	    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |0.5|
