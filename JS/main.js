@@ -20,10 +20,7 @@ var config = {
 		}
 		]
 	},
-	scene:[menu, offline, submenu]
+	scene:[menu, offline, victoria, submenu]
 };
 
 var game = new Phaser.Game(config);
-
-var torchesM = [];
-var torchesM2 = [];

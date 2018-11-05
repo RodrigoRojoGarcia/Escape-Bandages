@@ -28,7 +28,7 @@ submenu.create = function(){
 	var torchesM = [];
 	var torchesM2 = [];
     //Creamos un array de antorchas y les atribuimos un sprite de Phaser, que no de Matter
-    for(var i = 0; i < 4; i++){
+    for(var i = 0; i < 2; i++){
         torchesM.push(this.add.sprite(225 + 1400*i,250,'torch'));
         torchesM2.push(this.add.sprite(225 + 1400*i,800,'torch'));
     };
@@ -40,7 +40,7 @@ submenu.create = function(){
         repeat: -1
     });
     //Ponemos las animaciones en bucle, de las cuatro creadas
-    for(var i = 0; i<4;i++){
+    for(var i = 0; i<2;i++){
         torchesM[i].anims.play('torchAnim');
         torchesM2[i].anims.play('torchAnim');
     };

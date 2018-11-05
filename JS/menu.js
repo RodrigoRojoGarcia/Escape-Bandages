@@ -1,9 +1,8 @@
 var menu = new Phaser.Scene('Menu');
 
-menu.init = function(){}
-
 menu.preload = function(){
 	//cargar imagenes
+	this.load.image('bgmenu','../Escape-Bandages/Sprites/bgmenu.png');
 	this.load.image('title','../Escape-Bandages/Sprites/title.png');
 	this.load.image('play','../Escape-Bandages/Sprites/play.png');
 	this.load.image('out','../Escape-Bandages/Sprites/salir.png');
@@ -12,6 +11,9 @@ menu.preload = function(){
 }
 
 menu.create = function(){
+	var bground = this.add.image(-100, -20, 'bgmenu').setOrigin(0);
+	bground.scaleX += 1;
+	bground.scaleY += 1;
 /////////////////////BOTON TITLE//////////////////////////////
 	//cargar boton Title
 	this.btit = this.add.sprite(960, 200, 'title').setInteractive();
@@ -87,34 +89,8 @@ menu.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bout.on('pointerdown', function(){
-		
+		menu.scene.switch(victoria);
 	})
-
-/*  /////////////////////BOTON BACK////////////////////////////////
-	//cargar boton Back
-	this.bback = this.add.sprite(1700, 900, 'back').setInteractive();
-	//hacer boton invisible
-	this.bback.setAlpha(0);
-	//accion al poner el cursor sobre el boton Back
-	this.bback.on('pointerover', function(){
-		menu.bback.scaleX += 0.15;
-		menu.bback.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Back
-	this.bback.on('pointerout', function(){
-		menu.bback.scaleX -= 0.15;
-		menu.bback.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Back
-	this.bback.on('pointerdown', function(){
-		//hacer botones invisibles
-		menu.bback.setAlpha(0);
-		//hacer botones visibles
-		menu.bplay.setAlpha(1);
-		menu.bopt.setAlpha(1);
-		menu.bout.setAlpha(1);
-		menu.btit.setAlpha(1);
-	})*/
 }
 
 menu.update = function(){}
