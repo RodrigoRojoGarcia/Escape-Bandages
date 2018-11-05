@@ -38,6 +38,8 @@ offline.preload = function(){
     this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
     //CURSOR
     this.load.image("cursor", "../Escape-Bandages/Sprites/cursor.png");
+    //CORAZÓN
+    this.load.image("heart","../Escape-Bandages/Sprites/heart.png");
 }//FIN DEL PRELOAD
 
 offline.create = function(){
@@ -48,9 +50,13 @@ offline.create = function(){
     inputEnabled = true;
     this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
 
+    //Creamos dos cámaras en las dos mitades de la pantalla con 40 píxeles de por medio
+    cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
+    cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
+
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //Creación del TILEMAP
-	const map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
+	map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
 	const tiles = map.addTilesetImage("tileset","tile");
 
@@ -64,8 +70,8 @@ offline.create = function(){
     this.matter.world.convertTilemapLayer(layer);
     //Colisión de los objetos con los bordes del mundo
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    //Añadimos un atributo graphics, para poder dibujar las barras de vida
-    graphics = this.add.graphics({ x: map.widthInPixels, y: map.heightInPixels });
+
+    
 
 ///////////////////////////////////EXTRACCIÓN ELEMENTOS TILEMAP(JSON)///////////////////////////////////
 
@@ -80,6 +86,8 @@ offline.create = function(){
     const spawnPointBastet = map.findObject("Objects", obj => obj.name === "GodBastet");
     //Shek
     const spawnPointShek = map.findObject("Objects", obj => obj.name === "Shek");
+    //Shek2
+    const spawnPointShek2 = map.findObject("Objects", obj=> obj.name === "Shek2")
     //Caja
     const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
 
@@ -116,6 +124,10 @@ offline.create = function(){
     s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
     //Llamamos a la función crear, que crea las animaciones del mismo
     s.create();
+    //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
+    s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y);
+    //Llamamos a la función crear, que crea las animaciones del mismo
+    s2.create();
 
 ///////////////////////////////////GODS////////////////////////////////////
     //ANUBIS
@@ -129,12 +141,9 @@ offline.create = function(){
     b.create();
 
 ///////////////////////////////////CAMERA///////////////////////////////////
-    //Creamos dos cámaras en las dos mitades de la pantalla con 40 píxeles de por medio
-    const cameraPharaoh = this.cameras.main.setSize(940,1080).setName('camPharaoh');
-    const cameraMummy = this.cameras.add(980,0,940,1080).setName('camMummy');
     //Hacemos que cada una siga a un personaje
-    cameraPharaoh.startFollow(p.getSprite(), true, 0.8, 0.8, -200);
-    cameraMummy.startFollow(m.getSprite(), true, 0.8, 0.8, -200);
+    cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
+    cameraMummy.startFollow(m.getSprite(), false, 1, 1, -200);
     //Ponemos a las dos los límites del mapa
     cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
     cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
@@ -398,7 +407,7 @@ offline.create = function(){
 }//FIN DEL CREATE
 
 offline.update = function(){
-
+   
     //Variable keys de nuestros objetos de teclas
     const keys = this.keys;
     //No se puede mover ninguna caja
@@ -408,16 +417,36 @@ offline.update = function(){
     p.update(keys);
     //Actualizamos momia
     m.update(keys);
-    //Resetamos el estado de colisiones de los sensores del faraón
-    p.resetColliding();
-    //Resetamos el estado de colisiones de los sensores de la momia
-    m.resetColliding();
+    //Si el faraón no está muerto
+    if(!p.dead){
+        //Resetamos el estado de colisiones de los sensores del faraón
+        p.resetColliding();
+    }else{
+        //Si lo está que la cámara deje de seguirle
+        cameraPharaoh.stopFollow()
+    }
+    //Si la momia no está muerta
+    if(!m.dead){
+        //Resetamos el estado de colisiones de los sensores de la momia
+        m.resetColliding();
+    }else{
+        //Si lo está que la cámara deje de seguirla
+        cameraMummy.stopFollow();
+    }
+    
     //Si Shek no está muerto
     if(!s.dead){
         //Actualizamos Shek
         s.update();
         //Reseteamos el estado de colisiones de los sensores del Shek
         s.resetColliding();
+    }
+    //Si Shek no está muerto
+    if(!s2.dead){
+        //Actualizamos Shek
+        s2.update()
+        //Reseteamos el estado de colisiones de los sensores del Shek
+        s2.resetColliding()
     }
     //Actualizamos Anubis
     a.update();

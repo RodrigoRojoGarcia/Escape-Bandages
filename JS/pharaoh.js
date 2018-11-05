@@ -45,9 +45,42 @@ function Pharaoh(scene, x, y){
 		this.fire[i].setVisible(false);
 	}
 
+	//Se está moviendo?
+	this.moving = false;
+	//Vida
+	this.health = new heart("Pharaoh");
+	//Me están dando?
+	this.gettingHit = false;
+	//Muerto?
+	this.dead = false;
+
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
+		//Si el shek no está muerto
+		if(!s2.dead){
+			//Si el bodyB es el shek
+			if(bodyB === s2.getSprite().body.parts[1]){
+				//Si no estamos en periodo de invulnerabilidad
+				if(!this.gettingHit){
+					//Nos golpean
+					this.getHit();
+					//Nos ponemos rojos
+					p.pharaoh.setTint(0xff3333)
+					//Al cabo de un tiempo llamamos a invulnerable
+					scene.time.addEvent({
+			            delay: 300,
+			            callback: this.invulnerable,
+			            callbackScope: scene
+			        });
+				}else{
+					return;
+				}
+			}
+		}
+		
+
+
 		//Si con lo que colisiona es un sensor: no hacemos nada
 		if(bodyB.isSensor){
 			return;
@@ -123,6 +156,19 @@ function Pharaoh(scene, x, y){
 		p.onAirP=false;
 	};
 
+	//Nos pone en periodo de estar golpeados y llama a getHit de la vida
+	this.getHit = function(){
+		this.gettingHit = true;
+		this.health.getHit();
+	}
+	//Cambia el sprite al original y termina el periodo de invulnerabilidad
+	this.invulnerable = function(){
+		p.pharaoh.setTint(0xffffff)
+		p.gettingHit = false;
+
+	}
+
+
 ///////////////////////////////////CREATE///////////////////////////////////	
 	this.create = function(){
 ///////////////////////////////////ANIMATIONS///////////////////////////////////
@@ -169,7 +215,11 @@ function Pharaoh(scene, x, y){
 		var keys = k;
 		//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
 		var movingForce = 0.1;
+		//Actualizamos la vida
+		this.health.update();
 
+		//Si no estoy muerto
+		if(!this.dead){
 ///////////////////////////////////CONTROLES///////////////////////////////////
 		//Cuando flecha a la izquierda está presionado y el sprite no está quieto
 		if (keys.left.isDown && !this.steady)
@@ -241,7 +291,29 @@ function Pharaoh(scene, x, y){
 			}
 		}
 
+
+		    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
+		    //Si la velocidad del sprite supera 2
+		    if(this.pharaoh.body.velocity.x > 2){
+		    	//Dejamos la velocidad en 2
+		    	this.pharaoh.setVelocityX(2);
+		    }
+		    //Si la velocidad del sprite baja de -2
+		    else if(this.pharaoh.body.velocity.x < -2){
+		    	//Dejamos la velocidad en -2
+		    	this.pharaoh.setVelocityX(-2);
+		    }
+
+		    //Si la velocidad en X es diferente a 0
+		    if(this.pharaoh.body.velocity.x != 0){
+		    	//Nos movemos
+		    	this.moving = true
+		    }else{
+		    	//Si no, pues no nos movemos
+		    	this.moving = false
+		    }
 ///////////////////////////////////ANIMACIONES///////////////////////////////////
+
 	    //Nota: la animación de salto se encuentra incluida en el apartado de controles
 	    //Animación del fuego del faraón
 	    for(var i = 0; i < 2; i++){
@@ -262,6 +334,7 @@ function Pharaoh(scene, x, y){
 	    		this.pharaoh.anims.play("stayRightP", true);
 	    	}
 	    }
+
 	}//FIN UPDATE   
 
 ///////////////////////////////////FUEGO///////////////////////////////////
