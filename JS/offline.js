@@ -328,11 +328,11 @@ offline.create = function(){
 
 ///////////////////////////////////PURPLE BOXES///////////////////////////////////
     //Creamos una objeto PurpleBox con las coordenadas del objeto del tilemap
-    const box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 705, 860, 'PurpleBox1', 0, 0.01, 0.1, 100);
+    this.box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 705, 860, 'PurpleBox1', 0, 0.01, 0.1, 100);
     //Llamamos a create que crea las animaciones del objeto
-    box1.create();
+    this.box1.create();
     //Lo introducimos en el array de cajas
-    box = [box1];
+    box = [this.box1];
 
 ///////////////////////////////////DEBUG///////////////////////////////////
     //Muestra las líneas de colisión de los elementos del mundo pulsando la F

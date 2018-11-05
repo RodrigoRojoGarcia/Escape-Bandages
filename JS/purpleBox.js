@@ -22,7 +22,10 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 ///////////////////////////////////ATRIBUTOS///////////////////////////////////
 	//Se puede mover?
 	this.move = false;
-
+	this.max = max;
+	this.min = min;
+	this.x = x;
+	this.y = y;
 ///////////////////////////////////MÉTODOS///////////////////////////////////
 	//Devuelve el sprite	
 	this.getSprite = function(){
@@ -70,8 +73,14 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	    
 	    scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
         	if(move){
-        		//Solo arrastable en el eje Y        		
-        		gameObject.y = dragY;
+        		if(dragY > scene.box1.min && dragY < scene.box1.max){
+        			//Solo arrastable en el eje Y        		
+        			gameObject.y = dragY;
+        		}else if(dragY < scene.box1.min){
+					gameObject.setPosition(scene.box1.x, scene.box1.min);
+				}else if(dragY > gameObject.max){
+					gameObject.setPosition(scene.box1.x, scene.box1.max);
+				}
         	}
         });
 
@@ -101,14 +110,8 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 		var distance = this.purpleBox.x - playerX;
 		
 		//Colisiones con paredes. Si baja del minimo o sube del maximo se queda en dicha posición
-		if(this.purpleBox.y < min){
-			this.purpleBox.setPosition(x, min);
-		}else if(this.purpleBox.y > max){
-			this.purpleBox.setPosition(x, max);
-		}else{
-			this.purpleBox.setPosition(x, this.purpleBox.y);
-		}
-
+		
+		this.purpleBox.x = this.x;
 		//Empieza la animación de la caja y se puede arrastrar cuando el faraón esta cerca de ella (izquierda o derecha). 
 	    if (playerX < this.purpleBox.x && distance > 0 && distance < 300 || playerX > this.purpleBox.x  && distance < 0 && distance > -300)
 	    {
