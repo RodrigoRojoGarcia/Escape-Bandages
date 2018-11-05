@@ -273,21 +273,44 @@ function Pharaoh(scene, x, y){
 				this.fire[i].flipX = false;
 				this.fire[i].x = this.block.position.x+62+(i*125);
 				this.fire[i].y = this.block.position.y;
-				this.fire[i].setVisible(true);
+				
 			}
 		}else{
 			for(var i = 0; i < 3; i++){
 				this.fire[i].flipX = true;
 				this.fire[i].x = this.block.position.x-62-(i*125);
 				this.fire[i].y = this.block.position.y;
-				this.fire[i].setVisible(true);
 			}
 		}
+		this.fire[0].setTexture('Fire', 2).setVisible(true);
+		scene.time.addEvent({
+	        delay: 100,
+	        callback: this.fireSecondTick,
+	        callbackScope: scene
+	    });
+
+	    scene.time.addEvent({
+	    	delay: 200,
+	        callback: this.fireThirdTick,
+	        callbackScope: scene
+	    });	
+
+
 		scene.time.addEvent({
 	        delay: 500,
 	        callback: this.destroyFire,
 	        callbackScope: scene
 	    });
+	}
+	this.fireSecondTick = function(){
+		p.fire[0].setTexture('Fire', 0);
+		p.fire[1].setTexture('Fire', 2);
+		p.fire[1].setVisible(true);
+	}
+	this.fireThirdTick = function(){
+		p.fire[1].setTexture('Fire', 0);
+		p.fire[2].setTexture('Fire', 2);
+		p.fire[2].setVisible(true);
 	}
 
 	this.destroyFire = function(){
