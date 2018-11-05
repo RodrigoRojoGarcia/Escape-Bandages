@@ -90,7 +90,9 @@ submenu.create = function(){
 
 //////////////////////BOTON BACK////////////////////////////////
 	//cargar boton Back
-	this.bback = this.add.sprite(1700, 1000, 'back').setInteractive();
+	this.bback = this.add.sprite(1700, 955, 'back').setInteractive();
+	this.bback.scaleX -= 0.4;
+	this.bback.scaleY -= 0.4;
 	//hacer boton invisible
 	this.bback.setAlpha(1);
 	//accion al poner el cursor sobre el boton Back

@@ -59,13 +59,13 @@ menu.create = function(){
 	})
 	//accion al hacer click sobre el boton Options
 	this.bopt.on('pointerdown', function(){
-		//hacer botones invisibles
+		/*//hacer botones invisibles
 		menu.bopt.setAlpha(0);
 		menu.bplay.setAlpha(0);
 		menu.bout.setAlpha(0);
 		menu.btit.setAlpha(0);
 		//hacer botones visibles
-		menu.bback.setAlpha(1);
+		menu.bback.setAlpha(1);*/
 	})
 
 //////////////////////BOTON SALIR///////////////////////////////
@@ -90,7 +90,7 @@ menu.create = function(){
 		
 	})
 
-//////////////////////BOTON BACK////////////////////////////////
+/*  /////////////////////BOTON BACK////////////////////////////////
 	//cargar boton Back
 	this.bback = this.add.sprite(1700, 900, 'back').setInteractive();
 	//hacer boton invisible
@@ -114,7 +114,7 @@ menu.create = function(){
 		menu.bopt.setAlpha(1);
 		menu.bout.setAlpha(1);
 		menu.btit.setAlpha(1);
-	})
+	})*/
 }
 
 menu.update = function(){}
