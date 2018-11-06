@@ -10,12 +10,10 @@ menu.preload = function(){
 }
 
 menu.create = function(){
+	//cargar background
 	var bground = this.add.image(0, 0, 'bgmenu').setOrigin(0);
-/////////////////////BOTON TITLE//////////////////////////////
-	//cargar boton Title
-	this.btit = this.add.sprite(960, 200, 'title').setInteractive();
-	//hacer boton visible
-	this.btit.setAlpha(1);
+	//cargar Title
+	this.btit = this.add.sprite(960, 200, 'title');
 
 ////////////////////BOTON PLAY/////////////////////////////////
 	//cargar boton Play
@@ -58,7 +56,7 @@ menu.create = function(){
 	})
 	//accion al hacer click sobre el boton Options
 	this.bopt.on('pointerdown', function(){
-		menu.scene.switch(victoria);
+		menu.scene.switch(gameover);
 		/*//hacer botones invisibles
 		menu.bopt.setAlpha(0);
 		menu.bplay.setAlpha(0);

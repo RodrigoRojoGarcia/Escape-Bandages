@@ -1,9 +1,14 @@
+//creacion escena Gameover
 var gameover = new Phaser.Scene('Gameover');
 
 gameover.preload = function(){
 	//carga imagenes
+	//salir
 	this.load.image('out','../Escape-Bandages/Sprites/salir.png');
+	//reiniciar
 	this.load.image('reinicio','../Escape-Bandages/Sprites/reiniciar.png');
+	//game over
+	this.load.image('gameoveri','../Escape-Bandages/Sprites/gameoveri.png');
 	///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileg", "../Escape-Bandages/Sprites/tileset.png");
@@ -23,9 +28,14 @@ gameover.create = function(){
     const bg= backg.createDynamicLayer("Background", tiles, 0,0);
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
 
+	//carga letras Gameover
+	this.go = this.add.sprite(960, 400, 'gameoveri');
+	this.go.scaleX += 0.3;
+	this.go.scaleY += 0.3;
+
 //////////////////////BOTON REINICIAR///////////////////////////
 	//cargar boton Reiniciar
-	this.brei = this.add.sprite(1600, 800, 'reinicio').setInteractive();
+	this.brei = this.add.sprite(960, 800, 'reinicio').setInteractive();
 	this.brei.scaleX -= 0.2;
 	this.brei.scaleY -= 0.2;
 	//hacer boton visible
@@ -48,7 +58,7 @@ gameover.create = function(){
 
 //////////////////////BOTON SALIR///////////////////////////////
 	//cargar boton Salir
-	this.bout = this.add.sprite(1600, 950, 'out').setInteractive();
+	this.bout = this.add.sprite(960, 950, 'out').setInteractive();
 	this.bout.scaleX -= 0.3;
 	this.bout.scaleY -= 0.3;
 	//hacer boton visible
