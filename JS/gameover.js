@@ -20,6 +20,8 @@ gameover.preload = function(){
 
 gameover.create = function(){
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
+	//Puntero Default
+	this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
     //TILEMAP
 	const backg = this.make.tilemap({key:"backgroundg", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
@@ -35,7 +37,7 @@ gameover.create = function(){
 
 //////////////////////BOTON REINICIAR///////////////////////////
 	//cargar boton Reiniciar
-	this.brei = this.add.sprite(960, 800, 'reinicio').setInteractive();
+	this.brei = this.add.sprite(960, 800, 'reinicio').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	this.brei.scaleX -= 0.2;
 	this.brei.scaleY -= 0.2;
 	//hacer boton visible
@@ -52,13 +54,14 @@ gameover.create = function(){
 	})
 	//accion al hacer click sobre el boton Reiniciar
 	this.brei.on('pointerdown', function(){
-			gameover.scene.switch(offline);
+		
+		gameover.scene.switch(offline);
 	})
 
 
 //////////////////////BOTON SALIR///////////////////////////////
 	//cargar boton Salir
-	this.bout = this.add.sprite(960, 950, 'out').setInteractive();
+	this.bout = this.add.sprite(960, 950, 'out').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	this.bout.scaleX -= 0.3;
 	this.bout.scaleY -= 0.3;
 	//hacer boton visible

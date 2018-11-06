@@ -228,7 +228,12 @@ function Pharaoh(scene, x, y){
 		var movingForce = 0.1;
 		//Actualizamos la vida
 		this.health.update();
-
+		//Caida faraón
+		if(this.pharaoh.y > 10*120){
+			this.dead = true;
+			offline.scene.restart();
+			offline.scene.switch(gameover)
+		}
 		//Si no estoy muerto
 		if(!this.dead){
 ///////////////////////////////////CONTROLES///////////////////////////////////

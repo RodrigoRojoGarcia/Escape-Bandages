@@ -23,12 +23,6 @@ menu.create = function(){
 	//hacer boton visible
 	this.btit.setAlpha(1);
 
-////////////////////BOTON PLAY/////////////////////////////////
-	//cargar boton Play
-	this.bplay = this.add.sprite(400, 500, 'play').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
-	this.bplay.scaleX -= 0.2;
-	this.bplay.scaleY -= 0.2;
-
 	fx = this.sound.add('music');
 	fx.play();
 
@@ -39,7 +33,7 @@ menu.create = function(){
 
 ////////////////////BOTON PLAY/////////////////////////////////
 	//cargar boton Play
-	this.bplay = this.add.sprite(400, 500, 'play').setInteractive();
+	this.bplay = this.add.sprite(400, 500, 'play').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	this.bplay.scaleX -= 0.1;
 	this.bplay.scaleY -= 0.1;
 

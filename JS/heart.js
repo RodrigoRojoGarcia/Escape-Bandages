@@ -70,8 +70,22 @@ function heart(player){
 			this.health[0].destroy()
 			if(player==="Pharaoh"){
 				p.dead = true;
+				
+				scene.time.addEvent({
+            		delay: 100,
+            		callback: ()=>(offline.scene.restart()),
+            		callbackScope: scene
+        		});
+
+				offline.scene.switch(gameover);
 			}else if(player==="Mummy"){
 				m.dead = true;
+				scene.time.addEvent({
+            		delay: 100,
+            		callback: ()=>(offline.scene.restart()),
+            		callbackScope: scene
+        		});
+				offline.scene.switch(gameover);
 			}
 		}
 	}

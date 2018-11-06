@@ -259,7 +259,12 @@ function Mummy(scene, x, y){
 		var movingForce = 0.1;
 		//Actualizamos la vida
 		this.health.update()
-
+		//Caida momia
+		if(this.mummy.y > 10*120){
+			this.dead = true;
+			offline.scene.restart();
+			offline.scene.switch(gameover);
+		}
 		//Si no estoy muerto
 		if(!this.dead){
 
@@ -362,9 +367,6 @@ function Mummy(scene, x, y){
 		    		this.mummy.anims.play("stayRightM", true);
 		    	}
 		    }
-	    }else{
-	    	//Si estoy muerto me destruyo
-	    	this.mummy.destroy();
-	    }  
+	    } 
 	}//FIN UPDATE
 }
