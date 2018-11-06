@@ -175,6 +175,7 @@ function Pharaoh(scene, x, y){
 	this.destroy = function(){
 		this.health.destroy();
 		this.fireDestroy();
+		this.pharaoh.destroy();
 	}
 
 
@@ -344,8 +345,6 @@ function Pharaoh(scene, x, y){
 		    	}
 		    }
 
-		}else{
-			this.pharaoh.destroy()
 		}
 	}//FIN UPDATE   
 
@@ -408,7 +407,6 @@ function Pharaoh(scene, x, y){
 
 	}
 	this.fireDestroy = function(){
-		this.block.destroy();
 		for(var i = 0; i < 3; i++){
 			p.fire[i].destroy();
 		}

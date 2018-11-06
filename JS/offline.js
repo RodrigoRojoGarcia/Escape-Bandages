@@ -36,8 +36,6 @@ offline.preload = function(){
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
-    //CURSOR
-    this.load.image("cursor", "../Escape-Bandages/Sprites/cursor.png");
     //CORAZÓN
     this.load.image("heart","../Escape-Bandages/Sprites/heart.png");
 }//FIN DEL PRELOAD
@@ -538,25 +536,29 @@ offline.update = function(){
     //No se puede mover ninguna caja
     move = false;
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
-    //Actualizamos faraón
-    p.update(keys);
-    //Actualizamos momia
-    m.update(keys);
+
+   
     //Si el faraón no está muerto
-    if(!p.dead){
+    if(!p.dead){   
+        //Actualizamos faraón
+        p.update(keys);
         //Resetamos el estado de colisiones de los sensores del faraón
         p.resetColliding();
     }else{
         //Si lo está que la cámara deje de seguirle
         cameraPharaoh.stopFollow()
+        p.destroy()
     }
     //Si la momia no está muerta
     if(!m.dead){
+        //Actualizamos momia
+        m.update(keys);
         //Resetamos el estado de colisiones de los sensores de la momia
         m.resetColliding();
     }else{
         //Si lo está que la cámara deje de seguirla
         cameraMummy.stopFollow();
+        m.destroy()
     }
     
     //Si Shek no está muerto
@@ -617,7 +619,13 @@ offline.update = function(){
     }
 
     if(Phaser.Input.Keyboard.JustDown(keys.r)){
-        offline.scene.restart();
+        
+        scene.time.addEvent({
+            delay: 100,
+            callback: ()=>(offline.scene.restart()),
+            callbackScope: scene
+        });
+        
     }
     if(this.mummyVictory && this.pharaohVictory){
         offline.scene.switch(victoria)
