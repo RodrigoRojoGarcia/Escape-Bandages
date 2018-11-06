@@ -36,8 +36,6 @@ offline.preload = function(){
     this.load.image("box","../Escape-Bandages/Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "../Escape-Bandages/Sprites/rope.png");
-    //CURSOR
-    this.load.image("cursor", "../Escape-Bandages/Sprites/cursor.png");
     //CORAZÓN
     this.load.image("heart","../Escape-Bandages/Sprites/heart.png");
 }//FIN DEL PRELOAD
@@ -73,7 +71,7 @@ offline.create = function(){
     //Se lo decimos a Matter
     this.matter.world.convertTilemapLayer(layer);
     //Colisión de los objetos con los bordes del mundo
-    this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels + 240);
 
     
 
@@ -206,10 +204,31 @@ offline.create = function(){
     const door2 = this.matter.add.image(15*120 + 60, 3*120 + 60, 'door', null, { isStatic: true });
     const door3 = this.matter.add.image(31*120 + 60, 4*120 + 60, 'door', null, { isStatic: true });
     const door4 = this.matter.add.image(32*120 + 60, 4*120 + 60, 'door', null, { isStatic: true });
+    const door3bis = this.matter.add.image(31*120 - 60, 8*120 + 60, 'door', null, { isStatic: true });
+    const door4bis = this.matter.add.image(32*120 + 180, 8*120 + 60, 'door', null, { isStatic: true });
     door3.setAngle(-90);
     door4.setAngle(-90);
+    door3bis.setAngle(-90);
+    door4bis.setAngle(-90);
     const door5 = this.matter.add.image(54*120 + 60, 5*120 + 60, 'door', null, { isStatic: true });
     const door6 = this.matter.add.image(54*120 + 60, 4*120 + 60, 'door', null, { isStatic: true });
+
+    //Puertas del último puzle
+    const doorsPuzzle = [];
+    for(var i = 0; i < 2; i++){
+        const door = this.matter.add.image((65+i)*120 + 60, 1*120 + 60, 'door', null, { isStatic: true });
+        doorsPuzzle[i] = door;
+    }
+    for(var i = 0; i < 2; i++){
+        const door = this.matter.add.image((62+i)*120 + 60, 5*120 + 60, 'door', null, { isStatic: true });
+        doorsPuzzle[i+2] = door;
+    }
+    for(var i = 0; i < 4; i++){
+        doorsPuzzle[i].setAngle(-90);
+    }
+    
+
+
 
 
     //Función de actualización de botones
@@ -223,6 +242,11 @@ offline.create = function(){
         }else if(buttons[1].active){
             door3.x = 31*120 - 60;
             door4.x = 32*120 + 180;
+            door3bis.x = 31*120 + 60;
+            door4bis.x = 32*120 + 60;
+        }else if(buttons[4].active){
+            doorsPuzzle[0].x = 65*120 - 60;
+            doorsPuzzle[1].x = 66*120 + 180;
         }else{
             door1.setVisible(true);
             door2.setVisible(true);
@@ -230,6 +254,17 @@ offline.create = function(){
             door2.setSensor(false);
             door3.x = 31*120 + 60;
             door4.x = 32*120 + 60;
+            door3bis.x = 31*120 - 60;
+            door4bis.x = 32*120 + 180;
+            doorsPuzzle[0].x = 65*120 + 60;
+            doorsPuzzle[1].x = 66*120 + 60;   
+        }
+        if(buttons[2].active && buttons[3].active){
+            doorsPuzzle[2].x = 62*120 - 60;
+            doorsPuzzle[3].x = 63*120 + 180;
+        }else{
+            doorsPuzzle[2].x = 62*120 + 60;
+            doorsPuzzle[3].x = 63*120 + 60;
         }
     }
 
@@ -520,14 +555,18 @@ offline.create = function(){
     arena = []
     for(var i = 0; i < 200; i++){
         arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand', { restitution: 1, friction: 0.1 });
-        arena[i].setScale(1);
-    }
+        arena[i].setScale(1.5);
+    }    
+
 
     
     
+
     //CAJAS
-    //Creamos una cada
+    //Creamos una cada inservible
     const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
+    const utilBox1 = this.matter.add.image(65*120, 0, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
+    const utilBox2 = this.matter.add.image(68*120, 3*120, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
 
 }//FIN DEL CREATE
 

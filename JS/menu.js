@@ -12,6 +12,23 @@ menu.preload = function(){
 }
 
 menu.create = function(){
+
+	this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
+	var bground = this.add.image(-100, -20, 'bgmenu').setOrigin(0);
+	bground.scaleX += 1;
+	bground.scaleY += 1;
+/////////////////////BOTON TITLE//////////////////////////////
+	//cargar boton Title
+	this.btit = this.add.sprite(960, 200, 'title').setInteractive();
+	//hacer boton visible
+	this.btit.setAlpha(1);
+
+////////////////////BOTON PLAY/////////////////////////////////
+	//cargar boton Play
+	this.bplay = this.add.sprite(400, 500, 'play').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
+	this.bplay.scaleX -= 0.2;
+	this.bplay.scaleY -= 0.2;
+
 	fx = this.sound.add('music');
 	fx.play();
 
@@ -25,6 +42,7 @@ menu.create = function(){
 	this.bplay = this.add.sprite(400, 500, 'play').setInteractive();
 	this.bplay.scaleX -= 0.1;
 	this.bplay.scaleY -= 0.1;
+
 	//hacer boton visible
 	this.bplay.setAlpha(1);
 	//accion al poner el cursor sobre el boton Play
@@ -46,7 +64,7 @@ menu.create = function(){
 	
 //////////////////////BOTON OPTIONS///////////////////////////////
 	//cargar boton Options
-	this.bopt = this.add.sprite(1700, 900, 'options').setInteractive();
+	this.bopt = this.add.sprite(1700, 900, 'options').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	//hacer boton visible
 	this.bopt.setAlpha(1);
 	//accion al poner el cursor sobre el boton Options
@@ -70,6 +88,30 @@ menu.create = function(){
 		//hacer botones visibles
 		menu.bback.setAlpha(1);*/
 	})
+
+
+//////////////////////BOTON SALIR///////////////////////////////
+	//cargar boton Salir
+	this.bout = this.add.sprite(400, 700, 'out').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
+	this.bout.scaleX -= 0.2;
+	this.bout.scaleY -= 0.2;
+	//hacer boton visible
+	this.bout.setAlpha(1);
+	//accion al poner el cursor sobre el boton Salir
+	this.bout.on('pointerover', function(){
+		menu.bout.scaleX += 0.15;
+		menu.bout.scaleY += 0.15;
+	})
+	//accion al quitar el cursor del boton Salir
+	this.bout.on('pointerout', function(){
+		menu.bout.scaleX -= 0.15;
+		menu.bout.scaleY -= 0.15;
+	})
+	//accion al hacer click sobre el boton Salir
+	this.bout.on('pointerdown', function(){
+		menu.scene.switch(victoria);
+	})
+
 }
 
 menu.update = function(){}
