@@ -17,7 +17,7 @@ menu.create = function(){
 	bground.scaleY += 1;
 /////////////////////BOTON TITLE//////////////////////////////
 	//cargar boton Title
-	this.btit = this.add.sprite(960, 200, 'title').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
+	this.btit = this.add.sprite(960, 200, 'title').setInteractive();
 	//hacer boton visible
 	this.btit.setAlpha(1);
 
