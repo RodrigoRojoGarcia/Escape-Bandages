@@ -33,6 +33,8 @@ function Pharaoh(scene, x, y){
 	this.steady = false;
 	//Si esta atacando
 	this.onHit = false;
+	//Que el fuego termine cuando termine la animación para no poder spamear fuego constantemente
+	this.attacking = false;
 	//Bloque donde empieza el fuego
 	this.block = scene.matter.add.rectangle(this.pharaoh.x+15, this.pharaoh.y, this.pharaoh.width/2, this.pharaoh.height/2,{isStatic: true, isSensor:true});
 	//Array que contiene los sprites del fuego en distintas posiciones
@@ -260,7 +262,7 @@ function Pharaoh(scene, x, y){
 		        });
 		    }
 		    if(Phaser.Input.Keyboard.JustDown(keys.down) && this.isColliding.bottom && !this.steady){
-		    	if(!this.onHit){
+		    	if(!this.onHit && !this.attacking){
 		    		this.createFire();
 		    	}
 		    }
@@ -347,6 +349,7 @@ function Pharaoh(scene, x, y){
 ///////////////////////////////////FUEGO///////////////////////////////////
 	this.createFire = function(){
 		this.onHit = true;
+		this.attacking = true;
 		this.block.position.x = this.pharaoh.x;
 		this.block.position.y = this.pharaoh.y;
 		//Coloca los sprites del fuego donde tienen que ir
@@ -399,6 +402,7 @@ function Pharaoh(scene, x, y){
 		for(var i = 0; i < 3; i++){
 			p.fire[i].setVisible(false);
 		}
+		p.attacking = false;
 		p.onHit = false;
 
 	}
