@@ -48,7 +48,35 @@ Anubis, maestro de la Necrópolis, y Bastet, Diosa de la armonía del hogar, des
 
 ## Escenas
 ![escenas_escape_bandages](https://user-images.githubusercontent.com/18311855/48098082-f8257980-e21b-11e8-80d8-394c09262489.PNG)
-Aquí se puede observar el flujo de escenas de nuestro prototipo. Se empieza en un menú principal con un botón para silenciar la música y otro botón para pasar al menú de selección de modo offline/online. (El modo online todavía no está activo). Del menú de selección de modo de juego se puede volver al menú principal o empezar una partida dando a 'offline'. En el juego en sí hay varias maneras de cambiar de estado. La primera es reiniciar nivel con la tecla 'R' del teclado. El siguiente cambio es cuando los jugadores se pasan en el nivel que se va a la escena de 'Victoria', de la cual solo se puede acceder al menú principal. Si uno de los jugadores pierde todas sus vidas se cambia a la escena de derrota, tras la cual se puede volver a jugar el nivel o volver al menú principal.
+\nAquí se puede observar el flujo de escenas de nuestro prototipo. 
+![menu principal](https://user-images.githubusercontent.com/18311855/48101270-b3eba680-e226-11e8-9d21-0ba376e40106.PNG)
+\nSe empieza en un menú principal con un botón para silenciar la música y otro botón para pasar al menú de selección de modo offline/online. (El modo online todavía no está activo).
+![online-offline](https://user-images.githubusercontent.com/18311855/48101273-b51cd380-e226-11e8-98cb-e6f401777dc9.PNG)
+\nDel menú de selección de modo de juego se puede volver al menú principal o empezar una partida dando a 'offline'. 
+En el juego en sí hay varias maneras de cambiar de estado. La primera es reiniciar nivel con la tecla 'R' del teclado. 
+El siguiente cambio es cuando los jugadores se pasan en el nivel que se va a la escena de 'Victoria', de la cual solo se puede acceder al menú principal. 
+![victoria](https://user-images.githubusercontent.com/18311855/48101277-b64e0080-e226-11e8-8232-6402a2759ce9.PNG)
+\nSi uno de los jugadores pierde todas sus vidas se cambia a la escena de derrota, tras la cual se puede volver a jugar el nivel o volver al menú principal.
+![game over](https://user-images.githubusercontent.com/18311855/48101266-b221e300-e226-11e8-9f5d-9aeaa9830380.PNG)
 
 ## Pasos actuales del juego
-Los dos jugadores aparecen en una sala sin nada. Cuando avanzan aparecen Anubis y Bastet y les explican la situación y controles básicos. Inmediatamente después el faraón no puede avanzar porque hay una puerta que le impide el paso, por lo que su amado tendrá que accionar un botón para permitirle avanzar. En este momento la momia y el faraón se encuentran cada uno a un Shek y tendrán que derrotarlos por separado. El siguiente impedimento para avanzar es una gran caja en la habitación de la momia, la cual el faraón podrá mover con su telequinesis para permitirle el paso. Ahora es el faraón el que no puede avanzar, la momia tendrá que saltar un agujero y dar a un botón para abrir una compuerta con la que el faraón podrá bajar a la estancia en la que se encuentra la momia. Ahora ambos pasan a una estancia más amplia en la que se encuentran dos Shek en plataformas volantes, una gran caja, un pasillo en la parte superior de la pared derecha y una puerta para un pasillo inferior en la pared derecha. Para que la puerta se abra los jugadores deberán matar a todos los Shek de la sala. Ahora ambos pueden avanzar, pero se encuentran con dos botones, los cuales tendrán que ser pulsados a la vez. Para poder hacerlo hay dos cajas en la cámara, aunque una de ellas está encerrada y tendrá que ser liberada. Para ello se necesita subir al pasillo superior con la ayuda de la telquinesis del faraón, allí se encontrará un botón que abre las compuertas de la caja y esta cae sobre uno de los botones y demuestra que pueden ser pulsados por ellas. Cuando se colocan las dos cajas sobre los botones los dos personajes son libres de avanzar, saltar un agujero y salir de la pirámide.
+Los dos jugadores aparecen en una sala sin nada. 
+![1](https://user-images.githubusercontent.com/18311855/48101240-a504f400-e226-11e8-9ea0-724f08a2348b.PNG)
+\nCuando avanzan aparecen Anubis y Bastet y les explican la situación y controles básicos. 
+\nInmediatamente después el faraón no puede avanzar porque hay una puerta que le impide el paso, por lo que su amado tendrá que accionar un botón para permitirle avanzar.
+![2](https://user-images.githubusercontent.com/18311855/48101244-a7674e00-e226-11e8-8660-6e511452d529.PNG)
+\nEn este momento la momia y el faraón se encuentran cada uno a un Shek y tendrán que derrotarlos por separado. 
+![3](https://user-images.githubusercontent.com/18311855/48101246-a8987b00-e226-11e8-8f3b-c872951e6e4d.PNG)
+\nEl siguiente impedimento para avanzar es una gran caja en la habitación de la momia, la cual el faraón podrá mover con su telequinesis para permitirle el paso. 
+![4](https://user-images.githubusercontent.com/18311855/48101248-a9c9a800-e226-11e8-8818-256daa1beaa2.PNG)
+\nAhora es el faraón el que no puede avanzar, la momia tendrá que saltar un agujero y dar a un botón para abrir una compuerta con la que el faraón podrá bajar a la estancia en la que se encuentra la momia.
+![5](https://user-images.githubusercontent.com/18311855/48101251-aa623e80-e226-11e8-8aed-a5d0256840af.PNG)
+![6](https://user-images.githubusercontent.com/18311855/48101253-ab936b80-e226-11e8-9f0e-3172b7af03bf.PNG)
+ \nAhora ambos pasan a una estancia más amplia en la que se encuentran dos Shek en plataformas volantes, una gran caja, un pasillo en la parte superior de la pared derecha y una puerta para un pasillo inferior en la pared derecha. Para que la puerta se abra los jugadores deberán matar a todos los Shek de la sala. 
+![7](https://user-images.githubusercontent.com/18311855/48101255-acc49880-e226-11e8-86e5-2b862c093dfc.PNG)
+ \nAhora ambos pueden avanzar, pero se encuentran con dos botones, los cuales tendrán que ser pulsados a la vez. Para poder hacerlo hay dos cajas en la cámara, aunque una de ellas está encerrada y tendrá que ser liberada. Para ello se necesita subir al pasillo superior con la ayuda de la telquinesis del faraón, allí se encontrará un botón que abre las compuertas de la caja y esta cae sobre uno de los botones y demuestra que pueden ser pulsados por ellas.
+![8](https://user-images.githubusercontent.com/18311855/48101259-adf5c580-e226-11e8-8dff-91b8a4c5000f.PNG)
+![9](https://user-images.githubusercontent.com/18311855/48101261-af26f280-e226-11e8-9930-56d76abee1fe.PNG)
+\nCuando se colocan las dos cajas sobre los botones los dos personajes son libres de avanzar, saltar un agujero y salir de la pirámide.
+![10](https://user-images.githubusercontent.com/18311855/48101263-afbf8900-e226-11e8-88c0-5743e7da0484.PNG)
+![11](https://user-images.githubusercontent.com/18311855/48101265-b0f0b600-e226-11e8-8038-f52b2f0de2d4.PNG)
