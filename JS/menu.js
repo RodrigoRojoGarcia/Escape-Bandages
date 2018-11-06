@@ -1,31 +1,30 @@
+//crear escena Menu Principal
 var menu = new Phaser.Scene('Menu');
 
 menu.preload = function(){
 	//cargar imagenes
+	//background
 	this.load.image('bgmenu','../Escape-Bandages/Sprites/bgmenu.png');
+	//Escape Bandages
 	this.load.image('title','../Escape-Bandages/Sprites/title.png');
+	//boton play
 	this.load.image('play','../Escape-Bandages/Sprites/play.png');
-	this.load.image('options','../Escape-Bandages/Sprites/options.png');
-	this.load.image('back', '../Escape-Bandages/Sprites/back.png');
+	//botones volumenes
+	this.load.image('novolumen','../Escape-Bandages/Sprites/novolumen.png');
+	this.load.image('volumen','../Escape-Bandages/Sprites/volumen.png');
 
+	//cargar audio
 	this.load.audio('music', '../Escape-Bandages/music.mp3');
 }
 
 menu.create = function(){
-
 	this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
-	var bground = this.add.image(-100, -20, 'bgmenu').setOrigin(0);
-	bground.scaleX += 1;
-	bground.scaleY += 1;
-/////////////////////BOTON TITLE//////////////////////////////
-	//cargar boton Title
-	this.btit = this.add.sprite(960, 200, 'title').setInteractive();
-	//hacer boton visible
-	this.btit.setAlpha(1);
-
+	//cargar letras Escape Bandages
+	this.btit = this.add.sprite(960, 200, 'title')
+	//inicializar musica
 	fx = this.sound.add('music');
 	fx.play();
-
+	fx.pause();
 	//cargar background
 	var bground = this.add.image(0, 0, 'bgmenu').setOrigin(0);
 	//cargar Title
@@ -56,56 +55,53 @@ menu.create = function(){
 	})
 	//console.log(this.bplay);
 	
-//////////////////////BOTON OPTIONS///////////////////////////////
-	//cargar boton Options
-	this.bopt = this.add.sprite(1700, 900, 'options').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
+//////////////////////BOTON SILENCIO///////////////////////////////
+	//cargar boton Silencio
+	this.bnvol = this.add.sprite(1750, 950, 'novolumen').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	//hacer boton visible
-	this.bopt.setAlpha(1);
-	//accion al poner el cursor sobre el boton Options
-	this.bopt.on('pointerover', function(){
-		menu.bopt.scaleX += 0.15;
-		menu.bopt.scaleY += 0.15;
+	this.bnvol.setAlpha(1);
+	//accion al poner el cursor sobre el boton Silencio
+	this.bnvol.on('pointerover', function(){
+		menu.bnvol.scaleX += 0.15;
+		menu.bnvol.scaleY += 0.15;
 	})
-	//accion al quitar el cursor del boton Options
-	this.bopt.on('pointerout', function(){
-		menu.bopt.scaleX -= 0.15;
-		menu.bopt.scaleY -= 0.15;
+	//accion al quitar el cursor del boton Silencio
+	this.bnvol.on('pointerout', function(){
+		menu.bnvol.scaleX -= 0.15;
+		menu.bnvol.scaleY -= 0.15;
 	})
-	//accion al hacer click sobre el boton Options
-	this.bopt.on('pointerdown', function(){
-		fx.pause();
-		/*//hacer botones invisibles
-		menu.bopt.setAlpha(0);
-		menu.bplay.setAlpha(0);
-		menu.bout.setAlpha(0);
-		menu.btit.setAlpha(0);
+	//accion al hacer click sobre el boton Silencio
+	this.bnvol.on('pointerdown', function(){
+		fx.resume();
+		//hacer botones invisibles
+		menu.bnvol.setAlpha(0);
 		//hacer botones visibles
-		menu.bback.setAlpha(1);*/
+		menu.bvol.setAlpha(1);
 	})
 
-
-//////////////////////BOTON SALIR///////////////////////////////
-	//cargar boton Salir
-	this.bout = this.add.sprite(400, 700, 'out').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
-	this.bout.scaleX -= 0.2;
-	this.bout.scaleY -= 0.2;
+//////////////////////BOTON VOLUMEN///////////////////////////////
+	//cargar boton Volumen
+	this.bvol = this.add.sprite(1750, 950, 'volumen').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	//hacer boton visible
-	this.bout.setAlpha(1);
-	//accion al poner el cursor sobre el boton Salir
-	this.bout.on('pointerover', function(){
-		menu.bout.scaleX += 0.15;
-		menu.bout.scaleY += 0.15;
+	this.bvol.setAlpha(0);
+	//accion al poner el cursor sobre el boton Volumen
+	this.bvol.on('pointerover', function(){
+		menu.bvol.scaleX += 0.15;
+		menu.bvol.scaleY += 0.15;
 	})
-	//accion al quitar el cursor del boton Salir
-	this.bout.on('pointerout', function(){
-		menu.bout.scaleX -= 0.15;
-		menu.bout.scaleY -= 0.15;
+	//accion al quitar el cursor del boton Volumen
+	this.bvol.on('pointerout', function(){
+		menu.bvol.scaleX -= 0.15;
+		menu.bvol.scaleY -= 0.15;
 	})
-	//accion al hacer click sobre el boton Salir
-	this.bout.on('pointerdown', function(){
-		menu.scene.switch(victoria);
+	//accion al hacer click sobre el boton Volumen
+	this.bvol.on('pointerdown', function(){
+		fx.pause();
+		//hacer botones invisibles
+		menu.bvol.setAlpha(0);
+		//hacer botones visibles
+		menu.bnvol.setAlpha(1);
 	})
-
 }
 
 menu.update = function(){}
