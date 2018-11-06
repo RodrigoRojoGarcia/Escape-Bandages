@@ -3,29 +3,39 @@ var victoria = new Phaser.Scene('Victoria');
 victoria.preload = function(){
 	//carga sprites mummy
 	this.load.image('bgV','../Escape-Bandages/Sprites/bgmenu.png');
-    this.load.spritesheet('Mummy','../Escape-Bandages/Sprites/mummySprites2.png', {frameWidth: 100, frameHeight: 150});
+    this.load.spritesheet('Mummyv','../Escape-Bandages/Sprites/mummySprites2.png', {frameWidth: 100, frameHeight: 150});
+    this.load.spritesheet("Pharaohv","../Escape-Bandages/Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
     this.load.image('victoria','../Escape-Bandages/Sprites/victoria.png');
     this.load.image('backI','../Escape-Bandages/Sprites/back.png');
 }
 
 victoria.create = function(){
 	//background
-	var bgV = this.add.image(-100, -20, 'bgV').setOrigin(0);
-	bgV.scaleX += 1;
-	bgV.scaleY += 1;
+	var bgV = this.add.image(0, 0, 'bgV').setOrigin(0);
 	//letras victoria
 	var vic = this.add.sprite(960, 540, 'victoria');
 
 ////////////////////Victoria Mummy//////////////////////////////////
-	var mumV = this.add.sprite(660, 400,'Mummy');
+	var mumV = this.add.sprite(1300, 400,'Mummyv');
 	//Animación salto victoria
     this.anims.create({
-        key: 'victoriaAnim',
-        frames: this.anims.generateFrameNumbers('Mummy',{start: 8, end: 10}),
+        key: 'mvAnim',
+        frames: this.anims.generateFrameNumbers('Mummyv',{start: 13, end: 15}),
         frameRate: 5,
         repeat: -1
     });
-    mumV.anims.play('victoriaAnim');
+    mumV.anims.play('mvAnim');
+
+////////////////////Victoria Pharaoh//////////////////////////////////
+	var pV = this.add.sprite(640, 400,'Pharaohv');
+	//Animación salto victoria
+    this.anims.create({
+        key: 'pvAnim',
+        frames: this.anims.generateFrameNumbers('Pharaohv',{start: 8, end: 10}),
+        frameRate: 3,
+        repeat: -1
+    });
+    pV.anims.play('pvAnim');
 
 /////////////////BOTON VOLVER//////////////////
 	//cargar boton Volver
@@ -50,3 +60,5 @@ victoria.create = function(){
 		victoria.scene.switch(menu);
 	})
 }
+
+victoria.update = function(){}

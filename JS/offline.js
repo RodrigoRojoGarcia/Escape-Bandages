@@ -41,6 +41,9 @@ offline.preload = function(){
 }//FIN DEL PRELOAD
 
 offline.create = function(){
+
+
+
 ///////////////////////////////////CONFIG///////////////////////////////////
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
     const engine = Engine.create();
@@ -101,6 +104,7 @@ offline.create = function(){
     //Zonas de Evento
     const Anubis = map.findObject("Objects", obj => obj.name === "Anubis");
     const Bastet = map.findObject("Objects", obj => obj.name === "Bastet");
+    const wayOut = map.findObject("Objects", obj=>obj.name === "Victory")
     //Cajas de texto de tutorial
     const textAnubis = map.findObject("Objects", obj => obj.name === "TextAnubis");
     const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
@@ -117,6 +121,7 @@ offline.create = function(){
     //Le atribuímos una profundidad de 1, por lo que pasará por delante de objetos a los que no le introduzcamos ningún valor de depth modificado
     //(El valor de depth por defecto es 0)
     p.getSprite().depth = 2
+ 
     //MOMIA
     //Creamos un objeto Momia, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
@@ -132,11 +137,13 @@ offline.create = function(){
     s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
     //Llamamos a la función crear, que crea las animaciones del mismo
     s.create();
+
     enemies[0] = s;
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y);
     //Llamamos a la función crear, que crea las animaciones del mismo
     s2.create();
+
     enemies[1] = s2;
 
     shek = [];
@@ -144,12 +151,15 @@ offline.create = function(){
     shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y);
     enemies[2] = shek[0];
     enemies[3] = shek[1];
+
+
 ///////////////////////////////////GODS////////////////////////////////////
     //ANUBIS
     //Creamos un objeto Dios, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2, "Anubis");
     //Llamamos a la función crear, que crea las animaciones del mismo
     a.create();
+
     //Creamos un objeto Dios, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     b = new God(this, spawnPointBastet.x + 60/2, spawnPointBastet.y + 90/2, "Bastet");
     //Llamamos a la función crear, que crea las animaciones del mismo
@@ -169,6 +179,7 @@ offline.create = function(){
     torches = []
     for(var i = 0; i < 4; i++){
         torches.push(this.add.sprite(225 + 480*i,215,'torch'));
+
     };
     //Animación de las antorchas
     this.anims.create({
@@ -186,6 +197,7 @@ offline.create = function(){
     //Por cada objeto creamos un botón de la clase Button.js
     for(var i = 0; i < buttons.length; i++){
         buttons[i] = new Button(this, buttons[i].x, buttons[i].y);
+
     }
     //Creamos los sprites de la puerta
     const door1 = this.matter.add.image(15*120 + 60, 2*120 + 60, 'door', null, { isStatic: true });
@@ -200,6 +212,7 @@ offline.create = function(){
     door4bis.setAngle(-90);
     const door5 = this.matter.add.image(54*120 + 60, 5*120 + 60, 'door', null, { isStatic: true });
     const door6 = this.matter.add.image(54*120 + 60, 4*120 + 60, 'door', null, { isStatic: true });
+
     //Puertas del último puzle
     const doorsPuzzle = [];
     for(var i = 0; i < 2; i++){
@@ -214,6 +227,9 @@ offline.create = function(){
         doorsPuzzle[i].setAngle(-90);
     }
     
+
+
+
 
     //Función de actualización de botones
     updateButtons = function(){
@@ -264,7 +280,71 @@ offline.create = function(){
             door6.setSensor(true);
         }
     }
-    
+///////////////////////////////////VICTORY///////////////////////////////////
+    zoneVictory = this.matter.add.rectangle(wayOut.x+(wayOut.width/2), wayOut.y+(wayOut.height/2),wayOut.width,wayOut.height,{isSensor:true, isStatic: true});
+
+    this.mummyVictory = false;
+    this.pharaohVictory = false;
+
+    function onVictoryStartP({bodyA, bodyB, pair}){
+        if(bodyB === zoneVictory){
+            p.getSprite().setTint(0xdd11dd)
+            scene.pharaohVictory = true;
+        }
+    }
+    function onVictoryStartM({bodyA, bodyB, pair}){
+        if(bodyB === zoneVictory){
+            m.getSprite().setTint(0xddffdd)
+            scene.mummyVictory = true;
+        }
+    }
+
+    function onVictory({bodyA, bodyB, pair}){
+    }
+
+    function onVictoryOutP({bodyA, bodyB, pair}){
+        if(bodyB === zoneVictory){
+            p.getSprite().setTint(0xffffff)
+            scene.pharaohVictory = false;
+        }
+    }
+    function onVictoryOutM({bodyA, bodyB, pair}){
+        if(bodyB === zoneVictory){
+            m.getSprite().setTint(0xffffff)
+            scene.mummyVictory = false;
+        }
+    }
+
+    this.matterCollision.addOnCollideStart({
+        objectA: p.getSprite(),
+        callback: onVictoryStartP,
+        context: p.getSprite()
+    })
+    this.matterCollision.addOnCollideStart({
+        objectA: m.getSprite(),
+        callback: onVictoryStartM,
+        context: m.getSprite()
+    })
+    this.matterCollision.addOnCollideActive({
+        objectA: p.getSprite(),
+        callback: onVictory,
+        context: p.getSprite()
+    })
+    this.matterCollision.addOnCollideActive({
+        objectA: m.getSprite(),
+        callback: onVictory,
+        context: m.getSprite()
+    })
+    this.matterCollision.addOnCollideEnd({
+        objectA: p.getSprite(),
+        callback: onVictoryOutP,
+        context: p.getSprite()
+    })
+    this.matterCollision.addOnCollideEnd({
+        objectA: m.getSprite(),
+        callback: onVictoryOutM,
+        context: m.getSprite()
+    })
 ///////////////////////////////////EVENT TUTORIAL///////////////////////////////////
     //Crea un rectángulo, sensor, con las medidas del objeto de Tile de la zona de Anubis
     zoneAnubis = this.matter.add.rectangle(Anubis.x+(Anubis.width/2), Anubis.y+(Anubis.height/2), Anubis.width, Anubis.height, {isSensor: true, isStatic: true});
@@ -435,7 +515,7 @@ offline.create = function(){
 
 ///////////////////////////////////CONTROLES///////////////////////////////////
     //Extraemos las teclas de dirección, W,A,D y barra espaciadora de las KeyCodes de Phaser
-    const {LEFT, RIGHT, UP, DOWN, W, A, D, C, SPACE} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, DOWN, W, A, D, C, R, SPACE} = Phaser.Input.Keyboard.KeyCodes;
     //Les atribuimos a variables nuestras los KeyCodes de las teclas de dirección
     this.keys = this.input.keyboard.addKeys({
         left: LEFT,
@@ -446,6 +526,7 @@ offline.create = function(){
         a: A,
         d: D,
         c: C,
+        r: R,
         space: SPACE
     });
     //Evento cuando se hace click
@@ -476,6 +557,11 @@ offline.create = function(){
         arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand', { restitution: 1, friction: 0.1 });
         arena[i].setScale(1.5);
     }    
+
+
+    
+    
+
     //CAJAS
     //Creamos una cada inservible
     const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
@@ -569,8 +655,11 @@ offline.update = function(){
         }
     }
 
-    if(this.keys.c.isDown){
-        offline.scene.switch(menu);
+    if(Phaser.Input.Keyboard.JustDown(keys.r)){
+        offline.scene.restart();
+    }
+    if(this.mummyVictory && this.pharaohVictory){
+        offline.scene.switch(victoria)
     }
 
 }//FINAL UPDATE

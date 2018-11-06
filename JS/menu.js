@@ -5,12 +5,14 @@ menu.preload = function(){
 	this.load.image('bgmenu','../Escape-Bandages/Sprites/bgmenu.png');
 	this.load.image('title','../Escape-Bandages/Sprites/title.png');
 	this.load.image('play','../Escape-Bandages/Sprites/play.png');
-	this.load.image('out','../Escape-Bandages/Sprites/salir.png');
 	this.load.image('options','../Escape-Bandages/Sprites/options.png');
 	this.load.image('back', '../Escape-Bandages/Sprites/back.png');
+
+	this.load.audio('music', '../Escape-Bandages/music.mp3');
 }
 
 menu.create = function(){
+
 	this.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cursor2.png), pointer');
 	var bground = this.add.image(-100, -20, 'bgmenu').setOrigin(0);
 	bground.scaleX += 1;
@@ -26,6 +28,21 @@ menu.create = function(){
 	this.bplay = this.add.sprite(400, 500, 'play').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	this.bplay.scaleX -= 0.2;
 	this.bplay.scaleY -= 0.2;
+
+	fx = this.sound.add('music');
+	fx.play();
+
+	//cargar background
+	var bground = this.add.image(0, 0, 'bgmenu').setOrigin(0);
+	//cargar Title
+	this.btit = this.add.sprite(960, 200, 'title');
+
+////////////////////BOTON PLAY/////////////////////////////////
+	//cargar boton Play
+	this.bplay = this.add.sprite(400, 500, 'play').setInteractive();
+	this.bplay.scaleX -= 0.1;
+	this.bplay.scaleY -= 0.1;
+
 	//hacer boton visible
 	this.bplay.setAlpha(1);
 	//accion al poner el cursor sobre el boton Play
@@ -62,6 +79,7 @@ menu.create = function(){
 	})
 	//accion al hacer click sobre el boton Options
 	this.bopt.on('pointerdown', function(){
+		fx.pause();
 		/*//hacer botones invisibles
 		menu.bopt.setAlpha(0);
 		menu.bplay.setAlpha(0);
@@ -70,6 +88,7 @@ menu.create = function(){
 		//hacer botones visibles
 		menu.bback.setAlpha(1);*/
 	})
+
 
 //////////////////////BOTON SALIR///////////////////////////////
 	//cargar boton Salir
@@ -92,6 +111,7 @@ menu.create = function(){
 	this.bout.on('pointerdown', function(){
 		menu.scene.switch(victoria);
 	})
+
 }
 
 menu.update = function(){}
