@@ -168,6 +168,7 @@ offline.create = function(){
 ///////////////////////////////////ANTORCHAS///////////////////////////////////
     //Creamos un array de antorchas y les atribuimos un sprite de Phaser, que no de Matter
     //Si fuese de Matter sería colisionable y no queremos que sea colisionable
+    torches = []
     for(var i = 0; i < 4; i++){
         torches.push(this.add.sprite(225 + 480*i,215,'torch'));
     };
@@ -401,7 +402,7 @@ offline.create = function(){
 
 ///////////////////////////////////CONTROLES///////////////////////////////////
     //Extraemos las teclas de dirección, W,A,D y barra espaciadora de las KeyCodes de Phaser
-    const {LEFT, RIGHT, UP, DOWN, W, A, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, DOWN, W, A, D, C, SPACE} = Phaser.Input.Keyboard.KeyCodes;
     //Les atribuimos a variables nuestras los KeyCodes de las teclas de dirección
     this.keys = this.input.keyboard.addKeys({
         left: LEFT,
@@ -411,6 +412,7 @@ offline.create = function(){
         w: W,
         a: A,
         d: D,
+        c: C,
         space: SPACE
     });
     //Evento cuando se hace click
@@ -533,6 +535,10 @@ offline.update = function(){
             //Permitimos movimiento a la momia
             m.steady = false;
         }
+    }
+
+    if(this.keys.c.isDown){
+        offline.scene.switch(menu);
     }
 
 }//FINAL UPDATE

@@ -1,5 +1,3 @@
-
-
 var config = {
 	type: Phaser.AUTO,
 	width: 1922,
@@ -7,8 +5,8 @@ var config = {
 	parent: 'GAME',
 	physics: {
 		default: 'matter',
-		matter:{
-			gravity:{y:1},
+		matter: {
+			default: {y:1},
 			debug: false,
 			enableSleep: true
 		}
@@ -18,12 +16,11 @@ var config = {
 			plugin: PhaserMatterCollisionPlugin,
 			key: "matterCollision",
 			mapping: "matterCollision"
-		}]
+		}
+		]
 	},
-	scene: [offline]
+	scene:[menu, offline, victoria, submenu]
 };
 
 var game = new Phaser.Game(config);
 
-//Array of torches, elements that are going to be in the scene
-var torches = [];
