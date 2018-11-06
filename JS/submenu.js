@@ -49,7 +49,7 @@ submenu.create = function(){
 ////////////////////////BOTONES//////////////////////////////////
 /////////////////////BOTON ONLINE//////////////////////////////
 	//cargar boton Online
-	this.bon = this.add.sprite(650, 550, 'on').setInteractive();
+	this.bon = this.add.sprite(650, 550, 'on').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	//hacer boton invisible
 	this.bon.setAlpha(1);
 	/*//accion al poner el cursor sobre el boton Online
@@ -69,7 +69,7 @@ submenu.create = function(){
 
 /////////////////////BOTON OFFLINE//////////////////////////////
 	//cargar boton Offline
-	this.boff = this.add.sprite(1200, 550, 'off').setInteractive();
+	this.boff = this.add.sprite(1200, 550, 'off').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	//hacer boton invisible
 	this.boff.setAlpha(1);
 	//accion al poner el cursor sobre el boton Offline
@@ -90,7 +90,7 @@ submenu.create = function(){
 
 //////////////////////BOTON BACK////////////////////////////////
 	//cargar boton Back
-	this.bback = this.add.sprite(1700, 955, 'back').setInteractive();
+	this.bback = this.add.sprite(1700, 955, 'back').setInteractive({ cursor: 'url(../Escape-Bandages/Sprites/cursor3.png), pointer' });
 	this.bback.scaleX -= 0.4;
 	this.bback.scaleY -= 0.4;
 	//hacer boton invisible
