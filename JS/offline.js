@@ -631,25 +631,18 @@ offline.update = function(){
         
         if(this.doubleCamera){
             this.doubleCamera = false;
-            this.cameras.remove(cameraPharaoh)
-            this.cameras.remove(cameraMummy)
+            //this.cameras.remove(cameraPharaoh)
+           // this.cameras.remove(cameraMummy)
             cameraPharaoh = this.cameras.add(0,0,1920,1080).setName('camPharaoh');
-            cameraMummy = this.cameras.add(0,0,0,0).setName('camMummy');
+            cameraMummy = this.cameras.add(1920,1080,0,0).setName('camMummy');
             cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
-            cameraMummy.startFollow(m.getSprite(), false, 1, 1, -200);
             cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-            cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
             cameraPharaoh.ignore(this.sayBastet1);
-            cameraPharaoh.ignore(this.sayBastet2);
-            //Los textos de Anubis no se le muestran a la momia
-            cameraMummy.ignore(this.sayAnubis1);
-            cameraMummy.ignore(this.sayAnubis2);
-            
-            
+            cameraPharaoh.ignore(this.sayBastet2);            
         }else{
             this.doubleCamera = true;
-            this.cameras.remove(cameraPharaoh)
-            this.cameras.remove(cameraMummy)
+           // this.cameras.remove(cameraPharaoh)
+           // this.cameras.remove(cameraMummy)
             cameraMummy = this.cameras.add(0,0,940,1080).setName('camMummy');
             cameraPharaoh = this.cameras.add(980,0,940,1080).setName('camPharaoh');
             cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
