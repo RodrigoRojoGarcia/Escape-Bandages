@@ -18,6 +18,10 @@ function God(scene, x, y, sprite){
 		return this.god;
 	}
 
+	this.destroy = function(){
+		this.god.destroy();
+	}
+
 ///////////////////////////////////CREATE///////////////////////////////////
 	this.create = function(){
 		//Si el sprite es Anubis

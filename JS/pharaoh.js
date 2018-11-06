@@ -172,6 +172,11 @@ function Pharaoh(scene, x, y){
 
 	}
 
+	this.destroy = function(){
+		this.health.destroy();
+		this.fireDestroy();
+	}
+
 
 ///////////////////////////////////CREATE///////////////////////////////////	
 	this.create = function(){
@@ -401,6 +406,12 @@ function Pharaoh(scene, x, y){
 		}
 		p.onHit = false;
 
+	}
+	this.fireDestroy = function(){
+		this.block.destroy();
+		for(var i = 0; i < 3; i++){
+			p.fire[i].destroy();
+		}
 	}
 	
 }

@@ -187,18 +187,25 @@ function Mummy(scene, x, y){
 		//Después de un tiempo, destruimos la cuerda
 		scene.time.addEvent({
 	        delay: 100,
-	        callback: this.destroyRopes,
+	        callback: this.hideRopes,
 	        callbackScope: scene
 	    });
 	};
 	//Hace que no se vean la cuerda
-	this.destroyRopes = function(){
+	this.hideRopes = function(){
 		//Hacemos invisibles las cuerdas
 		for(var i=0;i<9;i++){
 			m.shackle[i].setVisible(false)
 		}
 		//Ya no estamos atacando
 		m.onHit = false;
+	}
+
+	this.destroyRopes = function(){
+		for(var i=0;i<9;i++){
+			m.shackle[i].destroy()
+		}
+		m.block.destroy();
 	}
 
 	//Nos pone en periodo de estar golpeados y llama a getHit de la vida
@@ -210,6 +217,12 @@ function Mummy(scene, x, y){
 	this.invulnerable = function(){
 		m.mummy.setTint(0xffffff)
 		m.gettingHit = false;
+	}
+
+	this.destroy = function(){
+		this.destroyRopes();
+		this.health.destroy();
+		this.mummy.destroy();
 	}
 
 ///////////////////////////////////CREATE///////////////////////////////////

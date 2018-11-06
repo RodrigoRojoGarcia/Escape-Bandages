@@ -228,6 +228,17 @@
                  "width":0,
                  "x":6127.27272727273,
                  "y":503.030303030303
+                }, 
+                {
+                 "height":344,
+                 "id":29,
+                 "name":"Victory",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":248,
+                 "x":8088,
+                 "y":240
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -269,7 +280,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":29,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.6",
@@ -553,19 +564,6 @@
                     }
                 }
             },
-         "tilewidth":120
-        }, 
-        {
-         "columns":5,
-         "firstgid":13,
-         "image":"Sprites\/textBox.png",
-         "imageheight":180,
-         "imagewidth":600,
-         "margin":0,
-         "name":"textBox",
-         "spacing":0,
-         "tilecount":5,
-         "tileheight":120,
          "tilewidth":120
         }],
  "tilewidth":120,
