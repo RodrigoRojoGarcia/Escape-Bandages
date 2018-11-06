@@ -73,14 +73,20 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	    
 	    scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
         	if(move){
-        		if(dragY > scene.box1.min && dragY < scene.box1.max){
-        			//Solo arrastable en el eje Y        		
-        			gameObject.y = dragY;
-        		}else if(dragY < scene.box1.min){
-					gameObject.setPosition(scene.box1.x, scene.box1.min);
-				}else if(dragY > gameObject.max){
-					gameObject.setPosition(scene.box1.x, scene.box1.max);
-				}
+        		for(var i = 0;i<box.length;i++){
+        			if(box[i].move){
+		        		if(dragY > box[i].min && dragY < box[i].max){
+		        			//Solo arrastable en el eje Y        		
+		        			gameObject.y = dragY;
+		        		}else if(dragY < box[i].min){
+							gameObject.setPosition(box[i].x, box[i].min);
+						}else if(dragY > gameObject.max){
+							gameObject.setPosition(box[i].x, box[i].max);
+						}
+        			}
+        		}
+        		
+        		
         	}
         });
 

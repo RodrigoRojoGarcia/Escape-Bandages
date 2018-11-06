@@ -61,27 +61,28 @@ function Pharaoh(scene, x, y){
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
 		//Si el shek no está muerto
-		if(!s2.dead){
-			//Si el bodyB es el shek
-			if(bodyB === s2.getSprite().body.parts[1]){
-				//Si no estamos en periodo de invulnerabilidad
-				if(!this.gettingHit){
-					//Nos golpean
-					this.getHit();
-					//Nos ponemos rojos
-					p.pharaoh.setTint(0xff3333)
-					//Al cabo de un tiempo llamamos a invulnerable
-					scene.time.addEvent({
-			            delay: 300,
-			            callback: this.invulnerable,
-			            callbackScope: scene
-			        });
-				}else{
-					return;
-				}
+		for(var i=0;i<enemies.length;i++){
+			if(!enemies[i].dead){
+				//Si el bodyB es el shek
+				if(bodyB === enemies[i].getSprite().body.parts[1]){
+					//Si no estamos en periodo de invulnerabilidad
+					if(!this.gettingHit){
+						//Nos golpean
+						this.getHit();
+						//Nos ponemos rojos
+						p.pharaoh.setTint(0xff3333)
+						//Al cabo de un tiempo llamamos a invulnerable
+						scene.time.addEvent({
+				            delay: 300,
+				            callback: this.invulnerable,
+				            callbackScope: scene
+				        });
+					}else{
+						return;
+					}
+				}	
 			}
 		}
-		
 
 
 		//Si con lo que colisiona es un sensor: no hacemos nada

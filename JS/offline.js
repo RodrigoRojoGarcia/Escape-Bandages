@@ -88,9 +88,16 @@ offline.create = function(){
     //Shek
     const spawnPointShek = map.findObject("Objects", obj => obj.name === "Shek");
     //Shek2
-    const spawnPointShek2 = map.findObject("Objects", obj=> obj.name === "Shek2")
-    //Caja
+    const spawnPointShek2 = map.findObject("Objects", obj=> obj.name === "Shek2");
+    //Shek3
+    const spawnpointShek3 = map.findObject("Objects", obj=> obj.name === "Shek3");
+    //Shek4
+    const spawnpointShek4 = map.findObject("Objects", obj=> obj.name === "Shek4");
+    //Cajas
     const spawnBox1 = map.findObject("Objects", obj => obj.name === "PurpleBox");
+    const spawnBox2 = map.findObject("Objects", obj => obj.name === "PurpleBox2");
+    //Arena
+    const spawnPointSand = map.findObject("Objects", obj=> obj.name === "Sand");
 
     //OBJETOS
     //Zonas de Evento
@@ -100,7 +107,8 @@ offline.create = function(){
     const textAnubis = map.findObject("Objects", obj => obj.name === "TextAnubis");
     const textBastet = map.findObject("Objects", obj => obj.name === "TextBastet");
     //Botones
-    buttons = map.createFromObjects('Buttons', 10, { key: 'button' });
+    buttons = map.createFromObjects('Buttons', 4, { key: 'button' });
+    
 
 ///////////////////////////////////PLAYERS///////////////////////////////////
     //FARAÓN
@@ -120,16 +128,24 @@ offline.create = function(){
     m.getSprite().depth = 2
 
 ///////////////////////////////////ENEMIES///////////////////////////////////
+    enemies = [];
     //SHEK
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
     //Llamamos a la función crear, que crea las animaciones del mismo
     s.create();
+    enemies[0] = s;
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y);
     //Llamamos a la función crear, que crea las animaciones del mismo
     s2.create();
+    enemies[1] = s2;
 
+    shek = [];
+    shek[0] = new Enemy(this,spawnpointShek3.x, spawnpointShek3.y);
+    shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y);
+    enemies[2] = shek[0];
+    enemies[3] = shek[1];
 ///////////////////////////////////GODS////////////////////////////////////
     //ANUBIS
     //Creamos un objeto Dios, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
@@ -175,6 +191,12 @@ offline.create = function(){
     //Creamos los sprites de la puerta
     const door1 = this.matter.add.image(15*120 + 60, 2*120 + 60, 'door', null, { isStatic: true });
     const door2 = this.matter.add.image(15*120 + 60, 3*120 + 60, 'door', null, { isStatic: true });
+    const door3 = this.matter.add.image(31*120 + 60, 4*120 + 60, 'door', null, { isStatic: true });
+    const door4 = this.matter.add.image(32*120 + 60, 4*120 + 60, 'door', null, { isStatic: true });
+    door3.setAngle(-90);
+    door4.setAngle(-90);
+    const door5 = this.matter.add.image(54*120 + 60, 5*120 + 60, 'door', null, { isStatic: true });
+    const door6 = this.matter.add.image(54*120 + 60, 4*120 + 60, 'door', null, { isStatic: true });
     //Función de actualización de botones
     updateButtons = function(){
         //Si se activa el sensor desaparecen las puertas y se transforman en sensores, por lo que el personaje las puede atravesar
@@ -183,11 +205,29 @@ offline.create = function(){
             door2.setVisible(false);
             door1.setSensor(true);
             door2.setSensor(true);
+        }else if(buttons[1].active){
+            door3.x = 31*120 - 60;
+            door4.x = 32*120 + 180;
         }else{
             door1.setVisible(true);
             door2.setVisible(true);
             door1.setSensor(false);
             door2.setSensor(false);
+            door3.x = 31*120 + 60;
+            door4.x = 32*120 + 60;
+        }
+    }
+
+    openDoors = function(){
+        var dead = true;
+        for(var i = 0; i< shek.length;i++){
+            dead = dead && shek[i].dead
+        }
+        if(dead){
+            door5.setVisible(false);
+            door5.setSensor(true);
+            door6.setVisible(false);
+            door6.setSensor(true);
         }
     }
     
@@ -340,9 +380,15 @@ offline.create = function(){
     //Creamos una objeto PurpleBox con las coordenadas del objeto del tilemap
     this.box1 = new PurpleBox(this, spawnBox1.x, spawnBox1.y, 705, 860, 'PurpleBox1', 0, 0.01, 0.1, 100);
     //Llamamos a create que crea las animaciones del objeto
-    this.box1.create();
+    
+
+    this.box2 = new PurpleBox(this, spawnBox2.x, spawnBox2.y,220,860,'PurpleBox1',0,0.01,0.1,100);
+
     //Lo introducimos en el array de cajas
-    box = [this.box1];
+    box = [this.box1,this.box2];
+    for(var i = 0;i<box.length;i++){
+        box[i].create();
+    }
 
 ///////////////////////////////////DEBUG///////////////////////////////////
     //Muestra las líneas de colisión de los elementos del mundo pulsando la F
@@ -391,15 +437,12 @@ offline.create = function(){
     //ARENA
     //Añadimos a un array de arena 30 granos de arena (10 por for)
     arena = []
-    for(var i = 0; i < 10; i++){
-        arena[i] = this.matter.add.image(600 + i*4, 120, 'sand', { restitution: 1, friction: 0.1 });
+    for(var i = 0; i < 200; i++){
+        arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand', { restitution: 1, friction: 0.1 });
+        arena[i].setScale(1.5);
     }
-    for(var i = 0; i < 10; i++){
-        arena[i] = this.matter.add.image(400 + i*4, 116, 'sand', { restitution: 1, friction: 0.1 });
-    }
-    for(var i = 0; i < 10; i++){
-        arena[i] = this.matter.add.image(400 + i*4, 112, 'sand', { restitution: 1, friction: 0.1 });
-    }
+
+    
     
     //CAJAS
     //Creamos una cada
@@ -449,6 +492,12 @@ offline.update = function(){
         //Reseteamos el estado de colisiones de los sensores del Shek
         s2.resetColliding()
     }
+    for(var i=0;i<shek.length;i++){
+        if(!shek[i].dead){
+            shek[i].update();
+            shek[i].resetColliding();
+        }
+    }
     //Actualizamos Anubis
     a.update();
     //Actualizamos Bastet
@@ -467,7 +516,7 @@ offline.update = function(){
 ///////////////////////////////////RESOLVER COLISIONES///////////////////////////////////
     //Resuelve colisiones de los botones
     updateButtons();
-
+    openDoors();
 ///////////////////////////////////RESOLVER CONTROLES///////////////////////////////////
     //Si se acaba de pulsar el espacio
     if(Phaser.Input.Keyboard.JustDown(keys.space)){
