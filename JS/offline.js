@@ -26,6 +26,19 @@ offline.create = function(){
     layer.setCollisionByProperty({ collider: true });
     this.matter.world.convertTilemapLayer(layer);
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+    const {C} = Phaser.Input.Keyboard.KeyCodes;
+
+    this.keys = this.input.keyboard.addKeys({
+        c:C
+    });
+
+
 }
 
-offline.update = function(){}
+offline.update = function(){
+
+    if(this.keys.c.isDown){
+        offline.scene.switch(menu);
+    }
+}
