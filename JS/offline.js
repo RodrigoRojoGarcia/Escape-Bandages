@@ -326,10 +326,13 @@ offline.create = function(){
     "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
     "Para ello necesitaréis salir de la pirámide JUNTOS"];
     var wordsAnubis2 = ["Te otorgo el poder del fuego místico, podrás recoger\nel calor de tu alrededor y concentrarlo en llamas",
-    "delante de tí para lograrlo solo has de apuntar\ncon este cetro"];
+    "delante de tí para lograrlo solo has de pulsar\nla tecla de dirección 'abajo'"];
+    var wordsAnubis3 = ["Te otorgo también el poder de la telequinesis\npara usarlo has de apuntar con este cetro, pulsar",
+    "el botón izquierdo y arrastrar."]
     //Hacemos que el texto aparezca en el mismo lugar que el objeto de texto de Tiled
     this.sayAnubis1 = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis1).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
     this.sayAnubis2 = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis2).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+    this.sayAnubis3 = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis3).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
     //Profundidad 100 para que aparezca delante de todo
     this.sayAnubis1.depth = 100;
     //Invisible mientras no esté en el tutorial
@@ -338,13 +341,17 @@ offline.create = function(){
     this.sayAnubis2.depth = 100;
     //Invisible mientras no esté en el tutorial
     this.sayAnubis2.setVisible(false);
+    //Profundidad 100 para que aparezca delante de todo
+    this.sayAnubis3.depth = 100;
+    //Invisible mientras no esté en el tutorial
+    this.sayAnubis3.setVisible(false);
 
     //BASTET
     //Textos del tutorial de Bastet
     var wordsBastet1 = ["Hola, soy Bastet, Diosa de la armonía del hogar.",
     "Te he revivido porque en vida te enamoraste de una\npersona de la que no deberías, por lo que os doy la\n oportunidad de vivir juntos.",
     "Para ello necesitaréis salir de la pirámide JUNTOS"];
-    var wordsBastet2 = ["Te otorgo el poder de las vendas malditas\npodrás estirar tus vendas en el ESPACIO y de",
+    var wordsBastet2 = ["Te otorgo el poder de las vendas malditas\npodrás estirar tus vendas pulsando 'ESPACIO' y de",
     "esta manera podrás derrotar los enemigos\nque se antepongan"];
     //Hacemos que el texto aparezca en el mismo lugar que el objeto de texto de Tiled
     this.sayBastet1 = this.add.text(textBastet.x, textBastet.y, wordsBastet1).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
@@ -387,7 +394,7 @@ offline.create = function(){
             //Después de un breve tiempo se hace que el faraón no se pueda mover con los botones de control. Se hace que sea después de un tiempo
             //Para que no haya problemas por estar al filo de la colisión
             scene.time.addEvent({
-                delay: 200,
+                delay: 250,
                 callback: ()=>( p.steady = true),
                 callbackScope: this
             });
@@ -429,7 +436,7 @@ offline.create = function(){
             //Después de un breve tiempo se hace que la momia no se pueda mover con los botones de control. Se hace que sea después de un tiempo
             //Para que no haya problemas por estar al filo de la colisión
             scene.time.addEvent({
-                delay: 200,
+                delay: 250,
                 callback: ()=>( m.steady = true),
                 callbackScope: this
             });
@@ -505,10 +512,15 @@ offline.create = function(){
         }else if(scene.anubisText === 2){ //Si ha terminado de mostrar textos
             //Se esconde el texto 2
             scene.sayAnubis2.setVisible(false);
+            scene.sayAnubis3.setVisible(true);
+            scene.anubisText = 3
+        }else if(scene.anubisText === 3){
+            scene.sayAnubis3.setVisible(false);
             //Permitimos movimiento del faraón
             p.steady = false;
             //Cambiamos el puntero al cetro
             scene.input.setDefaultCursor('url(../Escape-Bandages/Sprites/cetro.png), pointer');
+            p.getSprite().setVelocity(0,0)
         }
     },this);
 
@@ -631,8 +643,6 @@ offline.update = function(){
         
         if(this.doubleCamera){
             this.doubleCamera = false;
-            //this.cameras.remove(cameraPharaoh)
-           // this.cameras.remove(cameraMummy)
             cameraPharaoh = this.cameras.add(0,0,1920,1080).setName('camPharaoh');
             cameraMummy = this.cameras.add(1920,1080,0,0).setName('camMummy');
             cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
@@ -641,8 +651,6 @@ offline.update = function(){
             cameraPharaoh.ignore(this.sayBastet2);            
         }else{
             this.doubleCamera = true;
-           // this.cameras.remove(cameraPharaoh)
-           // this.cameras.remove(cameraMummy)
             cameraMummy = this.cameras.add(0,0,940,1080).setName('camMummy');
             cameraPharaoh = this.cameras.add(980,0,940,1080).setName('camPharaoh');
             cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
@@ -651,7 +659,6 @@ offline.update = function(){
             cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
             cameraPharaoh.ignore(this.sayBastet1);
             cameraPharaoh.ignore(this.sayBastet2);
-            //Los textos de Anubis no se le muestran a la momia
             cameraMummy.ignore(this.sayAnubis1);
             cameraMummy.ignore(this.sayAnubis2);
             
