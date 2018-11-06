@@ -536,6 +536,7 @@ offline.update = function(){
             m.steady = false;
         }
     }
+
     if(this.keys.c.isDown){
         offline.scene.switch(menu);
     }
