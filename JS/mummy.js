@@ -205,7 +205,6 @@ function Mummy(scene, x, y){
 		for(var i=0;i<9;i++){
 			m.shackle[i].destroy()
 		}
-		m.block.destroy();
 	}
 
 	//Nos pone en periodo de estar golpeados y llama a getHit de la vida

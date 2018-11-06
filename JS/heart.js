@@ -91,8 +91,8 @@ function heart(player){
 	}
 
 	this.destroy = function(){
-		for(var i = 0; i<health.length;i++){
-			health[i].destroy();
+		for(var i = 0; i<this.health.length;i++){
+			this.health[i].destroy();
 		}
 	}
 
