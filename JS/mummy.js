@@ -262,6 +262,8 @@ function Mummy(scene, x, y){
 		if(this.mummy.y > 10*120){
 			this.dead = true;
 			offline.scene.restart();
+			p.getSprite().setVelocity(0,0)
+        	m.getSprite().setVelocity(0,0)
 			offline.scene.switch(gameover);
 		}
 		//Si no estoy muerto

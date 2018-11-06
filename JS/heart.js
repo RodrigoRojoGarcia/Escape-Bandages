@@ -76,7 +76,8 @@ function heart(player){
             		callback: ()=>(offline.scene.restart()),
             		callbackScope: scene
         		});
-
+				p.getSprite().setVelocity(0,0)
+        		m.getSprite().setVelocity(0,0)
 				offline.scene.switch(gameover);
 			}else if(player==="Mummy"){
 				m.dead = true;
@@ -85,6 +86,8 @@ function heart(player){
             		callback: ()=>(offline.scene.restart()),
             		callbackScope: scene
         		});
+        		p.getSprite().setVelocity(0,0)
+        		m.getSprite().setVelocity(0,0)
 				offline.scene.switch(gameover);
 			}
 		}
