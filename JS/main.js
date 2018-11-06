@@ -19,8 +19,12 @@ var config = {
 		}
 		]
 	},
+	audio: {
+        disableWebAudio: true
+    },
 	scene:[menu, offline, victoria, gameover, submenu]
 };
 
 var game = new Phaser.Game(config);
 
+var fx;

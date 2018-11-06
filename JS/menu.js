@@ -7,9 +7,14 @@ menu.preload = function(){
 	this.load.image('play','../Escape-Bandages/Sprites/play.png');
 	this.load.image('options','../Escape-Bandages/Sprites/options.png');
 	this.load.image('back', '../Escape-Bandages/Sprites/back.png');
+
+	this.load.audio('music', '../Escape-Bandages/music.mp3');
 }
 
 menu.create = function(){
+	fx = this.sound.add('music');
+	fx.play();
+
 	//cargar background
 	var bground = this.add.image(0, 0, 'bgmenu').setOrigin(0);
 	//cargar Title
@@ -56,7 +61,7 @@ menu.create = function(){
 	})
 	//accion al hacer click sobre el boton Options
 	this.bopt.on('pointerdown', function(){
-		menu.scene.switch(gameover);
+		fx.pause();
 		/*//hacer botones invisibles
 		menu.bopt.setAlpha(0);
 		menu.bplay.setAlpha(0);
