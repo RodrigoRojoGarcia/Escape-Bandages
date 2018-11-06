@@ -520,7 +520,7 @@ offline.create = function(){
     arena = []
     for(var i = 0; i < 200; i++){
         arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand', { restitution: 1, friction: 0.1 });
-        arena[i].setScale(1.5);
+        arena[i].setScale(1);
     }
 
     
