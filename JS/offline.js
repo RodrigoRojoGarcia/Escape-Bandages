@@ -695,6 +695,8 @@ offline.update = function(){
             cameraPharaoh.ignore(this.sayBastet2);            
         }else{
             this.doubleCamera = true;
+            this.cameras.remove(cameraMummy)
+            this.cameras.remove(cameraPharaoh)
             cameraMummy = this.cameras.add(0,0,940,1080).setName('camMummy');
             cameraPharaoh = this.cameras.add(980,0,940,1080).setName('camPharaoh');
             cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
@@ -705,7 +707,14 @@ offline.update = function(){
             cameraPharaoh.ignore(this.sayBastet2);
             cameraMummy.ignore(this.sayAnubis1);
             cameraMummy.ignore(this.sayAnubis2);
+            cameraMummy.ignore(this.sayAnubis3);
+            for(var i=0;i<p.health.health.length;i++){
+                cameraMummy.ignore(p.health.health[i])
+            }
             
+            for(var i=0;i<m.health.health.length;i++){
+                cameraPharaoh.ignore(m.health.health[i])
+            }
             
         }
         
