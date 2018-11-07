@@ -64,6 +64,7 @@ offline.create = function(){
 
     //Extraemos las capas del TILEMAP
     const bg= map.createDynamicLayer("Background", tiles, 0,0);
+    const exit = map.createDynamicLayer("Exit", tiles, 0,0)
 	const layer = map.createDynamicLayer("Foreground",tiles,0,0);
 
     //Hacemos la capa LAYER (FOREGROUND) colisionable

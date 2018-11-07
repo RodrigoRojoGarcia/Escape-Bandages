@@ -76,7 +76,7 @@ Ahora es el faraón el que no puede avanzar, la momia tendrá que saltar un aguj
 ![7](https://user-images.githubusercontent.com/18311855/48101255-acc49880-e226-11e8-86e5-2b862c093dfc.PNG)  
  Ahora ambos pueden avanzar, pero se encuentran con dos botones, los cuales tendrán que ser pulsados a la vez. Para poder hacerlo hay dos cajas en la cámara, aunque una de ellas está encerrada y tendrá que ser liberada. Para ello se necesita subir al pasillo superior con la ayuda de la telquinesis del faraón, allí se encontrará un botón que abre las compuertas de la caja y esta cae sobre uno de los botones y demuestra que pueden ser pulsados por ellas.
 ![8](https://user-images.githubusercontent.com/18311855/48101259-adf5c580-e226-11e8-8dff-91b8a4c5000f.PNG)  
-![9](https://user-images.githubusercontent.com/18311855/48101261-af26f280-e226-11e8-9930-56d76abee1fe.PNG)  
+![9](https://user-images.githubusercontent.com/18311855/48102043-75a3b680-e229-11e8-8baa-5f6574f5cb54.PNG)  
 Cuando se colocan las dos cajas sobre los botones los dos personajes son libres de avanzar, saltar un agujero y salir de la pirámide.
-![10](https://user-images.githubusercontent.com/18311855/48101263-afbf8900-e226-11e8-88c0-5743e7da0484.PNG)  
-![11](https://user-images.githubusercontent.com/18311855/48101265-b0f0b600-e226-11e8-8038-f52b2f0de2d4.PNG)  
+![10](https://user-images.githubusercontent.com/18311855/48102044-75a3b680-e229-11e8-9a62-dc0f23a21143.PNG)  
+![11](https://user-images.githubusercontent.com/18311855/48102045-763c4d00-e229-11e8-8434-43e0a3160759.PNG)  
