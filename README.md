@@ -35,6 +35,8 @@ A lo largo del juego los jugadores se pueden encontrar a Sheks, serpientes con a
 
 ### Controles
 El faraón se moverá usando las teclas de flechas de dirección, el ratón para seleccionar los objetos que quiera mover usando la telequinesis y deberá usar la flecha de dirección hacia abajo para lanzar el fuego y el click izquierdo para la telequinesis. El sirviente sin embargo solo podrá moverse usando las teclas 'wasd' del teclado y la tecla 'espacio' para atacar con sus vendas (Los controles son del juego en local y pueden estar sujetos a cambios para el juego online.)
+Si in-game se pulsa 'C' la cámara cambia de cámara dividida (una cámara por personaje) a cámara única que sigue al faraón.
+![camara_dividida](https://user-images.githubusercontent.com/18311855/48102626-49d60000-e22c-11e8-98bd-62888b379677.PNG)  
 
 ### Concept Art
 ![mummy](https://user-images.githubusercontent.com/18311855/45764286-ad7f7c00-bc32-11e8-9130-e81fcb195a75.png)
