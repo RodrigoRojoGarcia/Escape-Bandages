@@ -14,22 +14,24 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 	
 	private Map<Long, User> users = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
 	
 	
-		@GetMapping("/users/")
+		@GetMapping(value="/")
 		public Collection<User> users() {
 			return users.values();
 		}
 		
-		@PostMapping("/users/")
+		@PostMapping(value="/")
 		@ResponseStatus(HttpStatus.CREATED)
 		public User newUser(@RequestBody User user) {
 			long id = lastId.incrementAndGet();
@@ -40,7 +42,7 @@ public class UserController {
 		}
 		
 		
-		@PutMapping("/users/{id}")
+		@PutMapping(value="/{id}")
 		public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User updatedUser){
 		
 			User user = users.get(id);
@@ -55,7 +57,7 @@ public class UserController {
 		}
 		
 		
-		@GetMapping("/users/{id}")
+		@GetMapping(value="/{id}")
 		public ResponseEntity<User> getUser(@PathVariable long id){
 			User user = users.get(id);
 			if(user!=null) {
@@ -65,7 +67,7 @@ public class UserController {
 			}
 		}
 		
-		@DeleteMapping("/users/{id}")
+		@DeleteMapping(value="/{id}")
 		public ResponseEntity<User> borraAnuncio(@PathVariable long id) {
 
 			User user = users.remove(id);

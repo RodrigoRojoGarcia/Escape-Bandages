@@ -1,11 +1,16 @@
 package es.sidelab.EscapeBandages;
 
 public class User {
-	private long id;
+	private long id=-1;
 	private String character;
 	private boolean ready;
 	
+	
+	public User() {
+		
+	}
 	public User(String character, boolean ready) {
+		super();
 		this.character = character;
 		this.ready = ready;
 	}
