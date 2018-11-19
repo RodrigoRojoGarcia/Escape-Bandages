@@ -52,7 +52,7 @@ submenu.create = function(){
 	this.bon = this.add.sprite(650, 550, 'on').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	//hacer boton invisible
 	this.bon.setAlpha(1);
-	/*//accion al poner el cursor sobre el boton Online
+	//accion al poner el cursor sobre el boton Online
 	this.bon.on('pointerover', function(){
 		submenu.bon.scaleX += 0.15;
 		submenu.bon.scaleY += 0.15;
@@ -64,8 +64,8 @@ submenu.create = function(){
 	})
 	//accion al hacer click sobre el boton Online
 	this.bon.on('pointerdown', function(){
-
-	})*/
+		submenu.scene.switch(online);
+	})
 
 /////////////////////BOTON OFFLINE//////////////////////////////
 	//cargar boton Offline
@@ -90,7 +90,7 @@ submenu.create = function(){
 
 //////////////////////BOTON BACK////////////////////////////////
 	//cargar boton Back
-	this.bback = this.add.sprite(1700, 955, 'back').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bback = this.add.sprite(300, 950, 'back').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.bback.scaleX -= 0.4;
 	this.bback.scaleY -= 0.4;
 	//hacer boton invisible
