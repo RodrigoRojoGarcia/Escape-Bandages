@@ -126,7 +126,7 @@ online.create = function(){
 				userName: textEntry.text
 			}
 			myUser.setUserName(textEntry.text)
-			updateUser(user, function(userWithId){
+			updateUserName(user, function(userWithId){
 				showUser(userWithId);
 			})
 			while(textEntry.text.length>0){

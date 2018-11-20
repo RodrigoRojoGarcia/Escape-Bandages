@@ -23,7 +23,7 @@ function createUser(user,callback){
 	})
 }
 //Actualizar usuario en el servidor
-function updateUser(user){
+function updateUserName(user){
 	$.ajax({
 		method: 'PUT',
 		url: 'http://'+location.host+'/users/'+user.id,
@@ -36,6 +36,22 @@ function updateUser(user){
 		console.log("Update user: "+JSON.stringify(user))
 	})
 }
+
+function updateUserCharacter(user){
+	$.ajax({
+		method: 'PUT',
+		url: 'http://'+location.host+'/users/'+user.id,
+		data: JSON.stringify(user),
+		processData:false,
+		headers:{
+			"Content-Type":"application/json"
+		}
+	}).done(function(user){
+		console.log("Update user: "+JSON.stringify(user))
+	})
+}
+
+
 //Borrar usuario del servidor
 function deleteUser(userId){
 	$.ajax({
