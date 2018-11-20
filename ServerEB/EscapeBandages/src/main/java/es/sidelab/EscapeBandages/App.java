@@ -10,6 +10,8 @@ public class App
     {
         SpringApplication.run(App.class, args);
         
+        System.out.println("IP:"+HostManager.getAddress());
+        
         UsersManager.init();
     }
 }

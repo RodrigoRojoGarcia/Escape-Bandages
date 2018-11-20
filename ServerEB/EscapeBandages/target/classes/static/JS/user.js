@@ -19,7 +19,7 @@ function User(){
 		if(that.Id != null){
 			$.ajax({
 				method: "GET",
-				url:"http://192.168.1.17:8080/users/"+that.Id
+				url:"http://"+location.host+"/users/"+that.Id
 			}).fail(function(){
 				console.error("Has pwerdido la conexión con el servidor. UwU")
 			})
