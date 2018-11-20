@@ -70,7 +70,7 @@ $(document).ready(function () {
     loadChats(function (chats) {
         //When items are loaded from server
         for (var i = 0; i < chats.length; i++) {
-            showItem(chats[i]);
+            showChat(chats[i]);
         }
     });
 
@@ -121,7 +121,7 @@ $(document).ready(function () {
     	var value = input.val();
     	input.val('');
 
-    	var user = {
+    	user = {
     		character: value,
     		ready: false
     	}
@@ -141,11 +141,16 @@ $(document).ready(function () {
         input.val('');
 
         var chat = {
+        	user: user,
             sentence: value,
             checked: false
-        }
 
-        createChat(chat, function (chatWithId) {
+        }
+        createChat(chat, function (chatWithId){
+        	showChat(chatWithId);
+        });
+
+        updateChat(chat, function (chatWithId) {
             //When item with id is returned from server
             showChat(chatWithId);
         });
