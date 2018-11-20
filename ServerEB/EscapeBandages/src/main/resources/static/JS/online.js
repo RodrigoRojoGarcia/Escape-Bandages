@@ -7,10 +7,6 @@ online.preload = function(){
 	this.load.image('backO','Sprites/back.png');
 	//ANTORCHAS
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
-    //boton eleccion momia
-    this.load.spritesheet("boton_mummy","Sprites/boton_mummy_spritesheet.png",{frameWidth: 380, frameHeight: 380});
-    //boton eleccion faraon
-    this.load.spritesheet("boton_pharaoh","Sprites/boton_pharaoh_spritesheet.png",{frameWidth: 380, frameHeight: 380});
 ///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileO", "Sprites/tileset.png");
@@ -76,28 +72,7 @@ online.create = function(){
     };
 
 
-    //Animación boton mummy
-    this.anims.create({
-        key: 'bmummyAnim',
-        frames: this.anims.generateFrameNumbers('boton_mummy',{start: 0, end: 0}),
-        frameRate: 10
-    });
-    this.anims.create({
-        key: 'bmummyAnim2',
-        frames: this.anims.generateFrameNumbers('boton_mummy',{start: 1, end: 1}),
-        frameRate: 10
-    });
-    //Animación boton pharaoh
-    this.anims.create({
-        key: 'bpharaohAnim',
-        frames: this.anims.generateFrameNumbers('boton_pharaoh',{start: 0, end: 0}),
-        frameRate: 10
-    });
-    this.anims.create({
-        key: 'bpharaohAnim2',
-        frames: this.anims.generateFrameNumbers('boton_pharaoh',{start: 1, end: 1}),
-        frameRate: 10
-    });
+
 
 
 //////////////////////////BOTONES///////////////////////////////////
@@ -142,53 +117,34 @@ online.create = function(){
 	//accion al hacer click sobre el boton Salir
 	this.introUser.on('pointerdown', function(){
 		if(textEntry.text.length>0){
+			userNameValid = true;
 			var user = {
 				id: myUser.Id,
 				userName: textEntry.text
 			}
 			myUser.setUserName(textEntry.text)
-			updateUserName(user, function(userWithId){
-				showUser(userWithId);
+			updateUserName(user, function(){
+				
+				userNameValid = false;
 			})
 			while(textEntry.text.length>0){
 				textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
 			}
-			online.scene.switch(characterSelection)
+			
+			online.time.addEvent({
+	            delay: 40,
+	            callback: online.isUserNameValid,
+	            callbackScope: online
+	        });
 		}
-/*
-	//////////////////////BOTON ELLECCION MOMIA///////////////////////////////
-	//cargar boton eleccion Mummy
-	this.bMummy = this.add.sprite(600, 550, 'boton_mummy').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	//hacer boton visible
-	this.bMummy.setAlpha(1);
-	//accion al poner el cursor sobre el boton de eleccion de Mummy
-	this.bMummy.on('pointerover', function(){
-		online.bMummy.anims.play('bmummyAnim2');
+
 	})
-	//accion al quitar el cursor del boton de eleccion de Mummy
-	this.bMummy.on('pointerout', function(){
-		online.bMummy.anims.play('bmummyAnim');
-	})
-	//accion al hacer click sobre el boton de eleccion de Mummy
-	this.bMummy.on('pointerdown', function(){
-		
-	})
-	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
-	//cargar boton eleccion Pharaoh
-	this.bPharaoh = this.add.sprite(1300, 550, 'boton_pharaoh').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	//hacer boton visible
-	this.bPharaoh.setAlpha(1);
-	//accion al poner el cursor sobre el boton de eleccion de Pharaoh
-	this.bPharaoh.on('pointerover', function(){
-		online.bPharaoh.anims.play('bpharaohAnim2');
-	})
-	//accion al quitar el cursor del boton de eleccion de Pharaoh
-	this.bPharaoh.on('pointerout', function(){
-		online.bPharaoh.anims.play('bpharaohAnim');
-	})
-	//accion al hacer click sobre el boton de eleccion de Pharaoh
-	this.bPharaoh.on('pointerdown', function(){
-*/
-		
-	})
+	
+	this.isUserNameValid = function(){
+		if(userNameValid){
+				online.scene.switch(characterSelection)
+		}else{
+			console.log("Nombre de usuario ya registrado")
+		}
+	}
 }

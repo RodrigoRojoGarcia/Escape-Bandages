@@ -46,7 +46,7 @@ public class UserController {
 		
 		
 		@PutMapping(value="/{id}")
-		public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User updatedUser){
+		public ResponseEntity<User> updateUserName(@PathVariable long id, @RequestBody User updatedUser){
 		
 			User user = users.get(id);
 			
@@ -66,7 +66,7 @@ public class UserController {
 						users.put(id, updatedUser);
 						userNames.add(updatedUser.getUserName());
 					}else {
-						System.out.println("UwU");
+						updatedUser.setId(-1);;
 					}
 				}
 				

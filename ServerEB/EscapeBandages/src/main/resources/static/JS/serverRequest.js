@@ -23,7 +23,7 @@ function createUser(user,callback){
 	})
 }
 //Actualizar usuario en el servidor
-function updateUserName(user){
+function updateUserName(user,callback){
 	$.ajax({
 		method: 'PUT',
 		url: 'http://'+location.host+'/users/'+user.id,
@@ -33,7 +33,12 @@ function updateUserName(user){
 			"Content-Type":"application/json"
 		}
 	}).done(function(user){
-		console.log("Update user: "+JSON.stringify(user))
+		if(user.id==-1){
+			callback();
+			
+		}else{
+			console.log("Update user: "+JSON.stringify(user))		
+		}
 	})
 }
 

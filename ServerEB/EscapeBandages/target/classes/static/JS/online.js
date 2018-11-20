@@ -58,12 +58,6 @@ online.create = function(){
     
     
     
-    
-    
-    
-    
-    
-    
     //Animación de las antorchas
     this.anims.create({
         key: 'torchAnim',
@@ -76,6 +70,9 @@ online.create = function(){
         torchesM[i].anims.play('torchAnim');
         torchesM2[i].anims.play('torchAnim');
     };
+
+
+
 
 
 //////////////////////////BOTONES///////////////////////////////////
@@ -98,11 +95,10 @@ online.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
+		//cambio escena a submenu
 		online.scene.switch(submenu);
 	})
-	
-	
-	
+
 	this.introUser = this.add.sprite(600, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.introUser.scaleX -= 0.4;
 	this.introUser.scaleY -= 0.4;
@@ -121,19 +117,34 @@ online.create = function(){
 	//accion al hacer click sobre el boton Salir
 	this.introUser.on('pointerdown', function(){
 		if(textEntry.text.length>0){
+			userNameValid = true;
 			var user = {
 				id: myUser.Id,
 				userName: textEntry.text
 			}
 			myUser.setUserName(textEntry.text)
-			updateUserName(user, function(userWithId){
-				showUser(userWithId);
+			updateUserName(user, function(){
+				
+				userNameValid = false;
 			})
 			while(textEntry.text.length>0){
 				textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
 			}
-			online.scene.switch(characterSelection)
+			
+			online.time.addEvent({
+	            delay: 40,
+	            callback: online.isUserNameValid,
+	            callbackScope: online
+	        });
 		}
-		
+
 	})
+	
+	this.isUserNameValid = function(){
+		if(userNameValid){
+				online.scene.switch(characterSelection)
+		}else{
+			console.log("Nombre de usuario ya registrado")
+		}
+	}
 }
