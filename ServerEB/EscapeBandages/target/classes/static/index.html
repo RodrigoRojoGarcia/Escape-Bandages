@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-"src/main/resources/static/index.html"<html lang="en">
+<html lang="en">
 	<head>
 		<title>Menu Escape-Bandages</title>
 		<script src="phaser.js"></script>
 		<script src="phaser-matter-collision-plugin.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 		<style type="text/css">
 			body{
 				margin: 0;
@@ -12,6 +13,17 @@
 	</head>
 	<body>
 		<div id="GAME"> </div>
+		
+		
+		<h1>Users</h1>
+		<div id='info'>
+		</div>
+		<hr>
+		<input id='value-input' type='text'>
+		<button id='add-button'>Add</button>
+		<script src="JS/user.js"></script>
+		
+		
 		<script src="JS/gameover.js"> </script>
 		<script src="JS/victoria.js"> </script>
 		<script src="JS/healthBar.js"> </script>
@@ -22,11 +34,13 @@
 		<script src="JS/button.js"></script>
 		<script src="JS/purpleBox.js"></script>
 		<script src="JS/offline.js"> </script>
+		<script src="JS/online.js"> </script>
 		<script src="JS/heart.js"> </script>
 		<script src="JS/submenu.js"> </script>
 		<script src="JS/menu.js"> </script>
 
 		<script src="JS/main.js"> </script>
+		
 	</body>
 
 </html>
