@@ -2,11 +2,12 @@ package es.sidelab.EscapeBandages;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/users")
 public class UserController {
 	
-	private Map<Long, User> users = new ConcurrentHashMap<>();
+	
+	private ArrayList<String> userNames = new ArrayList<String>();
+	private static Map<Long, User> users = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
 	
 	
 		@GetMapping(value="/")
-		public Collection<User> users() {
+		public static Collection<User> users() {
 			return users.values();
 		}
 		
@@ -48,8 +51,25 @@ public class UserController {
 			User user = users.get(id);
 			
 			if(user!=null) {
+				
 				updatedUser.setId(id);
-				users.put(id, updatedUser);
+				
+				if(userNames.isEmpty()) {
+					users.put(id, updatedUser);
+					userNames.add(updatedUser.getUserName());
+				}else {
+					boolean found = false;
+					for(String userName : userNames) {
+						found = found || updatedUser.getUserName().equals(userName);
+					}
+					if(!found) {
+						users.put(id, updatedUser);
+						userNames.add(updatedUser.getUserName());
+					}else {
+						System.out.println("UwU");
+					}
+				}
+				
 				return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,23 +81,24 @@ public class UserController {
 		public ResponseEntity<User> getUser(@PathVariable long id){
 			User user = users.get(id);
 			if(user!=null) {
+				user.setTimeInactivity(0);
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		}
 		
-		@DeleteMapping(value="/{id}")
-		public ResponseEntity<User> borraAnuncio(@PathVariable long id) {
+	
+		
+		
+		
+		public static void deleteUser(long id) {
 
-			User user = users.remove(id);
+			users.remove(id);
 
-			if (user != null) {
-				return new ResponseEntity<>(user, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
 		}
+		
+		
 		
 		
 		
