@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/users")
 public class UserController {
 	
-	private Map<Long, User> users = new ConcurrentHashMap<>();
+	private static Map<Long, User> users = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
 	
 	
 		@GetMapping(value="/")
-		public Collection<User> users() {
+		public static Collection<User> users() {
 			return users.values();
 		}
 		
@@ -61,23 +61,24 @@ public class UserController {
 		public ResponseEntity<User> getUser(@PathVariable long id){
 			User user = users.get(id);
 			if(user!=null) {
+				user.setTimeInactivity(0);
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		}
 		
-		@DeleteMapping(value="/{id}")
-		public ResponseEntity<User> borraAnuncio(@PathVariable long id) {
+	
+		
+		
+		
+		public static void deleteUser(long id) {
 
-			User user = users.remove(id);
+			users.remove(id);
 
-			if (user != null) {
-				return new ResponseEntity<>(user, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
 		}
+		
+		
 		
 		
 		

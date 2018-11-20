@@ -122,15 +122,17 @@ online.create = function(){
 	this.introUser.on('pointerdown', function(){
 		if(textEntry.text.length>0){
 			var user = {
-				character: textEntry.text,
-				ready: false
+				id: myUser.Id,
+				userName: textEntry.text
 			}
-			createUser(user, function(userWithId){
+			myUser.setUserName(textEntry.text)
+			updateUser(user, function(userWithId){
 				showUser(userWithId);
 			})
 			while(textEntry.text.length>0){
 				textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
 			}
+			online.scene.switch(characterSelection)
 		}
 		
 	})

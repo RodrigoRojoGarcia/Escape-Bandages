@@ -1,7 +1,6 @@
-//crear escena online
-var online = new Phaser.Scene('Online');
+var characterSelection = new Phaser.Scene('characterSelection');
 
-online.preload = function(){
+characterSelection.preload = function(){
 	//cargar imagenes
 	//volver
 	this.load.image('backO','Sprites/back.png');
@@ -12,16 +11,13 @@ online.preload = function(){
     this.load.image("tileO", "Sprites/tileset.png");
     //tilemap
     this.load.tilemapTiledJSON("backgroundO", "background.json");
-    
-    
 }
 
-online.create = function(){
+
+characterSelection.create = function(){
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
-	//cargar letras Seleccion de Personaje
-
-
-	///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
+	
+///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
 	const backg = this.make.tilemap({key:"backgroundO", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
@@ -38,32 +34,6 @@ online.create = function(){
         torchesM2.push(this.add.sprite(225 + 1400*i,800,'torchO'));
     };
     
-    
-    this.add.text(10,10,'Choose your character:',{font: '32px Power Clear', fill:'#ffffff'})
-    
-    var textEntry = this.add.text(10,50,'',{font: '32px Power Clear',fill: '#ffffff'})
-    
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
-    
-    
-    this.input.keyboard.on('keydown', function(event){
-    	if(event.keyCode === 8 && textEntry.text.length>0){
-    		textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
-    		
-    	}else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90)){
-    		textEntry.text += event.key
-    	}
-    })
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //Animación de las antorchas
     this.anims.create({
         key: 'torchAnim',
@@ -76,8 +46,9 @@ online.create = function(){
         torchesM[i].anims.play('torchAnim');
         torchesM2[i].anims.play('torchAnim');
     };
-
-
+    
+    
+    
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
 	//cargar boton Salir
@@ -88,52 +59,62 @@ online.create = function(){
 	this.bback.setAlpha(1);
 	//accion al poner el cursor sobre el boton Salir
 	this.bback.on('pointerover', function(){
-		online.bback.scaleX += 0.15;
-		online.bback.scaleY += 0.15;
+		characterSelection.bback.scaleX += 0.15;
+		characterSelection.bback.scaleY += 0.15;
 	})
 	//accion al quitar el cursor del boton Salir
 	this.bback.on('pointerout', function(){
-		online.bback.scaleX -= 0.15;
-		online.bback.scaleY -= 0.15;
+		characterSelection.bback.scaleX -= 0.15;
+		characterSelection.bback.scaleY -= 0.15;
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
-		online.scene.switch(submenu);
+		characterSelection.scene.switch(submenu);
 	})
 	
 	
-	
-	this.introUser = this.add.sprite(600, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	this.introUser.scaleX -= 0.4;
-	this.introUser.scaleY -= 0.4;
+	//////////////////////BOTON MOMIA///////////////////////////////
+	//cargar boton Salir
+	this.bMummy = this.add.sprite(600, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bMummy.scaleX -= 0.4;
+	this.bMummy.scaleY -= 0.4;
 	//hacer boton visible
-	this.introUser.setAlpha(1);
+	this.bMummy.setAlpha(1);
 	//accion al poner el cursor sobre el boton Salir
-	this.introUser.on('pointerover', function(){
-		online.introUser.scaleX += 0.15;
-		online.introUser.scaleY += 0.15;
+	this.bMummy.on('pointerover', function(){
+		characterSelection.bMummy.scaleX += 0.15;
+		characterSelection.bMummy.scaleY += 0.15;
 	})
 	//accion al quitar el cursor del boton Salir
-	this.introUser.on('pointerout', function(){
-		online.introUser.scaleX -= 0.15;
-		online.introUser.scaleY -= 0.15;
+	this.bMummy.on('pointerout', function(){
+		characterSelection.bMummy.scaleX -= 0.15;
+		characterSelection.bMummy.scaleY -= 0.15;
 	})
 	//accion al hacer click sobre el boton Salir
-	this.introUser.on('pointerdown', function(){
-		if(textEntry.text.length>0){
-			var user = {
-				id: myUser.Id,
-				userName: textEntry.text
-			}
-			myUser.setUserName(textEntry.text)
-			updateUser(user, function(userWithId){
-				showUser(userWithId);
-			})
-			while(textEntry.text.length>0){
-				textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
-			}
-			online.scene.switch(characterSelection)
-		}
-		
+	this.bMummy.on('pointerdown', function(){
+		myUser.selectCharacter("Mummy")
 	})
+	
+	//////////////////////BOTON PHARAOH///////////////////////////////
+	//cargar boton Salir
+	this.bPharaoh = this.add.sprite(900, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bPharaoh.scaleX -= 0.4;
+	this.bPharaoh.scaleY -= 0.4;
+	//hacer boton visible
+	this.bPharaoh.setAlpha(1);
+	//accion al poner el cursor sobre el boton Salir
+	this.bPharaoh.on('pointerover', function(){
+		characterSelection.bPharaoh.scaleX += 0.15;
+		characterSelection.bPharaoh.scaleY += 0.15;
+	})
+	//accion al quitar el cursor del boton Salir
+	this.bPharaoh.on('pointerout', function(){
+		characterSelection.bPharaoh.scaleX -= 0.15;
+		characterSelection.bPharaoh.scaleY -= 0.15;
+	})
+	//accion al hacer click sobre el boton Salir
+	this.bPharaoh.on('pointerdown', function(){
+		myUser.selectCharacter("Pharaoh")
+	})
+    
 }
