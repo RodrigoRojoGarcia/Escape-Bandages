@@ -8,7 +8,7 @@ public class Chat {
 	private boolean sent;
 	
 	public Chat() {
-		
+		this.user = new User();
 	}
 	
 	public Chat(String sentence, boolean sent, User user, int option) {

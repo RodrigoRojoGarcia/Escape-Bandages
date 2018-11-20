@@ -7,7 +7,8 @@ public class User {
 	
 	
 	public User() {
-		
+		this.character = "";
+		this.ready = false;
 	}
 	public User(String character, boolean ready) {
 		super();
