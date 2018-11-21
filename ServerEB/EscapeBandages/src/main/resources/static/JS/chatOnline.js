@@ -5,9 +5,9 @@ function ChatOnline(scene){
 	
 	this.create = function(){ //Crea el input del chat
 		//////////////////////////////////TEXTO CHAT///////////////////////////////////////
-		scene.add.text(10, 10, 'Enter your name:', { font: '32px Courier', fill: '#ffffff' });
+		scene.add.text(1200, 1030, 'Escribe aqui:', { font: '32px Arial', fill: '#ffffff' });
 
-	    textEntry = scene.add.text(10, 50, '', { font: '32px Courier', fill: '#ffff00' });
+	    textEntry = scene.add.text(1450, 1030, '', { font: '32px Arial', fill: '#ffff00' });
 
 	    // keys = this.input.keyboard.addKeys('A,B,C');
 
@@ -47,13 +47,17 @@ function ChatOnline(scene){
 	        }
 	    });
 	    
-	    textArr = []
-	    textArr[0] = scene.add.text(10, 1030, "HOLA PRIMER CHAT", { font: '32px Courier', fill: '#ffffff' });
-		textArr[1] = scene.add.text(10, 980, "HOLA SEGUNDO CHAT", { font: '32px Courier', fill: '#ffffff' });
-		textArr[2] = scene.add.text(10, 930, "HOLA TERCER CHAT", { font: '32px Courier', fill: '#ffffff' });
-		textArr[3] = scene.add.text(10, 880, '', { font: '32px Courier', fill: '#ffffff' });
-		textArr[4] = scene.add.text(10, 830, '', { font: '32px Courier', fill: '#ffffff' });
-		textArr[5] = scene.add.text(10, 780, '', { font: '32px Courier', fill: '#ffffff' });
+	    textArr = [];
+	    textArr[0] = scene.add.text(1200, 950, '', { font: '32px Arial', fill: '#ff0000' });
+		textArr[1] = scene.add.text(1200, 900, '', { font: '32px Arial', fill: '#ff8000' });
+		textArr[2] = scene.add.text(1200, 850, '', { font: '32px Arial', fill: '#ffff00' });
+		textArr[3] = scene.add.text(1200, 800, '', { font: '32px Arial', fill: '#80ff00' });
+		textArr[4] = scene.add.text(1200, 750, '', { font: '32px Arial', fill: '#00ffff' });
+		textArr[5] = scene.add.text(1200, 700, '', { font: '32px Arial', fill: '#0080ff' });
+		textArr[6] = scene.add.text(1200, 650, '', { font: '32px Arial', fill: '#0000ff' });
+		textArr[7] = scene.add.text(1200, 600, '', { font: '32px Arial', fill: '#8000ff' });
+		textArr[8] = scene.add.text(1200, 550, '', { font: '32px Arial', fill: '#ff00ff' });
+		textArr[9] = scene.add.text(1200, 500, '', { font: '32px Arial', fill: '#ff0080' });
 	
 	}
 	
@@ -78,15 +82,11 @@ function ChatOnline(scene){
 		
 		
 		
-		//scene.add.text(10, 980, phrases[1], { font: '32px', fill: '#ffffff' });
-		//scene.add.text(10, 930, phrases[2], { font: '32px', fill: '#ffffff' });
-		//scene.add.text(10, 880, phrases[3], { font: '32px', fill: '#ffffff' });
-		//scene.add.text(10, 830, phrases[4], { font: '32px', fill: '#ffffff' });
-		//scene.add.text(10, 780, phrases[5], { font: '32px', fill: '#ffffff' });
+		
 	}
 	this.write = function(){
-		console.log(phrases[0]);
-		for(var i = 0; i < phrases.length; i++){
+		
+		for(var i = 0; i < 10; i++){
 			if(phrases[i] != undefined){
 				textArr[i].setText(phrases[i].sentence);
 			}

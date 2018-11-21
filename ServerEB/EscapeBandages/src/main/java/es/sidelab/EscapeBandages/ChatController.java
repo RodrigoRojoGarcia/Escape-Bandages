@@ -47,10 +47,15 @@ public class ChatController {
 			chat.setId(id);
 			chats.put(id, chat);
 			if(display.size() < maxSize) {
-				display.add(chat);
+				if(!display.isEmpty()) {
+					display.add(0, chat);
+				}else {
+					display.add(chat);
+				}
+				
 			}else {
-				display.remove(0);
-				display.add(chat);
+				display.remove(display.size()-1);
+				display.add(0, chat);
 			}
 			
 			
