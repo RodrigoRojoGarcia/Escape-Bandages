@@ -81,6 +81,11 @@ characterSelection.create = function(){
     this.selecc = this.add.image(950,200,'select');
     
     
+    this.add.text(1110, 50, 'Usuarios conectados:', { font: '32px Arial', fill: '#ffff00' });
+    numUsers = this.add.text(1450, 50, '', { font: '32px Arial', fill: '#ffff00' });
+    
+    
+    
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
 	//cargar boton Salir
@@ -155,4 +160,7 @@ characterSelection.create = function(){
 
 characterSelection.update = function(){
 	chatOnline.updateC();
+	loadUsers(function(users){
+		numUsers.text = users.length;
+	})
 }
