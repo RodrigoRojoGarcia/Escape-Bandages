@@ -49,7 +49,7 @@ Si in-game se pulsa 'C' la cámara cambia de cámara dividida (una cámara por p
 Anubis, maestro de la Necrópolis, y Bastet, Diosa de la armonía del hogar, despiertan a un faraón y a uno de sus sirvientes, los cuales estaban enamorados en vida y no pudieron estar juntos. Anubis y Bastet se apiadaron de ellos y su amor y les devuelven a la vida para que puedan vivir para siempre juntos, pero su poder es limitado. Devolver a un humano a la vida conlleva un coste y para hacer que sea permanente el faraón y la momia tienen que salir de la pirámide, pero no lo harán sin ningún problema. Hay dioses que están en contra de que puedan vivir otra vez, por lo que crean pruebas y llaman a bestias para impedir que salgan de la pirámide.
 
 ## Escenas
-![escenas_escape_bandages](https://user-images.githubusercontent.com/18311855/48098082-f8257980-e21b-11e8-80d8-394c09262489.PNG) 
+![escenas_escape_bandages](https://user-images.githubusercontent.com/18311855/48098082-f8257980-e21b-11e8-80d8-394c09262489.PNG)   
 Aquí se puede observar el flujo de escenas de nuestro prototipo FASE 2.
 ![diagramadeestados](https://user-images.githubusercontent.com/18311855/48832103-b3035a80-ed78-11e8-964b-5a9f7f591939.PNG)
 Aquí se puede observar el flujo de escenas de nuestro prototipo FASE3.
