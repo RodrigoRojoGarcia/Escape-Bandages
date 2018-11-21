@@ -1,9 +1,10 @@
 package es.sidelab.EscapeBandages;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,18 @@ public class ChatController {
 	
 	private Map<Long, Chat> chats = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
-	private Queue<String> display = new LinkedList<>();
+	private static List<Chat> display = new ArrayList<>();
 	private int maxSize = 50;
 	
 	
+		
+	
 		@GetMapping(value="/")
-		public Collection<Chat>chats() {
-			return chats.values();
+		public static Collection chats() {
+			return display;
 		}
+		
+		
 		
 		@PostMapping(value="/")
 		@ResponseStatus(HttpStatus.CREATED)
@@ -42,10 +47,10 @@ public class ChatController {
 			chat.setId(id);
 			chats.put(id, chat);
 			if(display.size() < maxSize) {
-				display.add(chat.getSentence());
+				display.add(chat);
 			}else {
-				display.remove();
-				display.add(chat.getSentence());
+				display.remove(0);
+				display.add(chat);
 			}
 			
 			
@@ -72,8 +77,8 @@ public class ChatController {
 		@GetMapping(value="/{id}")
 		public ResponseEntity<Chat> getChat(@PathVariable long id){
 			Chat chat = chats.get(id);
-			String disp = display.element();
-			System.out.println(disp);
+			
+			
 			if(chat!=null) {
 				return new ResponseEntity<>(chat, HttpStatus.OK);
 			}else {
@@ -86,7 +91,7 @@ public class ChatController {
 
 			Chat chat = chats.remove(id);
 			if(!display.isEmpty()) {
-				display.remove();
+				display.remove(0);
 			}
 			if (chat != null) {
 				return new ResponseEntity<>(chat, HttpStatus.OK);

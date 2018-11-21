@@ -3,7 +3,7 @@ function loadChats(callback){
 	$.ajax({
 		url: 'http://localhost:8080/chat/'
 	}).done(function(chats){
-		console.log('Chats loaded: ' + JSON.stringify(chats));
+		//console.log('Chats loaded: ' + JSON.stringify(chats));
 		callback(chats);
 	})
 }
@@ -61,7 +61,7 @@ function showChat(chat) {
     }
 
     $('#info').append(
-        '<div id="item-' + chat.id + '"><input type="checkbox" ' + checked + '><span ' + style + '>'+ "[" + chat.user.character + "]" + chat.sentence +
+        '<div id="item-' + chat.id + '"><input type="checkbox" ' + checked + '><span ' + style + '>'+  chat.sentence +
         '</span> <button>Delete</button></div>')
 }
 

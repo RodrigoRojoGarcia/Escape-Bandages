@@ -17,7 +17,8 @@ online.preload = function(){
 online.create = function(){
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//cargar letras Seleccion de Personaje
-
+	
+	
 
 	///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
@@ -72,4 +73,12 @@ online.create = function(){
 	this.bback.on('pointerdown', function(){
 		online.scene.switch(submenu);
 	})
+	
+//////////////////////////////////CHAT ONLINE///////////////////////////////////////
+	chatOnline = new ChatOnline(this);
+	chatOnline.create();
+}
+
+online.update = function(){
+	chatOnline.update();
 }
