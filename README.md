@@ -100,5 +100,6 @@ La línea discontinua indica que llama a métodos de las otras clases. La clase 
 Introducción de un usuario por cliente. Para llegar a la pantalla de selección de personaje cada usuario tiene que introducir un usuario que no se encuentre dentro del servidor.
 ![usuariointroducido](https://user-images.githubusercontent.com/18311855/48831516-45a2fa00-ed77-11e8-8bbb-ce26d956fde8.PNG)  
 En la sala de selección de personaje se puede seleccionar solo un personaje, una vez seleccionado no hay vuelta atrás. Se muestra también el número de usuarios conectados al Lobby.
-![chat](https://user-images.githubusercontent.com/18311855/48831512-450a6380-ed77-11e8-88b3-73c281a6532c.PNG)  
+![seleccionpersonaje](https://user-images.githubusercontent.com/18311855/48831515-45a2fa00-ed77-11e8-8293-94976d377fb9.PNG)  
 Los usuarios se podrán comunicar vía chat que se irá refrescando automáticamente en todos los clientes.
+![chat](https://user-images.githubusercontent.com/18311855/48831512-450a6380-ed77-11e8-88b3-73c281a6532c.PNG)  
