@@ -5,6 +5,7 @@ server.preload = function(){
 }
 
 server.create = function(){
+	myUser.setScene(this)
 	if(!SERVER){
 		server.scene.switch(menu);
 	}

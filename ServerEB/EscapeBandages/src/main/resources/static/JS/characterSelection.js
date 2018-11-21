@@ -21,6 +21,7 @@ characterSelection.preload = function(){
 
 
 characterSelection.create = function(){
+	myUser.setScene(this)
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
@@ -99,6 +100,11 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
+		
+		deleteUserName(myUser.userName, function(){
+			console.log("Eliminado el nombre de usuario")
+			myUser.setUserName("")
+		})
 		characterSelection.scene.switch(submenu);
 	})
 	

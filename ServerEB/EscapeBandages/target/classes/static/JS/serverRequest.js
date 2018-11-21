@@ -58,12 +58,13 @@ function updateUserCharacter(user){
 
 
 //Borrar usuario del servidor
-function deleteUser(userId){
+function deleteUserName(userName,callback){
 	$.ajax({
 		method: 'DELETE',
-		url: 'http://'+location.host+'/users/'+userId
+		url: 'http://'+location.host+'/users/'+userName
 	}).done(function(user){
-		console.log("Delete user "+userId)
+		console.log("Delete userName "+userName)
+		callback()
 	})
 }
 

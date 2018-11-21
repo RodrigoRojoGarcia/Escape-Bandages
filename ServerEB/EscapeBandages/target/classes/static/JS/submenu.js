@@ -15,6 +15,7 @@ submenu.preload = function(){
 }
 
 submenu.create = function(){
+	myUser.setScene(this)
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
 	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});

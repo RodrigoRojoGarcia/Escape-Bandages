@@ -1,10 +1,17 @@
-function User(){
+function User(scene){
 	this.Id=null;
 	this.userName;
 	this.character = null;
 	this.ready;
 	this.interval;
 	that = this;
+	this.scene = scene;
+	
+	this.setScene = function(scene){
+		this.scene = scene;
+	}
+	
+	
 	this.create = function(){
 		var user = {}
 		createUser(user, function(userWithId){
@@ -16,14 +23,19 @@ function User(){
 	}
 	
 	this.getUpdater = function(){
-		if(that.Id != null){
+		if(!disconnected){
+			if(that.Id != null){
 			$.ajax({
 				method: "GET",
 				url:"http://"+location.host+"/users/"+that.Id
 			}).fail(function(){
 				console.error("Has pwerdido la conexión con el servidor. UwU")
+				disconnected=true;
+				that.scene.add.text(700,350,'Disconnected from server',{font: '70px Power Clear', fill:'#ff0000'})
 			})
+			}
 		}
+		
 	}
 	this.clearInter = function(){
 		clearInterval(this.interval);

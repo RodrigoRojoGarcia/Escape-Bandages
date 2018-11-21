@@ -19,6 +19,7 @@ online.preload = function(){
 }
 
 online.create = function(){
+	myUser.setScene(this)
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//cargar letras Seleccion de Personaje
 
@@ -55,7 +56,7 @@ online.create = function(){
 
     
     //texto para indicar que elija nombre
-    this.add.text(800,350,'Choose your character:',{font: '32px Power Clear', fill:'#ffffff'})
+    this.add.text(800,350,'Elija nombre de usuario:',{font: '32px Power Clear', fill:'#ffffff'})
     //introducir por teclado el nombre
     var textEntry = this.add.text(800,450,'',{font: '32px Power Clear',fill: '#ffffff'})
     //habilitar teclado para introducir texto

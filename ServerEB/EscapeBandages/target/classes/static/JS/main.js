@@ -26,9 +26,10 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var myUser = new User();
 
+var disconnected = false; 
 var fx;
 
 const SERVER = location.hostname=="localhost"
 	
-var myUser = new User();
