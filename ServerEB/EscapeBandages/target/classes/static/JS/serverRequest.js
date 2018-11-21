@@ -45,7 +45,7 @@ function updateUserName(user,callback){
 function updateUserCharacter(user){
 	$.ajax({
 		method: 'PUT',
-		url: 'http://'+location.host+'/users/'+user.id,
+		url: 'http://'+location.host+'/users/character/'+user.id,
 		data: JSON.stringify(user),
 		processData:false,
 		headers:{

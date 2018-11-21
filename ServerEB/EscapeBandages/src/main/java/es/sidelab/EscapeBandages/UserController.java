@@ -76,6 +76,23 @@ public class UserController {
 			}
 		}
 		
+		@PutMapping(value="/character/{id}")
+		public ResponseEntity<User> updateUserCharacter(@PathVariable long id, @RequestBody User updatedUser){
+		
+			User user = users.get(id);
+			System.out.println("UwU");
+			if(user!=null) {
+				
+				updatedUser.setId(id);
+				updatedUser.setUserName(user.getUserName());
+				users.put(id, updatedUser);
+					
+	
+				return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
 		
 		@GetMapping(value="/{id}")
 		public ResponseEntity<User> getUser(@PathVariable long id){

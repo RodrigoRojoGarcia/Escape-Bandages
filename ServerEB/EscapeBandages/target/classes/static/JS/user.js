@@ -37,7 +37,7 @@ function User(){
 		}else{
 			var user = {"id":that.Id,"userName":that.userName, "character":character}
 			that.character = character
-			updateUser(user)
+			updateUserCharacter(user)
 		}
 	}
 }
