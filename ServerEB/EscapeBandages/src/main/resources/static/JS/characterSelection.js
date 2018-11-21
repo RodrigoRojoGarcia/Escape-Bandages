@@ -2,6 +2,8 @@ var characterSelection = new Phaser.Scene('characterSelection');
 
 characterSelection.preload = function(){
 	//cargar imagenes
+	//letras seleccionar personaje
+	this.load.image('select','Sprites/letras_seleccionar.png');
 	//volver
 	this.load.image('backO','Sprites/back.png');
 	//ANTORCHAS
@@ -73,6 +75,8 @@ characterSelection.create = function(){
         frames: this.anims.generateFrameNumbers('boton_pharaoh',{start: 1, end: 1}),
         frameRate: 10
     });
+
+    this.selecc = this.add.image(950,200,'select');
     
     
 //////////////////////////BOTONES///////////////////////////////////

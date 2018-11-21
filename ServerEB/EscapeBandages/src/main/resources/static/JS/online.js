@@ -7,6 +7,8 @@ online.preload = function(){
 	this.load.image('backO','Sprites/back.png');
 	//ANTORCHAS
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+    //boton login
+    this.load.image('login', 'Sprites/login.png');
 ///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileO", "Sprites/tileset.png");
@@ -37,27 +39,7 @@ online.create = function(){
         torchesM.push(this.add.sprite(225 + 1400*i,250,'torchO'));
         torchesM2.push(this.add.sprite(225 + 1400*i,800,'torchO'));
     };
-    
-    
-    this.add.text(10,10,'Choose your character:',{font: '32px Power Clear', fill:'#ffffff'})
-    
-    var textEntry = this.add.text(10,50,'',{font: '32px Power Clear',fill: '#ffffff'})
-    
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
-    
-    
-    this.input.keyboard.on('keydown', function(event){
-    	if(event.keyCode === 8 && textEntry.text.length>0){
-    		textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
-    		
-    	}else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90)){
-    		textEntry.text += event.key
-    	}
-    })
-    
-    
-    
+
     //Animación de las antorchas
     this.anims.create({
         key: 'torchAnim',
@@ -71,7 +53,23 @@ online.create = function(){
         torchesM2[i].anims.play('torchAnim');
     };
 
-
+    
+    //texto para indicar que elija nombre
+    this.add.text(800,350,'Choose your character:',{font: '32px Power Clear', fill:'#ffffff'})
+    //introducir por teclado el nombre
+    var textEntry = this.add.text(800,450,'',{font: '32px Power Clear',fill: '#ffffff'})
+    //habilitar teclado para introducir texto
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
+    
+    this.input.keyboard.on('keydown', function(event){
+    	if(event.keyCode === 8 && textEntry.text.length>0){
+    		textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
+    		
+    	}else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90)){
+    		textEntry.text += event.key
+    	}
+    })
 
 
 
@@ -99,7 +97,8 @@ online.create = function(){
 		online.scene.switch(submenu);
 	})
 
-	this.introUser = this.add.sprite(600, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	//
+	this.introUser = this.add.sprite(950, 750, 'login').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.introUser.scaleX -= 0.4;
 	this.introUser.scaleY -= 0.4;
 	//hacer boton visible
