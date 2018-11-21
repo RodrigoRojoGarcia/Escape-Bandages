@@ -11,13 +11,13 @@ function User(scene){
 		this.scene = scene;
 	}
 	
-	
 	this.create = function(){
 		var user = {}
 		createUser(user, function(userWithId){
 			that.Id = userWithId.id;
 		})
 	}
+
 	this.update = function(){
 		this.interval = setInterval(that.getUpdater,500);
 	}
@@ -29,13 +29,12 @@ function User(scene){
 				method: "GET",
 				url:"http://"+location.host+"/users/"+that.Id
 			}).fail(function(){
-				console.error("Has pwerdido la conexión con el servidor. UwU")
+				console.error("Has perdido la conexión con el servidor. UwU")
 				disconnected=true;
-				that.scene.add.text(700,350,'Disconnected from server',{font: '70px Power Clear', fill:'#ff0000'})
+				that.scene.add.text(600,350,'Disconnected from server',{font: '70px Power Clear', fill:'#ff0000'})
 			})
 			}
 		}
-		
 	}
 	this.clearInter = function(){
 		clearInterval(this.interval);

@@ -105,6 +105,7 @@ characterSelection.create = function(){
 			console.log("Eliminado el nombre de usuario")
 			myUser.setUserName("")
 		})
+		myUser.setScene(submenu)
 		characterSelection.scene.switch(submenu);
 	})
 	

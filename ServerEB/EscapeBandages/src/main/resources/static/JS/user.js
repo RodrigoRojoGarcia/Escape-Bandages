@@ -31,7 +31,7 @@ function User(scene){
 			}).fail(function(){
 				console.error("Has perdido la conexión con el servidor. UwU")
 				disconnected=true;
-				that.scene.add.text(700,350,'Disconnected from server',{font: '70px Power Clear', fill:'#ff0000'})
+				that.scene.add.text(600,350,'Disconnected from server',{font: '70px Power Clear', fill:'#ff0000'})
 			})
 			}
 		}
