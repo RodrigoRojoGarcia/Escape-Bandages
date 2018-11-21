@@ -45,6 +45,7 @@ public class ChatController {
 		public Chat newChat(@RequestBody Chat chat) {
 			long id = lastId.incrementAndGet();
 			chat.setId(id);
+			
 			chats.put(id, chat);
 			if(display.size() < maxSize) {
 				if(!display.isEmpty()) {
@@ -57,7 +58,7 @@ public class ChatController {
 				display.remove(display.size()-1);
 				display.add(0, chat);
 			}
-			
+			chat.toFile();
 			
 			return chat;
 		}
