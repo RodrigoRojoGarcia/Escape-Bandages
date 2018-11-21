@@ -82,3 +82,14 @@ Ahora es el faraón el que no puede avanzar, la momia tendrá que saltar un aguj
 Cuando se colocan las dos cajas sobre los botones los dos personajes son libres de avanzar, saltar un agujero y salir de la pirámide.
 ![10](https://user-images.githubusercontent.com/18311855/48102044-75a3b680-e229-11e8-9a62-dc0f23a21143.PNG)  
 ![11](https://user-images.githubusercontent.com/18311855/48102045-763c4d00-e229-11e8-8434-43e0a3160759.PNG)  
+
+
+##Servidor REST
+Instrucciones para ejecutar (desde la consola de comandos): 
+Ir al path Escape-Bandages/ServerEB/EscapeBandages/target
+Ejecutar java -jar EscapeBandages-0.0.1-SNAPSHOT.jar
+Al final de la ejecución de la creación del servidor aparecerá por la consola de comandos una IP, la cual es la que se tiene que incluir en el buscador web para acceder como cliente al juego.
+
+##Diagrama de clases de la aplicación
+![classdiagram](https://user-images.githubusercontent.com/18311855/48830920-0031fd00-ed76-11e8-9bfd-621e18b9c3df.PNG)  
+La línea discontinua indica que llama a métodos de las otras clases. La clase App llama a métodos de las clases HostManager y UsersManager.
