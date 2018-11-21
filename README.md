@@ -93,3 +93,12 @@ Al final de la ejecución de la creación del servidor aparecerá por la consola
 ##Diagrama de clases de la aplicación
 ![classdiagram](https://user-images.githubusercontent.com/18311855/48830920-0031fd00-ed76-11e8-9bfd-621e18b9c3df.PNG)  
 La línea discontinua indica que llama a métodos de las otras clases. La clase App llama a métodos de las clases HostManager y UsersManager.
+
+
+##Capturas
+![introusuario](https://user-images.githubusercontent.com/18311855/48831513-450a6380-ed77-11e8-8036-751b012ae2cd.PNG)  
+Introducción de un usuario por cliente. Para llegar a la pantalla de selección de personaje cada usuario tiene que introducir un usuario que no se encuentre dentro del servidor.
+![usuariointroducido](https://user-images.githubusercontent.com/18311855/48831516-45a2fa00-ed77-11e8-8bbb-ce26d956fde8.PNG)  
+En la sala de selección de personaje se puede seleccionar solo un personaje, una vez seleccionado no hay vuelta atrás. Se muestra también el número de usuarios conectados al Lobby.
+![chat](https://user-images.githubusercontent.com/18311855/48831512-450a6380-ed77-11e8-88b3-73c281a6532c.PNG)  
+Los usuarios se podrán comunicar vía chat que se irá refrescando automáticamente en todos los clientes.
