@@ -1,9 +1,9 @@
 function ChatOnline(scene){
 	this.scene = scene;
 	this.chats = 0;
-	that = this;
+	var that = this;
 	
-	this.create = function(){ //Crea el input del chat
+	this.createC = function(){ //Crea el input del chat
 		//////////////////////////////////TEXTO CHAT///////////////////////////////////////
 		scene.add.text(1200, 1030, 'Escribe aqui:', { font: '32px Arial', fill: '#ffffff' });
 
@@ -61,7 +61,7 @@ function ChatOnline(scene){
 	
 	}
 	
-	this.update = function(){
+	this.updateC = function(){
 		phrases = [];
 		
 		loadChats(function(chats){
@@ -77,12 +77,6 @@ function ChatOnline(scene){
             callback: that.write,
             callbackScope: that
         });
-		
-		
-		
-		
-		
-		
 	}
 	this.write = function(){
 		

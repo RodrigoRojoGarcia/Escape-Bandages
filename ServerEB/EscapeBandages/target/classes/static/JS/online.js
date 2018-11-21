@@ -7,6 +7,10 @@ online.preload = function(){
 	this.load.image('backO','Sprites/back.png');
 	//ANTORCHAS
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+    //boton login
+    this.load.image('login', 'Sprites/login.png');
+    //insertamos font externa
+    this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
 ///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileO", "Sprites/tileset.png");
@@ -15,10 +19,9 @@ online.preload = function(){
 }
 
 online.create = function(){
+	myUser.setScene(this)
+	myUser.update();
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
-	//cargar letras Seleccion de Personaje
-	
-	
 
 	///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
@@ -26,8 +29,9 @@ online.create = function(){
     //Le añadimos el TILESET al TILEMAP
 	const tiles = backg.addTilesetImage("tileset","tileO");
     //Extraemos las capas del TILEMAP
-    const bg= backg.createDynamicLayer("Background", tiles, 0,0);
+    const bg = backg.createDynamicLayer("Background", tiles, 0,0);
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
+
 	///////////////////////////////////ANTORCHAS///////////////////////////////////
 	var torchesM = [];
 	var torchesM2 = [];
@@ -48,8 +52,26 @@ online.create = function(){
         torchesM[i].anims.play('torchAnim');
         torchesM2[i].anims.play('torchAnim');
     };
-
     
+    //texto para indicar que elija nombre
+    //this.add.text(800,350,'Elija nombre de usuario:',{font: '32px Power Clear', fill:'#ffffff'})
+    this.add.dynamicBitmapText(800, 350, 'font1', 'Elija nombre de usuario:', 32);
+    //introducir por teclado el nombre
+    //var textEntry = this.add.text(800,450,'',{font: '32px Power Clear',fill: '#ffffff'})
+    var textEntry = this.add.dynamicBitmapText(800, 450, 'font1', '', 32);
+    //habilitar teclado para introducir texto
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
+    
+    this.input.keyboard.on('keydown', function(event){
+    	if(event.keyCode === 8 && textEntry.text.length>0){
+    		textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
+    		
+    	}else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90)){
+    		textEntry.text += event.key
+    	}
+    })
+
 
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
@@ -71,14 +93,57 @@ online.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
+		//cambio escena a submenu
+		myUser.setScene(submenu)
 		online.scene.switch(submenu);
 	})
-	
-//////////////////////////////////CHAT ONLINE///////////////////////////////////////
-	chatOnline = new ChatOnline(this);
-	chatOnline.create();
-}
 
-online.update = function(){
-	chatOnline.update();
+	////////////////////BOTON LOGIN////////////////////////////////////
+	this.introUser = this.add.sprite(950, 750, 'login').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.introUser.scaleX -= 0.4;
+	this.introUser.scaleY -= 0.4;
+	//hacer boton visible
+	this.introUser.setAlpha(1);
+	//accion al poner el cursor sobre el boton
+	this.introUser.on('pointerover', function(){
+		online.introUser.scaleX += 0.15;
+		online.introUser.scaleY += 0.15;
+	})
+	//accion al quitar el cursor del boton
+	this.introUser.on('pointerout', function(){
+		online.introUser.scaleX -= 0.15;
+		online.introUser.scaleY -= 0.15;
+	})
+	//accion al hacer click sobre el boton
+	this.introUser.on('pointerdown', function(){
+		if(textEntry.text.length>0){
+			userNameValid = true;
+			var user = {
+				id: myUser.Id,
+				userName: textEntry.text
+			}
+			myUser.setUserName(textEntry.text)
+			updateUserName(user, function(){
+				userNameValid = false;
+			})
+			while(textEntry.text.length>0){
+				textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
+			}
+			
+			online.time.addEvent({
+	            delay: 40,
+	            callback: online.isUserNameValid,
+	            callbackScope: online
+	        });
+		}
+	})
+	
+	this.isUserNameValid = function(){
+		if(userNameValid){
+			myUser.setScene(characterSelection)
+				online.scene.switch(characterSelection)
+		}else{
+			console.log("Nombre de usuario ya registrado")
+		}
+	}
 }

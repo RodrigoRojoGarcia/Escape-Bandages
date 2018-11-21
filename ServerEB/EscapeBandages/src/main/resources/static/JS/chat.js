@@ -1,7 +1,7 @@
 //Cargar chats del servidor
 function loadChats(callback){
 	$.ajax({
-		url: 'http://localhost:8080/chat/'
+		url: 'http://'+location.host+'/chat/'
 	}).done(function(chats){
 		//console.log('Chats loaded: ' + JSON.stringify(chats));
 		callback(chats);
@@ -12,7 +12,7 @@ function loadChats(callback){
 function createChat(chat, callback){
 	$.ajax({
 		method: "POST",
-		url: 'http://localhost:8080/chat/',
+		url: 'http://'+location.host+'/chat/',
 		data: JSON.stringify(chat),
 		processData: false,
 		headers: {
@@ -28,7 +28,7 @@ function createChat(chat, callback){
 function updateChat(chat) {
     $.ajax({
         method: 'PUT',
-        url: 'http://localhost:8080/chat/' + chat.id,
+        url: 'http://'+location.host+'/chat/' + chat.id,
         data: JSON.stringify(chat),
         processData: false,
         headers: {
@@ -43,116 +43,8 @@ function updateChat(chat) {
 function deleteChat(chatId) {
     $.ajax({
         method: 'DELETE',
-        url: 'http://localhost:8080/chat/' + chatId
+        url: 'http://'+location.host+'/chat/' + chatId
     }).done(function (chat) {
         console.log("Se ha borrado el chat " + chatId)
     })
 }
-
-//Show item in page
-function showChat(chat) {
-
-    var checked = '';
-    var style = '';
-
-    if (chat.checked) {
-        checked = 'checked';
-        style = 'style="text-decoration:line-through"';
-    }
-
-    $('#info').append(
-        '<div id="item-' + chat.id + '"><input type="checkbox" ' + checked + '><span ' + style + '>'+  chat.sentence +
-        '</span> <button>Delete</button></div>')
-}
-
-$(document).ready(function () {
-
-    loadChats(function (chats) {
-        //When items are loaded from server
-        for (var i = 0; i < chats.length; i++) {
-            showChat(chats[i]);
-        }
-    });
-
-    var input = $('#value-input')
-    var info = $('#info')
-
-    //Handle delete buttons
-    info.click(function (event) {
-        var elem = $(event.target);
-        if (elem.is('button')) {
-            var chatDiv = elem.parent();
-            var chatId = chatDiv.attr('id').split('-')[1];
-            chatDiv.remove()
-            deleteItem(chatId);
-        }
-    })
-
-    //Handle items checkboxs
-    info.change(function (event) {
-
-        //Get page elements for item
-        var checkbox = $(event.target);
-        var chatDiv = checkbox.parent();
-        var textSpan = chatDiv.find('span');
-
-        //Read item info from elements
-        var chatDescription = textSpan.text();
-        var chatChecked = checkbox.prop('checked');
-        var chatId = chatDiv.attr('id').split('-')[1];
-
-        //Create updated item
-        var updatedChat = {
-            id: chatId,
-            sentence: chatDescription,
-            checked: chatChecked
-        }
-
-        //Update item in server
-        updateChat(updatedChat);
-
-        //Update page when checked
-        var style = chatChecked ? 'line-through' : 'none';
-        textSpan.css('text-decoration', style);
-
-    })
-    //Nombre de usuario que se introduce al chat
-    $("#add-button1").click(function(){
-    	var value = input.val();
-    	input.val('');
-
-    	user = {
-    		character: value,
-    		ready: false
-    	}
-    	var chat = {
-    		id: 1,
-    		user: user
-    	}
-    	updateChat(chat, function(chatWithId){
-    		showChat(chatWithId);
-    	});
-    })
-
-    //Handle add button
-    $("#add-button2").click(function () {
-
-        var value = input.val();
-        input.val('');
-
-        var chat = {
-        	user: user,
-            sentence: value,
-            checked: false
-
-        }
-        createChat(chat, function (chatWithId){
-        	showChat(chatWithId);
-        });
-
-        updateChat(chat, function (chatWithId) {
-            //When item with id is returned from server
-            showChat(chatWithId);
-        });
-    })
-})

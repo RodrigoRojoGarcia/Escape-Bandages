@@ -37,5 +37,4 @@ function healthBar (maxHealth, x, y, width, height) {
 		//Pintamos la vida que le queda
 		this.graphics.fillRect(xRec+width*(this.health/this.maxHealth),yRec,width-width*(this.health/this.maxHealth),5);
 	}
-
 }

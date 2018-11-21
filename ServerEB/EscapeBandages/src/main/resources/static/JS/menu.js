@@ -18,6 +18,11 @@ menu.preload = function(){
 }
 
 menu.create = function(){
+	myUser.setScene(this);
+	///Creamos usuario
+	myUser.create();
+	myUser.update();
+	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//cargar letras Escape Bandages
 	this.btit = this.add.sprite(960, 200, 'title')
@@ -51,6 +56,7 @@ menu.create = function(){
 	//accion al hacer click sobre el boton Play
 	this.bplay.on('pointerdown', function(){
 		//cambio de escena a submenu
+		myUser.setScene(submenu)
 		menu.scene.switch(submenu);
 	})
 	//console.log(this.bplay);

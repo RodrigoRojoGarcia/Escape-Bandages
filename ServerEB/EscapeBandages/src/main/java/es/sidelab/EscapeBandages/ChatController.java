@@ -92,20 +92,7 @@ public class ChatController {
 			}
 		}
 		
-		@DeleteMapping(value="/{id}")
-		public ResponseEntity<Chat> deleteChat(@PathVariable long id) {
 
-			Chat chat = chats.remove(id);
-			if(!display.isEmpty()) {
-				display.remove(0);
-			}
-			if (chat != null) {
-				return new ResponseEntity<>(chat, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-		}
-		
 		
 		
 		

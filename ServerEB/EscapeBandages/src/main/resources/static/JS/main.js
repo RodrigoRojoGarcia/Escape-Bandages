@@ -22,9 +22,14 @@ var config = {
 	audio: {
         disableWebAudio: true
     },
-	scene:[menu, offline, online, victoria, gameover, submenu]
+	scene:[server, menu, offline, online, victoria, gameover, submenu, characterSelection]
 };
 
 var game = new Phaser.Game(config);
+var myUser = new User();
 
+var disconnected = false; 
 var fx;
+
+const SERVER = location.hostname=="localhost"
+	
