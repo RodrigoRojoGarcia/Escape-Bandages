@@ -18,10 +18,7 @@ menu.preload = function(){
 }
 
 menu.create = function(){
-	myUser.setScene(this);
-	///Creamos usuario
-	myUser.create();
-	myUser.update();
+	
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//cargar letras Escape Bandages

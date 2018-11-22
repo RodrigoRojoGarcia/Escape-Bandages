@@ -16,11 +16,17 @@ online.preload = function(){
     this.load.image("tileO", "Sprites/tileset.png");
     //tilemap
     this.load.tilemapTiledJSON("backgroundO", "background.json");
+    //Input
+    this.load.spritesheet("input", "Sprites/manualInput.png", {frameWidth: 420, frameHeight: 50});
 }
 
 online.create = function(){
-	myUser.setScene(this)
+	myUser.setScene(this);
+	
+	///Creamos usuario
+	myUser.create();
 	myUser.update();
+	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 
 	///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
@@ -47,6 +53,13 @@ online.create = function(){
         frameRate: 10,
         repeat: -1
     });
+    //Animación del input
+    this.anims.create({
+    	key: 'manualInput',
+    	frames: this.anims.generateFrameNumbers('input',{start: 0, end: 1}),
+    	frameRate: 5,
+    	repeat: -1
+    })
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<2;i++){
         torchesM[i].anims.play('torchAnim');
@@ -58,16 +71,38 @@ online.create = function(){
     this.add.dynamicBitmapText(800, 350, 'font1', 'Elija nombre de usuario:', 32);
     //introducir por teclado el nombre
     //var textEntry = this.add.text(800,450,'',{font: '32px Power Clear',fill: '#ffffff'})
-    var textEntry = this.add.dynamicBitmapText(800, 450, 'font1', '', 32);
+    
+    //boolean que indica cuando esta escribiendo
+    this.typing = false;
+    //Input manual
+    var w = 420;
+    var h = 100;
+    this.inputK = this.add.sprite(735 + w/2, 415 + h/2, 'input').setInteractive({ cursor: 'url(Sprites/cursor4.png), pointer' });
+    this.inputK.anims.play('manualInput');
+    //inK.anims.play('manualInput');
+    
+    this.inputK.on('pointerdown', function(){
+    	online.typing = true;
+    	online.inputK.anims.stop();
+    	online.inputK.setTexture('input', 0);
+	})
+	//accion al quitar el cursor del boton Salir
+	this.inputK.on('pointerout', function(){
+		online.typing = false;
+		if(textEntry.text.length == 0){
+			online.inputK.anims.play('manualInput');
+		}
+	})
+	
+    var textEntry = this.add.dynamicBitmapText(750, 450, 'font1', '', 32);
     //habilitar teclado para introducir texto
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
-    
     this.input.keyboard.on('keydown', function(event){
-    	if(event.keyCode === 8 && textEntry.text.length>0){
+    	if(event.keyCode === 8 && textEntry.text.length>0 && online.typing){
     		textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
     		
-    	}else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90)){
+    	}else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90) && online.typing){
     		textEntry.text += event.key
     	}
     })
@@ -147,3 +182,4 @@ online.create = function(){
 		}
 	}
 }
+
