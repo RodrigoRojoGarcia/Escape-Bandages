@@ -11,6 +11,7 @@ online.preload = function(){
     this.load.image('login', 'Sprites/login.png');
     //insertamos font externa
     this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
+    this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
 ///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileO", "Sprites/tileset.png");
@@ -178,8 +179,14 @@ online.create = function(){
 			myUser.setScene(characterSelection)
 				online.scene.switch(characterSelection)
 		}else{
-			console.log("Nombre de usuario ya registrado")
+			var textEntry2 = this.add.dynamicBitmapText(750, 450, 'font2', 'Nombre de usuario ya registrado', 30);
+			online.time.addEvent({
+	            delay: 1000,
+	            callback: function(){ textEntry2.text = "";},
+	            callbackScope: online
+	        });
 		}
 	}
+	
 }
 

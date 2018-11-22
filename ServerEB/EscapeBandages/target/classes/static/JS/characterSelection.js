@@ -152,14 +152,15 @@ characterSelection.create = function(){
 	this.bPharaoh.on('pointerdown', function(){
 		myUser.selectCharacter("Pharaoh")
 	})
-	chatOnline = new ChatOnline(this);
-	chatOnline.createC();
+	
+	//chatOnline = new ChatOnline(this);
+	//chatOnline.createC();
 
     
 }
 
 characterSelection.update = function(){
-	chatOnline.updateC();
+	//chatOnline.updateC();
 	loadUsers(function(users){
 		numUsers.text = users.length;
 	})
