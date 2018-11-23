@@ -3,7 +3,7 @@ function loadUsers(callback){
 	$.ajax({
 		url: 'http://'+location.host+'/users/'
 	}).done(function(users){
-		console.log('Users loaded: '+ JSON.stringify(users))
+		//console.log('Users loaded: '+ JSON.stringify(users))
 		callback(users)
 	})
 }

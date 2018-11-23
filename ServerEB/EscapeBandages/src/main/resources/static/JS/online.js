@@ -176,8 +176,9 @@ online.create = function(){
 	
 	this.isUserNameValid = function(){
 		if(userNameValid){
-			myUser.setScene(characterSelection)
-				online.scene.switch(characterSelection)
+			myUser.setScene(characterSelection);
+			online.scene.switch(characterSelection);
+			online.scene.launch(chatOnline, characterSelection);
 		}else{
 			var textEntry2 = this.add.dynamicBitmapText(750, 450, 'font2', 'Nombre de usuario ya registrado', 30);
 			online.time.addEvent({
