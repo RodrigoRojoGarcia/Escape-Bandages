@@ -113,6 +113,7 @@ characterSelection.create = function(){
 		})
 		myUser.setScene(submenu)
 		characterSelection.scene.switch(submenu);
+		characterSelection.scene.stop(chatOnline);
 	})
 	
 	
