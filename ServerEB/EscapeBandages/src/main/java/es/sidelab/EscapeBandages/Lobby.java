@@ -6,15 +6,20 @@ import java.util.List;
 public class Lobby {
 	private User user1;
 	private User user2;
-	private Chat chat;
+	private boolean full;
 	private static List<Chat> display = new ArrayList<>();
 	
 	public Lobby() {
 		
 	}
+	public Lobby(User user) {
+		this.user1 = user;
+		this.full = false;
+	}
 	public Lobby(User user1, User user2) {
 		this.user1 = user1;
 		this.user2 = user2;
+		this.full = true;
 	}
 	public User getUser1() {
 		return user1;
@@ -34,4 +39,11 @@ public class Lobby {
 	public void addChat(Chat chat) {
 		display.add(chat);
 	}
+	public boolean isFull() {
+		return full;
+	}
+	public void setFull(boolean full) {
+		this.full = full;
+	}
+	
 }

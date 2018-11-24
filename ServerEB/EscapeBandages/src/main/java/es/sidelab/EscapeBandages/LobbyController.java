@@ -1,6 +1,7 @@
 package es.sidelab.EscapeBandages;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,7 +18,9 @@ public class LobbyController {
 	private static Map<Long, Lobby> lobbies = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
 	
-	
+	public class UsersContr{
+		
+	}
 	
 	@GetMapping(value="/")
 	public static Collection<Lobby> lobbies(){
@@ -30,6 +33,24 @@ public class LobbyController {
 		Lobby lob = new Lobby(user1, user2);
 		lobbies.put(id, lob);
 		return id;
+	}
+	
+	@PostMapping(value="/{user}")
+	public Long newLobby(@RequestBody User user) {
+	    //Si hay algún lobby con solo un usuario
+	    for(Long id : lobbies.keySet()) {
+	    	if(!lobbies.get(id).isFull()) {
+	    		lobbies.get(id).setUser2(user);
+	    		lobbies.get(id).setFull(true);
+	    		return id;
+	    	}
+	    }
+	    //Si no, pues creo un nuevo lobby con user como user1
+    	long id = lastId.incrementAndGet();
+    	Lobby lob = new Lobby(user);
+    	lobbies.put(id, lob);
+    	return id;
+
 	}
 	
 	
