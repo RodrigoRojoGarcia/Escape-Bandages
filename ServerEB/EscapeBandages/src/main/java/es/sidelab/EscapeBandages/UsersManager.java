@@ -11,7 +11,7 @@ public class UsersManager {
 	
 	private static boolean serverIsOn = false;
 	
-	private static int maxTimeOfInactivity = 3;
+	private static int maxTimeOfInactivity = 8;
 	
 	private static int timeUnit = 500;
 	
@@ -27,20 +27,20 @@ public class UsersManager {
 		controller.scheduleWithFixedDelay(()->{
 			
 			
-			Stack<User> usersToDisconnect = new Stack<>();
+			Stack<Client> clientsToDisconnect = new Stack<>();
 			
 			
-			for(User user: UserController.users()) {
+			for(Client client: UsersController.clients()) {
 				//System.out.println("UwU");
-				user.increaseTimeInactivity();
-				if(user.getTimeInactivity() > maxTimeOfInactivity) {
-					usersToDisconnect.push(user);
+				client.increaseInactivty();
+				if(client.getTimeOfInactivity() > maxTimeOfInactivity) {
+					clientsToDisconnect.push(client);
 				}
 			}
 			
-			while(!usersToDisconnect.empty()) {
+			while(!clientsToDisconnect.empty()) {
 				
-				User aux = usersToDisconnect.pop();
+				Client aux = clientsToDisconnect.pop();
 				UsersController.disconnectUser(aux.getUserName());
 			}
 		}, timeUnit, timeUnit, TimeUnit.MILLISECONDS);

@@ -19,6 +19,7 @@ public class UsersController {
 	private Map<String,String> userspasswords = new ConcurrentHashMap<>();
 	private static Map<String,User> users = new ConcurrentHashMap();
 	private static Map<Long, Lobby> lobbies = new ConcurrentHashMap<>();
+	private static Map<Long, Client> clients = new ConcurrentHashMap<>();
 	private AtomicLong lastId = new AtomicLong();
 	
 	@GetMapping(value="users/")
@@ -26,10 +27,35 @@ public class UsersController {
 		return users.values();
 	}
 	
+	@GetMapping(value="clients")
+	public static Collection<Client> clients(){
+		return clients.values();
+	}
 	
-	@GetMapping(value="users")
+	@GetMapping(value="clients/{id}")
+	public ResponseEntity<Client> getClient(@PathVariable long id){
+		Client client = clients.get(id);
+		if(client != null) {
+			client.resetInactivity();
+			return new ResponseEntity<>(client, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
 	
+	@PostMapping(value="clients/{id}")
+	public ResponseEntity<Client> addClient(@PathVariable long id){
+		Client client = new Client(id);
+		clients.put(id, client);
+		return new ResponseEntity<>(client, HttpStatus.OK);
+	}
+	@DeleteMapping(value="/clients/{id}")
+	public static void disconnectClient(@PathVariable long id) {
+		if(clients.get(id).getUser()!=null)
+		disconnectUser(clients.get(id).getUser().getUserName());
+		clients.remove(id);
+	}
 	
 	
 	/*
