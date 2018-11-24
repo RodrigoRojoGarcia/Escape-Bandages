@@ -7,20 +7,22 @@ public class Lobby {
 	private User user1;
 	private User user2;
 	private boolean full;
+	private boolean priv;
 	private static List<Chat> display = new ArrayList<>();
 	
 	public Lobby() {
 		
 	}
-	public Lobby(User user) {
+	public Lobby(User user, boolean priv) {
 		this.user1 = user;
-		this.full = false;
+		this.priv = priv;
 	}
 	public Lobby(User user1, User user2) {
 		this.user1 = user1;
 		this.user2 = user2;
 		this.full = true;
 	}
+	
 	public User getUser1() {
 		return user1;
 	}
@@ -46,4 +48,10 @@ public class Lobby {
 		this.full = full;
 	}
 	
+	public boolean isPriv() {
+		return this.priv;
+	}
+	public void setPriv(boolean priv) {
+		this.priv = priv;
+	}
 }

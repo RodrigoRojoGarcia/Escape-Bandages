@@ -41,7 +41,7 @@ public class UsersManager {
 			while(!usersToDisconnect.empty()) {
 				
 				User aux = usersToDisconnect.pop();
-				UserController.deleteUser(aux.getId());
+				UsersController.disconnectUser(aux.getUserName());
 			}
 		}, timeUnit, timeUnit, TimeUnit.MILLISECONDS);
 		
