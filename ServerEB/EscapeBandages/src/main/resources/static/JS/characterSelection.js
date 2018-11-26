@@ -105,6 +105,7 @@ characterSelection.create = function(){
 			console.log("Eliminado el nombre de usuario")
 			myUser.setUserName("")
 		})
+		myUser.setScene(submenu)
 		characterSelection.scene.switch(submenu);
 	})
 	
@@ -145,5 +146,14 @@ characterSelection.create = function(){
 	this.bPharaoh.on('pointerdown', function(){
 		myUser.selectCharacter("Pharaoh")
 	})
+	
+	chatOnline = new ChatOnline(this);
+	chatOnline.create();
     
 }
+
+characterSelection.update = function(){
+	chatOnline.update();
+}
+
+

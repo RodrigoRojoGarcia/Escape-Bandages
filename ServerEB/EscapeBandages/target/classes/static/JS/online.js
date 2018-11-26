@@ -93,6 +93,7 @@ online.create = function(){
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
 		//cambio escena a submenu
+		myUser.setScene(submenu)
 		online.scene.switch(submenu);
 	})
 
@@ -138,6 +139,7 @@ online.create = function(){
 	
 	this.isUserNameValid = function(){
 		if(userNameValid){
+			myUser.setScene(characterSelection)
 				online.scene.switch(characterSelection)
 		}else{
 			console.log("Nombre de usuario ya registrado")
