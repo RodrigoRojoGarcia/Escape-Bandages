@@ -81,7 +81,7 @@ characterSelection.create = function(){
     
     
 //////////////////////////BOTONES///////////////////////////////////
-	//////////////////////BOTON VOLVER///////////////////////////////
+//////////////////////BOTON VOLVER///////////////////////////////
 	//cargar boton Salir
 	this.bback = this.add.sprite(300, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.bback.scaleX -= 0.4;
@@ -100,46 +100,51 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
-		
 		deleteUserName(myUser.userName, function(){
 			console.log("Eliminado el nombre de usuario")
 			myUser.setUserName("")
 		})
-		myUser.setScene(submenu)
-		characterSelection.scene.switch(submenu);
+		myUser.setScene(lobby)
+		characterSelection.scene.switch(lobby);
 	})
 	
-	
-
-	//////////////////////BOTON ELLECCION MOMIA///////////////////////////////
+//////////////////////BOTON ELLECCION MOMIA///////////////////////////////
 	//cargar boton eleccion Mummy
 	this.bMummy = this.add.sprite(600, 550, 'boton_mummy').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	//hacer boton visible
 	this.bMummy.setAlpha(1);
 	//accion al poner el cursor sobre el boton de eleccion de Mummy
 	this.bMummy.on('pointerover', function(){
+		characterSelection.bMummy.scaleX += 0.05;
+		characterSelection.bMummy.scaleY += 0.05;
 		characterSelection.bMummy.anims.play('bmummyAnim2');
 	})
 	//accion al quitar el cursor del boton de eleccion de Mummy
 	this.bMummy.on('pointerout', function(){
+		characterSelection.bMummy.scaleX -= 0.05;
+		characterSelection.bMummy.scaleY -= 0.05;
 		characterSelection.bMummy.anims.play('bmummyAnim');
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bMummy.on('pointerdown', function(){
 		myUser.selectCharacter("Mummy")
 	})
-	
-	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
+
+/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
 	//cargar boton eleccion Pharaoh
 	this.bPharaoh = this.add.sprite(1300, 550, 'boton_pharaoh').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	//hacer boton visible
 	this.bPharaoh.setAlpha(1);
 	//accion al poner el cursor sobre el boton de eleccion de Pharaoh
 	this.bPharaoh.on('pointerover', function(){
+		characterSelection.bPharaoh.scaleX += 0.05;
+		characterSelection.bPharaoh.scaleY += 0.05;
 		characterSelection.bPharaoh.anims.play('bpharaohAnim2');
 	})
 	//accion al quitar el cursor del boton de eleccion de Pharaoh
 	this.bPharaoh.on('pointerout', function(){
+		characterSelection.bPharaoh.scaleX -= 0.05;
+		characterSelection.bPharaoh.scaleY -= 0.05;
 		characterSelection.bPharaoh.anims.play('bpharaohAnim');
 	})
 	//accion al hacer click sobre el boton Salir
@@ -155,5 +160,3 @@ characterSelection.create = function(){
 characterSelection.update = function(){
 	chatOnline.update();
 }
-
-
