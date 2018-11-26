@@ -1,7 +1,9 @@
+//crear escena submenu (eleccion online/offline)
 var submenu = new Phaser.Scene('Submenu');
 
 submenu.preload = function(){
 	//carga imagenes
+	//botones
 	this.load.image('off', 'Sprites/offline.png');
 	this.load.image('on', 'Sprites/online.png');
 	this.load.image('back', 'Sprites/back.png');

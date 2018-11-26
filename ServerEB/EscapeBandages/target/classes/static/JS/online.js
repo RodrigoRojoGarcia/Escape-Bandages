@@ -19,6 +19,7 @@ online.preload = function(){
 }
 
 online.create = function(){
+	that = this;
 	myUser.setScene(this)
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 
@@ -139,10 +140,11 @@ online.create = function(){
 	
 	this.isUserNameValid = function(){
 		if(userNameValid){
-			myUser.setScene(characterSelection)
-				online.scene.switch(characterSelection)
+			myUser.setScene(lobby);
+			online.scene.switch(lobby);
 		}else{
-			console.log("Nombre de usuario ya registrado")
+			//that.scene.add.text(800, 350,'Nombre de usuario ya registrado',{font: '28px Power Clear'});
+			console.log("Nombre de usuario ya registrado");
 		}
 	}
 }
