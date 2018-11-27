@@ -173,7 +173,7 @@ online.create = function(){
 	        });
 		}
 	})
-	
+	//Mensaje que sale cuando metes un usuario registrado
 	this.isUserNameValid = function(){
 		if(userNameValid){
 			myUser.setScene(lobby);

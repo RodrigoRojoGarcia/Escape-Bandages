@@ -154,7 +154,7 @@ lobby.create = function(){
 		//cambio de escena a menu
 		myLobby.create();
 		myLobby.setScene(characterSelection);
-		myUser.setScene(characterSelection)
+		myUser.setScene(characterSelection);
 		lobby.scene.switch(characterSelection);
 		lobby.scene.launch(chatOnline, characterSelection);
 	})
