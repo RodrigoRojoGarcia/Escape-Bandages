@@ -6,6 +6,8 @@ import java.util.List;
 public class Lobby {
 	private User user1;
 	private User user2;
+	private String mummy;
+	private String pharaoh;
 	private boolean full;
 	private boolean priv;
 	private static List<Chat> display = new ArrayList<>();
@@ -38,7 +40,8 @@ public class Lobby {
 	public List<Chat> getDisplay (){
 		return display;
 	}
-	public void addChat(Chat chat) {
+	public void addChat(Chat chat, String userName) {
+		chat.setUser(userName);
 		display.add(chat);
 	}
 	public boolean isFull() {
@@ -53,5 +56,17 @@ public class Lobby {
 	}
 	public void setPriv(boolean priv) {
 		this.priv = priv;
+	}
+	public void setMummy(String mummy) {
+		this.mummy = mummy;
+	}
+	public String getMummy() {
+		return this.mummy;
+	}
+	public void setPharaoh(String pharaoh) {
+		this.pharaoh = pharaoh;
+	}
+	public String getPharaoh() {
+		return this.pharaoh;
 	}
 }

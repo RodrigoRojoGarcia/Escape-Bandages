@@ -157,13 +157,26 @@ public class UsersController {
 
 	}
 	
+	
+	@GetMapping(value="lobby/{id}/chat")
+	public Collection chats(@RequestBody long id) {
+		if(lobbies.get(id)!=null) {
+			return lobbies.get(id).getDisplay();
+		}else {
+			return null;
+		}
+	}
+	
+	
+	
+	
 	//Introducir un chat en un lobby en concreto
-	@PutMapping(value="lobby/{id}/{chat}")
-	public ResponseEntity<Chat> newChat (@RequestBody long id, @RequestBody Chat chat) {
+	@PutMapping(value="lobby/{id}/{userName}/{chat}")
+	public ResponseEntity<Chat> newChat (@RequestBody long id, @RequestBody String userName, @RequestBody Chat chat) {
 		//Si el lobby solicitado existe
 		if(lobbies.get(id)!=null) {
 			//Añadir el chat al lobby que se solicita
-		lobbies.get(id).addChat(chat);
+		lobbies.get(id).addChat(chat, userName);
 		//Lo guardamos en el archivo (esto cambiará)
 		chat.toFile();
 		return new ResponseEntity<>(chat, HttpStatus.OK);
@@ -172,6 +185,95 @@ public class UsersController {
 		}
 		
 	}
+	
+	@PutMapping(value="lobby/{id}/{userName}/{ready}")
+	public ResponseEntity<User> userSetReady(@RequestBody long id, @RequestBody String userName, @RequestBody boolean ready){
+		if(lobbies.get(id)!=null) {
+			if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+				lobbies.get(id).getUser1().setReady(ready);
+				if(users.get(userName)!=null) {
+					users.get(userName).setReady(ready);
+					return new ResponseEntity<>(users.get(userName),HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			}else if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+				lobbies.get(id).getUser2().setReady(ready);
+				if(users.get(userName)!=null) {
+					users.get(userName).setReady(ready);
+					return new ResponseEntity<>(users.get(userName),HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PutMapping(value="lobby/{id}/{userName}/{character}")
+	public ResponseEntity<User> userSetReady(@RequestBody long id, @RequestBody String userName, @RequestBody String character){
+		if(lobbies.get(id)!=null) {
+			if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+				if(character.equalsIgnoreCase("mummy")) {
+					lobbies.get(id).setMummy(userName);
+					return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
+				}else if(character.equalsIgnoreCase("pharaoh")) {
+					lobbies.get(id).setPharaoh(userName);
+					return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			}else if(lobbies.get(id).getUser2().getUserName().equals(userName)){
+				if(character.equalsIgnoreCase("mummy")) {
+					lobbies.get(id).setMummy(userName);
+					return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
+				}else if(character.equalsIgnoreCase("pharaoh")) {
+					lobbies.get(id).setPharaoh(userName);
+					return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping(value="lobby/{id}/{userName}")
+	public ResponseEntity<User> userFromLobby(@RequestBody long id, @RequestBody String userName){
+		if(lobbies.get(id)!=null) {
+			if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+				return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
+			}else if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+				return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping(value="lobby/{id}/{character}")
+	public ResponseEntity<String> characterFromLobby(@RequestBody long id, @RequestBody String character){
+		if(lobbies.get(id)!=null) {
+			if(character.equalsIgnoreCase("mummy")) {
+				return new ResponseEntity<>(lobbies.get(id).getMummy(),HttpStatus.OK);
+			}else if(character.equalsIgnoreCase("pharaoh")) {
+				return new ResponseEntity<>(lobbies.get(id).getPharaoh(),HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	
 	//Eliminar un lobby
 	@DeleteMapping(value="lobby/{id}")

@@ -3,17 +3,16 @@ package es.sidelab.EscapeBandages;
 import java.io.*;
 
 public class Chat {
-	private User user;
 	private int option = 0;
 	private long id = -1;
+	private String user;
 	private String sentence;
 	private boolean sent;
 	
 	public Chat() {
-		this.user = new User();
 	}
 	
-	public Chat(String sentence, boolean sent, User user, int option) {
+	public Chat(String sentence, boolean sent, String user, int option) {
 		super();
 		this.user = user;
 		this.option = option;
@@ -32,11 +31,11 @@ public class Chat {
 		}
 	}
 	
-	public User getUser() {
+	public String getUser() {
 		return user;
 	}
 	
-	public void setUser(User user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
