@@ -152,6 +152,8 @@ lobby.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.bale.on('pointerdown', function(){
 		//cambio de escena a menu
+		myLobby.create();
+		myLobby.setScene(characterSelection);
 		myUser.setScene(characterSelection)
 		lobby.scene.switch(characterSelection);
 		lobby.scene.launch(chatOnline, characterSelection);
