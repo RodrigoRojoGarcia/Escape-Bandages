@@ -112,9 +112,14 @@ public class LobbyController {
 				if(lobbies.get(id).getUser1().getUserName().equals(userName) || lobbies.get(id).getUser2().getUserName().equals(userName)) {
 					//Añadir el chat al lobby que se solicita
 					Chat chat = new Chat(sentence,userName);
+					if(lobbies.get(id).getMummy().equals(userName)) {
+						chat.setCharacter("Mummy");
+					}
+					if(lobbies.get(id).getPharaoh().equals(userName)) {
+						chat.setCharacter("Pharaoh");
+					}
 					lobbies.get(id).addChat(chat);
-					//Lo guardamos en el archivo (esto cambiará)
-					chat.toFile();
+		
 					return new ResponseEntity<>(chat, HttpStatus.OK);
 				}else {
 					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -155,20 +160,20 @@ public class LobbyController {
 		public ResponseEntity<User> userSetReady(@PathVariable long id, @PathVariable String userName, @PathVariable String character){
 			if(lobbies.get(id)!=null) {
 				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
-					if(character.equalsIgnoreCase("mummy")) {
+					if(character.equalsIgnoreCase("mummy") && !lobbies.get(id).getMummy().equals(lobbies.get(id).getUser2().getUserName())) {
 						lobbies.get(id).setMummy(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
-					}else if(character.equalsIgnoreCase("pharaoh")) {
+					}else if(character.equalsIgnoreCase("pharaoh") && !lobbies.get(id).getPharaoh().equals(lobbies.get(id).getUser2().getUserName())) {
 						lobbies.get(id).setPharaoh(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
 					}else {
 						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 					}
 				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)){
-					if(character.equalsIgnoreCase("mummy")) {
+					if(character.equalsIgnoreCase("mummy")&& !lobbies.get(id).getMummy().equals(lobbies.get(id).getUser1().getUserName())) {
 						lobbies.get(id).setMummy(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
-					}else if(character.equalsIgnoreCase("pharaoh")) {
+					}else if(character.equalsIgnoreCase("pharaoh")&& !lobbies.get(id).getPharaoh().equals(lobbies.get(id).getUser1().getUserName())) {
 						lobbies.get(id).setPharaoh(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
 					}else {

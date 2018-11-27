@@ -41,7 +41,7 @@ public class Lobby {
 		return display;
 	}
 	public void addChat(Chat chat) {
-		display.add(chat);
+		display.add(0, chat);
 	}
 	public boolean isFull() {
 		return full;
