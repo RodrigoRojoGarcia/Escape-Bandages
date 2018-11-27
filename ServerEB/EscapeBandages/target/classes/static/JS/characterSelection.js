@@ -112,7 +112,7 @@ characterSelection.create = function(){
 			myUser.setUserName("")
 		})
 		myUser.setScene(submenu)
-		characterSelection.scene.switch(submenu);
+		characterSelection.scene.switch(lobby);
 		characterSelection.scene.stop(chatOnline);
 	})
 	
