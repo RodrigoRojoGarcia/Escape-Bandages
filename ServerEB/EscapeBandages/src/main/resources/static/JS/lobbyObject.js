@@ -8,7 +8,12 @@ function LobbyObj(scene){
 	}
 	
 	this.create = function(){
-		var lobby = {}
+		var lobby = {
+		        "userName": "harken",
+		        "state": "ONLINE",
+		        "ready": false,
+		        "timeInactivity": 0
+		    }
 		createLobby(lobby, function(lobbyWithId){
 			that.id = lobbyWithId;
 		});

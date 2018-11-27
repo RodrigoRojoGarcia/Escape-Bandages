@@ -6,8 +6,8 @@ import java.util.List;
 public class Lobby {
 	private User user1;
 	private User user2;
-	private String mummy;
-	private String pharaoh;
+	private String mummy = "";
+	private String pharaoh = "";
 	private boolean full;
 	private boolean priv;
 	private static List<Chat> display = new ArrayList<>();

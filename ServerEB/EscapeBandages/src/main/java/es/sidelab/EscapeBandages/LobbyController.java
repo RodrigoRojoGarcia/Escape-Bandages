@@ -21,13 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class LobbyController {
 
 	//Guarda los lobbies que están activos en el servidor con un identificador sacado el atomicLong
-		private static Map<Long, Lobby> lobbies = new ConcurrentHashMap<>();
-		
-		//última id usada para los lobbies
-		private AtomicLong lastId = new AtomicLong();
-		
-		
-		//Devuelve todos los lobbies
+	private static Map<Long, Lobby> lobbies = new ConcurrentHashMap<>();
+	
+	//última id usada para los lobbies
+	private AtomicLong lastId = new AtomicLong();
+	
+	//Devuelve todos los lobbies
 		@GetMapping(value="/")
 		public static Collection<Lobby> lobbies(){
 			return lobbies.values();
@@ -44,7 +43,7 @@ public class LobbyController {
 		@PostMapping(value="/private/{userName}")
 		public Long addToPrivLobby(@PathVariable String userName,@RequestBody User newUser) {
 			for(Long id : lobbies.keySet()) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName) && !lobbies.get(id).getUser1().getUserName().equals(newUser.getUserName())&& !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
+				if(lobbies.get(id).getUser1().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
 					lobbies.get(id).setUser2(newUser);
 					lobbies.get(id).setFull(true);
 					return id;
@@ -61,7 +60,7 @@ public class LobbyController {
 		//Crear o unirte a un lobby aleatorio
 		@PostMapping(value="/random")
 		public Long newRandLobby(@RequestBody User user) {
-		    //Por cada lobby que haya en el servidor
+			//Por cada lobby que haya en el servidor
 		    for(Long id : lobbies.keySet()) {
 		    	//Si hay algún lobby con solo un usuario y no es privado
 		    	if(!lobbies.get(id).isFull() && !lobbies.get(id).isPriv() && !lobbies.get(id).getUser1().getUserName().equals(user.getUserName())&&!lobbies.get(id).getUser2().getUserName().equals(user.getUserName())) {
@@ -104,26 +103,43 @@ public class LobbyController {
 		}
 		
 		
+		
+		
 		//Introducir un chat en un lobby en concreto
 		@PutMapping(value="/chat/{id}/{userName}/{sentence}")
 		public ResponseEntity<Chat> newChat (@PathVariable long id, @PathVariable String userName, @PathVariable String sentence) {
-			//Si el lobby solicitado existe
 			if(lobbies.get(id)!=null) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName) || lobbies.get(id).getUser2().getUserName().equals(userName)) {
-					//Añadir el chat al lobby que se solicita
-					Chat chat = new Chat(sentence,userName);
-					if(lobbies.get(id).getMummy().equals(userName)) {
-						chat.setCharacter("Mummy");
-					}
-					if(lobbies.get(id).getPharaoh().equals(userName)) {
-						chat.setCharacter("Pharaoh");
-					}
-					lobbies.get(id).addChat(chat);
-		
+				if(lobbies.get(id).getUser1()!=null) {
+					if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+						//Añadir el chat al lobby que se solicita
+						Chat chat = new Chat(sentence,userName);
+						if(lobbies.get(id).getMummy().equals(userName)) {
+							chat.setCharacter("Mummy");
+						}
+						if(lobbies.get(id).getPharaoh().equals(userName)) {
+							chat.setCharacter("Pharaoh");
+						}
+						lobbies.get(id).addChat(chat);
+					
 					return new ResponseEntity<>(chat, HttpStatus.OK);
-				}else {
-					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					}
 				}
+				if(lobbies.get(id).getUser2()!=null) {
+					if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+						//Añadir el chat al lobby que se solicita
+						Chat chat = new Chat(sentence,userName);
+						if(lobbies.get(id).getMummy().equals(userName)) {
+							chat.setCharacter("Mummy");
+						}
+						if(lobbies.get(id).getPharaoh().equals(userName)) {
+							chat.setCharacter("Pharaoh");
+						}
+						lobbies.get(id).addChat(chat);
+					
+					return new ResponseEntity<>(chat, HttpStatus.OK);
+					}
+				}
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -160,20 +176,20 @@ public class LobbyController {
 		public ResponseEntity<User> userSetReady(@PathVariable long id, @PathVariable String userName, @PathVariable String character){
 			if(lobbies.get(id)!=null) {
 				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
-					if(character.equalsIgnoreCase("mummy") && !lobbies.get(id).getMummy().equals(lobbies.get(id).getUser2().getUserName())) {
+					if(character.equalsIgnoreCase("mummy")) {
 						lobbies.get(id).setMummy(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
-					}else if(character.equalsIgnoreCase("pharaoh") && !lobbies.get(id).getPharaoh().equals(lobbies.get(id).getUser2().getUserName())) {
+					}else if(character.equalsIgnoreCase("pharaoh")) {
 						lobbies.get(id).setPharaoh(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
 					}else {
 						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 					}
 				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)){
-					if(character.equalsIgnoreCase("mummy")&& !lobbies.get(id).getMummy().equals(lobbies.get(id).getUser1().getUserName())) {
+					if(character.equalsIgnoreCase("mummy")) {
 						lobbies.get(id).setMummy(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
-					}else if(character.equalsIgnoreCase("pharaoh")&& !lobbies.get(id).getPharaoh().equals(lobbies.get(id).getUser1().getUserName())) {
+					}else if(character.equalsIgnoreCase("pharaoh")) {
 						lobbies.get(id).setPharaoh(userName);
 						return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
 					}else {
@@ -231,8 +247,4 @@ public class LobbyController {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 		}
-		
-		
-		
-	
 }

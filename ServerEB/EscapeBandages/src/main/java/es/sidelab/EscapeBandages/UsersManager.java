@@ -31,6 +31,7 @@ public class UsersManager {
 			
 			
 			for(Client client: ClientController.clients()) {
+				//System.out.println("UwU");
 				client.increaseInactivty();
 				if(client.getTimeOfInactivity() > maxTimeOfInactivity) {
 					clientsToDisconnect.push(client);
