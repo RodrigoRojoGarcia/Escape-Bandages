@@ -42,6 +42,10 @@ function User(scene){
 	this.setUserName = function(userName){
 		that.userName = userName
 	}
+	this.getUsername = function(){
+		return this.userName;
+	}
+	
 	this.selectCharacter = function(character){
 		if(that.character != null){
 			console.log("Este usuario ya ha seleccionado un personaje")

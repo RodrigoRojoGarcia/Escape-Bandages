@@ -3,7 +3,7 @@ package es.sidelab.EscapeBandages;
 import java.io.*;
 
 public class Chat {
-	private int option;
+	private String character = "Mummy";
 	private long id = -1;
 	private String user;
 	private String sentence;
@@ -16,23 +16,17 @@ public class Chat {
 		this.user = user;
 		this.sentence = sentence;
 	}
-	public Chat(String sentence, String user, int option) {
+	public Chat(String sentence, String user, String character) {
 		super();
 		this.user = user;
-		this.option = option;
 		this.sentence = sentence;
-	}
-	public void setOption(int option) {
-		this.option = option;
+		this.character = character;
 	}
 	
 	public String getCharacter() {
-		if(option == 0) {
-			return "Mummy";
-		}else {
-			return "Pharaoh";
-		}
+		return character;
 	}
+	
 	
 	public String getUser() {
 		return user;
@@ -62,7 +56,7 @@ public class Chat {
 
 	@Override
 	public String toString() {
-		return "id: "+id+", ["+user+"]" + " <" + getCharacter() + "> :" + sentence;
+		return "["+user+"]" + " <" + this.character + "> :" + sentence;
 	}
 	
 	public void toFile()

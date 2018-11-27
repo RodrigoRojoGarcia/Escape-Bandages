@@ -8,10 +8,10 @@ function loadUsers(callback){
 	})
 }
 //Crear usuario en el servidor
-function createUser(user,callback){
+function createUser(user, callback){
 	$.ajax({
 		method: "POST",
-		url: 'http://'+location.host+'/users/',
+		url: 'http://'+location.host+'/users/'+user.id,
 		data: JSON.stringify(user),
 		processData: false,
 		headers:{
@@ -22,6 +22,39 @@ function createUser(user,callback){
 		callback(user)
 	})
 }
+
+//Crear Cliente en el servidor
+function createClient(client, callback){
+	$.ajax({
+		method: "POST",
+		url: 'http://'+location.host+'/clients/'+user.id + '/' + userName + '/' + password,
+		data: JSON.stringify(user),
+		processData: false,
+		headers:{
+			"Content-Type": "application/json"
+		}
+	}).done(function(user){
+		console.log("User Created: "+JSON.stringify(user))
+		callback(user)
+	})
+}
+
+//CREAR LOBBY EN EL SERVIDOR
+function createLobby(lobby, callback){
+	$.ajax({
+		method: "POST",
+		url: 'http://'+location.host+'/lobby/random',
+		data: JSON.stringify(lobby),
+		processData: false,
+		headers:{
+			"Content-Type": "application/json"
+		}
+	}).done(function(lobby){
+		console.log("Lobby Created: "+JSON.stringify(lobby))
+		callback(lobby);
+	})
+}
+
 //Actualizar usuario en el servidor
 function updateUserName(user,callback){
 	$.ajax({
