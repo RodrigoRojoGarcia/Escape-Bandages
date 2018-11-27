@@ -72,7 +72,7 @@ public class UsersController {
 	 * 
 	*/
 	@PostMapping(value="users/{id}/{userName}/{password}")
-	public int newUser(@RequestBody Long id,@RequestBody String userName, @RequestBody String password) {
+	public int newUser(@PathVariable Long id,@PathVariable String userName, @PathVariable String password) {
 		//Si el cliente correspondiente a la id pasada por la url no existe
 		if(clients.get(id)!=null) {
 			//Si el hashmap de las constraseñas tiene ese userName, es decir, si tiene contraseña asociada
@@ -127,15 +127,29 @@ public class UsersController {
 		return lobbies.values();
 	}
 	//Crear lobby privado: significa que alguien que no introduce tu nombre de usuario no puede entrar
-	@PostMapping(value="lobby/{user}")
+	@PostMapping(value="lobby/private")
 	public Long newLobby(@RequestBody User user) {
 		long id = lastId.incrementAndGet();
 		Lobby lob = new Lobby(user,true);
 		lobbies.put(id, lob);
 		return id;
 	}
+	
+	@PostMapping(value="lobby/private/{userName}")
+	public Long addToPrivLobby(@PathVariable String userName,@RequestBody User newUser) {
+		for(Long id : lobbies.keySet()) {
+			if(lobbies.get(id).getUser1().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
+				lobbies.get(id).setUser2(newUser);
+				lobbies.get(id).setFull(true);
+				return id;
+			}
+		}
+		return (long) 0;
+	}
+	
+	
 	//Crear o unirte a un lobby aleatorio
-	@PostMapping(value="lobby/{user}/")
+	@PostMapping(value="lobby/random")
 	public Long newRandLobby(@RequestBody User user) {
 	    //Por cada lobby que haya en el servidor
 	    for(Long id : lobbies.keySet()) {
@@ -159,7 +173,7 @@ public class UsersController {
 	
 	
 	@GetMapping(value="lobby/{id}/chat")
-	public Collection chats(@RequestBody long id) {
+	public Collection chats(@PathVariable long id) {
 		if(lobbies.get(id)!=null) {
 			return lobbies.get(id).getDisplay();
 		}else {
@@ -171,12 +185,13 @@ public class UsersController {
 	
 	
 	//Introducir un chat en un lobby en concreto
-	@PutMapping(value="lobby/{id}/{userName}/{chat}")
-	public ResponseEntity<Chat> newChat (@RequestBody long id, @RequestBody String userName, @RequestBody Chat chat) {
+	@PutMapping(value="lobby/chat/{id}/{userName}/{sentence}")
+	public ResponseEntity<Chat> newChat (@PathVariable long id, @PathVariable String userName, @PathVariable String sentence) {
 		//Si el lobby solicitado existe
 		if(lobbies.get(id)!=null) {
 			//Añadir el chat al lobby que se solicita
-		lobbies.get(id).addChat(chat, userName);
+			Chat chat = new Chat(sentence,userName);
+		lobbies.get(id).addChat(chat);
 		//Lo guardamos en el archivo (esto cambiará)
 		chat.toFile();
 		return new ResponseEntity<>(chat, HttpStatus.OK);
@@ -186,8 +201,8 @@ public class UsersController {
 		
 	}
 	
-	@PutMapping(value="lobby/{id}/{userName}/{ready}")
-	public ResponseEntity<User> userSetReady(@RequestBody long id, @RequestBody String userName, @RequestBody boolean ready){
+	@PutMapping(value="lobby/ready/{id}/{userName}/{ready}")
+	public ResponseEntity<User> userSetReady(@PathVariable long id, @PathVariable String userName, @PathVariable boolean ready){
 		if(lobbies.get(id)!=null) {
 			if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
 				lobbies.get(id).getUser1().setReady(ready);
@@ -214,7 +229,7 @@ public class UsersController {
 	}
 	
 	@PutMapping(value="lobby/{id}/{userName}/{character}")
-	public ResponseEntity<User> userSetReady(@RequestBody long id, @RequestBody String userName, @RequestBody String character){
+	public ResponseEntity<User> userSetReady(@PathVariable long id, @PathVariable String userName, @PathVariable String character){
 		if(lobbies.get(id)!=null) {
 			if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
 				if(character.equalsIgnoreCase("mummy")) {
@@ -244,8 +259,8 @@ public class UsersController {
 		}
 	}
 	
-	@GetMapping(value="lobby/{id}/{userName}")
-	public ResponseEntity<User> userFromLobby(@RequestBody long id, @RequestBody String userName){
+	@GetMapping(value="lobby/user/{id}/{userName}")
+	public ResponseEntity<User> userFromLobby(@PathVariable long id, @PathVariable String userName){
 		if(lobbies.get(id)!=null) {
 			if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
 				return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
@@ -259,8 +274,8 @@ public class UsersController {
 		}
 	}
 	
-	@GetMapping(value="lobby/{id}/{character}")
-	public ResponseEntity<String> characterFromLobby(@RequestBody long id, @RequestBody String character){
+	@GetMapping(value="lobby/character/{id}/{character}")
+	public ResponseEntity<String> characterFromLobby(@PathVariable long id, @PathVariable String character){
 		if(lobbies.get(id)!=null) {
 			if(character.equalsIgnoreCase("mummy")) {
 				return new ResponseEntity<>(lobbies.get(id).getMummy(),HttpStatus.OK);
@@ -277,7 +292,7 @@ public class UsersController {
 	
 	//Eliminar un lobby
 	@DeleteMapping(value="lobby/{id}")
-	public ResponseEntity<Lobby> removeLobby (@RequestBody long id){
+	public ResponseEntity<Lobby> removeLobby (@PathVariable long id){
 		Lobby lobby = lobbies.get(id);
 		//Si el lobby existe
 		if(lobby!=null) {

@@ -3,21 +3,24 @@ package es.sidelab.EscapeBandages;
 import java.io.*;
 
 public class Chat {
-	private int option = 0;
+	private int option;
 	private long id = -1;
 	private String user;
 	private String sentence;
-	private boolean sent;
+
 	
 	public Chat() {
 	}
-	
-	public Chat(String sentence, boolean sent, String user, int option) {
+	public Chat(String sentence, String user) {
+		super();
+		this.user = user;
+		this.sentence = sentence;
+	}
+	public Chat(String sentence, String user, int option) {
 		super();
 		this.user = user;
 		this.option = option;
 		this.sentence = sentence;
-		this.sent = sent;
 	}
 	public void setOption(int option) {
 		this.option = option;
@@ -55,13 +58,7 @@ public class Chat {
 		this.sentence = sentence;
 	}
 
-	public boolean isSent() {
-		return sent;
-	}
 
-	public void setSent(boolean sent) {
-		this.sent = sent;
-	}
 
 	@Override
 	public String toString() {

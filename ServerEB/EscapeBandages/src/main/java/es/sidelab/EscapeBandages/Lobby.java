@@ -40,8 +40,7 @@ public class Lobby {
 	public List<Chat> getDisplay (){
 		return display;
 	}
-	public void addChat(Chat chat, String userName) {
-		chat.setUser(userName);
+	public void addChat(Chat chat) {
 		display.add(chat);
 	}
 	public boolean isFull() {
