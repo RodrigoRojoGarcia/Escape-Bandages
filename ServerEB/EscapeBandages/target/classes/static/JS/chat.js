@@ -1,7 +1,7 @@
 //Cargar chats del servidor
-function loadChats(callback){
+function loadChats(id, callback){
 	$.ajax({
-		url: 'http://'+location.host+'/chat/'
+		url: 'http://'+location.host+'/lobby/'+id+'/chat'
 	}).done(function(chats){
 		//console.log('Chats loaded: ' + JSON.stringify(chats));
 		callback(chats);
@@ -9,10 +9,10 @@ function loadChats(callback){
 }
 
 //Crear chat en el servidor
-function createChat(chat, callback){
+function createChat(chat, idLobby, callback){
 	$.ajax({
-		method: "POST",
-		url: 'http://'+location.host+'/chat/',
+		method: "PUT",
+		url: 'http://'+location.host+'/lobby/chat/'+idLobby+'/'+chat.user+'/'+chat.sentence,
 		data: JSON.stringify(chat),
 		processData: false,
 		headers: {
