@@ -16,8 +16,11 @@ characterSelection.preload = function(){
     //boton eleccion momia
     this.load.spritesheet("boton_mummy","Sprites/boton_mummy_spritesheet.png",{frameWidth: 380, frameHeight: 380});
     this.load.image('img_mummy', 'Sprites/boton_mummy.png');
+    this.load.image('img_mummy2', 'Sprites/boton_mummy2.png');
     //boton eleccion faraon
     this.load.spritesheet("boton_pharaoh","Sprites/boton_pharaoh_spritesheet.png",{frameWidth: 380, frameHeight: 380});
+    this.load.image('img_pharaoh', 'Sprites/boton_pharaoh.png');
+    this.load.image('img_pharaoh2', 'Sprites/boton_pharaoh2.png');
 ///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileO", "Sprites/tileset.png");
@@ -87,7 +90,8 @@ characterSelection.create = function(){
 
     /////////////////////////////////letras
     this.selecc = this.add.image(950,200,'select');
-    this.ready = this.add.image(950,500,'ready');
+    this.ready = this.add.image(950,500,'ready').setInteractive();
+    this.ready.setAlpha(0);
     
     
     this.add.text(1110, 50, 'Usuarios conectados:', { font: '32px Arial', fill: '#ffff00' });
@@ -117,6 +121,13 @@ characterSelection.create = function(){
 	this.bback.on('pointerdown', function(){
 		characterSelection.bcheck.setAlpha(0);
 		characterSelection.incheck.setAlpha(0);
+		characterSelection.bPharaoh.setAlpha(1);
+		characterSelection.iPharaoh.setAlpha(0);
+		characterSelection.bMummy.setAlpha(1);
+		characterSelection.iMummy.setAlpha(0);
+		characterSelection.ready.setAlpha(0);
+		characterSelection.iMummy2.setAlpha(0);
+		characterSelection.iPharaoh2.setAlpha(0);
 		deleteUserName(myUser.userName, function(){
 			console.log("Eliminado el nombre de usuario")
 			myUser.setUserName("")
@@ -148,18 +159,26 @@ characterSelection.create = function(){
 	//accion al hacer click sobre el boton
 	this.bMummy.on('pointerdown', function(){
 		characterSelection.bcheck.setAlpha(1);
+		characterSelection.ready.setAlpha(1);
 		characterSelection.bMummy.setAlpha(0);
 		characterSelection.iMummy.setAlpha(1);
+		characterSelection.iPharaoh2.setAlpha(1);
 		myUser.selectCharacter("Mummy")
 	})
-	//////////////////////img momia elegida/////////////////////////////
-	//cargar boton Mummy
+	////////////////////////momia elegida///////////////////////
+	//cargar boton Mummy elegida
 	this.iMummy = this.add.sprite(600, 550, 'img_mummy').setInteractive();
 	characterSelection.iMummy.scaleX += 0.05;
 	characterSelection.iMummy.scaleY += 0.05;
-	//hacer boton visible
+	//hacer boton invisible
 	this.iMummy.setAlpha(0);
+	////////////////////////momia no elegida///////////////////////
+	//cargar boton Mummy no elegida
+	this.iMummy2 = this.add.sprite(600, 550, 'img_mummy2').setInteractive();
+	//hacer boton invisible
+	this.iMummy2.setAlpha(0);
 	
+
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
 	//cargar boton eleccion Pharaoh
 	this.bPharaoh = this.add.sprite(1300, 550, 'boton_pharaoh').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
@@ -180,8 +199,24 @@ characterSelection.create = function(){
 	//accion al hacer click sobre el boton
 	this.bPharaoh.on('pointerdown', function(){
 		characterSelection.bcheck.setAlpha(1);
+		characterSelection.ready.setAlpha(1);
+		characterSelection.bPharaoh.setAlpha(0);
+		characterSelection.iPharaoh.setAlpha(1);
+		characterSelection.iMummy2.setAlpha(1);
 		myUser.selectCharacter("Pharaoh")
 	})
+	////////////////////////faraon elegido///////////////////////
+	//cargar boton Pharaoh elegido
+	this.iPharaoh = this.add.sprite(1300, 550, 'img_pharaoh').setInteractive();
+	characterSelection.iPharaoh.scaleX += 0.05;
+	characterSelection.iPharaoh.scaleY += 0.05;
+	//hacer boton invisible
+	this.iPharaoh.setAlpha(0);
+	/////////////////////////faraon no elegido//////////////////
+	//cargar boton Pharaoh no elegido
+	this.iPharaoh2 = this.add.sprite(1300, 550, 'img_pharaoh2').setInteractive();
+	//hacer boton invisible
+	this.iPharaoh2.setAlpha(0);
 	
 	//chatOnline = new ChatOnline(this);
 	//chatOnline.createC();
