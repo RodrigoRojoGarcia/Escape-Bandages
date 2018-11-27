@@ -9,6 +9,9 @@ lobby.preload = function(){
 	this.load.image('backlob', 'Sprites/back.png');
 	this.load.image('aleatorio', 'Sprites/aleatorio.png');
 	this.load.image('buscar', 'Sprites/buscar.png');
+	//font
+	this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
+	this.load.spritesheet("input", "Sprites/manualInput380.png", {frameWidth: 380, frameHeight: 50});
 	///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tilelob", "Sprites/tileset.png");
@@ -51,8 +54,58 @@ lobby.create = function(){
     };
 
 
-	//titulo pantalla
+	///////////////////////titulo pantalla
 	this.lobtxt = this.add.sprite(960, 200, 'lobbytxt');
+
+	//////////////////////////////////ANIMACIONES///////////////////////////////////////
+	this.anims.create({
+	    key: 'manualInput',
+	    frames: this.anims.generateFrameNumbers('input',{start: 0, end: 1}),
+	    frameRate: 5,
+	    repeat: -1
+	})
+
+//////////////////////////////////TEXTO CHAT///////////////////////////////////////
+	//boolean que indica cuando esta escribiendo
+    this.typing = false;
+    //Input manual
+    var w = 420;
+    var h = 100;
+    this.inputK = this.add.sprite(1100 + w/2, 450 + h/2, 'input').setInteractive({ cursor: 'url(Sprites/cursor4.png), pointer' });
+    this.inputK.anims.play('manualInput');
+    //inK.anims.play('manualInput');
+    this.inputK.on('pointerdown', function(){
+    	lobby.typing = true;
+    	lobby.inputK.anims.stop();
+    	lobby.inputK.setTexture('input', 0);
+	})
+	//accion al quitar el cursor del boton Salir
+	this.inputK.on('pointerout', function(){
+		lobby.typing = false;
+		if(textEntry.text.length == 0){
+			lobby.inputK.anims.play('manualInput');
+		}
+	})
+	
+    var textEntry = this.add.dynamicBitmapText(1115, 485, 'font2', '', 32);
+    //habilitar teclado para introducir texto
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
+
+    this.input.keyboard.on('keydown', function (event) {
+        if (event.keyCode === 8 && textEntry.text.length > 0 && lobby.typing)
+        {
+            textEntry.text = textEntry.text.substr(0, textEntry.text.length - 1);
+        }
+        else if (event.keyCode === 32 || (event.keyCode >= 48 && event.keyCode < 90) && lobby.typing)
+        {
+            textEntry.text += event.key;
+        }
+        else if(event.keyCode >= 186 && event.keyCode < 222 && lobby.typing)
+        {
+        	textEntry.text += event.key;
+        }
+    });
 
 
 /////////////////////////////////BOTONES///////////////////////////////////////
@@ -81,7 +134,7 @@ lobby.create = function(){
 	})
 /////////////////////////////////BOTON LOBBY ALEATORIO//////////////////////
 	//cargar boton Back
-	this.bale = this.add.sprite(600, 550, 'aleatorio').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bale = this.add.sprite(600, 600, 'aleatorio').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.bale.scaleX -= 0.4;
 	this.bale.scaleY -= 0.4;
 	//hacer boton invisible
@@ -105,7 +158,7 @@ lobby.create = function(){
 	})
 /////////////////////////////////BOTON LOBBY BUSCAR USUARIO//////////////////////
 	//cargar boton Back
-	this.buser = this.add.sprite(1300, 550, 'buscar').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.buser = this.add.sprite(1300, 600, 'buscar').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.buser.scaleX -= 0.4;
 	this.buser.scaleY -= 0.4;
 	//hacer boton invisible
@@ -123,9 +176,13 @@ lobby.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.buser.on('pointerdown', function(){
 		//cambio de escena a menu
-		myUser.setScene(characterSelection)
-		lobby.scene.switch(characterSelection);
-		lobby.scene.launch(chatOnline, characterSelection);
+
+		//implementar busqueda de usuario con API REST
+		if(textEntry.text.length){
+			myUser.setScene(characterSelection)
+			lobby.scene.switch(characterSelection);
+			lobby.scene.launch(chatOnline, characterSelection);
+		}
 	})
 }
 

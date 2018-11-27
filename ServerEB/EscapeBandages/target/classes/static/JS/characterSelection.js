@@ -125,10 +125,14 @@ characterSelection.create = function(){
 	this.bMummy.setAlpha(1);
 	//accion al poner el cursor sobre el boton de eleccion de Mummy
 	this.bMummy.on('pointerover', function(){
+		characterSelection.bMummy.scaleX += 0.05;
+		characterSelection.bMummy.scaleY += 0.05;
 		characterSelection.bMummy.anims.play('bmummyAnim2');
 	})
 	//accion al quitar el cursor del boton de eleccion de Mummy
 	this.bMummy.on('pointerout', function(){
+		characterSelection.bMummy.scaleX -= 0.05;
+		characterSelection.bMummy.scaleY -= 0.05;
 		characterSelection.bMummy.anims.play('bmummyAnim');
 	})
 	//accion al hacer click sobre el boton Salir
@@ -143,10 +147,14 @@ characterSelection.create = function(){
 	this.bPharaoh.setAlpha(1);
 	//accion al poner el cursor sobre el boton de eleccion de Pharaoh
 	this.bPharaoh.on('pointerover', function(){
+		characterSelection.bPharaoh.scaleX += 0.05;
+		characterSelection.bPharaoh.scaleY += 0.05;
 		characterSelection.bPharaoh.anims.play('bpharaohAnim2');
 	})
 	//accion al quitar el cursor del boton de eleccion de Pharaoh
 	this.bPharaoh.on('pointerout', function(){
+		characterSelection.bPharaoh.scaleX -= 0.05;
+		characterSelection.bPharaoh.scaleY -= 0.05;
 		characterSelection.bPharaoh.anims.play('bpharaohAnim');
 	})
 	//accion al hacer click sobre el boton Salir
