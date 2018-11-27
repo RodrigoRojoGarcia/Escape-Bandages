@@ -54,7 +54,7 @@ lobby.create = function(){
     };
 
 
-	///////////////////////titulo pantalla
+	/////////titulo pantalla
 	this.lobtxt = this.add.sprite(960, 200, 'lobbytxt');
 
 	//////////////////////////////////ANIMACIONES///////////////////////////////////////

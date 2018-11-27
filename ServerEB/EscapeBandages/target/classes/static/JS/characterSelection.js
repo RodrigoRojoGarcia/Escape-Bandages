@@ -6,10 +6,16 @@ characterSelection.preload = function(){
 	this.load.image('select','Sprites/letras_seleccionar.png');
 	//volver
 	this.load.image('backO','Sprites/back.png');
+	//letras ready
+    this.load.image('ready', 'Sprites/listo.png');
+    //checks
+    this.load.image('nocheck', 'Sprites/nocheck.png');
+    this.load.image('check', 'Sprites/check.png');
 	//ANTORCHAS
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //boton eleccion momia
     this.load.spritesheet("boton_mummy","Sprites/boton_mummy_spritesheet.png",{frameWidth: 380, frameHeight: 380});
+    this.load.image('img_mummy', 'Sprites/boton_mummy.png');
     //boton eleccion faraon
     this.load.spritesheet("boton_pharaoh","Sprites/boton_pharaoh_spritesheet.png",{frameWidth: 380, frameHeight: 380});
 ///////////////////////////////////MAPA///////////////////////////////////
@@ -55,7 +61,7 @@ characterSelection.create = function(){
         torchesM2[i].anims.play('torchAnim');
     };
     
-    //Animación boton mummy
+    /////////////////////////////Animación boton mummy/////////////////////////////
     this.anims.create({
         key: 'bmummyAnim',
         frames: this.anims.generateFrameNumbers('boton_mummy',{start: 0, end: 0}),
@@ -78,7 +84,10 @@ characterSelection.create = function(){
         frameRate: 10
     });
 
+
+    /////////////////////////////////letras
     this.selecc = this.add.image(950,200,'select');
+    this.ready = this.add.image(950,500,'ready');
     
     
     this.add.text(1110, 50, 'Usuarios conectados:', { font: '32px Arial', fill: '#ffff00' });
@@ -106,7 +115,8 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
-		
+		characterSelection.bcheck.setAlpha(0);
+		characterSelection.incheck.setAlpha(0);
 		deleteUserName(myUser.userName, function(){
 			console.log("Eliminado el nombre de usuario")
 			myUser.setUserName("")
@@ -135,10 +145,20 @@ characterSelection.create = function(){
 		characterSelection.bMummy.scaleY -= 0.05;
 		characterSelection.bMummy.anims.play('bmummyAnim');
 	})
-	//accion al hacer click sobre el boton Salir
+	//accion al hacer click sobre el boton
 	this.bMummy.on('pointerdown', function(){
+		characterSelection.bcheck.setAlpha(1);
+		characterSelection.bMummy.setAlpha(0);
+		characterSelection.iMummy.setAlpha(1);
 		myUser.selectCharacter("Mummy")
 	})
+	//////////////////////img momia elegida/////////////////////////////
+	//cargar boton Mummy
+	this.iMummy = this.add.sprite(600, 550, 'img_mummy').setInteractive();
+	characterSelection.iMummy.scaleX += 0.05;
+	characterSelection.iMummy.scaleY += 0.05;
+	//hacer boton visible
+	this.iMummy.setAlpha(0);
 	
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
 	//cargar boton eleccion Pharaoh
@@ -157,15 +177,39 @@ characterSelection.create = function(){
 		characterSelection.bPharaoh.scaleY -= 0.05;
 		characterSelection.bPharaoh.anims.play('bpharaohAnim');
 	})
-	//accion al hacer click sobre el boton Salir
+	//accion al hacer click sobre el boton
 	this.bPharaoh.on('pointerdown', function(){
+		characterSelection.bcheck.setAlpha(1);
 		myUser.selectCharacter("Pharaoh")
 	})
 	
 	//chatOnline = new ChatOnline(this);
 	//chatOnline.createC();
 
-    
+//////////////////////////////////BOTON CHECK////////////////////////////
+	//cargar boton caja check
+	this.bcheck = this.add.sprite(950,600, 'nocheck').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	//hacer boton visible
+	this.bcheck.setAlpha(0);
+	//accion al poner el cursor sobre el boton
+	this.bcheck.on('pointerover', function(){
+		characterSelection.bcheck.scaleX += 0.03;
+		characterSelection.bcheck.scaleY += 0.03;
+	})
+	//accion al quitar el cursor del boton
+	this.bcheck.on('pointerout', function(){
+		characterSelection.bcheck.scaleX -= 0.03;
+		characterSelection.bcheck.scaleY -= 0.03;
+	})
+	//accion al hacer click sobre el boton Salir
+	this.bcheck.on('pointerdown', function(){
+		characterSelection.bcheck.setAlpha(0);
+		characterSelection.incheck.setAlpha(1);
+	})
+	/////////////////////////nocheck//////////////////
+	this.incheck = this.add.sprite(950,600, 'check').setInteractive();
+	//hacer visible
+	this.incheck.setAlpha(0);
 }
 
 characterSelection.update = function(){
