@@ -1,9 +1,8 @@
 package es.sidelab.EscapeBandages;
 
 public class User {
-	private long id=-1;
 	private String userName;
-	private String character;
+	private String state;
 	private int timeInactive=0;
 	private boolean ready;
 	
@@ -15,29 +14,24 @@ public class User {
 		super();
 		this.userName = userName;
 	}
-	public User(String userName, String character, boolean ready) {
+	public User(String userName, String state, boolean ready) {
 		super();
 		this.userName = userName;
-		this.character = character;
+		this.state = state;
 		this.ready = ready;
 	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
+
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getCharacter() {
-		return character;
+	public String getState() {
+		return state;
 	}
-	public void setCharacter(String character) {
-		this.character = character;
+	public void setState(String state) {
+		this.state = state;
 	}
 	public int getTimeInactivity() {
 		return timeInactive;
@@ -57,6 +51,6 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [id="+id+", userName="+userName+", character="+character+", ready="+ready+"]";
+		return "User [userName="+userName+", state="+state+", ready="+ready+"]";
 	}
 }

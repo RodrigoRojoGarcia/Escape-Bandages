@@ -1,3 +1,4 @@
+
 //crear escena lobby
 var lobby = new Phaser.Scene('Lobby');
 
@@ -187,5 +188,6 @@ lobby.create = function(){
 }
 
 lobby.update = function(){
+
 
 }
