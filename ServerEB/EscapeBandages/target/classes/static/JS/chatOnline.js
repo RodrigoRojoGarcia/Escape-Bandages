@@ -93,16 +93,11 @@ chatOnline.create = function(){
     });
     
     textArr = [];
-    textArr[0] = this.add.dynamicBitmapText(1560, 950, 'font1', '', 24);
-	textArr[1] = this.add.dynamicBitmapText(1560, 900, 'font1', '', 24);
-	textArr[2] = this.add.dynamicBitmapText(1560, 850, 'font1', '', 24);
-	textArr[3] = this.add.dynamicBitmapText(1560, 800, 'font1', '', 24);
-	textArr[4] = this.add.dynamicBitmapText(1560, 750, 'font1', '', 24);
-	textArr[5] = this.add.dynamicBitmapText(1560, 700, 'font1', '', 24);
-	textArr[6] = this.add.dynamicBitmapText(1560, 650, 'font1', '', 24);
-	textArr[7] = this.add.dynamicBitmapText(1560, 600, 'font1', '', 24);
-	textArr[8] = this.add.dynamicBitmapText(1560, 550, 'font1', '', 24);
-	textArr[9] = this.add.dynamicBitmapText(1560, 500, 'font1', '', 24);
+    for(var i = 0; i < 19; i++){
+    	textArr[i] = this.add.dynamicBitmapText(1560, 950 - 50*i, 'font1', '', 24);
+    }
+    
+	
 }
 
 chatOnline.update = function(){
@@ -125,9 +120,9 @@ chatOnline.update = function(){
 
 chatOnline.write = function(){
 	
-	for(var i = 0; i < 10; i++){
+	for(var i = 0; i < 19; i++){
 		if(phrases[i] != undefined){
-			textArr[i].setText('['+phrases[i].user+']['+phrases[i].character + '] '+ phrases[i].sentence);
+			textArr[i].setText(phrases[i].user + '(' + phrases[i].character + '): '+ phrases[i].sentence);
 		}
 	}
 }
