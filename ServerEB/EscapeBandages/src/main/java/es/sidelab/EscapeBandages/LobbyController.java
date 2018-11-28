@@ -26,6 +26,25 @@ public class LobbyController {
 	//última id usada para los lobbies
 	private AtomicLong lastId = new AtomicLong();
 	
+	public static Map<Long,Lobby> getLobbies(){
+		return lobbies;
+	}
+	
+	public static void showDisconnected(String userName) {
+		if(!lobbies.isEmpty()) {
+			for(int i = 0; i < lobbies.size(); i++) {
+				if(lobbies.get(i).getUser1().getUserName().equals(userName)) {
+					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
+			    	lobbies.get(i).addChat(chat);
+				}else if(lobbies.get(i).getUser2().getUserName().equals(userName)) {
+					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
+			    	lobbies.get(i).addChat(chat);
+				}
+			}
+		}
+		
+	}
+	
 	//Devuelve todos los lobbies
 		@GetMapping(value="/")
 		public static Collection<Lobby> lobbies(){
@@ -37,6 +56,9 @@ public class LobbyController {
 			long id = lastId.incrementAndGet();
 			Lobby lob = new Lobby(user,true);
 			lobbies.put(id, lob);
+			//Añadir un chat de servidor muestra quien se conecta
+	    	Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+	    	lobbies.get(id).addChat(chat);
 			return id;
 		}
 		
@@ -46,10 +68,16 @@ public class LobbyController {
 				if(lobbies.get(id).getUser1().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
 					lobbies.get(id).setUser2(newUser);
 					lobbies.get(id).setFull(true);
+					//Añadir un chat de servidor muestra quien se conecta
+			    	Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
+			    	lobbies.get(id).addChat(chat);
 					return id;
 				}else if(lobbies.get(id).getUser2().getUserName().equals(userName) && !lobbies.get(id).getUser2().getUserName().equals(newUser.getUserName())&& !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
 					lobbies.get(id).setUser1(newUser);
 					lobbies.get(id).setFull(true);
+					//Añadir un chat de servidor muestra quien se conecta
+			    	Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
+			    	lobbies.get(id).addChat(chat);
 					return id;
 				}
 			}
@@ -70,6 +98,9 @@ public class LobbyController {
 			    		//Decimos que se ha llenado
 			    		lobbies.get(id).setFull(true);
 			    		//Paramos la ejecución del post devolviendo el id del Lobby
+			    		//Añadir un chat de servidor muestra quien se conecta
+				    	Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+				    	lobbies.get(id).addChat(chat);
 			    		return id;
 		    		}else if(lobbies.get(id).getUser2() != null && lobbies.get(id).getUser1() == null) {
 		    			//El usuario 1 es el usuario que ha pedido unirse
@@ -77,6 +108,9 @@ public class LobbyController {
 			    		//Decimos que se ha llenado
 			    		lobbies.get(id).setFull(true);
 			    		//Paramos la ejecución del post devolviendo el id del Lobby
+			    		//Añadir un chat de servidor muestra quien se conecta
+				    	Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+				    	lobbies.get(id).addChat(chat);
 			    		return id;
 		    		}else {
 		    			return (long)0;
@@ -88,6 +122,9 @@ public class LobbyController {
 	    	long id = lastId.incrementAndGet();
 	    	Lobby lob = new Lobby(user,false);
 	    	lobbies.put(id, lob);
+	    	//Añadir un chat de servidor muestra quien se conecta
+	    	Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+	    	lobbies.get(id).addChat(chat);
 	    	return id;
 
 		}

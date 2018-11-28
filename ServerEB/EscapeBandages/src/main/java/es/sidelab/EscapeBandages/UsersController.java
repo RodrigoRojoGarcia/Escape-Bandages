@@ -129,9 +129,13 @@ public class UsersController {
 			//Cambiar su estado a OFFLINE
 			users.get(userName).setState("OFFLINE");
 			
+			LobbyController.showDisconnected(userName);
+			
+			
 			for(Lobby lobby : LobbyController.lobbies()) {
 				if(lobby.getUser1().getUserName().equals(userName)) {
 					lobby.setUser1(null);
+					
 				}else if(lobby.getUser2().getUserName().equals(userName)) {
 					lobby.setUser2(null);
 				}
