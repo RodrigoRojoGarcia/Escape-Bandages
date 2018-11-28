@@ -104,4 +104,9 @@ Introducción de un usuario por cliente. Para llegar a la pantalla de selección
 En la sala de selección de personaje se puede seleccionar solo un personaje, una vez seleccionado no hay vuelta atrás. Se muestra también el número de usuarios conectados al Lobby.
 ![seleccionpersonaje](https://user-images.githubusercontent.com/18311855/48831515-45a2fa00-ed77-11e8-8293-94976d377fb9.PNG)  
 Los usuarios se podrán comunicar vía chat que se irá refrescando automáticamente en todos los clientes.
-![chat](https://user-images.githubusercontent.com/18311855/48831512-450a6380-ed77-11e8-88b3-73c281a6532c.PNG)  
+![chat](https://user-images.githubusercontent.com/18311855/48831512-450a6380-ed77-11e8-88b3-73c281a6532c.PNG) 
+##Capturas FASE 3 SEMANA 2
+![registerlogin](https://user-images.githubusercontent.com/34351330/49143511-79dc6480-f2fb-11e8-8c5b-ee38cb1c26c0.png)
+![rand](https://user-images.githubusercontent.com/34351330/49143738-f53e1600-f2fb-11e8-9b80-1f786f4e96d6.png)
+
+
