@@ -178,6 +178,19 @@ public class LobbyController {
 			}
 		}
 		
+		@GetMapping(value="/bothReady/{id}")
+		public boolean bothReady(@PathVariable long id) {
+			if(lobbies.get(id)!=null) {
+				if(lobbies.get(id).isFull()) {
+					return lobbies.get(id).getUser1().getReady() && lobbies.get(id).getUser2().getReady();
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		}
+		
 		@PutMapping(value="/{id}/{userName}/{character}")
 		public ResponseEntity<User> userSetCharacter(@PathVariable long id, @PathVariable String userName, @PathVariable String character){
 			if(lobbies.get(id)!=null) {

@@ -62,6 +62,23 @@ function otherUser(idLobby, userName,callback){
 	})
 }
 
+function setReady (idLobby, userName, ready, callback){
+	$.ajax({
+		method:"PUT",
+		url: 'http://'+location.host+'/lobby/ready/'+idLobby+'/'+userName+'/'+ready
+	}).done(function(user){
+		console.log(user)
+	})
+}
+
+function bothReady(idLobby, callback){
+	$.ajax({
+		url: 'http://'+location.host+'/lobby/bothReady/'+idLobby
+	}).done(function(both){
+		callback(both)
+	})
+}
+
 
 
 
