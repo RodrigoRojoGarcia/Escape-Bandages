@@ -21,8 +21,7 @@ characterSelection.preload = function(){
 
 
 characterSelection.create = function(){
-	myUser.update();
-	myUser.setScene(this)
+
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////

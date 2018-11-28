@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -21,7 +20,7 @@ public class App
         
         LinkedList<String> datos = new LinkedList<String>();
         
-        datos = leerFichero("D:/chats.txt");
+        datos = leerFichero("C:/Temp/users.txt");
         
         UsersController.introduceData(datos);
         

@@ -9,7 +9,7 @@ online.preload = function(){
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //boton login
     this.load.image('login', 'Sprites/login.png');
-    //boton registrar
+  //boton registrar
     this.load.image('register', 'Sprites/register.png');
     //insertamos font externa
     this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
@@ -24,11 +24,7 @@ online.preload = function(){
 }
 
 online.create = function(){
-	myUser.setScene(this);
 	
-	///Creamos usuario
-	myUser.create();
-	myUser.update();
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 
@@ -212,7 +208,7 @@ online.create = function(){
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
 		//cambio escena a submenu
-		myUser.setScene(submenu)
+		
 		online.scene.switch(submenu);
 	})
 
@@ -235,25 +231,20 @@ online.create = function(){
 	//accion al hacer click sobre el boton
 	this.introUser.on('pointerdown', function(){
 		if(textEntry.text.length>0 && textEntry2nd.text.length>0){
-			userNameValid = true;
-			var user = {
-				id: myUser.Id,
-				userName: textEntry.text
-			}
 			myUser.setUserName(textEntry.text)
-			updateUserName(user, function(){
-				userNameValid = false;
+			logUser(myClient,textEntry.text,textEntry2nd.text, function(errorCode){
+				online.isUserNameValidLog(errorCode)
 			})
 			while(textEntry.text.length>0){
 				textEntry.text = textEntry.text.substr(0,textEntry.text.length-1)
 				
 			}
+			while(textEntry2nd.text.length>0){
+				textEntry2nd.text = textEntry2nd.text.substr(0,textEntry2nd.text.length-1)
+				
+			}
 			
-			online.time.addEvent({
-	            delay: 40,
-	            callback: online.isUserNameValid,
-	            callbackScope: online
-	        });
+			
 		}
 	})
 	
@@ -276,41 +267,67 @@ online.create = function(){
 	//accion al hacer click sobre el boton
 	this.registerUser.on('pointerdown', function(){
 		if(textEntry3rd.text.length>0 && textEntry4th.text.length>0){
-			userNameValid = true;
-			var user = {
-				id: myUser.Id,
-				userName: textEntry3rd.text
-			}
+			
 			myUser.setUserName(textEntry3rd.text)
-			updateUserName(user, function(){
-				userNameValid = false;
+			postNewUser(myClient,textEntry3rd.text,textEntry4th.text, function(errorCode){
+				online.isUserNameValidReg(errorCode)
 			})
 			while(textEntry3rd.text.length>0){
 				textEntry3rd.text = textEntry3rd.text.substr(0,textEntry3rd.text.length-1)
 				
 			}
+			while(textEntry4th.text.length>0){
+				textEntry4th.text = textEntry4th.text.substr(0,textEntry4th.text.length-1)
+				
+			}
 			
-			online.time.addEvent({
-	            delay: 40,
-	            callback: online.isUserNameValid,
-	            callbackScope: online
-	        });
+			
 		}
 	})
 	
 	//Mensaje que sale cuando metes un usuario registrado
-	this.isUserNameValid = function(){
-		if(userNameValid){
-			myUser.setScene(lobby);
-			online.scene.switch(lobby);
+	this.isUserNameValidReg = function(errorCode){
+		
+		if(errorCode==0){
+			var textError = this.add.dynamicBitmapText(245, 450, 'font2', 'Usuario registrado', 30);
+		}else if(errorCode == -3){
+			var textError = this.add.dynamicBitmapText(245, 450, 'font2', 'Nombre de usuario ya registrado', 30);
 		}else{
-			var textEntry2 = this.add.dynamicBitmapText(750, 450, 'font2', 'Nombre de usuario ya registrado', 30);
+			var textError = this.add.dynamicBitmapText(245, 450, 'font2', 'Error al registrar', 30);
+		}
+		online.time.addEvent({
+            delay: 1000,
+            callback: function(){ textError.text = "";},
+            callbackScope: online
+        });
+			
+			
+		
+	}
+	this.isUserNameValidLog = function(errorCode){
+		if(errorCode==1){
+			var textError = this.add.dynamicBitmapText(1250, 450, 'font2', 'Loggeado con exito', 30);
+			
 			online.time.addEvent({
 	            delay: 1000,
-	            callback: function(){ textEntry2.text = "";},
+	            callback: function(){ online.scene.switch(lobby);},
 	            callbackScope: online
 	        });
+			
+		}else if(errorCode == 0){
+			var textError = this.add.dynamicBitmapText(1250, 450, 'font2', 'Usuario no registrado', 30);
+		}else if(errorCode == -5){
+			var textError = this.add.dynamicBitmapText(1250, 450, 'font2', 'Contraseña erronea', 30);
+		}else if(errorCode == -6){
+			var textError = this.add.dynamicBitmapText(1250, 450, 'font2', 'Este cliente ya tiene un usuario ONLINE', 30);
+		}else{
+			var textError = this.add.dynamicBitmapText(1250, 450, 'font2', 'Error al loggear', 30);
 		}
+		online.time.addEvent({
+            delay: 1000,
+            callback: function(){ textError.text = "";},
+            callbackScope: online
+        });
 	}
 	
 }

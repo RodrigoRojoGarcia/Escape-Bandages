@@ -126,3 +126,4 @@ chatOnline.write = function(){
 		}
 	}
 }
+

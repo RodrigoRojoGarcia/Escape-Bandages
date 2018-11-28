@@ -30,7 +30,7 @@ public class UsersManager {
 			Stack<Client> clientsToDisconnect = new Stack<>();
 			
 			
-			for(Client client: UsersController.clients()) {
+			for(Client client: ClientController.clients()) {
 				//System.out.println("UwU");
 				client.increaseInactivty();
 				if(client.getTimeOfInactivity() > maxTimeOfInactivity) {
@@ -41,7 +41,7 @@ public class UsersManager {
 			while(!clientsToDisconnect.empty()) {
 				
 				Client aux = clientsToDisconnect.pop();
-				//UsersController.disconnectClient(aux.getId());
+				//ClientController.disconnectClient(aux.getId());
 			}
 		}, timeUnit, timeUnit, TimeUnit.MILLISECONDS);
 		

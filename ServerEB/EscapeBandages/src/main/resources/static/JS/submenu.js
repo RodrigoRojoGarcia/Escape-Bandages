@@ -15,7 +15,7 @@ submenu.preload = function(){
 }
 
 submenu.create = function(){
-	myUser.setScene(this)
+	
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
 	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});
@@ -65,7 +65,7 @@ submenu.create = function(){
 	})
 	//accion al hacer click sobre el boton Online
 	this.bon.on('pointerdown', function(){
-		myUser.setScene(online)
+		
 		submenu.scene.switch(online);
 	})
 
@@ -87,7 +87,7 @@ submenu.create = function(){
 	//accion al hacer click sobre el boton Offline
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
-		myUser.setScene(offline)
+		
 		submenu.scene.switch(offline);
 	})
 
@@ -111,7 +111,7 @@ submenu.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.bback.on('pointerdown', function(){
 		//cambio de escena a menu
-		myUser.setScene(menu)
+		
 		submenu.scene.switch(menu);
 	})
 }

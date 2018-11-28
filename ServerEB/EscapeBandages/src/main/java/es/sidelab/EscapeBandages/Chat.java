@@ -3,8 +3,7 @@ package es.sidelab.EscapeBandages;
 import java.io.*;
 
 public class Chat {
-	private String character = "Mummy";
-	private long id = -1;
+	private String character="";
 	private String user;
 	private String sentence;
 
@@ -26,7 +25,9 @@ public class Chat {
 	public String getCharacter() {
 		return character;
 	}
-	
+	public void setCharacter(String character) {
+		this.character = character;
+	}
 	
 	public String getUser() {
 		return user;
@@ -36,13 +37,6 @@ public class Chat {
 		this.user = user;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getSentence() {
 		return sentence;
@@ -65,7 +59,7 @@ public class Chat {
 	        PrintWriter pw = null;
 	        try
 	        {
-	            fichero = new FileWriter("D:/chats.txt", true);
+	            fichero = new FileWriter("C:/Temp/Escape-Bandages/chats.txt", true);
 	            pw = new PrintWriter(fichero);
 	            pw.println(toString());
 	        } catch (Exception e) {

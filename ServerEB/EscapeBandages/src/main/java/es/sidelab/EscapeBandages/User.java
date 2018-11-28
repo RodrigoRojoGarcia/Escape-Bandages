@@ -63,7 +63,7 @@ public class User {
         PrintWriter pw = null;
         try
         {
-            fichero = new FileWriter("D:/users.txt", true);
+            fichero = new FileWriter("C:/Temp/users.txt", true);
             pw = new PrintWriter(fichero);
             pw.println(toString()+ " " + password); //introduce en fichero una linea con el username y el fichero
         } catch (Exception e) {
@@ -79,5 +79,4 @@ public class User {
         	}
         }
     }
-
 }

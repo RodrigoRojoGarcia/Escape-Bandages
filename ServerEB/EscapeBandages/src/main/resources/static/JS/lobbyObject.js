@@ -7,11 +7,8 @@ function LobbyObj(scene){
 		this.scene = scene;
 	}
 	
-	this.create = function(){
-		var lobby = {}
-		createLobby(lobby, function(lobbyWithId){
-			that.id = lobbyWithId;
-		});
+	this.setId = function(id){
+		that.id = id
 	}
 	
 	this.getId = function(){
