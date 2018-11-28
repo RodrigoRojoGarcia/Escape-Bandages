@@ -9,6 +9,8 @@ online.preload = function(){
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //boton login
     this.load.image('login', 'Sprites/login.png');
+  //boton registrar
+    this.load.image('register', 'Sprites/register.png');
     //insertamos font externa
     this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
     this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
@@ -247,7 +249,7 @@ online.create = function(){
 	})
 	
 	////////////////////BOTON REGISTRAR////////////////////////////////////
-	this.registerUser = this.add.sprite(445, 750, 'login').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.registerUser = this.add.sprite(425, 750, 'register').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.registerUser.scaleX -= 0.4;
 	this.registerUser.scaleY -= 0.4;
 	//hacer boton visible

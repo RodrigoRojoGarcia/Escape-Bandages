@@ -2,6 +2,7 @@ package es.sidelab.EscapeBandages;
 
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +13,28 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
 	
 	//Guarda los usuarios relacionados con su contraseña, así no se puede repetir los usuarios
-	private Map<String,String> userspasswords = new ConcurrentHashMap<>();
+	private static Map<String,String> userspasswords = new ConcurrentHashMap<>();
 	//Guarda todos los usuarios, también identificados por su nombre. Existe para que el get de los usuario
 	private static Map<String,User> users = new ConcurrentHashMap<>();
 	
 	public static Map<String,User> getUsers(){
 		return users;
 	}
+	
+	
+	
+	//Introduce los datos de los usuarios creados en el hashmap
+		public static void introduceData(LinkedList<String> datos) {
+			String cad[] = new String[2];
+			for(int i = 0; i < datos.size(); i++) {
+				cad = datos.get(i).split(" ");
+				userspasswords.put(cad[0], cad[1]);
+				
+				User user1 = new User(cad[0],"OFFLINE",false);
+				users.put(cad[0], user1);
+			}
+		}
+	
 	
 	
 	//Devuelve todos los usuarios registrados
@@ -39,6 +55,7 @@ public class UsersController {
 			if(ClientController.getClients().get(id).getUser()==null) {
 				if(!users.containsKey(userName)) {
 					User newUser = new User(userName,"OFFLINE",false);
+					newUser.toFile(password);
 					users.put(userName, newUser);
 					userspasswords.put(userName, password);
 					//Usuario registrado
