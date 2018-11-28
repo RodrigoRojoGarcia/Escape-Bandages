@@ -10,7 +10,7 @@ victoria.preload = function(){
 }
 
 victoria.create = function(){
-	myUser.setScene(this)
+	
 	//background
 	var bgV = this.add.image(0, 0, 'bgV').setOrigin(0);
 	//letras victoria

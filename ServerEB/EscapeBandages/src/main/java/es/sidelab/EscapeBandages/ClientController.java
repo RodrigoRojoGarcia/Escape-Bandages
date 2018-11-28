@@ -32,6 +32,16 @@ public class ClientController {
 			return clients.values();
 		}
 		
+		@GetMapping(value="/user/{id}")
+		public ResponseEntity<User> getUser(@PathVariable long id){
+			if(clients.get(id)!=null) {
+				return new ResponseEntity<>(clients.get(id).getUser(),HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			 
+		}
+		
 		//Get para que no se desconecte el cliente. Resetea el tiempo de inactividad del mismo
 		@GetMapping(value="/{id}")
 		public ResponseEntity<Client> getClient(@PathVariable long id){

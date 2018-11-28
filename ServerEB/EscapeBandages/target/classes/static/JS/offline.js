@@ -41,7 +41,7 @@ offline.preload = function(){
 }//FIN DEL PRELOAD
 
 offline.create = function(){
-	myUser.setScene(this)
+	
 
 
 ///////////////////////////////////CONFIG///////////////////////////////////

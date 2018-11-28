@@ -22,7 +22,6 @@ lobby.preload = function(){
 }
 
 lobby.create = function(){
-	myUser.setScene(this)
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
 	const backg = this.make.tilemap({key:"backgroundlob", tileWidth: 120, tileHeight: 120});
@@ -152,9 +151,13 @@ lobby.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.bale.on('pointerdown', function(){
 		//cambio de escena a menu
-		myLobby.create();
-		myLobby.setScene(characterSelection);
-		myUser.setScene(characterSelection)
+		
+		
+		getUserFromClient(myClient.id,function(user){
+			createRLobby(user, function(id){
+				myLobby.setId(id)
+			})
+		})
 		lobby.scene.switch(characterSelection);
 		lobby.scene.launch(chatOnline, characterSelection);
 	})
@@ -180,8 +183,14 @@ lobby.create = function(){
 		//cambio de escena a menu
 
 		//implementar busqueda de usuario con API REST
-		if(textEntry.text.length){
-			myUser.setScene(characterSelection)
+		if(textEntry.text.length>0){
+			
+			getUserFromClient(myClient.id,function(user){
+				findPrivLobby(textEntry.text,user, function(id){
+					myLobby.setId(id)
+				})
+			})
+			
 			lobby.scene.switch(characterSelection);
 			lobby.scene.launch(chatOnline, characterSelection);
 		}
