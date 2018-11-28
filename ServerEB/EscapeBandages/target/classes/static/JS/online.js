@@ -152,9 +152,11 @@ online.create = function(){
 	
     var textEntry = this.add.dynamicBitmapText(1250, 450, 'font1', '', 32);
     var textEntry2nd = this.add.dynamicBitmapText(1250, 600, 'font1', '', 32);
+    var passLogin = "";
     
     var textEntry3rd = this.add.dynamicBitmapText(245, 450, 'font1', '', 32);
     var textEntry4th = this.add.dynamicBitmapText(245, 600, 'font1', '', 32);
+    var passRegister = "";
     
     //habilitar teclado para introducir texto
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -165,24 +167,30 @@ online.create = function(){
     		
     	}else if(event.keyCode === 8 && textEntry2nd.text.length>0 && online.typing2){
     		textEntry2nd.text = textEntry2nd.text.substr(0,textEntry2nd.text.length-1)
+    		passLogin = passLogin.slice(0, -1);
     	
     	}else if(event.keyCode === 8 && textEntry3rd.text.length>0 && online.typing3){
     		textEntry3rd.text = textEntry3rd.text.substr(0,textEntry3rd.text.length-1)
     	
     	}else if(event.keyCode === 8 && textEntry4th.text.length>0 && online.typing4){
     		textEntry4th.text = textEntry4th.text.substr(0,textEntry4th.text.length-1)
+    		passRegister = passRegister.slice(0, -1);
     	}
     	else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90) && online.typing1){
     		textEntry.text += event.key
     	}
     	else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90) && online.typing2){
-    		textEntry2nd.text += event.key
+    		passLogin += event.key
+    		textEntry2nd.text += '*'
+    		
     	}
     	else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90) && online.typing3){
     		textEntry3rd.text += event.key
     	}
     	else if(event.keyCode == 32 || (event.keyCode >=48 && event.keyCode <90) && online.typing4){
-    		textEntry4th.text += event.key
+    		passRegister += event.key
+    		textEntry4th.text += '*'
+    		
     	}
     })
 
@@ -232,7 +240,7 @@ online.create = function(){
 	this.introUser.on('pointerdown', function(){
 		if(textEntry.text.length>0 && textEntry2nd.text.length>0){
 			myUser.setUserName(textEntry.text)
-			logUser(myClient,textEntry.text,textEntry2nd.text, function(errorCode){
+			logUser(myClient,textEntry.text,passLogin, function(errorCode){
 				online.isUserNameValidLog(errorCode)
 			})
 			while(textEntry.text.length>0){
@@ -241,7 +249,7 @@ online.create = function(){
 			}
 			while(textEntry2nd.text.length>0){
 				textEntry2nd.text = textEntry2nd.text.substr(0,textEntry2nd.text.length-1)
-				
+				passLogin = "";
 			}
 			
 			
@@ -269,7 +277,7 @@ online.create = function(){
 		if(textEntry3rd.text.length>0 && textEntry4th.text.length>0){
 			
 			myUser.setUserName(textEntry3rd.text)
-			postNewUser(myClient,textEntry3rd.text,textEntry4th.text, function(errorCode){
+			postNewUser(myClient,textEntry3rd.text,passRegister, function(errorCode){
 				online.isUserNameValidReg(errorCode)
 			})
 			while(textEntry3rd.text.length>0){
@@ -278,7 +286,7 @@ online.create = function(){
 			}
 			while(textEntry4th.text.length>0){
 				textEntry4th.text = textEntry4th.text.substr(0,textEntry4th.text.length-1)
-				
+				passRegister = "";
 			}
 			
 			
