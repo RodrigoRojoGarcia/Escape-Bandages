@@ -156,6 +156,7 @@ lobby.create = function(){
 		getUserFromClient(myClient.id,function(user){
 			createRLobby(user, function(id){
 				myLobby.setId(id)
+				console.log(myLobby.getId())
 			})
 		})
 		lobby.scene.switch(characterSelection);
@@ -188,6 +189,7 @@ lobby.create = function(){
 			getUserFromClient(myClient.id,function(user){
 				findPrivLobby(textEntry.text,user, function(id){
 					myLobby.setId(id)
+					console.log(myLobby.getId())
 				})
 			})
 			

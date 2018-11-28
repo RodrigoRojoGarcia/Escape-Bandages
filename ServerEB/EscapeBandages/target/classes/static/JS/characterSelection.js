@@ -6,6 +6,8 @@ characterSelection.preload = function(){
 	this.load.image('select','Sprites/letras_seleccionar.png');
 	//volver
 	this.load.image('backO','Sprites/back.png');
+	this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
+    this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
 	//ANTORCHAS
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //boton eleccion momia
@@ -80,10 +82,9 @@ characterSelection.create = function(){
     this.selecc = this.add.image(950,200,'select');
     
     
-    this.add.text(1110, 50, 'Usuarios conectados:', { font: '32px Arial', fill: '#ffff00' });
-    numUsers = this.add.text(1450, 50, '', { font: '32px Arial', fill: '#ffff00' });
-    
-    
+    this.usuarios = this.add.dynamicBitmapText(830, 50, 'font2', 'Usuarios conectados:', 32);
+    this.user1 = this.add.dynamicBitmapText(1110, 50, 'font2', myUser.getUserName(), 32);
+    this.user2 = this.add.dynamicBitmapText(1110, 100, 'font2', '', 32);
     
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
@@ -136,7 +137,7 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bMummy.on('pointerdown', function(){
-		myUser.selectCharacter("Mummy")
+		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy")
 	})
 	
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
@@ -158,7 +159,7 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bPharaoh.on('pointerdown', function(){
-		myUser.selectCharacter("Pharaoh")
+		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh")
 	})
 	
 	//chatOnline = new ChatOnline(this);
@@ -169,7 +170,7 @@ characterSelection.create = function(){
 
 characterSelection.update = function(){
 	//chatOnline.updateC();
-	loadUsers(function(users){
-		numUsers.text = users.length;
+	otherUser(myLobby.getId(), myUser.getUserName(), function(userName){
+		characterSelection.user2.text = userName;
 	})
 }

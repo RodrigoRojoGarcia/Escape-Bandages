@@ -10,6 +10,8 @@ chatOnline.preload = function(){
 }
 
 chatOnline.create = function(){
+	
+	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//BACKGROUND
 	this.add.image(1540 + 380/2, 0 + 1080/2, 'chatBack');
 //////////////////////////////////ANIMACIONES///////////////////////////////////////
@@ -69,15 +71,11 @@ chatOnline.create = function(){
         else if(event.keyCode === 13 && textEntry.text.length > 0 && chatOnline.typing)
         {
         	//IMPLEMENTAR CREAR CHAT
-        	var chat = {
-        		sentence: textEntry.text, 
-        		user: myUser.getUsername()
-        	}
         	
-        	console.log(myUser.getUsername());	
+        	console.log(myUser.getUserName());	
         	console.log(myLobby.getId());
         	
-        	createChat(chat, myLobby.getId(), function(){
+        	createChat(myLobby.getId(), myUser.getUserName(), textEntry.text, function(){
         		//algo aqui
         	});
         	

@@ -44,3 +44,28 @@ function createPLobby(user,callback){
 		callback(lobby)
 	})
 }
+
+function setCharacter (idLobby, userName, character){
+	$.ajax({
+		method:"PUT",
+		url: 'http://'+location.host+'/lobby/'+idLobby+'/'+userName+'/'+character
+	}).done(function(user){
+		console.log("Character selected by: "+user.userName)
+	})
+}
+
+function otherUser(idLobby, userName,callback){
+	$.ajax({
+		url:'http://'+location.host+'/lobby/userName/'+idLobby+'/'+userName
+	}).done(function(userName){
+		callback(userName)
+	})
+}
+
+
+
+
+
+
+
+
