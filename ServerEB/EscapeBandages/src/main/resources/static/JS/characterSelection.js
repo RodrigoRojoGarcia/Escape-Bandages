@@ -33,10 +33,10 @@ characterSelection.preload = function(){
 
 
 characterSelection.create = function(){
-
+	this.once = 0;
 	this.mummySelected = false;
 	this.pharaohSelected = false;
-	this.goOn = setInterval(this.usersReady, 1000);
+	this.goOn = setInterval(characterSelection.usersReady, 1000);
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	
@@ -253,16 +253,20 @@ characterSelection.create = function(){
 		
 		
 	})
-	this.usersReady = function(){
+	
+    
+}
+characterSelection.usersReady = function(){
 		bothReady(myLobby.getId(),function(both){
 			if(both){
+				if(characterSelection.once==0){
 					characterSelection.scene.switch(offline)
+					characterSelection.once++
+				}
+					
 			}
 		})
 	}
-    
-}
-
 characterSelection.update = function(){
 	//chatOnline.updateC();
 	otherUser(myLobby.getId(), myUser.getUserName(), function(userName){

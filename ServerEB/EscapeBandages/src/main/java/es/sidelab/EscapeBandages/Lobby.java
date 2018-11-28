@@ -10,7 +10,7 @@ public class Lobby {
 	private String pharaoh = "";
 	private boolean full;
 	private boolean priv;
-	private static List<Chat> display = new ArrayList<>();
+	private List<Chat> display = new ArrayList<>();
 	
 	public Lobby() {
 		
@@ -41,7 +41,7 @@ public class Lobby {
 		return display;
 	}
 	public void addChat(Chat chat) {
-		display.add(0, chat);
+		this.display.add(0, chat);
 	}
 	public boolean isFull() {
 		return full;
