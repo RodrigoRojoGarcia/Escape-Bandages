@@ -89,7 +89,7 @@ Cuando se colocan las dos cajas sobre los botones los dos personajes son libres 
 ##Servidor REST
 Instrucciones para ejecutar (desde la consola de comandos): 
 Ir al path Escape-Bandages/ServerEB/EscapeBandages/target
-Ejecutar java -jar EscapeBandages-0.0.1-SNAPSHOT.jar
+Ejecutar java -jar EscapeBandages-0.2.1.jar
 Al final de la ejecución de la creación del servidor aparecerá por la consola de comandos una IP, la cual es la que se tiene que incluir en el buscador web para acceder como cliente al juego.
 
 ##Diagrama de clases de la aplicación
