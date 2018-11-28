@@ -10,4 +10,10 @@ function User(scene){
 	this.getUserName = function(){
 		return this.userName;
 	}
+	this.setReady = function(ready){
+		this.ready=ready;
+	}
+	this.getReady = function(){
+		return this.ready;
+	}
 }

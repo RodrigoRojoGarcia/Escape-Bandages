@@ -122,45 +122,66 @@ public class UsersController {
 	
 	
 	//Desconectar a un usuario
-	@DeleteMapping(value="/{userName}")
-	public static void disconnectUser(@PathVariable String userName) {
-		//Si existe
-		
-		if(users.get(userName)!=null) {
-			//Cambiar su estado a OFFLINE
-			users.get(userName).setState("OFFLINE");
+		@DeleteMapping(value="/{userName}")
+		public static void disconnectUser(@PathVariable String userName) {
+			//Si existe
 			
-			LobbyController.showDisconnected(userName);
-			
-			for(Lobby lobby : LobbyController.lobbies()) {
-				if(lobby.getUser1() != null) {
-					if(lobby.getUser1().getUserName().equals(userName)) {
-						lobby.setUser1(null);
-					}	
+			if(users.get(userName)!=null) {
+				//Cambiar su estado a OFFLINE
+				users.get(userName).setState("OFFLINE");
+				
+				LobbyController.showDisconnected(userName);
+				
+				for(long id : LobbyController.getLobbies().keySet()) {
+					if(LobbyController.getLobbies().get(id).getUser1() != null) {
+						if(LobbyController.getLobbies().get(id).getUser1().getUserName().equals(userName)) {
+							LobbyController.getLobbies().get(id).setUser1(null);
+							LobbyController.getLobbies().get(id).setFull(false);
+						}	
+						
+					}else if(LobbyController.getLobbies().get(id).getUser2() != null) {
+						if(LobbyController.getLobbies().get(id).getUser2().getUserName().equals(userName)) {
+							LobbyController.getLobbies().get(id).setUser2(null);
+							LobbyController.getLobbies().get(id).setFull(false);
+						}
+					}
+					if(LobbyController.getLobbies().get(id).getUser1()==null && LobbyController.getLobbies().get(id).getUser2()==null) {
+						LobbyController.removeLobby(id);
+					}
+				}
+				
+				
+				for(Lobby lobby : LobbyController.lobbies()) {
+					if(lobby.getUser1() != null) {
+						if(lobby.getUser1().getUserName().equals(userName)) {
+							lobby.setUser1(null);
+							lobby.setFull(false);
+						}	
+						
+					}else if(lobby.getUser2() != null) {
+						if(lobby.getUser2().getUserName().equals(userName)) {
+							lobby.setUser2(null);
+							lobby.setFull(false);
+						}
+					}
 					
-				}else if(lobby.getUser2() != null) {
-					if(lobby.getUser2().getUserName().equals(userName)) {
-						lobby.setUser2(null);
-					}
+					
 				}
 				
 				
-			}
-			
-			
-			
-			for(Client client : ClientController.clients()) {
-				if(client.getUser() != null) {
-					if(client.getUser().getUserName().equals(userName)) {
-						client.setUser(null);
+				
+				for(Client client : ClientController.clients()) {
+					if(client.getUser() != null) {
+						if(client.getUser().getUserName().equals(userName)) {
+							client.setUser(null);
+						}
 					}
+					
 				}
 				
+				
+				
 			}
-			
-			
-			
-		}
 	}
 	
 	

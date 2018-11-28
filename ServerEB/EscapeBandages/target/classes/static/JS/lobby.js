@@ -7,6 +7,7 @@ lobby.preload = function(){
 	this.load.image('lobbytxt', 'Sprites/lobby.png');
 	//botones
 	this.load.image('backlob', 'Sprites/back.png');
+	this.load.image('privado', 'Sprites/privado.png');
 	this.load.image('aleatorio', 'Sprites/aleatorio.png');
 	this.load.image('buscar', 'Sprites/buscar.png');
 	//font
@@ -156,11 +157,47 @@ lobby.create = function(){
 		getUserFromClient(myClient.id,function(user){
 			createRLobby(user, function(id){
 				myLobby.setId(id)
+				console.log(myLobby.getId())
 			})
 		})
 		lobby.scene.switch(characterSelection);
 		lobby.scene.launch(chatOnline, characterSelection);
 	})
+	
+	
+	//cargar boton Back
+	this.bpriv = this.add.sprite(960, 800, 'privado').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bpriv.scaleX -= 0.4;
+	this.bpriv.scaleY -= 0.4;
+	//hacer boton invisible
+	this.bpriv.setAlpha(1);
+	//accion al poner el cursor sobre el boton Back
+	this.bpriv.on('pointerover', function(){
+		lobby.bpriv.scaleX += 0.15;
+		lobby.bpriv.scaleY += 0.15;
+	})
+	//accion al quitar el cursor del boton Back
+	this.bpriv.on('pointerout', function(){
+		lobby.bpriv.scaleX -= 0.15;
+		lobby.bpriv.scaleY -= 0.15;
+	})
+	//accion al hacer click sobre el boton Back
+	this.bpriv.on('pointerdown', function(){
+		//cambio de escena a menu
+		
+		
+		getUserFromClient(myClient.id,function(user){
+			createPLobby(user, function(id){
+				myLobby.setId(id)
+				console.log(myLobby.getId())
+			})
+		})
+		lobby.scene.switch(characterSelection);
+		lobby.scene.launch(chatOnline, characterSelection);
+	})
+	
+	
+	
 /////////////////////////////////BOTON LOBBY BUSCAR USUARIO//////////////////////
 	//cargar boton Back
 	this.buser = this.add.sprite(1300, 600, 'buscar').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
@@ -188,6 +225,7 @@ lobby.create = function(){
 			getUserFromClient(myClient.id,function(user){
 				findPrivLobby(textEntry.text,user, function(id){
 					myLobby.setId(id)
+					console.log(myLobby.getId())
 				})
 			})
 			

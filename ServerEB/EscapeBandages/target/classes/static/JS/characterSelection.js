@@ -6,12 +6,24 @@ characterSelection.preload = function(){
 	this.load.image('select','Sprites/letras_seleccionar.png');
 	//volver
 	this.load.image('backO','Sprites/back.png');
+	this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
+    this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
+    
+	//letras ready
+    this.load.image('ready', 'Sprites/listo.png');
+    //checks
+    this.load.image('nocheck', 'Sprites/nocheck.png');
+    this.load.image('check', 'Sprites/check.png');
 	//ANTORCHAS
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //boton eleccion momia
     this.load.spritesheet("boton_mummy","Sprites/boton_mummy_spritesheet.png",{frameWidth: 380, frameHeight: 380});
+    this.load.image('img_mummy', 'Sprites/boton_mummy.png');
+    this.load.image('img_mummy2', 'Sprites/boton_mummy2.png');
     //boton eleccion faraon
     this.load.spritesheet("boton_pharaoh","Sprites/boton_pharaoh_spritesheet.png",{frameWidth: 380, frameHeight: 380});
+    this.load.image('img_pharaoh', 'Sprites/boton_pharaoh.png');
+    this.load.image('img_pharaoh2', 'Sprites/boton_pharaoh2.png');
 ///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileO", "Sprites/tileset.png");
@@ -21,7 +33,11 @@ characterSelection.preload = function(){
 
 
 characterSelection.create = function(){
-
+	this.once = 0;
+	this.mummySelected = false;
+	this.pharaohSelected = false;
+	this.goOn = setInterval(characterSelection.usersReady, 1000);
+	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
@@ -78,12 +94,13 @@ characterSelection.create = function(){
     });
 
     this.selecc = this.add.image(950,200,'select');
+    this.ready = this.add.image(950,500,'ready').setInteractive();
+    this.ready.setAlpha(0);
     
     
-    this.add.text(1110, 50, 'Usuarios conectados:', { font: '32px Arial', fill: '#ffff00' });
-    numUsers = this.add.text(1450, 50, '', { font: '32px Arial', fill: '#ffff00' });
-    
-    
+    this.usuarios = this.add.dynamicBitmapText(830, 50, 'font2', 'Usuarios conectados:', 32);
+    this.user1 = this.add.dynamicBitmapText(1110, 50, 'font2', myUser.getUserName(), 32);
+    this.user2 = this.add.dynamicBitmapText(1110, 100, 'font2', '', 32);
     
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
@@ -105,9 +122,19 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
+		characterSelection.bcheck.setAlpha(0);
+		characterSelection.incheck.setAlpha(0);
+		characterSelection.bPharaoh.setAlpha(1);
+		characterSelection.iPharaoh.setAlpha(0);
+		characterSelection.bMummy.setAlpha(1);
+		characterSelection.iMummy.setAlpha(0);
+		characterSelection.ready.setAlpha(0);
+		characterSelection.iMummy2.setAlpha(0);
+		characterSelection.iPharaoh2.setAlpha(0);
+		
 		
 		disconectUser(myUser.getUserName());
-		removeLobby(myLobby.getId());
+		
 		
 		characterSelection.scene.switch(online);
 		characterSelection.scene.stop(chatOnline);
@@ -134,9 +161,23 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bMummy.on('pointerdown', function(){
-		myUser.selectCharacter("Mummy")
+		characterSelection.bcheck.setAlpha(1);
+		characterSelection.ready.setAlpha(1);
+		characterSelection.mummySelected = true
+		characterSelection.pharaohSelected = false
+		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy")
 	})
 	
+	this.iMummy = this.add.sprite(600, 550, 'img_mummy').setInteractive();
+	characterSelection.iMummy.scaleX += 0.05;
+	characterSelection.iMummy.scaleY += 0.05;
+	//hacer boton invisible
+	this.iMummy.setAlpha(0);
+	////////////////////////momia no elegida///////////////////////
+	//cargar boton Mummy no elegida
+	this.iMummy2 = this.add.sprite(600, 550, 'img_mummy2').setInteractive();
+	//hacer boton invisible
+	this.iMummy2.setAlpha(0);
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
 	//cargar boton eleccion Pharaoh
 	this.bPharaoh = this.add.sprite(1300, 550, 'boton_pharaoh').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
@@ -156,18 +197,87 @@ characterSelection.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bPharaoh.on('pointerdown', function(){
-		myUser.selectCharacter("Pharaoh")
+		characterSelection.bcheck.setAlpha(1);
+		characterSelection.ready.setAlpha(1);
+		characterSelection.mummySelected = false
+		characterSelection.pharaohSelected = true
+		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh")
+	})
+////////////////////////faraon elegido///////////////////////
+	//cargar boton Pharaoh elegido
+	this.iPharaoh = this.add.sprite(1300, 550, 'img_pharaoh').setInteractive();
+	characterSelection.iPharaoh.scaleX += 0.05;
+	characterSelection.iPharaoh.scaleY += 0.05;
+	//hacer boton invisible
+	this.iPharaoh.setAlpha(0);
+	/////////////////////////faraon no elegido//////////////////
+	//cargar boton Pharaoh no elegido
+	this.iPharaoh2 = this.add.sprite(1300, 550, 'img_pharaoh2').setInteractive();
+	//hacer boton invisible
+	this.iPharaoh2.setAlpha(0);
+	
+//////////////////////////////////BOTON CHECK////////////////////////////
+	//cargar boton caja check
+	this.bcheck = this.add.sprite(950,600, 'nocheck').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	//hacer boton visible
+	this.bcheck.setAlpha(0);
+	//accion al poner el cursor sobre el boton
+	this.bcheck.on('pointerover', function(){
+		characterSelection.bcheck.scaleX += 0.03;
+		characterSelection.bcheck.scaleY += 0.03;
+	})
+	//accion al quitar el cursor del boton
+	this.bcheck.on('pointerout', function(){
+		characterSelection.bcheck.scaleX -= 0.03;
+		characterSelection.bcheck.scaleY -= 0.03;
+	})
+	//accion al hacer click sobre el boton Salir
+	this.bcheck.on('pointerdown', function(){
+		
+			myUser.setReady(true)
+			setReady(myLobby.getId(), myUser.getUserName(), true)
+			characterSelection.incheck.setAlpha(1);
+		
+		
+	})
+	/////////////////////////nocheck//////////////////
+	this.incheck = this.add.sprite(950,600, 'check').setInteractive();
+	//hacer visible
+	this.incheck.setAlpha(0);
+	this.incheck.on('pointerdown', function(){
+			setReady(myLobby.getId(), myUser.getUserName(), false)
+			myUser.setReady(false)
+			characterSelection.incheck.setAlpha(0);
+		
+		
 	})
 	
-	//chatOnline = new ChatOnline(this);
-	//chatOnline.createC();
-
     
 }
-
+characterSelection.usersReady = function(){
+		bothReady(myLobby.getId(),function(both){
+			if(both){
+					characterSelection.scene.start(offline)
+					clearInterval(characterSelection.goOn)
+			}
+		})
+	}
 characterSelection.update = function(){
 	//chatOnline.updateC();
-	loadUsers(function(users){
-		numUsers.text = users.length;
+	otherUser(myLobby.getId(), myUser.getUserName(), function(userName){
+		characterSelection.user2.text = userName;
 	})
+	
+	if(this.mummySelected){
+		this.bMummy.setTint(0xddffdd)
+	}else{
+		this.bMummy.setTint(0xffffff)
+	}
+	if(this.pharaohSelected){
+		this.bPharaoh.setTint(0xddffdd)
+	}else{
+		this.bPharaoh.setTint(0xffffff)
+	}
+	
+	
 }

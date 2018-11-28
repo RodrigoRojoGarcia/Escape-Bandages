@@ -10,6 +10,8 @@ chatOnline.preload = function(){
 }
 
 chatOnline.create = function(){
+	
+	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//BACKGROUND
 	this.add.image(1540 + 380/2, 0 + 1080/2, 'chatBack');
 //////////////////////////////////ANIMACIONES///////////////////////////////////////

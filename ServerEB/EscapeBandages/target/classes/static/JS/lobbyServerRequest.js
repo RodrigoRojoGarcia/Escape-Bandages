@@ -45,6 +45,44 @@ function createPLobby(user,callback){
 	})
 }
 
+function setCharacter (idLobby, userName, character){
+	$.ajax({
+		method:"PUT",
+		url: 'http://'+location.host+'/lobby/'+idLobby+'/'+userName+'/'+character
+	}).done(function(user){
+		console.log("Character selected by: "+user.userName)
+	})
+}
+
+function otherUser(idLobby, userName,callback){
+	$.ajax({
+		url:'http://'+location.host+'/lobby/userName/'+idLobby+'/'+userName
+	}).done(function(userName){
+		callback(userName)
+	}).fail(function(userName){
+		
+	})
+}
+
+function setReady (idLobby, userName, ready, callback){
+	$.ajax({
+		method:"PUT",
+		url: 'http://'+location.host+'/lobby/ready/'+idLobby+'/'+userName+'/'+ready
+	}).done(function(user){
+		console.log(user)
+	})
+}
+
+function bothReady(idLobby, callback){
+	$.ajax({
+		url: 'http://'+location.host+'/lobby/bothReady/'+idLobby
+	}).done(function(both){
+		callback(both)
+	}).fail(function(both){
+		
+	})
+}
+
 function removeLobby(id){
 	$.ajax({
 		method: "DELETE",
@@ -53,3 +91,9 @@ function removeLobby(id){
 		console.log("Code: ")
 	})
 }
+
+
+
+
+
+

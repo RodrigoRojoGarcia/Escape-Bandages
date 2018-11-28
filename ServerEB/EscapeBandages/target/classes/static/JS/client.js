@@ -28,6 +28,7 @@ function Client(scene){
 	
 	that.id = parseInt(myIP)
 	postClient(that.id)
+	that.scene.scene.switch(menu)
 	myClient.update()
 	}
 	

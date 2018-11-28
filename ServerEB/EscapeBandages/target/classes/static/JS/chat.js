@@ -12,9 +12,9 @@ function loadChats(id, callback){
 function createChat(idLobby, userName, sentence, callback){
 	$.ajax({
 		method: "PUT",
-		url: 'http://'+location.host+'/lobby/chat/'+idLobby+'/'+userName+'/'+sentence
+		url: 'http://'+location.host+'/lobby/chat/'+idLobby+'/'+userName+'/'+sentence,
 	}).done(function(chat){
-		console.log("El usuario ha creado el chat");
+		console.log("El usuario ha creado el chat" + JSON.stringify(chat));
 		callback(chat);
 	})
 }
