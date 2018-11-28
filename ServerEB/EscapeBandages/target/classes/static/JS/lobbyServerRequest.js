@@ -44,3 +44,12 @@ function createPLobby(user,callback){
 		callback(lobby)
 	})
 }
+
+function removeLobby(id){
+	$.ajax({
+		method: "DELETE",
+		url: 'http://'+location.host+'/lobby/'+id,
+	}).done(function(){
+		console.log("Code: ")
+	})
+}

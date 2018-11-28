@@ -106,12 +106,10 @@ characterSelection.create = function(){
 	//accion al hacer click sobre el boton Salir
 	this.bback.on('pointerdown', function(){
 		
-		deleteUserName(myUser.userName, function(){
-			console.log("Eliminado el nombre de usuario")
-			myUser.setUserName("")
-		})
-		myUser.setScene(submenu)
-		characterSelection.scene.switch(lobby);
+		disconectUser(myUser.getUserName());
+		removeLobby(myLobby.getId());
+		
+		characterSelection.scene.switch(online);
 		characterSelection.scene.stop(chatOnline);
 	})
 	

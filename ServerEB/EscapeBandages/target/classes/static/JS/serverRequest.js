@@ -44,6 +44,16 @@ function logUser(client, userName, password, callback){
 	})
 }
 
+function disconectUser(userName){
+	$.ajax({
+		method: "DELETE",
+		url: 'http://'+location.host+'/users/'+ userName,
+	}).done(function(){
+		console.log("Code: ")
+	})
+}
+
+
 
 //data: JSON.stringify(user),
 //processData: false,

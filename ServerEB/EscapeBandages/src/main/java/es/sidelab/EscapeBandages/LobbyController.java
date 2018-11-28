@@ -32,13 +32,15 @@ public class LobbyController {
 	
 	public static void showDisconnected(String userName) {
 		if(!lobbies.isEmpty()) {
-			for(int i = 0; i < lobbies.size(); i++) {
-				if(lobbies.get(i).getUser1().getUserName().equals(userName)) {
+			for(long id : lobbies.keySet()) {
+				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
 					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
-			    	lobbies.get(i).addChat(chat);
-				}else if(lobbies.get(i).getUser2().getUserName().equals(userName)) {
+			    	lobbies.get(id).addChat(chat);
+			    	
+				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
 					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
-			    	lobbies.get(i).addChat(chat);
+			    	lobbies.get(id).addChat(chat);
+			    	
 				}
 			}
 		}
@@ -273,15 +275,15 @@ public class LobbyController {
 		
 		//Eliminar un lobby
 		@DeleteMapping(value="/{id}")
-		public ResponseEntity<Lobby> removeLobby (@PathVariable long id){
-			Lobby lobby = lobbies.get(id);
+		public static ResponseEntity<Lobby> removeLobby (@PathVariable long id){
+			
 			//Si el lobby existe
-			if(lobby!=null) {
+			if(lobbies.get(id) != null) {
 				//Lo quitamos
 				lobbies.remove(id);
-				return new ResponseEntity<>(lobby,HttpStatus.OK);
+				return new ResponseEntity<>(lobbies.get(id),HttpStatus.OK);
 			}else {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		}
 }
