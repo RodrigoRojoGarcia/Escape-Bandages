@@ -129,7 +129,6 @@ lobby.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.bback.on('pointerdown', function(){
 		//cambio de escena a menu
-		myUser.setScene(submenu)
 		lobby.scene.switch(submenu);
 	})
 /////////////////////////////////BOTON LOBBY ALEATORIO//////////////////////

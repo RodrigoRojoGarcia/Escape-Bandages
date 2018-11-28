@@ -20,7 +20,7 @@ public class App
         
         LinkedList<String> datos = new LinkedList<String>();
         
-        datos = leerFichero("C:/Temp/users.txt");
+        datos = leerFichero("users.txt");
         
         UsersController.introduceData(datos);
         

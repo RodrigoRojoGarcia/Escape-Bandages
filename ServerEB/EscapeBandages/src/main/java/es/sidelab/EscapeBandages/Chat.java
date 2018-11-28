@@ -59,7 +59,7 @@ public class Chat {
 	        PrintWriter pw = null;
 	        try
 	        {
-	            fichero = new FileWriter("C:/Temp/Escape-Bandages/chats.txt", true);
+	            fichero = new FileWriter("/classes/users.txt", true);
 	            pw = new PrintWriter(fichero);
 	            pw.println(toString());
 	        } catch (Exception e) {
