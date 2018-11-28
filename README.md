@@ -86,18 +86,18 @@ Cuando se colocan las dos cajas sobre los botones los dos personajes son libres 
 ![11](https://user-images.githubusercontent.com/18311855/48102045-763c4d00-e229-11e8-8434-43e0a3160759.PNG)  
 
 
-##Servidor REST
+## Servidor REST
 Instrucciones para ejecutar (desde la consola de comandos): 
 Ir al path Escape-Bandages/ServerEB/EscapeBandages/target
 Ejecutar java -jar EscapeBandages-0.2.1.jar
 Al final de la ejecución de la creación del servidor aparecerá por la consola de comandos una IP, la cual es la que se tiene que incluir en el buscador web para acceder como cliente al juego.
 
-##Diagrama de clases de la aplicación
+## Diagrama de clases de la aplicación
 ![classdiagram](https://user-images.githubusercontent.com/18311855/48830920-0031fd00-ed76-11e8-9bfd-621e18b9c3df.PNG)  
 La línea discontinua indica que llama a métodos de las otras clases. La clase App llama a métodos de las clases HostManager y UsersManager.
 
 
-##Capturas
+## Capturas
 ![introusuario](https://user-images.githubusercontent.com/18311855/48831513-450a6380-ed77-11e8-8036-751b012ae2cd.PNG)  
 Introducción de un usuario por cliente. Para llegar a la pantalla de selección de personaje cada usuario tiene que introducir un usuario que no se encuentre dentro del servidor.
 ![usuariointroducido](https://user-images.githubusercontent.com/18311855/48831516-45a2fa00-ed77-11e8-8bbb-ce26d956fde8.PNG)  
@@ -109,7 +109,7 @@ Los usuarios se podrán comunicar vía chat que se irá refrescando automáticam
 ![registerlogin](https://user-images.githubusercontent.com/34351330/49143511-79dc6480-f2fb-11e8-8c5b-ee38cb1c26c0.png)
 ![rand](https://user-images.githubusercontent.com/34351330/49143738-f53e1600-f2fb-11e8-9b80-1f786f4e96d6.png)
 
-##FASE 3 SEMANA 1
+## FASE 3 SEMANA 1
 Hemos cambiado el sistema de nuestro servidor. Ahora cuando se carga el juego en una nueva pantalla de carga, se inicializa un cliente con id única por ordenador, pues coge la IP propia del cliente. Este cliente es el que llevará la cuenta del tiempo de incactividad en el servidor para la desconexión del mismo si hace tiempo que no se desconecta. El cliente recibe el mensaje, por consola y en la pantalla de título (todavía no se ha implementado para que aparezca en todas las pantallas a las que te muevas)
 ![fase3-1](https://user-images.githubusercontent.com/18311855/49178464-234d4580-f350-11e8-8f8a-e3852021365a.PNG)  
 ![fase3-2](https://user-images.githubusercontent.com/18311855/49178465-23e5dc00-f350-11e8-8a19-9aa66800fbb9.PNG)  
