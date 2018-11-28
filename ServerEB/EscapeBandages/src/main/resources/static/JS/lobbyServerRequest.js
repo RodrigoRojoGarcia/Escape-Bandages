@@ -59,6 +59,8 @@ function otherUser(idLobby, userName,callback){
 		url:'http://'+location.host+'/lobby/userName/'+idLobby+'/'+userName
 	}).done(function(userName){
 		callback(userName)
+	}).fail(function(userName){
+		
 	})
 }
 
@@ -76,10 +78,19 @@ function bothReady(idLobby, callback){
 		url: 'http://'+location.host+'/lobby/bothReady/'+idLobby
 	}).done(function(both){
 		callback(both)
+	}).fail(function(both){
+		
 	})
 }
 
-
+function removeLobby(id){
+	$.ajax({
+		method: "DELETE",
+		url: 'http://'+location.host+'/lobby/'+id,
+	}).done(function(){
+		console.log("Code: ")
+	})
+}
 
 
 

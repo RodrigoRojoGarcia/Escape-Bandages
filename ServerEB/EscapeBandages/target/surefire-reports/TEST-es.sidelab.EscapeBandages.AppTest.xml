@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="es.sidelab.EscapeBandages.AppTest" time="0.001" tests="1" errors="0" skipped="0" failures="0">
+<testsuite name="es.sidelab.EscapeBandages.AppTest" time="0.016" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_172\jre\bin"/>
     <property name="java.vm.version" value="25.172-b11"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="E:\Uni\Tercero\JR\POS AQUÍ\Escape-Bandages\ServerEB\EscapeBandages"/>
+    <property name="maven.multiModuleProjectDirectory" value="R:\Documents\JR\Escape-Bandages\ServerEB\EscapeBandages"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="E:\Uni\Tercero\JR\POS AQUÍ\Escape-Bandages\ServerEB\EscapeBandages"/>
+    <property name="user.dir" value="R:\Documents\JR\Escape-Bandages\ServerEB\EscapeBandages"/>
     <property name="java.runtime.version" value="1.8.0_172-b11"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_172\jre\lib\endorsed"/>
@@ -64,5 +64,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testApp" classname="es.sidelab.EscapeBandages.AppTest" time="0.001"/>
+  <testcase name="testApp" classname="es.sidelab.EscapeBandages.AppTest" time="0.016"/>
 </testsuite>

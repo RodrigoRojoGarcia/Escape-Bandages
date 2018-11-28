@@ -26,6 +26,30 @@ public class LobbyController {
 	//última id usada para los lobbies
 	private AtomicLong lastId = new AtomicLong();
 	
+	public static Map<Long, Lobby> getLobbies(){
+		return lobbies;
+	}
+	
+	public static void showDisconnected(String userName) {
+		if(!lobbies.isEmpty()) {
+			for(long id : lobbies.keySet()) {
+				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
+			    	lobbies.get(id).addChat(chat);
+			    	
+				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
+			    	lobbies.get(id).addChat(chat);
+			    	
+				}
+			}
+		}
+		
+	}
+	
+	
+	
+	
 	//Devuelve todos los lobbies
 		@GetMapping(value="/")
 		public static Collection<Lobby> lobbies(){
@@ -37,6 +61,8 @@ public class LobbyController {
 			long id = lastId.incrementAndGet();
 			Lobby lob = new Lobby(user,true);
 			lobbies.put(id, lob);
+			Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+	    	lobbies.get(id).addChat(chat);
 			return id;
 		}
 		
@@ -46,10 +72,16 @@ public class LobbyController {
 				if(lobbies.get(id).getUser1().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
 					lobbies.get(id).setUser2(newUser);
 					lobbies.get(id).setFull(true);
+					
+					Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
+			    	lobbies.get(id).addChat(chat);
 					return id;
 				}else if(lobbies.get(id).getUser2().getUserName().equals(userName) && !lobbies.get(id).getUser2().getUserName().equals(newUser.getUserName())&& !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
 					lobbies.get(id).setUser1(newUser);
 					lobbies.get(id).setFull(true);
+					
+					Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
+			    	lobbies.get(id).addChat(chat);
 					return id;
 				}
 			}
@@ -70,6 +102,9 @@ public class LobbyController {
 				    		//Decimos que se ha llenado
 				    		lobbies.get(id).setFull(true);
 				    		//Paramos la ejecución del post devolviendo el id del Lobby
+				    		
+				    		Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+					    	lobbies.get(id).addChat(chat);
 				    		return id;
 		    			}else {
 		    				return (long) 0;
@@ -81,6 +116,9 @@ public class LobbyController {
 				    		//Decimos que se ha llenado
 				    		lobbies.get(id).setFull(true);
 				    		//Paramos la ejecución del post devolviendo el id del Lobby
+				    		
+				    		Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+					    	lobbies.get(id).addChat(chat);
 				    		return id;
 		    			}else {
 		    				return (long) 0;
@@ -94,6 +132,8 @@ public class LobbyController {
 	    	long id = lastId.incrementAndGet();
 	    	Lobby lob = new Lobby(user,false);
 	    	lobbies.put(id, lob);
+	    	Chat chat = new Chat(user.getUserName()+" se ha conectado.","SERVER");
+	    	lobbies.get(id).addChat(chat);
 	    	return id;
 
 		}
@@ -196,12 +236,14 @@ public class LobbyController {
 			if(lobbies.get(id)!=null) {
 				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
 					if(character.equalsIgnoreCase("mummy")) {
+						if(lobbies.get(id).getMummy().equals(""))
 						lobbies.get(id).setMummy(userName);
 						if(lobbies.get(id).getPharaoh().equals(userName)) {
 							lobbies.get(id).setPharaoh("");
 						}
 						return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
 					}else if(character.equalsIgnoreCase("pharaoh")) {
+						if(lobbies.get(id).getPharaoh().equals(""))
 						lobbies.get(id).setPharaoh(userName);
 						if(lobbies.get(id).getMummy().equals(userName)) {
 							lobbies.get(id).setMummy("");
@@ -212,12 +254,14 @@ public class LobbyController {
 					}
 				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)){
 					if(character.equalsIgnoreCase("mummy")) {
+						if(lobbies.get(id).getMummy().equals(""))
 						lobbies.get(id).setMummy(userName);
 						if(lobbies.get(id).getPharaoh().equals(userName)) {
 							lobbies.get(id).setPharaoh("");
 						}
 						return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
 					}else if(character.equalsIgnoreCase("pharaoh")) {
+						if(lobbies.get(id).getPharaoh().equals(""))
 						lobbies.get(id).setPharaoh(userName);
 						if(lobbies.get(id).getMummy().equals(userName)) {
 							lobbies.get(id).setMummy("");
@@ -267,41 +311,48 @@ public class LobbyController {
 		@GetMapping(value="/userName/{id}/{userName}")
 		public ResponseEntity<String> otherUser(@PathVariable long id, @PathVariable String userName){
 			if(lobbies.get(id)!=null) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
-					if(lobbies.get(id).getUser2()!=null) {
-						return new ResponseEntity<>(lobbies.get(id).getUser2().getUserName(),HttpStatus.OK);
-					}else {
-						return new ResponseEntity<>("",HttpStatus.OK);
-					}
-				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)){
-					if(lobbies.get(id).getUser1()!=null) {
-						return new ResponseEntity<>(lobbies.get(id).getUser1().getUserName(),HttpStatus.OK);
-					}else {
-						return new ResponseEntity<>("",HttpStatus.OK);
-					}
-	
-				}else {
+				if(lobbies.get(id).getUser1()!=null||lobbies.get(id).getUser2()!=null) {
+						if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+							if(lobbies.get(id).getUser2()!=null) {
+								return new ResponseEntity<>(lobbies.get(id).getUser2().getUserName(),HttpStatus.OK);
+							}else {
+								return new ResponseEntity<>("",HttpStatus.OK);
+							}
+						}else if(lobbies.get(id).getUser2().getUserName().equals(userName)){
+								if(lobbies.get(id).getUser1()!=null) {
+										return new ResponseEntity<>(lobbies.get(id).getUser1().getUserName(),HttpStatus.OK);
+								}else {
+										return new ResponseEntity<>("",HttpStatus.OK);
+								}
+						
+					
+						}
+					
+				}
+				
+				else {
 					return new ResponseEntity<>("",HttpStatus.OK);
 				}
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
+			return new ResponseEntity<>("",HttpStatus.OK);
 		}
 		
 		
 		
 		
 		//Eliminar un lobby
-		@DeleteMapping(value="/{id}")
-		public ResponseEntity<Lobby> removeLobby (@PathVariable long id){
-			Lobby lobby = lobbies.get(id);
-			//Si el lobby existe
-			if(lobby!=null) {
-				//Lo quitamos
-				lobbies.remove(id);
-				return new ResponseEntity<>(lobby,HttpStatus.OK);
-			}else {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			@DeleteMapping(value="/{id}")
+			public static ResponseEntity<Lobby> removeLobby (@PathVariable long id){
+				
+				//Si el lobby existe
+				if(lobbies.get(id) != null) {
+					//Lo quitamos
+					lobbies.remove(id);
+					return new ResponseEntity<>(lobbies.get(id),HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
-		}
 }

@@ -133,12 +133,10 @@ characterSelection.create = function(){
 		characterSelection.iPharaoh2.setAlpha(0);
 		
 		
-		deleteUserName(myUser.userName, function(){
-			console.log("Eliminado el nombre de usuario")
-			myUser.setUserName("")
-		})
+		disconectUser(myUser.getUserName());
 		
-		characterSelection.scene.switch(lobby);
+		
+		characterSelection.scene.switch(online);
 		characterSelection.scene.stop(chatOnline);
 	})
 	
@@ -259,11 +257,8 @@ characterSelection.create = function(){
 characterSelection.usersReady = function(){
 		bothReady(myLobby.getId(),function(both){
 			if(both){
-				if(characterSelection.once==0){
-					characterSelection.scene.switch(offline)
-					characterSelection.once++
-				}
-					
+					characterSelection.scene.start(offline)
+					clearInterval(characterSelection.goOn)
 			}
 		})
 	}
