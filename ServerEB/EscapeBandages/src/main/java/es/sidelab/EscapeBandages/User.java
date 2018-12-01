@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 
 public class User {
 	private String userName;
-	private String state;
+	private boolean online;
 	private int timeInactive=0;
 	private boolean ready;
 	
@@ -17,10 +17,10 @@ public class User {
 		super();
 		this.userName = userName;
 	}
-	public User(String userName, String state, boolean ready) {
+	public User(String userName, boolean state, boolean ready) {
 		super();
 		this.userName = userName;
-		this.state = state;
+		this.online = state;
 		this.ready = ready;
 	}
 
@@ -30,11 +30,11 @@ public class User {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getState() {
-		return state;
+	public boolean isOnline() {
+		return online;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 	public int getTimeInactivity() {
 		return timeInactive;

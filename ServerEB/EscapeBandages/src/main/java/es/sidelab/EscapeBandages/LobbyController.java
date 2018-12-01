@@ -33,11 +33,7 @@ public class LobbyController {
 	public static void showDisconnected(String userName) {
 		if(!lobbies.isEmpty()) {
 			for(long id : lobbies.keySet()) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
-					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
-			    	lobbies.get(id).addChat(chat);
-			    	
-				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+				if(lobbies.get(id).getUser1().getUserName().equals(userName) || lobbies.get(id).getUser2().getUserName().equals(userName)) {
 					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
 			    	lobbies.get(id).addChat(chat);
 			    	
@@ -75,17 +71,19 @@ public class LobbyController {
 					
 					Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
 			    	lobbies.get(id).addChat(chat);
-					return id;
-				}else if(lobbies.get(id).getUser2().getUserName().equals(userName) && !lobbies.get(id).getUser2().getUserName().equals(newUser.getUserName())&& !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
+					//Lobby found
+			    	return id;
+				}else if(lobbies.get(id).getUser2().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
 					lobbies.get(id).setUser1(newUser);
 					lobbies.get(id).setFull(true);
 					
 					Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
 			    	lobbies.get(id).addChat(chat);
+			    	//Lobby found
 					return id;
 				}
 			}
-			return (long) 0;
+			return 0L;
 		}
 		
 		
@@ -107,7 +105,7 @@ public class LobbyController {
 					    	lobbies.get(id).addChat(chat);
 				    		return id;
 		    			}else {
-		    				return (long) 0;
+		    				return 0L;
 		    			}
 		    		}else if(lobbies.get(id).getUser2()!=null){
 		    			if(!lobbies.get(id).getUser2().getUserName().equals(user.getUserName())) {
@@ -121,10 +119,10 @@ public class LobbyController {
 					    	lobbies.get(id).addChat(chat);
 				    		return id;
 		    			}else {
-		    				return (long) 0;
+		    				return 0L;
 		    			}
 		    		}else {
-		    			return (long)0;
+		    			return 0L;
 		    		}
 		    	}
 		    }

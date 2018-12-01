@@ -30,7 +30,7 @@ public class UsersController {
 				cad = datos.get(i).split(" ");
 				userspasswords.put(cad[0], cad[1]);
 				
-				User user1 = new User(cad[0],"OFFLINE",false);
+				User user1 = new User(cad[0],false,false);
 				users.put(cad[0], user1);
 			}
 		}
@@ -54,7 +54,7 @@ public class UsersController {
 		if(ClientController.getClients().get(id)!=null) {
 			if(ClientController.getClients().get(id).getUser()==null) {
 				if(!users.containsKey(userName)) {
-					User newUser = new User(userName,"OFFLINE",false);
+					User newUser = new User(userName,false,false);
 					newUser.toFile(password);
 					users.put(userName, newUser);
 					userspasswords.put(userName, password);
@@ -80,10 +80,10 @@ public class UsersController {
 		if(ClientController.getClients().get(id)!=null) {
 			if(ClientController.getClients().get(id).getUser()==null) {
 					if(users.containsKey(userName)) {
-						if(users.get(userName).getState().equalsIgnoreCase("OFFLINE")) {
+						if(!users.get(userName).isOnline()) {
 							if(userspasswords.containsKey(userName)) {
 								if(userspasswords.get(userName).equals(password)) {
-									users.get(userName).setState("ONLINE");
+									users.get(userName).setOnline(true);
 									ClientController.getClients().get(id).setUser(users.get(userName));
 									//Registrado con éxito
 									return 1;
@@ -95,7 +95,7 @@ public class UsersController {
 								//Usuario  no registrado con contraseña
 								return -4;
 							}
-						}else if(users.get(userName).getState().equalsIgnoreCase("ONLINE")) {
+						}else if(users.get(userName).isOnline()) {
 							//Usuario ya conectado
 							return -3;
 						}else {
@@ -128,7 +128,7 @@ public class UsersController {
 			
 			if(users.get(userName)!=null) {
 				//Cambiar su estado a OFFLINE
-				users.get(userName).setState("OFFLINE");
+				users.get(userName).setOnline(false);
 				
 				LobbyController.showDisconnected(userName);
 				
@@ -139,7 +139,8 @@ public class UsersController {
 							LobbyController.getLobbies().get(id).setFull(false);
 						}	
 						
-					}else if(LobbyController.getLobbies().get(id).getUser2() != null) {
+					}
+					if(LobbyController.getLobbies().get(id).getUser2() != null) {
 						if(LobbyController.getLobbies().get(id).getUser2().getUserName().equals(userName)) {
 							LobbyController.getLobbies().get(id).setUser2(null);
 							LobbyController.getLobbies().get(id).setFull(false);
@@ -151,29 +152,11 @@ public class UsersController {
 				}
 				
 				
-				for(Lobby lobby : LobbyController.lobbies()) {
-					if(lobby.getUser1() != null) {
-						if(lobby.getUser1().getUserName().equals(userName)) {
-							lobby.setUser1(null);
-							lobby.setFull(false);
-						}	
-						
-					}else if(lobby.getUser2() != null) {
-						if(lobby.getUser2().getUserName().equals(userName)) {
-							lobby.setUser2(null);
-							lobby.setFull(false);
-						}
-					}
-					
-					
-				}
 				
-				
-				
-				for(Client client : ClientController.clients()) {
-					if(client.getUser() != null) {
-						if(client.getUser().getUserName().equals(userName)) {
-							client.setUser(null);
+				for(Long id : ClientController.getClients().keySet()) {
+					if(ClientController.getClients().get(id).getUser() != null) {
+						if(ClientController.getClients().get(id).getUser().getUserName().equals(userName)) {
+							ClientController.getClients().get(id).setUser(null);
 						}
 					}
 					

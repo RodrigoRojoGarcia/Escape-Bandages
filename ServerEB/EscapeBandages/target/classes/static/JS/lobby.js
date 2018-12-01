@@ -155,12 +155,18 @@ lobby.create = function(){
 		
 		getUserFromClient(myClient.id,function(user){
 			createRLobby(user, function(id){
-				myLobby.setId(id)
-				console.log(myLobby.getId())
+				if(id==0){
+					console.log('Lobby error')
+				}else{
+					myLobby.setId(id)
+					console.log(myLobby.getId())
+					lobby.scene.switch(characterSelection);
+					lobby.scene.launch(chatOnline, characterSelection);
+				}
+				
 			})
 		})
-		lobby.scene.switch(characterSelection);
-		lobby.scene.launch(chatOnline, characterSelection);
+		
 	})
 	
 	
@@ -223,13 +229,20 @@ lobby.create = function(){
 			
 			getUserFromClient(myClient.id,function(user){
 				findPrivLobby(textEntry.text,user, function(id){
-					myLobby.setId(id)
-					console.log(myLobby.getId())
+					if(id==0){
+						lobby.add.dynamicBitmapText(1115, 485, 'font2', 'Lobby privado no encontrado', 32);
+						console.log('Lobby NOT_FOUND')
+					}else{
+						myLobby.setId(id)
+						console.log(myLobby.getId())
+						lobby.scene.switch(characterSelection);
+						lobby.scene.launch(chatOnline, characterSelection);
+					}
+					
 				})
 			})
 			
-			lobby.scene.switch(characterSelection);
-			lobby.scene.launch(chatOnline, characterSelection);
+			
 		}
 	})
 }
