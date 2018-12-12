@@ -82,12 +82,12 @@ lobby.create = function(){
 	//accion al quitar el cursor del boton Salir
 	this.inputK.on('pointerout', function(){
 		lobby.typing = false;
-		if(textEntry.text.length == 0){
+		if(lobby.textEntry.text.length == 0){
 			lobby.inputK.anims.play('manualInput');
 		}
 	})
 	
-    var textEntry = this.add.dynamicBitmapText(1115, 485, 'font2', '', 32);
+    this.textEntry = this.add.dynamicBitmapText(1115, 485, 'font2', '', 32);
     //habilitar teclado para introducir texto
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
@@ -95,15 +95,15 @@ lobby.create = function(){
     this.input.keyboard.on('keydown', function (event) {
         if (event.keyCode === 8 && textEntry.text.length > 0 && lobby.typing)
         {
-            textEntry.text = textEntry.text.substr(0, textEntry.text.length - 1);
+            lobby.textEntry.text = lobby.textEntry.text.substr(0, lobby.textEntry.text.length - 1);
         }
         else if (event.keyCode === 32 || (event.keyCode >= 48 && event.keyCode < 90) && lobby.typing)
         {
-            textEntry.text += event.key;
+        	lobby.textEntry.text += event.key;
         }
         else if(event.keyCode >= 186 && event.keyCode < 222 && lobby.typing)
         {
-        	textEntry.text += event.key;
+        	lobby.textEntry.text += event.key;
         }
     });
 
@@ -225,15 +225,28 @@ lobby.create = function(){
 		//cambio de escena a menu
 
 		//implementar busqueda de usuario con API REST
-		if(textEntry.text.length>0){
+		if(lobby.textEntry.text.length>0){
 			
 			getUserFromClient(myClient.id,function(user){
-				findPrivLobby(textEntry.text,user, function(id){
-					if(id==0){
-						lobby.add.dynamicBitmapText(1115, 485, 'font2', 'Lobby privado no encontrado', 32);
+				findPrivLobby(lobby.textEntry.text,user, function(id){
+					if(id===0){
+						var textError = lobby.add.dynamicBitmapText(1115, 485, 'font2', 'Lobby privado no encontrado', 32);
+						while(lobby.textEntry.text.length>0){
+							lobby.textEntry.text = lobby.textEntry.text.substr(0,lobby.textEntry.text.length-1)
+							
+						}
+						lobby.time.addEvent({
+				            delay: 1000,
+				            callback: function(){ textError.text = "";},
+				            callbackScope: lobby
+				        });
 						console.log('Lobby NOT_FOUND')
 					}else{
 						myLobby.setId(id)
+						while(lobby.textEntry.text.length>0){
+							lobby.textEntry.text = lobby.textEntry.text.substr(0,lobby.textEntry.text.length-1)
+							
+						}
 						console.log(myLobby.getId())
 						lobby.scene.switch(characterSelection);
 						lobby.scene.launch(chatOnline, characterSelection);
