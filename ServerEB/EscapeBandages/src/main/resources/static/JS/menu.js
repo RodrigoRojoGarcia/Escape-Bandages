@@ -54,7 +54,7 @@ menu.create = function(){
 	//accion al hacer click sobre el boton Play
 	this.bplay.on('pointerdown', function(){
 		//cambio de escena a submenu
-		
+		sendMessage("UwUs")
 		menu.scene.switch(submenu);
 	})
 	//console.log(this.bplay);

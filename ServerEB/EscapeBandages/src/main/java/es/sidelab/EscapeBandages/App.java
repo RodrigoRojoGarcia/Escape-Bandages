@@ -8,9 +8,14 @@ import java.util.LinkedList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 @SpringBootApplication
-public class App 
+@EnableWebSocket
+public class App implements WebSocketConfigurer
 {
     public static void main( String[] args ) throws IOException
     {
@@ -26,7 +31,18 @@ public class App
         
         UsersManager.init();
     }
-    
+    @Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		registry.addHandler(calcetineteHandler(), "/calcetinete")
+		.setAllowedOrigins("*");
+		
+	}
+	
+	@Bean
+	public CalcetineteHandler calcetineteHandler() {
+		return new CalcetineteHandler();
+	}
+
     public static LinkedList<String> leerFichero(String archivo) throws FileNotFoundException, IOException{
     	LinkedList<String> cadenas = new LinkedList<String>();
     	String cadena;
