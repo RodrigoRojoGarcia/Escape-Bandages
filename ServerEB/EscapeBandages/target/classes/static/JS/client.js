@@ -20,16 +20,32 @@ function Client(scene){
 		
 	}
 	this.gIP =function () {
-	var arr = that.myJSON.ip.split(".")
+		var arr = that.myJSON.ip.split(".")
 		var myIP = ""
 		for(var i =0;i<arr.length;i++){
 			myIP += arr[i]
 		}
-	
-	that.id = parseInt(myIP)
-	postClient(that.id)
-	that.scene.scene.switch(menu)
-	myClient.update()
+		
+		
+		getUserIP(function(ip){
+			var arr2 = ip.split(".")
+			
+			for(var i =arr2.length-3;i<arr2.length;i++){
+				myIP += arr2[i]
+			}
+		that.id = parseInt(myIP)
+		
+		console.log("Got IP! :" + that.id);
+		postClient(that.id)
+		    
+		});
+		
+		
+		
+		
+		
+		that.scene.scene.switch(menu)
+		myClient.update()
 	}
 	
 	this.update = function(){
