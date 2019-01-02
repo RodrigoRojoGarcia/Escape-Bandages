@@ -39,8 +39,12 @@ menu.create = function(){
 		//cambio de escena a submenu
 		sendMessage("UwUs")
 		menu.scene.switch(submenu);
+	}, function(){
+		menu.bplay.amplifyScale(0.15,0.15)
+	}, function(){
+		menu.bplay.reduceScale(0.15,0.15)
 	})
-	this.bplay.setScale(0.1, 0.1);
+	this.bplay.reduceScale(0.1, 0.1);
 	this.bplay.show();
 	
 	
@@ -52,7 +56,12 @@ menu.create = function(){
 		menu.bnvol.hide();
 		//hacer botones visibles
 		menu.bvol.show();
-	})
+	}, function(){
+		menu.bnvol.amplifyScale(0.15,0.15)
+	}, function(){
+		menu.bnvol.reduceScale(0.15,0.15)
+	}
+	)
 	
 	this.bnvol.show();
 
@@ -64,6 +73,10 @@ menu.create = function(){
 		menu.bvol.hide();
 		//hacer botones visibles
 		menu.bnvol.show();
+	}, function(){
+		menu.bvol.amplifyScale(0.15,0.15)
+	}, function(){
+		menu.bvol.reduceScale(0.15,0.15)
 	})
 	this.bvol.hide()
 	
