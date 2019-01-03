@@ -49,8 +49,8 @@ chatOnline.create = function(){
 	
     var textEntry = this.add.dynamicBitmapText(1555, 1040, 'font2', '', 32);
     //habilitar teclado para introducir texto
-    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
+    //this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    //this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
     
 
     // keys = this.input.keyboard.addKeys('A,B,C');

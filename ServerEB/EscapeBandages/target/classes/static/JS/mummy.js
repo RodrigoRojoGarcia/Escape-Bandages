@@ -164,7 +164,7 @@ function Mummy(scene, x, y){
 		//Dejamos de estar en el aire
 		m.onAirM=false;
 	};
-
+	
 	//Crea la cuerda
 	this.createRope = function(){
 		//Estamos atacando
@@ -249,6 +249,10 @@ function Mummy(scene, x, y){
 			frameRate: 20,
 			repeat: 0
 		})
+		
+		
+		
+		
 	} //FIN CREATE
 
 ///////////////////////////////////UPDATE///////////////////////////////////

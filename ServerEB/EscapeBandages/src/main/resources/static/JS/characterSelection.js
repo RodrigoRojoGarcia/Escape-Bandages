@@ -118,7 +118,9 @@ characterSelection.create = function(){
 		
 		characterSelection.mummySelected = false
 		characterSelection.pharaohSelected = false
-		
+        
+        myUser.character = 0;
+
 		disconectUser(myUser.getUserName());
 		
 		characterSelection.scene.switch(online);
@@ -142,7 +144,8 @@ characterSelection.create = function(){
     	characterSelection.bcheck.show();
 		characterSelection.ready.setAlpha(1);
 		characterSelection.mummySelected = true
-		characterSelection.pharaohSelected = false
+        characterSelection.pharaohSelected = false
+        myUser.character = 1;
 		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy")
     }, function(){
     	characterSelection.bMummy.amplifyScale(0.05, 0.05)
@@ -160,7 +163,8 @@ characterSelection.create = function(){
     	characterSelection.bcheck.show();
 		characterSelection.ready.setAlpha(1);
 		characterSelection.mummySelected = false
-		characterSelection.pharaohSelected = true
+        characterSelection.pharaohSelected = true
+        myUser.character = 2;
 		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh")
     }, function(){
     	characterSelection.bPharaoh.amplifyScale(0.05, 0.05)
@@ -201,7 +205,7 @@ characterSelection.create = function(){
 characterSelection.usersReady = function(){
 		bothReady(myLobby.getId(),function(both){
 			if(both){
-					characterSelection.scene.start(offline)
+					characterSelection.scene.start(onlineG)
 					clearInterval(characterSelection.goOn)
 			}
 		})
