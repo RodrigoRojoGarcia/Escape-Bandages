@@ -1,4 +1,6 @@
+
 var onlineG = new Phaser.Scene('OnlineG');
+
 
 onlineG.preload = function(){
 ///////////////////////////////////MAPA///////////////////////////////////
@@ -152,7 +154,6 @@ onlineG.create = function(){
     shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y);
     enemies[2] = shek[0];
     enemies[3] = shek[1];
-
 
 ///////////////////////////////////GODS////////////////////////////////////
     //ANUBIS
@@ -586,6 +587,7 @@ onlineG.create = function(){
     //LLAMAR AL CALCETINETE
     onlineG.updateCalcetinete();
 
+
 }//FIN DEL CREATE
 
 onlineG.update = function(){
@@ -729,6 +731,7 @@ onlineG.update = function(){
         onlineG.scene.switch(victoria)
     }
 
+
 }//FINAL UPDATE
 
 onlineG.updateCalcetinete = function(){
@@ -745,3 +748,4 @@ onlineG.updateCalcetinete = function(){
         }, 30);
     }
 }
+

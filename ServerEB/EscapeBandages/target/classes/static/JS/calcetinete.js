@@ -12,6 +12,7 @@
 		m.onHit = parse.attacking;
 		m.health.life = parse.life;
 	}
+
 	conn.onclose = function(mes){
 		console.log("Cerrado el calcetín");
 	}
@@ -33,7 +34,11 @@
 	
 	function sendMessage(message){
 		var obj = {
-				UwU: message
+				id: 0,
+				x: posX,
+				y: posY,
+				atk: shooting,
+				hp: health
 		}
 		conn.send(JSON.stringify(obj))
 	}

@@ -22,12 +22,14 @@ var config = {
 	audio: {
         disableWebAudio: true
     },
-	scene:[carga, server, menu, offline, online, victoria, gameover, submenu, lobby, characterSelection, chatOnline]
+	scene:[carga, server, menu, offline, online, victoria, gameover, submenu, lobby, characterSelection, chatOnline, onlineG]
 };
 
 var game = new Phaser.Game(config);
 var myUser = new User();
 var myLobby = new LobbyObj();
+
+var gameState = 0;
 
 var disconnected = false; 
 var fx;
