@@ -121,6 +121,8 @@ characterSelection.create = function(){
 		
 		disconectUser(myUser.getUserName());
 		
+		myUser.character = 0;
+		
 		characterSelection.scene.switch(online);
 		characterSelection.scene.stop(chatOnline);
 		
@@ -143,6 +145,7 @@ characterSelection.create = function(){
 		characterSelection.ready.setAlpha(1);
 		characterSelection.mummySelected = true
 		characterSelection.pharaohSelected = false
+		myUser.character = 1
 		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy")
     }, function(){
     	characterSelection.bMummy.amplifyScale(0.05, 0.05)
@@ -161,6 +164,7 @@ characterSelection.create = function(){
 		characterSelection.ready.setAlpha(1);
 		characterSelection.mummySelected = false
 		characterSelection.pharaohSelected = true
+		myUser.character = 2
 		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh")
     }, function(){
     	characterSelection.bPharaoh.amplifyScale(0.05, 0.05)

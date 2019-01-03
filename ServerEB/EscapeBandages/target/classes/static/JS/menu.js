@@ -37,7 +37,7 @@ menu.create = function(){
 	//cargar boton Play
 	this.bplay = new UIButton(this, 400, 500, 'play', function(){
 		//cambio de escena a submenu
-		sendMessage("UwUs")
+		
 		menu.scene.switch(submenu);
 	}, function(){
 		menu.bplay.amplifyScale(0.15,0.15)

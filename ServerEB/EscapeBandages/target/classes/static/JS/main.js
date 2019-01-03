@@ -29,6 +29,8 @@ var game = new Phaser.Game(config);
 var myUser = new User();
 var myLobby = new LobbyObj();
 
+var gameState = 0;
+
 var disconnected = false; 
 var fx;
 

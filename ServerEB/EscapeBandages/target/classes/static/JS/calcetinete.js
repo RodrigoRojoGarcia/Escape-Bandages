@@ -6,9 +6,13 @@
 	conn.onmessage = function(m){
 		console.log(m.data)
 	}
-	function sendMessage(message){
+	function sendMummy(posX, posY, shooting, health){
 		var obj = {
-				UwU: message
+				id: 0,
+				x: posX,
+				y: posY,
+				atk: shooting,
+				hp: health
 		}
 		conn.send(JSON.stringify(obj))
 	}
