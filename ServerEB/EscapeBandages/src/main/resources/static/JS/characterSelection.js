@@ -94,6 +94,7 @@ characterSelection.create = function(){
     });
 
     this.selecc = this.add.image(950,200,'select');
+    
     this.ready = this.add.image(950,500,'ready').setInteractive();
     this.ready.setAlpha(0);
     
@@ -105,152 +106,95 @@ characterSelection.create = function(){
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
 	//cargar boton Salir
-	this.bback = this.add.sprite(300, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	this.bback.scaleX -= 0.4;
-	this.bback.scaleY -= 0.4;
-	//hacer boton visible
-	this.bback.setAlpha(1);
-	//accion al poner el cursor sobre el boton Salir
-	this.bback.on('pointerover', function(){
-		characterSelection.bback.scaleX += 0.15;
-		characterSelection.bback.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Salir
-	this.bback.on('pointerout', function(){
-		characterSelection.bback.scaleX -= 0.15;
-		characterSelection.bback.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Salir
-	this.bback.on('pointerdown', function(){
-		characterSelection.bcheck.setAlpha(0);
-		characterSelection.incheck.setAlpha(0);
-		characterSelection.bPharaoh.setAlpha(1);
-		characterSelection.iPharaoh.setAlpha(0);
-		characterSelection.bMummy.setAlpha(1);
-		characterSelection.iMummy.setAlpha(0);
-		characterSelection.ready.setAlpha(0);
-		characterSelection.iMummy2.setAlpha(0);
-		characterSelection.iPharaoh2.setAlpha(0);
+    
+    this.bback = new UIButton(this, 300, 950, 'backO', function(){
+    	characterSelection.bcheck.hide();
+		characterSelection.incheck.hide();
+		characterSelection.bPharaoh.show();
 		
+		characterSelection.bMummy.show();
+		
+		characterSelection.ready.setAlpha(0);
+		
+		characterSelection.mummySelected = false
+		characterSelection.pharaohSelected = false
 		
 		disconectUser(myUser.getUserName());
 		
-		
 		characterSelection.scene.switch(online);
 		characterSelection.scene.stop(chatOnline);
-	})
+		
+    }, function(){
+    	characterSelection.bback.amplifyScale(0.15, 0.15);
+    }, function(){
+    	characterSelection.bback.reduceScale(0.15, 0.15);
+    })
+    this.bback.reduceScale(0.4, 0.4)
+    this.bback.show();
+    
 	
 	
 
 	//////////////////////BOTON ELLECCION MOMIA///////////////////////////////
 	//cargar boton eleccion Mummy
-	this.bMummy = this.add.sprite(600, 550, 'boton_mummy').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	//hacer boton visible
-	this.bMummy.setAlpha(1);
-	//accion al poner el cursor sobre el boton de eleccion de Mummy
-	this.bMummy.on('pointerover', function(){
-		characterSelection.bMummy.scaleX += 0.05;
-		characterSelection.bMummy.scaleY += 0.05;
-		characterSelection.bMummy.anims.play('bmummyAnim2');
-	})
-	//accion al quitar el cursor del boton de eleccion de Mummy
-	this.bMummy.on('pointerout', function(){
-		characterSelection.bMummy.scaleX -= 0.05;
-		characterSelection.bMummy.scaleY -= 0.05;
-		characterSelection.bMummy.anims.play('bmummyAnim');
-	})
-	//accion al hacer click sobre el boton Salir
-	this.bMummy.on('pointerdown', function(){
-		characterSelection.bcheck.setAlpha(1);
+    
+    this.bMummy = new UIButton(this, 600, 550, 'boton_mummy', function(){
+    	characterSelection.bcheck.show();
 		characterSelection.ready.setAlpha(1);
 		characterSelection.mummySelected = true
 		characterSelection.pharaohSelected = false
 		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy")
-	})
-	
-	this.iMummy = this.add.sprite(600, 550, 'img_mummy').setInteractive();
-	characterSelection.iMummy.scaleX += 0.05;
-	characterSelection.iMummy.scaleY += 0.05;
-	//hacer boton invisible
-	this.iMummy.setAlpha(0);
-	////////////////////////momia no elegida///////////////////////
-	//cargar boton Mummy no elegida
-	this.iMummy2 = this.add.sprite(600, 550, 'img_mummy2').setInteractive();
-	//hacer boton invisible
-	this.iMummy2.setAlpha(0);
+    }, function(){
+    	characterSelection.bMummy.amplifyScale(0.05, 0.05)
+    	characterSelection.bMummy.butt.anims.play('bmummyAnim2');
+    }, function(){
+    	characterSelection.bMummy.reduceScale(0.05, 0.05);
+		characterSelection.bMummy.butt.anims.play('bmummyAnim');
+    })
+    this.bMummy.show();
+    
+  
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
-	//cargar boton eleccion Pharaoh
-	this.bPharaoh = this.add.sprite(1300, 550, 'boton_pharaoh').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	//hacer boton visible
-	this.bPharaoh.setAlpha(1);
-	//accion al poner el cursor sobre el boton de eleccion de Pharaoh
-	this.bPharaoh.on('pointerover', function(){
-		characterSelection.bPharaoh.scaleX += 0.05;
-		characterSelection.bPharaoh.scaleY += 0.05;
-		characterSelection.bPharaoh.anims.play('bpharaohAnim2');
-	})
-	//accion al quitar el cursor del boton de eleccion de Pharaoh
-	this.bPharaoh.on('pointerout', function(){
-		characterSelection.bPharaoh.scaleX -= 0.05;
-		characterSelection.bPharaoh.scaleY -= 0.05;
-		characterSelection.bPharaoh.anims.play('bpharaohAnim');
-	})
-	//accion al hacer click sobre el boton Salir
-	this.bPharaoh.on('pointerdown', function(){
-		characterSelection.bcheck.setAlpha(1);
+    
+    this.bPharaoh = new UIButton(this, 1300, 550, 'boton_pharaoh', function(){
+    	characterSelection.bcheck.show();
 		characterSelection.ready.setAlpha(1);
 		characterSelection.mummySelected = false
 		characterSelection.pharaohSelected = true
 		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh")
-	})
-////////////////////////faraon elegido///////////////////////
-	//cargar boton Pharaoh elegido
-	this.iPharaoh = this.add.sprite(1300, 550, 'img_pharaoh').setInteractive();
-	characterSelection.iPharaoh.scaleX += 0.05;
-	characterSelection.iPharaoh.scaleY += 0.05;
-	//hacer boton invisible
-	this.iPharaoh.setAlpha(0);
-	/////////////////////////faraon no elegido//////////////////
-	//cargar boton Pharaoh no elegido
-	this.iPharaoh2 = this.add.sprite(1300, 550, 'img_pharaoh2').setInteractive();
-	//hacer boton invisible
-	this.iPharaoh2.setAlpha(0);
-	
+    }, function(){
+    	characterSelection.bPharaoh.amplifyScale(0.05, 0.05)
+		characterSelection.bPharaoh.butt.anims.play('bpharaohAnim2');
+    }, function(){
+		characterSelection.bPharaoh.reduceScale(0.05, 0.05)
+		characterSelection.bPharaoh.butt.anims.play('bpharaohAnim');
+    })
+    
+    this.bPharaoh.show()
+
 //////////////////////////////////BOTON CHECK////////////////////////////
-	//cargar boton caja check
-	this.bcheck = this.add.sprite(950,600, 'nocheck').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	//hacer boton visible
-	this.bcheck.setAlpha(0);
-	//accion al poner el cursor sobre el boton
-	this.bcheck.on('pointerover', function(){
-		characterSelection.bcheck.scaleX += 0.03;
-		characterSelection.bcheck.scaleY += 0.03;
+	this.bcheck = new UIButton(this, 950, 600, 'nocheck', function(){
+		myUser.setReady(true)
+		setReady(myLobby.getId(), myUser.getUserName(), true)
+		characterSelection.incheck.show();
+	}, function(){
+		characterSelection.bcheck.amplifyScale(0.03, 0.03);
+	}, function(){
+		characterSelection.bcheck.reduceScale(0.03, 0.03);
 	})
-	//accion al quitar el cursor del boton
-	this.bcheck.on('pointerout', function(){
-		characterSelection.bcheck.scaleX -= 0.03;
-		characterSelection.bcheck.scaleY -= 0.03;
-	})
-	//accion al hacer click sobre el boton Salir
-	this.bcheck.on('pointerdown', function(){
-		
-			myUser.setReady(true)
-			setReady(myLobby.getId(), myUser.getUserName(), true)
-			characterSelection.incheck.setAlpha(1);
-		
-		
-	})
-	/////////////////////////nocheck//////////////////
-	this.incheck = this.add.sprite(950,600, 'check').setInteractive();
-	//hacer visible
-	this.incheck.setAlpha(0);
-	this.incheck.on('pointerdown', function(){
-			setReady(myLobby.getId(), myUser.getUserName(), false)
-			myUser.setReady(false)
-			characterSelection.incheck.setAlpha(0);
-		
-		
-	})
+    this.bcheck.hide()
+    
+    
+    this.incheck = new UIButton(this, 950, 600, 'check',function(){
+    	setReady(myLobby.getId(), myUser.getUserName(), false)
+		myUser.setReady(false)
+		characterSelection.incheck.hide();
+    }, function(){
+    	characterSelection.incheck.amplifyScale(0.03, 0.03);
+    }, function(){
+    	characterSelection.incheck.reduceScale(0.03, 0.03);
+    })
+    this.incheck.hide()
 	
     
 }

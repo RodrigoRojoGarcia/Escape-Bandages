@@ -33,5 +33,7 @@ function UIButton(scene, posX, posY, sprite, onclick, over, out){
 	this.hide = function(){
 		this.butt.setAlpha(0)
 	}
-	
+	this.setTint = function(tint){
+		this.butt.setTint(tint)
+	}
 }
