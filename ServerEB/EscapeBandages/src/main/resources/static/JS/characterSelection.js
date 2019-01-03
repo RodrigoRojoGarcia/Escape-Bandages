@@ -201,7 +201,7 @@ characterSelection.create = function(){
 characterSelection.usersReady = function(){
 		bothReady(myLobby.getId(),function(both){
 			if(both){
-					characterSelection.scene.start(offline)
+					characterSelection.scene.start(onlineG)
 					clearInterval(characterSelection.goOn)
 			}
 		})
