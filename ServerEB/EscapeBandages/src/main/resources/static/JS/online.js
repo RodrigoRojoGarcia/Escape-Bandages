@@ -1,4 +1,6 @@
-var onlineG = new Phaser.Scene('Offline');
+
+var onlineG = new Phaser.Scene('OnlineG');
+
 
 onlineG.preload = function(){
 ///////////////////////////////////MAPA///////////////////////////////////
@@ -152,7 +154,6 @@ onlineG.create = function(){
     shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y);
     enemies[2] = shek[0];
     enemies[3] = shek[1];
-
 
 ///////////////////////////////////GODS////////////////////////////////////
     //ANUBIS
@@ -583,6 +584,10 @@ onlineG.create = function(){
     const utilBox1 = this.matter.add.image(65*120, 0, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
     const utilBox2 = this.matter.add.image(68*120, 3*120, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
 
+    //LLAMAR AL CALCETINETE
+    onlineG.updateCalcetinete();
+
+
 }//FIN DEL CREATE
 
 onlineG.update = function(){
@@ -726,4 +731,20 @@ onlineG.update = function(){
         onlineG.scene.switch(victoria)
     }
 
+
 }//FINAL UPDATE
+
+onlineG.updateCalcetinete = function(){
+    if(myUser.character == 1)
+    {
+        setInterval(function(){
+            sendMummy(m.mummy.x, m.mummy.y, m.onHit, m.health.life);
+        }, 30);
+    }
+    else if(myUser.character == 2)
+    {
+        setInterval(function(){
+            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.onHit, p.health.life);
+        }, 30);
+    }
+}

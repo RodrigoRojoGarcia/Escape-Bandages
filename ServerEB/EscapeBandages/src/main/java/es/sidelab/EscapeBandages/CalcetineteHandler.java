@@ -24,15 +24,15 @@ public class CalcetineteHandler extends TextWebSocketHandler{
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
 		
 		JsonNode jnode = mapper.readTree(message.getPayload());
-		String uwu = jnode.get("UwU").asText();
+		//String uwu = jnode.get("UwU").asText();
 		
 		
-		ObjectNode node = mapper.createObjectNode();
-		node.put("UwU", uwu);
+		//ObjectNode node = mapper.createObjectNode();
+		//node.put("UwU", uwu);
 		
 		
 		for(WebSocketSession s : sessions.values()) {
-			s.sendMessage(new TextMessage(node.toString()));
+			s.sendMessage(new TextMessage(jnode.toString()));
 		}
 		
 		

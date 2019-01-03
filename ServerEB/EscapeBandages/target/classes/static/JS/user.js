@@ -3,7 +3,9 @@ function User(scene){
 	this.ready;
 	var that = this;
 	this.scene = scene;
-	this.character;
+
+	this.character = 0;
+
 	
 	this.setUserName = function(userName){
 		that.userName = userName
