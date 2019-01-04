@@ -739,13 +739,13 @@ onlineG.updateCalcetinete = function(){
     if(myUser.character == 1)
     {
         setInterval(function(){
-            sendMummy(m.mummy.x, m.mummy.y, m.onHit, m.health.life, m.mummy.body.force.x, keys.w.isDown);
+            sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
         }, 30);
     }
     else if(myUser.character == 2)
     {
         setInterval(function(){
-            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.onHit, p.health.life, p.pharaoh.body.force.x, keys.up.isDown);
+            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown);
         }, 30);
     }
 }

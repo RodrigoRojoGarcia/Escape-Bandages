@@ -33,6 +33,8 @@ function Pharaoh(scene, x, y){
 	this.forceWS = 0;
 	//Salto calcetinete
 	this.jumpWS = false;
+	//Ataque calcetinete
+	this.attackWS = false;
 	//Si no se puede mover
 	this.steady = false;
 	//Si esta atacando
@@ -341,10 +343,10 @@ function Pharaoh(scene, x, y){
 
 				//Nota: la animación de salto se encuentra incluida en el apartado de controles
 				//Animación del fuego del faraón
-				for(var i = 0; i < 2; i++){
-					this.fire[i].anims.play("planeFire", true);
-				}
-				this.fire[2].anims.play("endFire", true);
+				//for(var i = 0; i < 2; i++){
+					//this.fire[i].anims.play("planeFire", true);
+				//}
+				//this.fire[2].anims.play("endFire", true);
 
 				//Si estamos en el suelo y no estamos en el aire
 				if(this.isColliding.bottom && !this.onAirP){
@@ -385,15 +387,39 @@ function Pharaoh(scene, x, y){
 
 				if(this.jumpWS && this.isColliding.bottom && !this.steady){
 					//Estamos en el aire
-					this.onAirM = true;
+					this.onAirP = true;
 					//Reproducimos la animación de salto
-					this.mummy.play("jumpRightM", true);
+					this.pharaoh.play("jumpRightP", true);
 					//Después de un tiempo llamamos a JUMP
 					scene.time.addEvent({
 						delay: 40,
 						callback: this.jump,
 						callbackScope: scene
 					});
+				}
+
+				if(this.attackWS && this.isColliding.bottom && !this.steady){
+					if(!this.onHit && !this.attacking){
+						this.createFire();
+					}
+				}
+
+				///////////////////Colocación del fuego del faraón//////////////
+				this.block.position.x = this.pharaoh.x;
+				this.block.position.y = this.pharaoh.y;
+				if(!this.pharaoh.flipX){
+					for(var i = 0; i < 3; i++){
+						this.fire[i].flipX = false;
+						this.fire[i].x = this.block.position.x+62+(i*125);
+						this.fire[i].y = this.block.position.y;
+						
+					}
+				}else{
+					for(var i = 0; i < 3; i++){
+						this.fire[i].flipX = true;
+						this.fire[i].x = this.block.position.x-62-(i*125);
+						this.fire[i].y = this.block.position.y;
+					}
 				}
 			}
 			else

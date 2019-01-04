@@ -13,7 +13,7 @@ function letsConnect(){
 		m.mummy.y = parse.y;
 		m.forceWS = parse.forceX;
 		m.jumpWS = parse.jump;
-		m.onHit = parse.attacking;
+		m.attackWS = parse.attacking;
 		m.health.life = parse.life;
 	}
 
@@ -32,8 +32,9 @@ function letsConnect(){
 		p.pharaoh.y = parse.y;
 		p.forceWS = parse.forceX;
 		p.jumpWS = parse.jump;
-		p.onHit = parse.attacking;
+		p.attackWS = parse.attacking;
 		p.health.life = parse.life;
+
 	}
 	/*connPharaoh.onclose = function(mes){
 		console.log("Cerrado el calcetín");
@@ -53,26 +54,26 @@ function letsConnect(){
 		conn.send(JSON.stringify(obj))
 	}
 
-	function sendMummy(posX, posY, attack, lifes, force, jumping){
+	function sendMummy(posX, posY, lifes, force, jumping, space){
 		var obj = {
 			id: 0,
 			x: posX,
 			y: posY,
 			forceX: force,
 			jump: jumping,
-			attacking: attack,
+			attacking: space,
 			life: lifes
 		}
 		conn.send(JSON.stringify(obj))
 	}
-	function sendPharaoh(posX, posY, attack, lifes, force, jumping){
+	function sendPharaoh(posX, posY, lifes, force, jumping, space){
 		var obj = {
 			id: 1,
 			x: posX,
 			y: posY,
 			forceX: force,
 			jump: jumping,
-			attacking: attack,
+			attacking: space,
 			life: lifes
 		}
 		connPharaoh.send(JSON.stringify(obj))

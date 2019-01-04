@@ -34,6 +34,8 @@ function Mummy(scene, x, y){
 	this.forceWS = 0;
 	//Salto calcetinete
 	this.jumpWS = false;
+	//Ataque calcetinete
+	this.attackWS = false;
 	//Si no se puede mover
 	this.steady = false;
 	//Si está atacando
@@ -412,6 +414,30 @@ function Mummy(scene, x, y){
 					this.mummy.flipX = false;
 				}else if(this.forceWS < 0){
 					this.mummy.flipX = true;
+				}
+
+				if(this.attackWS){
+					//Si tiene que mostrar el segundo texto
+					if(scene.bastetText === 1){
+						//Hace invisible el primer texto y visible el segundo
+						scene.sayBastet1.setVisible(false);
+						scene.sayBastet2.setVisible(true);
+						//El siguiente texto que se muestra es el tercero
+						scene.bastetText = 2;
+					}
+					//Si se tiene que mostrar el "tercero", que no existe
+					else if(scene.bastetText === 2){
+						//Escondemos el texto 2
+						scene.sayBastet2.setVisible(false);
+						//Permitimos movimiento al sprite
+						this.steady = false;
+						//El siguiente que se tiene que mostrar es el cuarto (esto es para que no vuelva a entrar en esta rama del if)
+						scene.bastetText = 3;
+					}else{
+						//Creamos la cuerda
+						this.createRope();
+					}
+				
 				}
 
 				
