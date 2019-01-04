@@ -30,6 +30,10 @@ function Mummy(scene, x, y){
 	this.isColliding = {left: false, right: false, bottom: false};
 	//Si está en aire
 	this.onAirM = false;
+	//Fuerza calcetinete
+	this.forceWS = 0;
+	//Salto calcetinete
+	this.jumpWS = false;
 	//Si no se puede mover
 	this.steady = false;
 	//Si está atacando
@@ -164,7 +168,8 @@ function Mummy(scene, x, y){
 		//Dejamos de estar en el aire
 		m.onAirM=false;
 	};
-	
+
+
 	//Crea la cuerda
 	this.createRope = function(){
 		//Estamos atacando
@@ -272,106 +277,151 @@ function Mummy(scene, x, y){
 		}
 		//Si no estoy muerto
 		if(!this.dead){
-
+			if(myUser.character == 1){
 ///////////////////////////////////CONTROLES///////////////////////////////////
-			//Cuando a está presionado y el sprite no está quieto		
-		    if (keys.a.isDown && !this.steady)
-		    {	
-		    	//Le aplicamos la fuerza hacia la izquierda
-		        this.mummy.applyForce({x:-movingForce, y:0});
-		        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
-		        this.mummy.flipX = true;
+				//Cuando a está presionado y el sprite no está quieto		
+				if (keys.a.isDown && !this.steady)
+				{	
+					//Le aplicamos la fuerza hacia la izquierda
+					this.mummy.applyForce({x:-movingForce, y:0});
+					//Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
+					this.mummy.flipX = true;
 
-		    }
-		    //Cuando d está presionado y el sprite no está quieto	
-		    else if (keys.d.isDown && !this.steady)
-		    {
-		    	//Le aplicamos la fuerza hacia la derecha
-		        this.mummy.applyForce({x:movingForce, y:0});
-		        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
-		        this.mummy.flipX = false;
+				}
+				//Cuando d está presionado y el sprite no está quieto	
+				else if (keys.d.isDown && !this.steady)
+				{
+					//Le aplicamos la fuerza hacia la derecha
+					this.mummy.applyForce({x:movingForce, y:0});
+					//Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
+					this.mummy.flipX = false;
 
-		    }
-		    //Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
-		    else if(this.isColliding.bottom && !this.steady){
-		    	//Ponemos la velocidad a 0
-		    	this.mummy.setVelocityX(0);
+				}
+				//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
+				else if(this.isColliding.bottom && !this.steady){
+					//Ponemos la velocidad a 0
+					this.mummy.setVelocityX(0);
 
-		    }
-		    //Si acabas de presionar w y estás tocando el suelo y no está quieto
-		    if(Phaser.Input.Keyboard.JustDown(keys.w) && this.isColliding.bottom && !this.steady){
-		    	//Estamos en el aire
-		    	this.onAirM = true;
-		    	//Reproducimos la animación de salto
-		 		this.mummy.play("jumpRightM", true);
-		 		//Después de un tiempo llamamos a JUMP
-		    	scene.time.addEvent({
-		            delay: 40,
-		            callback: this.jump,
-		            callbackScope: scene
-		        });
-		    }
-			//Si se acaba de pulsar el espacio
-	        if(Phaser.Input.Keyboard.JustDown(keys.space)){
-	        	//Si tiene que mostrar el segundo texto
-		        if(scene.bastetText === 1){
-		        	//Hace invisible el primer texto y visible el segundo
-		            scene.sayBastet1.setVisible(false);
-		            scene.sayBastet2.setVisible(true);
-		            //El siguiente texto que se muestra es el tercero
-		            scene.bastetText = 2;
-		        }
-				//Si se tiene que mostrar el "tercero", que no existe
-		        else if(scene.bastetText === 2){
-		        	//Escondemos el texto 2
-		            scene.sayBastet2.setVisible(false);
-		            //Permitimos movimiento al sprite
-		            this.steady = false;
-		            //El siguiente que se tiene que mostrar es el cuarto (esto es para que no vuelva a entrar en esta rama del if)
-		            scene.bastetText = 3;
-		        }else{
-		        	//Creamos la cuerda
-		        	this.createRope();
-		        }
-	        
-	        }
+				}
+				//Si acabas de presionar w y estás tocando el suelo y no está quieto
+				if(Phaser.Input.Keyboard.JustDown(keys.w) && this.isColliding.bottom && !this.steady){
+					//Estamos en el aire
+					this.onAirM = true;
+					//Reproducimos la animación de salto
+					this.mummy.play("jumpRightM", true);
+					//Después de un tiempo llamamos a JUMP
+					scene.time.addEvent({
+						delay: 40,
+						callback: this.jump,
+						callbackScope: scene
+					});
+				}
+				//Si se acaba de pulsar el espacio
+				if(Phaser.Input.Keyboard.JustDown(keys.space)){
+					//Si tiene que mostrar el segundo texto
+					if(scene.bastetText === 1){
+						//Hace invisible el primer texto y visible el segundo
+						scene.sayBastet1.setVisible(false);
+						scene.sayBastet2.setVisible(true);
+						//El siguiente texto que se muestra es el tercero
+						scene.bastetText = 2;
+					}
+					//Si se tiene que mostrar el "tercero", que no existe
+					else if(scene.bastetText === 2){
+						//Escondemos el texto 2
+						scene.sayBastet2.setVisible(false);
+						//Permitimos movimiento al sprite
+						this.steady = false;
+						//El siguiente que se tiene que mostrar es el cuarto (esto es para que no vuelva a entrar en esta rama del if)
+						scene.bastetText = 3;
+					}else{
+						//Creamos la cuerda
+						this.createRope();
+					}
+				
+				}
 
-		    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
-		    //Si la velocidad del sprite supera 2
-		    if(this.mummy.body.velocity.x > 2){
-		    	//Dejamos la velocidad en 2
-		    	this.mummy.setVelocityX(2);
-		    }
-		    //Si la velocidad del sprite baja de -2
-		    else if(this.mummy.body.velocity.x < -2){
-		    	//Dejamos la velocidad en -2
-		    	this.mummy.setVelocityX(-2);
-		    }
+				//PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
+				//Si la velocidad del sprite supera 2
+				if(this.mummy.body.velocity.x > 2){
+					//Dejamos la velocidad en 2
+					this.mummy.setVelocityX(2);
+				}
+				//Si la velocidad del sprite baja de -2
+				else if(this.mummy.body.velocity.x < -2){
+					//Dejamos la velocidad en -2
+					this.mummy.setVelocityX(-2);
+				}
 
-		    //Si la velocidad en X es diferente a 0
-		   	if(this.mummy.body.force.x != 0){
-		   		//Nos movemos
-		    	this.moving = true
-		    }else{
-		    	//Si no, pues no nos movemos
-		    	this.moving = false
-		    }
+				//Si la velocidad en X es diferente a 0
+				if(this.mummy.body.force.x != 0){
+					//Nos movemos
+					this.moving = true
+				}else{
+					//Si no, pues no nos movemos
+					this.moving = false
+				}
 ///////////////////////////////////ANIMACIONES///////////////////////////////////
-			//Nota: la animación de salto se encuentra incluida en el apartado de controles
+				//Nota: la animación de salto se encuentra incluida en el apartado de controles
 
-			//Si estamos en el suelo y no estamos en el aire
-		    if(this.isColliding.bottom && !this.onAirM){
-		    	//Si la fuerza en X del sprite no es 0
-		    	if(this.mummy.body.force.x !== 0){
-		    		//Reproducimos la animación de andar
-		    		this.mummy.anims.play("rightM", true);
-		    	}
-		    	//Si no estamos en el aire
-		    	else if(!this.onAirM){
-		    		//Reproducimos la animación de estar quieto
-		    		this.mummy.anims.play("stayRightM", true);
-		    	}
-		    }
-	    } 
+				//Si estamos en el suelo y no estamos en el aire
+				if(this.isColliding.bottom && !this.onAirM){
+					//Si la fuerza en X del sprite no es 0
+					if(this.mummy.body.force.x !== 0){
+						//Reproducimos la animación de andar
+						this.mummy.anims.play("rightM", true);
+					}
+					//Si no estamos en el aire
+					else if(!this.onAirM){
+						//Reproducimos la animación de estar quieto
+						this.mummy.anims.play("stayRightM", true);
+					}
+				}
+			}
+			else if(myUser.character == 2)
+			{
+				///////////////////////////////////ANIMACIONES///////////////////////////////////
+				//Nota: la animación de salto se encuentra incluida en el apartado de controles
+				if(this.jumpWS && this.isColliding.bottom && !this.steady){
+					//Estamos en el aire
+					this.onAirM = true;
+					//Reproducimos la animación de salto
+					this.mummy.play("jumpRightM", true);
+					//Después de un tiempo llamamos a JUMP
+					scene.time.addEvent({
+						delay: 40,
+						callback: this.jump,
+						callbackScope: scene
+					});
+				}
+
+				//Si estamos en el suelo y no estamos en el aire
+				if(this.isColliding.bottom && !this.onAirM){
+					//Si la fuerza en X del sprite no es 0
+					if(this.forceWS !== 0){
+						//Reproducimos la animación de andar
+						this.mummy.anims.play("rightM", true);
+					}
+					//Si no estamos en el aire
+					else if(!this.onAirM){
+						//Reproducimos la animación de estar quieto
+						this.mummy.anims.play("stayRightM", true);
+					}
+				}
+				if(this.forceWS > 0){
+					this.mummy.flipX = false;
+				}else if(this.forceWS < 0){
+					this.mummy.flipX = true;
+				}
+
+				
+			}
+			else
+			{
+				console.log("UWU este no es tu barrio");
+			}
+
+		} 
+		
 	}//FIN UPDATE
 }

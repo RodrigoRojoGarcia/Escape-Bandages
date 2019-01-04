@@ -735,16 +735,17 @@ onlineG.update = function(){
 }//FINAL UPDATE
 
 onlineG.updateCalcetinete = function(){
+    const keys = this.keys
     if(myUser.character == 1)
     {
         setInterval(function(){
-            sendMummy(m.mummy.x, m.mummy.y, m.onHit, m.health.life);
+            sendMummy(m.mummy.x, m.mummy.y, m.onHit, m.health.life, m.mummy.body.force.x, keys.w.isDown);
         }, 30);
     }
     else if(myUser.character == 2)
     {
         setInterval(function(){
-            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.onHit, p.health.life);
+            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.onHit, p.health.life, p.pharaoh.body.force.x, keys.up.isDown);
         }, 30);
     }
 }

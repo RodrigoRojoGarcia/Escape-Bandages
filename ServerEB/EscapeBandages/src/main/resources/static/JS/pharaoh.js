@@ -29,6 +29,10 @@ function Pharaoh(scene, x, y){
 	this.isColliding = {left: false, right: false, bottom: false};
 	//Si está en aire
 	this.onAirP = false;
+	//Fuerza calcetinete
+	this.forceWS = 0;
+	//Salto calcetinete
+	this.jumpWS = false;
 	//Si no se puede mover
 	this.steady = false;
 	//Si esta atacando
@@ -239,120 +243,164 @@ function Pharaoh(scene, x, y){
 		}
 		//Si no estoy muerto
 		if(!this.dead){
-///////////////////////////////////CONTROLES///////////////////////////////////
-			//Cuando flecha a la izquierda está presionado y el sprite no está quieto
-			if (keys.left.isDown && !this.steady)
-		    {
-		    	//Le aplicamos la fuerza hacia la izquierda
-		        this.pharaoh.applyForce({x:-movingForce, y:0});
-		        //Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
-		        this.pharaoh.flipX = true;
-		    }
-		    //Cuando flecha a la derecha está presionado y el sprite no está quieto
-		    else if (keys.right.isDown && !this.steady)
-		    {
-		    	//Le aplicamos la fuerza hacia la derecha
-		        this.pharaoh.applyForce({x:movingForce, y:0});
-		        //Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
-		        this.pharaoh.flipX = false;
-		    }
-			//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
-		    else if(this.isColliding.bottom && !this.steady){
-		    	//Ponemos la velocidad a 0
-		    	this.pharaoh.setVelocityX(0);    
-		    }
-		    //Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
-			if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
-				//Estamos en el aire
-		    	this.onAirP = true;
-		    	//Reproducimos la animación de salto
-		 		this.pharaoh.play("jumpRightP", true);
-		 		//Después de un tiempo llamamos a JUMP
-		    	scene.time.addEvent({
-		            delay: 40,
-		            callback: this.jump,
-		            callbackScope: scene
-		        });
-		    }
-		    if(Phaser.Input.Keyboard.JustDown(keys.down) && this.isColliding.bottom && !this.steady){
-		    	if(!this.onHit && !this.attacking){
-		    		this.createFire();
-		    	}
-		    }
-		    
-
-		    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
-		    //Si la velocidad del sprite supera 2
-		    if(this.pharaoh.body.velocity.x > 2){
-		    	//Dejamos la velocidad en 2
-		    	this.pharaoh.setVelocityX(2);
-		    }
-		    //Si la velocidad del sprite baja de -2
-		    else if(this.pharaoh.body.velocity.x < -2){
-		    	//Dejamos la velocidad en -2
-		    	this.pharaoh.setVelocityX(-2);
-		    }
-		    ///////////////////Colocación del fuego del faraón//////////////
-		    this.block.position.x = this.pharaoh.x;
-			this.block.position.y = this.pharaoh.y;
-		    if(!this.pharaoh.flipX){
-				for(var i = 0; i < 3; i++){
-					this.fire[i].flipX = false;
-					this.fire[i].x = this.block.position.x+62+(i*125);
-					this.fire[i].y = this.block.position.y;
-					
+			if(myUser.character == 2)
+			{
+					///////////////////////////////////CONTROLES///////////////////////////////////
+				//Cuando flecha a la izquierda está presionado y el sprite no está quieto
+				if (keys.left.isDown && !this.steady)
+				{
+					//Le aplicamos la fuerza hacia la izquierda
+					this.pharaoh.applyForce({x:-movingForce, y:0});
+					//Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
+					this.pharaoh.flipX = true;
 				}
-			}else{
-				for(var i = 0; i < 3; i++){
-					this.fire[i].flipX = true;
-					this.fire[i].x = this.block.position.x-62-(i*125);
-					this.fire[i].y = this.block.position.y;
+				//Cuando flecha a la derecha está presionado y el sprite no está quieto
+				else if (keys.right.isDown && !this.steady)
+				{
+					//Le aplicamos la fuerza hacia la derecha
+					this.pharaoh.applyForce({x:movingForce, y:0});
+					//Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
+					this.pharaoh.flipX = false;
 				}
-			}
+				//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
+				else if(this.isColliding.bottom && !this.steady){
+					//Ponemos la velocidad a 0
+					this.pharaoh.setVelocityX(0);    
+				}
+				//Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
+				if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
+					//Estamos en el aire
+					this.onAirP = true;
+					//Reproducimos la animación de salto
+					this.pharaoh.play("jumpRightP", true);
+					//Después de un tiempo llamamos a JUMP
+					scene.time.addEvent({
+						delay: 40,
+						callback: this.jump,
+						callbackScope: scene
+					});
+				}
+				if(Phaser.Input.Keyboard.JustDown(keys.down) && this.isColliding.bottom && !this.steady){
+					if(!this.onHit && !this.attacking){
+						this.createFire();
+					}
+				}
+				
+
+				//PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
+				//Si la velocidad del sprite supera 2
+				if(this.pharaoh.body.velocity.x > 2){
+					//Dejamos la velocidad en 2
+					this.pharaoh.setVelocityX(2);
+				}
+				//Si la velocidad del sprite baja de -2
+				else if(this.pharaoh.body.velocity.x < -2){
+					//Dejamos la velocidad en -2
+					this.pharaoh.setVelocityX(-2);
+				}
+				///////////////////Colocación del fuego del faraón//////////////
+				this.block.position.x = this.pharaoh.x;
+				this.block.position.y = this.pharaoh.y;
+				if(!this.pharaoh.flipX){
+					for(var i = 0; i < 3; i++){
+						this.fire[i].flipX = false;
+						this.fire[i].x = this.block.position.x+62+(i*125);
+						this.fire[i].y = this.block.position.y;
+						
+					}
+				}else{
+					for(var i = 0; i < 3; i++){
+						this.fire[i].flipX = true;
+						this.fire[i].x = this.block.position.x-62-(i*125);
+						this.fire[i].y = this.block.position.y;
+					}
+				}
 
 
-			    //PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
-			    //Si la velocidad del sprite supera 2
-			    if(this.pharaoh.body.velocity.x > 2){
-			    	//Dejamos la velocidad en 2
-			    	this.pharaoh.setVelocityX(2);
-			    }
-			    //Si la velocidad del sprite baja de -2
-			    else if(this.pharaoh.body.velocity.x < -2){
-			    	//Dejamos la velocidad en -2
-			    	this.pharaoh.setVelocityX(-2);
-			    }
+					//PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|
+					//Si la velocidad del sprite supera 2
+					if(this.pharaoh.body.velocity.x > 2){
+						//Dejamos la velocidad en 2
+						this.pharaoh.setVelocityX(2);
+					}
+					//Si la velocidad del sprite baja de -2
+					else if(this.pharaoh.body.velocity.x < -2){
+						//Dejamos la velocidad en -2
+						this.pharaoh.setVelocityX(-2);
+					}
 
-			    //Si la velocidad en X es diferente a 0
-			    if(this.pharaoh.body.velocity.x != 0){
-			    	//Nos movemos
-			    	this.moving = true
-			    }else{
-			    	//Si no, pues no nos movemos
-			    	this.moving = false
-			    }
+					//Si la velocidad en X es diferente a 0
+					if(this.pharaoh.body.velocity.x != 0){
+						//Nos movemos
+						this.moving = true
+					}else{
+						//Si no, pues no nos movemos
+						this.moving = false
+					}
 	///////////////////////////////////ANIMACIONES///////////////////////////////////
 
-		    //Nota: la animación de salto se encuentra incluida en el apartado de controles
-		    //Animación del fuego del faraón
-		    for(var i = 0; i < 2; i++){
-		    	this.fire[i].anims.play("planeFire", true);
-		    }
-		    this.fire[2].anims.play("endFire", true);
+				//Nota: la animación de salto se encuentra incluida en el apartado de controles
+				//Animación del fuego del faraón
+				for(var i = 0; i < 2; i++){
+					this.fire[i].anims.play("planeFire", true);
+				}
+				this.fire[2].anims.play("endFire", true);
 
-			//Si estamos en el suelo y no estamos en el aire
-		    if(this.isColliding.bottom && !this.onAirP){
-		    	//Si la fuerza en X del sprite no es 0
-		    	if(this.pharaoh.body.force.x !== 0){
-		    		//Reproducimos la animación de andar
-		    		this.pharaoh.anims.play("rightP", true);
-		    	}
-				//Si no estamos en el aire
-		    	else if(!this.onAirP){
-		    		//Reproducimos la animación de estar quieto
-		    		this.pharaoh.anims.play("stayRightP", true);
-		    	}
-		    }
+				//Si estamos en el suelo y no estamos en el aire
+				if(this.isColliding.bottom && !this.onAirP){
+					//Si la fuerza en X del sprite no es 0
+					if(this.pharaoh.body.force.x !== 0){
+						//Reproducimos la animación de andar
+						this.pharaoh.anims.play("rightP", true);
+					}
+					//Si no estamos en el aire
+					else if(!this.onAirP){
+						//Reproducimos la animación de estar quieto
+						this.pharaoh.anims.play("stayRightP", true);
+					}
+				}
+			}
+			else if(myUser.character == 1)
+			{
+				///////////////////////////////////ANIMACIONES///////////////////////////////////
+
+				//Si estamos en el suelo y no estamos en el aire
+				if(this.isColliding.bottom && !this.onAirP){
+					//Si la fuerza en X del sprite no es 0
+					if(this.forceWS !== 0){
+						//Reproducimos la animación de andar
+						this.pharaoh.anims.play("rightP", true);
+					}
+					//Si no estamos en el aire
+					else if(!this.onAirP){
+						//Reproducimos la animación de estar quieto
+						this.pharaoh.anims.play("stayRightP", true);
+					}
+				}
+				if(this.forceWS > 0){
+					this.pharaoh.flipX = false;
+				}else if(this.forceWS < 0){
+					this.pharaoh.flipX = true;
+				}
+
+				if(this.jumpWS && this.isColliding.bottom && !this.steady){
+					//Estamos en el aire
+					this.onAirM = true;
+					//Reproducimos la animación de salto
+					this.mummy.play("jumpRightM", true);
+					//Después de un tiempo llamamos a JUMP
+					scene.time.addEvent({
+						delay: 40,
+						callback: this.jump,
+						callbackScope: scene
+					});
+				}
+			}
+			else
+			{
+				console.log("UwU este no es tu barrio");
+			}
+
 
 		}
 	}//FIN UPDATE   

@@ -212,8 +212,9 @@ characterSelection.create = function(){
 characterSelection.usersReady = function(){
 		bothReady(myLobby.getId(),function(both){
 			if(both){
-					characterSelection.scene.start(onlineG)
-					clearInterval(characterSelection.goOn)
+                    characterSelection.scene.start(onlineG);
+                    
+					clearInterval(characterSelection.goOn);
 			}
 		})
 	}
