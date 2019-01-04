@@ -1,6 +1,9 @@
+var conn;
+var connPharaoh;
 
-	var conn = new WebSocket('ws://'+location.host+'/calcetinete')
-	var connPharaoh = new WebSocket('ws://'+location.host+'/calcetinetePharaoh')
+function letsConnect(){
+	conn = new WebSocket('ws://'+location.host+'/calcetineteMummy')
+	connPharaoh = new WebSocket('ws://'+location.host+'/calcetinetePharaoh')
 	conn.onerror = function(e){
 		console.log(e);
 	}
@@ -15,6 +18,7 @@
 
 	conn.onclose = function(mes){
 		console.log("Cerrado el calcetín");
+		letsConnect()
 	}
 
 	connPharaoh.onerror = function(e){
@@ -30,7 +34,10 @@
 	}
 	connPharaoh.onclose = function(mes){
 		console.log("Cerrado el calcetín");
+		letsConnect()
 	}
+}
+	
 	
 	function sendMessage(message){
 		var obj = {

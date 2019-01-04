@@ -30,13 +30,18 @@ function Client(scene){
 		getUserIP(function(ip){
 			var arr2 = ip.split(".")
 			
-			for(var i =arr2.length-3;i<arr2.length;i++){
+			for(var i =arr2.length-2;i<arr2.length;i++){
 				myIP += arr2[i]
 			}
-		that.id = parseInt(myIP)
 		
-		console.log("Got IP! :" + that.id);
-		postClient(that.id)
+		
+		
+		postClient(parseInt(myIP), function(data){
+			
+			that.id = data.id;
+			
+			console.log("Got IP! :" + that.id);
+		})
 		    
 		});
 		

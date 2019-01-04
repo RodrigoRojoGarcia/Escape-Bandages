@@ -171,6 +171,7 @@ characterSelection.create = function(){
         characterSelection.pharaohSelected = true
         myUser.character = 2;
 
+
 		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh")
     }, function(){
     	characterSelection.bPharaoh.amplifyScale(0.05, 0.05)

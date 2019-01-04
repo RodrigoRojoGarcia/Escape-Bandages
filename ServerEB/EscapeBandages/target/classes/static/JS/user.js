@@ -6,7 +6,6 @@ function User(scene){
 
 	this.character = 0;
 
-	
 	this.setUserName = function(userName){
 		that.userName = userName
 	}

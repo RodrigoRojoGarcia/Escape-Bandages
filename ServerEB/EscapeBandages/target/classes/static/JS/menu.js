@@ -19,7 +19,7 @@ menu.preload = function(){
 
 menu.create = function(){
 	
-	
+	letsConnect()
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//cargar letras Escape Bandages
@@ -37,7 +37,6 @@ menu.create = function(){
 	//cargar boton Play
 	this.bplay = new UIButton(this, 400, 500, 'play', function(){
 		//cambio de escena a submenu
-
 		menu.scene.switch(submenu);
 	}, function(){
 		menu.bplay.amplifyScale(0.15,0.15)

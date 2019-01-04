@@ -1,9 +1,9 @@
-function postClient(id){
+function postClient(id, callback){
 	$.ajax({
 		method: "POST",
 		url: 'http://'+location.host+'/clients/'+id
 	}).done(function(data){
-		console.log(data)
+		callback(data)
 	})
 }
 

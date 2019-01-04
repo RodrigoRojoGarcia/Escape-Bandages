@@ -33,14 +33,20 @@ public class App implements WebSocketConfigurer
     }
     @Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(calcetineteHandler(), "/calcetinete")
+		registry.addHandler(mummyHandler(), "/calcetineteMummy")
+		.setAllowedOrigins("*");
+		registry.addHandler(pharaohHandler(), "/calcetinetePharaoh")
 		.setAllowedOrigins("*");
 		
 	}
 	
 	@Bean
-	public CalcetineteHandler calcetineteHandler() {
-		return new CalcetineteHandler();
+	public MummyHandler mummyHandler() {
+		return new MummyHandler();
+	}
+	@Bean
+	public PharaohHandler pharaohHandler() {
+		return new PharaohHandler();
 	}
 
     public static LinkedList<String> leerFichero(String archivo) throws FileNotFoundException, IOException{

@@ -19,7 +19,7 @@ menu.preload = function(){
 
 menu.create = function(){
 	
-	
+	letsConnect()
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//cargar letras Escape Bandages

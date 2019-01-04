@@ -748,4 +748,3 @@ onlineG.updateCalcetinete = function(){
         }, 30);
     }
 }
-

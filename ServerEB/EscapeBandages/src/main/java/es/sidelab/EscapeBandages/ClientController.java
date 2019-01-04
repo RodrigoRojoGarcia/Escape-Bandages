@@ -20,6 +20,8 @@ public class ClientController {
 	
 	//Guarda todos los clientes conectados al servidor identificados por ids únicas calculadas en el juego
 		private static Map<Long, Client> clients = new ConcurrentHashMap<>();
+		
+		private static Map<Long, Integer> numberWindows = new ConcurrentHashMap<>();
 	
 	public static Map<Long,Client> getClients(){
 		return clients;
@@ -57,14 +59,29 @@ public class ClientController {
 		//Hacemos un post de un cliente nuevo, esto ocurrirá cuando se conecte un cliente.
 		@PostMapping(value="/{id}")
 		public ResponseEntity<Client> addClient(@PathVariable long id){
-			if(!clients.containsKey(id)) {
-				Client client = new Client(id);
-			clients.put(id, client);
-			return new ResponseEntity<>(client, HttpStatus.OK);
+			if(!numberWindows.containsKey(id)) {
+				numberWindows.put(id, 1);
+				if(!clients.containsKey(id*10+1)) {
+				Client client = new Client(id*10+1);
+				clients.put(id*10+1, client);
+				return new ResponseEntity<>(client, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
 			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				int windowN = numberWindows.get(id)+1;
+				numberWindows.put(id, windowN);
+				if(!clients.containsKey(id*10+windowN)) {
+					Client client = new Client(id*10+windowN);
+					clients.put(id*10+windowN, client);
+					return new ResponseEntity<>(client, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
 			}
 			
+			
+						
 		}
 		//Eliminamos un cliente cuando se desconecta
 		@DeleteMapping(value="/{id}")
