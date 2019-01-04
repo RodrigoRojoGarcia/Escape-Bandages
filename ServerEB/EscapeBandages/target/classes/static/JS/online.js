@@ -75,8 +75,9 @@ onlineG.create = function(){
     this.matter.world.convertTilemapLayer(layer);
     //Colisión de los objetos con los bordes del mundo
     this.matter.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels + 240);
-
-    
+///////////////////////////////////CALCETINETE'S VARIABLES///////////////////////////////////
+    this.clickNWS = false;
+    this.clickWS = false;
 
 ///////////////////////////////////EXTRACCIÓN ELEMENTOS TILEMAP(JSON)///////////////////////////////////
 
@@ -540,30 +541,40 @@ onlineG.create = function(){
         r: R,
         space: SPACE
     });
-    //Evento cuando se hace click
-    this.input.on('pointerdown',function(pointer){
-        //Si se tiene que mostrar el segundo texto
-        if(scene.anubisText === 1){
-            //Se hace invisible el primer texto
-            scene.sayAnubis1.setVisible(false);
-            //Se hace visible el segundo
-            scene.sayAnubis2.setVisible(true);
-            //El siguiente texto que se tiene que mostrar es el tercero
-            scene.anubisText = 2;
-        }else if(scene.anubisText === 2){ //Si ha terminado de mostrar textos
-            //Se esconde el texto 2
-            scene.sayAnubis2.setVisible(false);
-            scene.sayAnubis3.setVisible(true);
-            scene.anubisText = 3
-        }else if(scene.anubisText === 3){
-            scene.sayAnubis3.setVisible(false);
-            //Permitimos movimiento del faraón
-            p.steady = false;
-            //Cambiamos el puntero al cetro
-            scene.input.setDefaultCursor('url(Sprites/cetro.png), pointer');
-            p.getSprite().setVelocity(0,0)
-        }
-    },this);
+    
+    if(myUser.character==2){
+    	//Evento cuando se hace click
+	    this.input.on('pointerdown',function(pointer){
+	    	this.clickNWS = true;
+	        //Si se tiene que mostrar el segundo texto
+	        if(scene.anubisText === 1){
+	            //Se hace invisible el primer texto
+	            scene.sayAnubis1.setVisible(false);
+	            //Se hace visible el segundo
+	            scene.sayAnubis2.setVisible(true);
+	            //El siguiente texto que se tiene que mostrar es el tercero
+	            scene.anubisText = 2;
+	        }else if(scene.anubisText === 2){ //Si ha terminado de mostrar textos
+	            //Se esconde el texto 2
+	            scene.sayAnubis2.setVisible(false);
+	            scene.sayAnubis3.setVisible(true);
+	            scene.anubisText = 3
+	        }else if(scene.anubisText === 3){
+	            scene.sayAnubis3.setVisible(false);
+	            //Permitimos movimiento del faraón
+	            p.steady = false;
+	            //Cambiamos el puntero al cetro
+	            scene.input.setDefaultCursor('url(Sprites/cetro.png), pointer');
+	            p.getSprite().setVelocity(0,0)
+	        }
+	    },this);
+	    
+	    this.input.on('pointerup',function(pointer){
+	    	this.clickNWS = false;
+	    },this);
+    }
+    
+    
 
 ///////////////////////////////////OBJETOS///////////////////////////////////
     //ARENA
@@ -678,7 +689,34 @@ onlineG.update = function(){
             m.steady = false;
         }
     }
-
+    if(myUser.character==1){
+    	if(this.clickWS){
+	    	//Si se tiene que mostrar el segundo texto
+	        if(scene.anubisText === 1){
+	            //Se hace invisible el primer texto
+	            scene.sayAnubis1.setVisible(false);
+	            //Se hace visible el segundo
+	            scene.sayAnubis2.setVisible(true);
+	            //El siguiente texto que se tiene que mostrar es el tercero
+	            scene.anubisText = 2;
+	        }else if(scene.anubisText === 2){ //Si ha terminado de mostrar textos
+	            //Se esconde el texto 2
+	            scene.sayAnubis2.setVisible(false);
+	            scene.sayAnubis3.setVisible(true);
+	            scene.anubisText = 3
+	        }else if(scene.anubisText === 3){
+	            scene.sayAnubis3.setVisible(false);
+	            //Permitimos movimiento del faraón
+	            p.steady = false;
+	            //Cambiamos el puntero al cetro
+	            scene.input.setDefaultCursor('url(Sprites/cetro.png), pointer');
+	            p.getSprite().setVelocity(0,0)
+	        }
+	    }
+    }
+    
+    
+    
     if(Phaser.Input.Keyboard.JustDown(keys.r)){
         
         scene.time.addEvent({
@@ -745,7 +783,7 @@ onlineG.updateCalcetinete = function(){
     else if(myUser.character == 2)
     {
         setInterval(function(){
-            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown);
+            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickWS);
         }, 30);
     }
 }

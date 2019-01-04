@@ -15,6 +15,7 @@ function letsConnect(){
 		m.jumpWS = parse.jump;
 		m.attackWS = parse.attacking;
 		m.health.life = parse.life;
+		
 	}
 
 
@@ -34,6 +35,7 @@ function letsConnect(){
 		p.jumpWS = parse.jump;
 		p.attackWS = parse.attacking;
 		p.health.life = parse.life;
+		onlineG.clickWS = parse.click;
 
 	}
 	/*connPharaoh.onclose = function(mes){
@@ -66,7 +68,7 @@ function letsConnect(){
 		}
 		conn.send(JSON.stringify(obj))
 	}
-	function sendPharaoh(posX, posY, lifes, force, jumping, space){
+	function sendPharaoh(posX, posY, lifes, force, jumping, space, clic){
 		var obj = {
 			id: 1,
 			x: posX,
@@ -74,7 +76,8 @@ function letsConnect(){
 			forceX: force,
 			jump: jumping,
 			attacking: space,
-			life: lifes
+			life: lifes,
+			click: clic
 		}
 		connPharaoh.send(JSON.stringify(obj))
 	}
