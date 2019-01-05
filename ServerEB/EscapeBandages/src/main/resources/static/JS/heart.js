@@ -56,16 +56,6 @@ heart.update = function(){
 		for(var i = 2; i + 1 > p.health; i--){
 			this.livesPharaoh[i].destroy();
 		}
-		
-		//for(var i = 0; i < m.health; i++){
-			//this.livesMummy[i].x = (this.spriteWidth/2) + (this.spriteWidth*i) 
-			//this.livesMummy[i].y = 1080 - (this.spriteHeight/2);
-		//}
-		
-		//for(var i = 0; i < p.health; i++){
-			//this.livesPharaoh[i].x = 980 + (this.spriteWidth/2) + (this.spriteWidth*i);
-			//this.livesPharaoh[i].y = 1080 - (this.spriteHeight/2);
-		//}
 	}else if(gameState == 2){
 		if(myUser.character == 1){
 			
