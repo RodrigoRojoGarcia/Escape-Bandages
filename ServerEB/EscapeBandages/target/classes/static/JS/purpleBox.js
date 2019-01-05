@@ -1,7 +1,7 @@
 function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAirArg, frictionArg, massArg){
 	this.scene = scene;
 	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
-
+	
 ///////////////////////////////////CREACIÓN///////////////////////////////////
 	//Sprite
 	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive({ cursor: 'url(Sprites/cetro2.png), pointer' });
@@ -52,9 +52,13 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	var k;
 	//variable auxiliar para usar el sprite dentro del evento del ratón
 	var image = this.purpleBox;
-
+	
 ///////////////////////////////////CREATE///////////////////////////////////
 	this.create = function(){
+		if(myUser.character == 1){
+			this.purpleBox.setStatic(true);
+		}
+
 		//seleccion de nombre de animación
 		if(sprite === "PurpleBox1"){
 			k = 'box1';
@@ -62,39 +66,43 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 		if(sprite === "PurpleBox2"){
 			k = 'box2';
 		}
-		//la caja es arrastable con el ratón. Al clicar se vuelve estática para que se quede donde se esta haciendo click con el puntero,
-		//y al soltar deja de ser estática y cae por la gravedad
-	    scene.input.setDraggable(image);
-	   	scene.input.on('dragstart', function (pointer, gameObject) {
 
-        	image.setStatic(true);
+		if(myUser.character == 2){
+			//la caja es arrastable con el ratón. Al clicar se vuelve estática para que se quede donde se esta haciendo click con el puntero,
+			//y al soltar deja de ser estática y cae por la gravedad
+			scene.input.setDraggable(image);
+			scene.input.on('dragstart', function (pointer, gameObject) {
+				console.log(that);
+				
+				image.setStatic(true);
 
-    	});
-	    
-	    scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-        	if(move){
-        		for(var i = 0;i<box.length;i++){
-        			if(box[i].move){
-		        		if(dragY > box[i].min && dragY < box[i].max){
-		        			//Solo arrastable en el eje Y        		
-		        			gameObject.y = dragY;
-		        		}else if(dragY < box[i].min){
-							gameObject.setPosition(box[i].x, box[i].min);
-						}else if(dragY > gameObject.max){
-							gameObject.setPosition(box[i].x, box[i].max);
+			});
+			
+			scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+				if(move){
+					for(var i = 0;i<box.length;i++){
+						if(box[i].move){
+							
+							if(dragY > box[i].min && dragY < box[i].max){
+								//Solo arrastable en el eje Y        		
+								gameObject.y = dragY;
+							}else if(dragY < box[i].min){
+								gameObject.setPosition(box[i].x, box[i].min);
+							}else if(dragY > gameObject.max){
+								gameObject.setPosition(box[i].x, box[i].max);
+							}
 						}
-        			}
-        		}
-        		
-        		
-        	}
-        });
+					}
+				}
+			});
 
-	    scene.input.on('dragend', function (pointer, gameObject) {
+			scene.input.on('dragend', function (pointer, gameObject) {
+				
+				image.setStatic(false);
 
-        	image.setStatic(false);
-
-    	});
+			});
+		}
+		
 
 ///////////////////////////////////ANIMATIONS///////////////////////////////////
 		//Animación de la caja cuando se vuelve morada
@@ -130,6 +138,8 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	    }else{
 	    	this.purpleBox.setTexture(sprite, 0);
 	    	this.move = false;
-	    }
+		}
+		
+		
 	} //FIN UPDATE
 }

@@ -78,7 +78,7 @@ onlineG.create = function(){
 ///////////////////////////////////CALCETINETE'S VARIABLES///////////////////////////////////
     this.clickNWS = false;
     this.clickWS = false;
-
+    
 ///////////////////////////////////EXTRACCIÓN ELEMENTOS TILEMAP(JSON)///////////////////////////////////
 
     //SPAWNPOINTS
@@ -545,7 +545,14 @@ onlineG.create = function(){
     if(myUser.character==2){
     	//Evento cuando se hace click
 	    this.input.on('pointerdown',function(pointer){
-	    	this.clickNWS = true;
+            this.clickNWS = true;
+
+            scene.time.addEvent({
+                delay: 35,
+                callback: ()=>(onlineG.clickNWS = false),
+                callbackScope: scene
+            });
+
 	        //Si se tiene que mostrar el segundo texto
 	        if(scene.anubisText === 1){
 	            //Se hace invisible el primer texto
@@ -567,11 +574,9 @@ onlineG.create = function(){
 	            scene.input.setDefaultCursor('url(Sprites/cetro.png), pointer');
 	            p.getSprite().setVelocity(0,0)
 	        }
-	    },this);
-	    
-	    this.input.on('pointerup',function(pointer){
-	    	this.clickNWS = false;
-	    },this);
+        },this);
+        
+        
     }
     
     
@@ -607,6 +612,7 @@ onlineG.update = function(){
     const keys = this.keys;
     //No se puede mover ninguna caja
     move = false;
+    
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
 
    
@@ -659,6 +665,7 @@ onlineG.update = function(){
     b.update();
     //Actualización de todas las cajas (recorre el array de todas las cajas)
     for(var i = 0; i < box.length; i++){
+        
         move = move || box[i].move;
         box[i].update();
     }
@@ -674,21 +681,7 @@ onlineG.update = function(){
     openDoors();
 ///////////////////////////////////RESOLVER CONTROLES///////////////////////////////////
     //Si se acaba de pulsar el espacio
-    if(Phaser.Input.Keyboard.JustDown(keys.space)){
-        //Si tiene que mostrar el segundo texto
-        if(this.bastetText === 1){
-            //Hace invisible el primer texto y visible el segundo
-            this.sayBastet1.setVisible(false);
-            this.sayBastet2.setVisible(true);
-            //El siguiente texto que se muestra es el tercero
-            this.bastetText = 2;
-        }else if(this.bastetText === 2){//Si se tiene que mostrar el "tercero", que no existe
-            //Escondemos el texto 2
-            this.sayBastet2.setVisible(false);
-            //Permitimos movimiento a la momia
-            m.steady = false;
-        }
-    }
+    
     if(myUser.character==1){
     	if(this.clickWS){
 	    	//Si se tiene que mostrar el segundo texto
@@ -708,8 +701,6 @@ onlineG.update = function(){
 	            scene.sayAnubis3.setVisible(false);
 	            //Permitimos movimiento del faraón
 	            p.steady = false;
-	            //Cambiamos el puntero al cetro
-	            scene.input.setDefaultCursor('url(Sprites/cetro.png), pointer');
 	            p.getSprite().setVelocity(0,0)
 	        }
 	    }
@@ -776,14 +767,27 @@ onlineG.updateCalcetinete = function(){
     const keys = this.keys
     if(myUser.character == 1)
     {
+        this.posicionesX = [];
+        this.posicionesY = [];
+        
+
         setInterval(function(){
+            for(var i = 0; i < 9; i++){
+                onlineG.posicionesX[i] = m.shackle[i].x;
+                onlineG.posicionesY[i] = m.shackle[i].y;
+            }
+
             sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
+            sendRope(onlineG.posicionesX, onlineG.posicionesY)
         }, 30);
     }
     else if(myUser.character == 2)
     {
         setInterval(function(){
-            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickWS);
+            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS);
+            sendBox(box[0].purpleBox.y, box[1].purpleBox.y);
         }, 30);
     }
+
+
 }

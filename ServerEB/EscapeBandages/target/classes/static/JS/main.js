@@ -22,7 +22,7 @@ var config = {
 	audio: {
         disableWebAudio: true
     },
-	scene:[carga, server, menu, offline, online, victoria, gameover, submenu, lobby, characterSelection, onlineG, chatOnline]
+	scene:[carga, server, menu, offline, onlineG, online, victoria, gameover, submenu, lobby, characterSelection, chatOnline]
 };
 
 var game = new Phaser.Game(config);

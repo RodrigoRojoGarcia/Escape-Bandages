@@ -53,11 +53,19 @@ function Mummy(scene, x, y){
 	for(var i =0;i<9;i++){
 		//Hacemos que los trozos de cuerda sean invisibles
 		this.shackle[i].setVisible(false)
-		//Unimos con un "muelle" el elemento previo y el elemento del array de trozos de cuerda en el que estamos
-		scene.matter.add.joint(prev,this.shackle[i],10,1)
-		//Hacemos que el elemento previo sea el elemento de cuerda en el que estamos
-		prev = this.shackle[i]
+		if(myUser.character == 1){
+			//Unimos con un "muelle" el elemento previo y el elemento del array de trozos de cuerda en el que estamos
+			scene.matter.add.joint(prev,this.shackle[i],10,1)
+			//Hacemos que el elemento previo sea el elemento de cuerda en el que estamos
+			prev = this.shackle[i];
+		}
 	}
+	if(myUser.character == 2){
+		for(var i = 0; i < 9; i++){
+			this.shackle[i].setStatic(true);
+		}
+	}
+
 	//Vida
 	this.health = new heart("Mummy");
 	//Se mueve?
@@ -176,20 +184,27 @@ function Mummy(scene, x, y){
 	this.createRope = function(){
 		//Estamos atacando
 		this.onHit = true;
+		
 		//Actualizamos la posición del bloque
 		this.block.position.x = this.mummy.x;
 		this.block.position.y = this.mummy.y;
 		//Actualizamos las posiciones de la cuerda y la hacemos visible
 		for(var i=0;i<9;i++){
-			this.shackle[i].x = this.block.position.x
-			this.shackle[i].y = this.block.position.y
+			
+			if(myUser.character == 1){
+				this.shackle[i].x = this.block.position.x
+				this.shackle[i].y = this.block.position.y
+			}
 			this.shackle[i].setVisible(true)
 		}
-		//Aplicamos una fuerza al último trozo de cuerda para que salga disparada en la dirección en la que está mirando el sprite
-		if(!this.mummy.flipX){
-			this.shackle[8].applyForce({x:0.01,y:0});
-		}else{
-			this.shackle[8].applyForce({x:-0.01,y:0});
+		if(myUser.character == 1){
+			//Aplicamos una fuerza al último trozo de cuerda para que salga disparada en la dirección en la que está mirando el sprite
+			if(!this.mummy.flipX){
+				this.shackle[8].applyForce({x:0.01,y:0});
+			}else{
+				this.shackle[8].applyForce({x:-0.01,y:0});
+			}
+		
 		}
 		//Después de un tiempo, destruimos la cuerda
 		scene.time.addEvent({
@@ -200,10 +215,12 @@ function Mummy(scene, x, y){
 	};
 	//Hace que no se vean la cuerda
 	this.hideRopes = function(){
+		
 		//Hacemos invisibles las cuerdas
 		for(var i=0;i<9;i++){
 			m.shackle[i].setVisible(false)
 		}
+		
 		//Ya no estamos atacando
 		m.onHit = false;
 	}
@@ -336,7 +353,7 @@ function Mummy(scene, x, y){
 						this.steady = false;
 						//El siguiente que se tiene que mostrar es el cuarto (esto es para que no vuelva a entrar en esta rama del if)
 						scene.bastetText = 3;
-					}else{
+					}else if(!this.onHit){
 						//Creamos la cuerda
 						this.createRope();
 					}

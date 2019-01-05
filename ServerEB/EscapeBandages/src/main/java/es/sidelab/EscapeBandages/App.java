@@ -37,7 +37,10 @@ public class App implements WebSocketConfigurer
 		.setAllowedOrigins("*");
 		registry.addHandler(pharaohHandler(), "/calcetinetePharaoh")
 		.setAllowedOrigins("*");
-		
+		registry.addHandler(boxHandler(), "/calcetineteBox")
+        .setAllowedOrigins("*");
+        registry.addHandler(ropeHandler(), "/calcetineteRope")
+		.setAllowedOrigins("*");
 	}
 	
 	@Bean
@@ -47,6 +50,14 @@ public class App implements WebSocketConfigurer
 	@Bean
 	public PharaohHandler pharaohHandler() {
 		return new PharaohHandler();
+    }
+    @Bean
+	public BoxHandler boxHandler() {
+		return new BoxHandler();
+    }
+    @Bean
+	public BoxHandler ropeHandler() {
+		return new BoxHandler();
 	}
 
     public static LinkedList<String> leerFichero(String archivo) throws FileNotFoundException, IOException{
