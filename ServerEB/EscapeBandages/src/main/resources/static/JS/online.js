@@ -623,7 +623,6 @@ onlineG.create = function(){
 
     //LLAMAR AL CALCETINETE
     onlineG.updateCalcetinete();
-    onlineG.scene.launch(heart);
 
 }//FIN DEL CREATE
 
@@ -807,7 +806,7 @@ onlineG.updateCalcetinete = function(){
 
             sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
             sendRope(onlineG.posicionesX, onlineG.posicionesY)
-            sendShek(enemies[0].healthBar.health, enemies[1].healthBar.health, enemies[2].healthBar.health, enemies[3].healthBar.health)
+            //sendShek(enemies[0].healthBar.health, enemies[1].healthBar.health, enemies[2].healthBar.health, enemies[3].healthBar.health)
         }, 30);
     }
     else if(myUser.character == 2)

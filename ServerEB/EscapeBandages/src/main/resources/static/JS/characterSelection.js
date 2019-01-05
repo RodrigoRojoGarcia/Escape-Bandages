@@ -214,7 +214,8 @@ characterSelection.usersReady = function(){
 			if(both){
 					gameState = 2;
                     characterSelection.scene.start(onlineG);
-                    
+                    characterSelection.scene.launch(heart, onlineG);
+
 					clearInterval(characterSelection.goOn);
 			}
 		})
