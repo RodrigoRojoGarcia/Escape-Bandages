@@ -55,8 +55,11 @@ gameover.create = function(){
 	})
 	//accion al hacer click sobre el boton Reiniciar
 	this.brei.on('pointerdown', function(){
-		
-		gameover.scene.switch(offline);
+		if(gameState == 1){
+			gameover.scene.switch(offline);	
+		}else if(gameState == 2){
+			gameover.scene.switch(onlineG);
+		}
 	})
 
 
@@ -79,6 +82,7 @@ gameover.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bout.on('pointerdown', function(){
+		gameState = 0;
 		gameover.scene.switch(menu);
 	})
 }

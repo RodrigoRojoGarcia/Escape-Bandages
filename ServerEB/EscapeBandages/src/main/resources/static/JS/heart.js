@@ -1,102 +1,103 @@
-function heart(player){
-	var spriteWidth = 65;
-	var spriteHeight = 65;
-	this.life = 3;
-	this.health = []
-	var player = player;
-	if(player==="Pharaoh"){
+var heart = new Phaser.Scene('Heart')
+
+
+heart.preload = function(){
+	 //CORAZÓN
+    this.load.image("heart","Sprites/heart.png");
+}
+heart.create = function(){
+	if(gameState == 1){
+		this.livesMummy = [];
+		this.livesPharaoh = [];
 		
-		for(var i =0;i<3;i++){
-			this.health[i] = scene.add.image(cameraPharaoh.worldView.left+(spriteWidth/2)+(spriteWidth*i),cameraPharaoh.worldView.bottom-(spriteHeight/2),'heart');
-			this.health[i].depth = 5;
-			cameraMummy.ignore(this.health[i])
-		}
-	}else if(player==="Mummy"){
+		this.spriteWidth = 65;
+		this.spriteHeight = 65;
 		
-		for(var i =0;i<3;i++){
-			this.health[i] = scene.add.image(cameraMummy.worldView.left+(spriteWidth/2)+(spriteWidth*i),cameraMummy.worldView.bottom-(spriteHeight/2),'heart');
-			this.health[i].depth = 5;
-			cameraPharaoh.ignore(this.health[i])
+		for(var i = 0; i < m.health; i++){
+			this.livesMummy[i] = scene.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
 		}
+		
+		for(var i = 0; i < p.health; i++){
+			this.livesPharaoh[i] = scene.add.image(980 + (this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart')
+		}
+		
+		
+		
+	}else if(gameState == 2){
+		
+		this.lives = []
+		
+		this.spriteWidth = 65;
+		this.spriteHeight = 65;
+		
+		if(myUser.character == 1){
+			for(var i = 0; i < m.health; i++){
+				this.lives[i] = scene.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
+			}
+		}else if(myUser.character == 2){
+			for(var i = 0; i < p.health; i++){
+				this.lives[i] = scene.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
+			}
+		}else{
+			console.log("UwU, este no es tu barrio, tu barrio es aquel")
+		}
+		
+		
+	}else{
+		console.log("UwU, este no es tu barrio, tu barrio es aquel")
 	}
-	this.update = function(){
-			if(player==="Pharaoh"){
-				for(var i =0;i<this.life;i++){
-					if(p.moving){
-						if(p.getSprite().flipX){
-							this.health[i].x = cameraPharaoh.worldView.left+(spriteWidth/2)+(spriteWidth*i)-5
-							this.health[i].y = cameraPharaoh.worldView.bottom-(spriteHeight/2)
-						}else{
-							this.health[i].x = cameraPharaoh.worldView.left+(spriteWidth/2)+(spriteWidth*i)+5
-							this.health[i].y = cameraPharaoh.worldView.bottom-(spriteHeight/2)
-						}
-					}else{
-						this.health[i].x = cameraPharaoh.worldView.left+(spriteWidth/2)+(spriteWidth*i)
-						this.health[i].y = cameraPharaoh.worldView.bottom-(spriteHeight/2)
-					}
-					
-				}
-				
-			}else if(player==="Mummy"){
-				for(var i =0;i<this.life;i++){
-					if(m.moving){
-						if(m.getSprite().flipX){
-							this.health[i].x = cameraMummy.worldView.left+(spriteWidth/2)+(spriteWidth*i)-5
-							this.health[i].y = cameraMummy.worldView.bottom-(spriteHeight/2)
-						}else{
-							this.health[i].x = cameraMummy.worldView.left+(spriteWidth/2)+(spriteWidth*i)+5
-							this.health[i].y = cameraMummy.worldView.bottom-(spriteHeight/2)
-						}
-					}else{
-						this.health[i].x = cameraMummy.worldView.left+(spriteWidth/2)+(spriteWidth*i)
-						this.health[i].y = cameraMummy.worldView.bottom-(spriteHeight/2)
-					}
-					
-				}
-				
+}
+
+heart.update = function(){
+	if(gameState == 1){
+		for(var i = 2; i + 1 > m.health; i--){
+			this.livesMummy[i].destroy();
+		}
+		for(var i = 2; i + 1 > p.health; i--){
+			this.livesPharaoh[i].destroy();
+		}
+		
+		for(var i = 0; i < m.health; i++){
+			this.livesMummy[i].x = (this.spriteWidth/2) + (this.spriteWidth*i)
+			this.livesMummy[i].y = 1080 - (this.spriteHeight/2);
+		}
+		
+		for(var i = 0; i < p.health; i++){
+			this.livesPharaoh[i].x = 980 + (this.spriteWidth/2) + (this.spriteWidth*i);
+			this.livesPharaoh[i].y = 1080 - (this.spriteHeight/2);
+		}
+	}else if(gameState == 2){
+		if(myUser.character == 1){
+			
+			for(var i = 2; i + 1 > m.health; i--){
+				this.lives[i].destroy();
 			}
 			
-		
-
-	}
-
-	this.getHit = function(){
-		this.life -=1;
-		if(this.life === 2){
-			this.health[2].destroy()
-		}else if(this.life===1){
-			this.health[1].destroy()
-		}else if(this.life===0){
-			this.health[0].destroy()
-			if(player==="Pharaoh"){
-				p.dead = true;
-				
-				scene.time.addEvent({
-            		delay: 100,
-            		callback: ()=>(offline.scene.restart()),
-            		callbackScope: scene
-        		});
-				p.getSprite().setVelocity(0,0)
-        		m.getSprite().setVelocity(0,0)
-				offline.scene.switch(gameover);
-			}else if(player==="Mummy"){
-				m.dead = true;
-				scene.time.addEvent({
-            		delay: 100,
-            		callback: ()=>(offline.scene.restart()),
-            		callbackScope: scene
-        		});
-        		p.getSprite().setVelocity(0,0)
-        		m.getSprite().setVelocity(0,0)
-				offline.scene.switch(gameover);
+			for(var i = 0; i < m.health; i++){
+				this.lives[i].x = (this.spriteWidth/2) + (this.spriteWidth*i)
+				this.lives[i].y = 1080 - (this.spriteHeight/2);
 			}
+		}else if(myUser.character == 2){
+			
+			for(var i = 2; i + 1 > p.health; i--){
+				this.lives[i].destroy();
+			}
+			
+			
+			for(var i = 0; i < p.health; i++){
+				this.lives[i].x = (this.spriteWidth/2) + (this.spriteWidth*i)
+				this.lives[i].y = 1080 - (this.spriteHeight/2);
+			}
+		}else{
+			console.log("UwU, este no es tu barrio, tu barrio es aquel")
 		}
+	}else{
+		console.log("UwU, este no es tu barrio, tu barrio es aquel")
 	}
-
-	this.destroy = function(){
-		for(var i = 0; i<this.health.length;i++){
-			this.health[i].destroy();
-		}
-	}
-
 }
+
+
+
+
+
+

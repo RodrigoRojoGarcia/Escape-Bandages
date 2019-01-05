@@ -212,6 +212,7 @@ characterSelection.create = function(){
 characterSelection.usersReady = function(){
 		bothReady(myLobby.getId(),function(both){
 			if(both){
+					gameState = 2;
                     characterSelection.scene.start(onlineG);
                     
 					clearInterval(characterSelection.goOn);

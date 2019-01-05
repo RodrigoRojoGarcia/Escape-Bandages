@@ -58,6 +58,7 @@ victoria.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.binit.on('pointerdown', function(){
 		//cambio de escena a menu
+		gameState = 0;
 		victoria.scene.switch(menu);
 	})
 }

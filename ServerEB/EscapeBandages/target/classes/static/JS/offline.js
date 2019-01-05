@@ -36,8 +36,7 @@ offline.preload = function(){
     this.load.image("box","Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "Sprites/rope.png");
-    //CORAZÓN
-    this.load.image("heart","Sprites/heart.png");
+   
 }//FIN DEL PRELOAD
 
 offline.create = function(){
@@ -585,7 +584,7 @@ offline.create = function(){
 
     //LLAMAR AL CALCETINETE
     offline.updateCalcetinete();
-
+    offline.scene.launch(heart);
 }//FIN DEL CREATE
 
 offline.update = function(){
@@ -596,6 +595,13 @@ offline.update = function(){
     move = false;
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
 
+    if(p.dead  || m.dead){
+		this.scene.restart();
+		p.getSprite().setVelocity(0,0)
+    	m.getSprite().setVelocity(0,0)
+		this.scene.switch(gameover)
+    }
+    
    
     //Si el faraón no está muerto
     if(!p.dead){   

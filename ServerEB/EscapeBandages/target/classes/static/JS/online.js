@@ -38,8 +38,6 @@ onlineG.preload = function(){
     this.load.image("box","Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "Sprites/rope.png");
-    //CORAZÓN
-    this.load.image("heart","Sprites/heart.png");
 }//FIN DEL PRELOAD
 
 onlineG.create = function(){
@@ -55,9 +53,18 @@ onlineG.create = function(){
 
     //Creamos dos cámaras en las dos mitades de la pantalla con 40 píxeles de por medio
     
-    cameraMummy = this.cameras.main.setSize(940,1080).setName('camMummy');
-    cameraPharaoh = this.cameras.add(980,0,940,1080).setName('camPharaoh');
-    this.doubleCamera = true;
+    if(myUser.character == 1){
+    	cameraMummy = this.cameras.main.setSize(1920,1080).setName('camMummy');
+    }else if(myUser.character == 2){
+    	cameraPharaoh = this.cameras.main.setSize(1920,1080).setName('camPharaoh');
+    }else{
+    	console.log("UwU este no es tu barrio, tu barrio es aquel")
+    }
+    
+    
+    
+    
+    this.doubleCamera = false;
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //Creación del TILEMAP
 	map = this.make.tilemap({key:"map", tileWidth: 120, tileHeight: 120});
@@ -170,11 +177,20 @@ onlineG.create = function(){
 
 ///////////////////////////////////CAMERA///////////////////////////////////
     //Hacemos que cada una siga a un personaje
-    cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
-    cameraMummy.startFollow(m.getSprite(), false, 1, 1, -200);
+    if(myUser.character == 1){
+    	cameraMummy.startFollow(m.getSprite(), false, 1, 1, -200);
+    	cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+    }else if(myUser.character == 2){
+    	cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
+    	cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+    }else{
+    	console.log("UwU este no es tu barrio, tu barrio es aquel")
+    }
+    
+    
     //Ponemos a las dos los límites del mapa
-    cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-    cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+    
+    
 
 ///////////////////////////////////ANTORCHAS///////////////////////////////////
     //Creamos un array de antorchas y les atribuimos un sprite de Phaser, que no de Matter
@@ -493,14 +509,19 @@ onlineG.create = function(){
         }
     }
     
-    //Los textos de Bastet no se le muestran al faraón
-    cameraPharaoh.ignore(this.sayBastet1);
-    cameraPharaoh.ignore(this.sayBastet2);
-    //Los textos de Anubis no se le muestran a la momia
-    cameraMummy.ignore(this.sayAnubis1);
-    cameraMummy.ignore(this.sayAnubis2);
-    cameraMummy.ignore(this.sayAnubis3);
+    if(myUser.character == 1){
+    	//Los textos de Anubis no se le muestran a la momia
+	    cameraMummy.ignore(this.sayAnubis1);
+	    cameraMummy.ignore(this.sayAnubis2);
+	    cameraMummy.ignore(this.sayAnubis3);
+    }else if(myUser.character == 2){
+    	    //Los textos de Bastet no se le muestran al faraón
+	    cameraPharaoh.ignore(this.sayBastet1);
+	    cameraPharaoh.ignore(this.sayBastet2);
+    }
+    
 
+    
 
 ///////////////////////////////////PURPLE BOXES///////////////////////////////////
     //Creamos una objeto PurpleBox con las coordenadas del objeto del tilemap
@@ -602,7 +623,7 @@ onlineG.create = function(){
 
     //LLAMAR AL CALCETINETE
     onlineG.updateCalcetinete();
-
+    onlineG.scene.launch(heart);
 
 }//FIN DEL CREATE
 
@@ -614,7 +635,12 @@ onlineG.update = function(){
     move = false;
     
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
-
+    if(p.dead  || m.dead){
+		this.scene.restart();
+		p.getSprite().setVelocity(0,0)
+    	m.getSprite().setVelocity(0,0)
+		this.scene.switch(gameover)
+    }
    
     //Si el faraón no está muerto
     if(!p.dead){   
@@ -717,6 +743,7 @@ onlineG.update = function(){
         });
         
     }
+    /*
     if(Phaser.Input.Keyboard.JustDown(keys.c)){
         
         if(this.doubleCamera){
@@ -753,6 +780,7 @@ onlineG.update = function(){
         }
         
     }
+    */
     if(this.mummyVictory && this.pharaohVictory){
         onlineG.scene.restart()
         p.getSprite().setVelocity(0,0)
@@ -779,6 +807,7 @@ onlineG.updateCalcetinete = function(){
 
             sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
             sendRope(onlineG.posicionesX, onlineG.posicionesY)
+            sendShek(enemies[0].healthBar.health, enemies[1].healthBar.health, enemies[2].healthBar.health, enemies[3].healthBar.health)
         }, 30);
     }
     else if(myUser.character == 2)

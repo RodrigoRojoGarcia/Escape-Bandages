@@ -33,32 +33,23 @@ public class App implements WebSocketConfigurer
     }
     @Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(mummyHandler(), "/calcetineteMummy")
+		registry.addHandler(calcetineteHandler(), "/calcetineteMummy")
 		.setAllowedOrigins("*");
-		registry.addHandler(pharaohHandler(), "/calcetinetePharaoh")
+		registry.addHandler(calcetineteHandler(), "/calcetinetePharaoh")
 		.setAllowedOrigins("*");
-		registry.addHandler(boxHandler(), "/calcetineteBox")
+		registry.addHandler(calcetineteHandler(), "/calcetineteBox")
         .setAllowedOrigins("*");
-        registry.addHandler(ropeHandler(), "/calcetineteRope")
+        registry.addHandler(calcetineteHandler(), "/calcetineteRope")
+		.setAllowedOrigins("*");
+        registry.addHandler(calcetineteHandler(), "/calcetineteShek")
 		.setAllowedOrigins("*");
 	}
 	
 	@Bean
-	public MummyHandler mummyHandler() {
+	public MummyHandler calcetineteHandler() {
 		return new MummyHandler();
 	}
-	@Bean
-	public PharaohHandler pharaohHandler() {
-		return new PharaohHandler();
-    }
-    @Bean
-	public BoxHandler boxHandler() {
-		return new BoxHandler();
-    }
-    @Bean
-	public BoxHandler ropeHandler() {
-		return new BoxHandler();
-	}
+	
 
     public static LinkedList<String> leerFichero(String archivo) throws FileNotFoundException, IOException{
     	LinkedList<String> cadenas = new LinkedList<String>();

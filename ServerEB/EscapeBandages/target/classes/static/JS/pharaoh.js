@@ -59,7 +59,7 @@ function Pharaoh(scene, x, y){
 	//Se está moviendo?
 	this.moving = false;
 	//Vida
-	this.health = new heart("Pharaoh");
+	this.health = 3;
 	//Me están dando?
 	this.gettingHit = false;
 	//Muerto?
@@ -171,7 +171,11 @@ function Pharaoh(scene, x, y){
 	//Nos pone en periodo de estar golpeados y llama a getHit de la vida
 	this.getHit = function(){
 		this.gettingHit = true;
-		this.health.getHit();
+		if(this.health > 0){
+			this.health--;
+		}
+		
+		
 	}
 	//Cambia el sprite al original y termina el periodo de invulnerabilidad
 	this.invulnerable = function(){
@@ -234,14 +238,12 @@ function Pharaoh(scene, x, y){
 		//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
 		var movingForce = 0.1;
 		//Actualizamos la vida
-		this.health.update();
+		if(this.health <= 0){
+			this.dead = true;
+		}
 		//Caida faraón
 		if(this.pharaoh.y > 10*120){
-			this.dead = true;
-			offline.scene.restart();
-			p.getSprite().setVelocity(0,0)
-        	m.getSprite().setVelocity(0,0)
-			offline.scene.switch(gameover)
+			this.health = 0;
 		}
 		//Si no estoy muerto
 		if(!this.dead){

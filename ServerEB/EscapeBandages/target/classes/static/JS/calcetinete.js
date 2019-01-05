@@ -6,6 +6,7 @@ function letsConnect(){
 	connPharaoh = new WebSocket('ws://'+location.host+'/calcetinetePharaoh')
 	connBox = new WebSocket('ws://'+location.host+'/calcetineteBox')
 	connRope = new WebSocket('ws://'+location.host+'/calcetineteRope')
+	connShek = new WebSocket('ws://'+location.host+'/calcetineteShek')
 
 	conn.onerror = function(e){
 		console.log(e);
@@ -22,10 +23,10 @@ function letsConnect(){
 	}
 
 
-	/*conn.onclose = function(mes){
+	conn.onclose = function(mes){
 		console.log("Cerrado el calcetín");
 		letsConnect()
-	}*/
+	}
 
 	connPharaoh.onerror = function(e){
 		console.log(e);
@@ -41,10 +42,10 @@ function letsConnect(){
 		onlineG.clickWS = parse.click;
 
 	}
-	/*connPharaoh.onclose = function(mes){
+	connPharaoh.onclose = function(mes){
 		console.log("Cerrado el calcetín");
 		letsConnect()
-	}*/
+	}
 
 	connBox.onerror = function(e){
 		console.log(e);
@@ -53,6 +54,10 @@ function letsConnect(){
 		var parse = JSON.parse(mesg.data)
 		box[0].purpleBox.y = parse.y0;
 		box[1].purpleBox.y = parse.y1;
+	}
+	connBox.onclose = function(mes){
+		console.log("Cerrado el calcetín");
+		letsConnect()
 	}
 	
 	connRope.onerror = function(e){
@@ -66,6 +71,24 @@ function letsConnect(){
 				m.shackle[i].y = parse.posy[i];
 			}
 		}
+	}
+	connRope.onclose = function(mes){
+		console.log("Cerrado el calcetín");
+		letsConnect()
+	}
+	connShek.onerror = function(e){
+		console.log(e);
+	}
+	connShek.onmessage = function(mesg){
+		var parse = JSON.parse(mesg.data)
+		enemies[0].healthBar.health = parse.healthEnemy0;
+		enemies[1].healthBar.health = parse.healthEnemy1;
+		enemies[2].healthBar.health = parse.healthEnemy2;
+		enemies[3].healthBar.health = parse.healthEnemy3;
+	}
+	connShek.onclose = function(mes){
+		console.log("Cerrado el calcetín");
+		letsConnect()
 	}
 
 }
@@ -124,4 +147,15 @@ function letsConnect(){
 			posy: arrayY
 		}
 		connRope.send(JSON.stringify(obj))
+	}
+	
+	function sendShek(health0, health1, health2, health3){
+		var obj = {
+			id: 4,
+			healthEnemy0: health0,
+			healthEnemy1: health1,
+			healthEnemy2: health2,
+			healthEnemy3: health3
+		}
+		connShek.send(JSON.stringify(obj))
 	}
