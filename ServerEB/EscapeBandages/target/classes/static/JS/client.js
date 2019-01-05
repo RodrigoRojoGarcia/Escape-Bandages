@@ -49,7 +49,7 @@ function Client(scene){
 		
 		
 		
-		that.scene.scene.switch(menu)
+		that.scene.scene.start(menu)
 		myClient.update()
 	}
 	

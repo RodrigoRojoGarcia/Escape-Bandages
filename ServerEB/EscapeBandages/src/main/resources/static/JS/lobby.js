@@ -135,7 +135,7 @@ lobby.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.bback.on('pointerdown', function(){
 		//cambio de escena a menu
-		lobby.scene.switch(submenu);
+		lobby.scene.start(submenu);
 	})
 /////////////////////////////////BOTON LOBBY ALEATORIO//////////////////////
 	//cargar boton Back
@@ -166,7 +166,7 @@ lobby.create = function(){
 				}else{
 					myLobby.setId(id)
 					console.log(myLobby.getId())
-					lobby.scene.switch(characterSelection);
+					lobby.scene.start(characterSelection);
 					lobby.scene.launch(chatOnline, characterSelection);
 				}
 				
@@ -203,7 +203,7 @@ lobby.create = function(){
 				console.log(myLobby.getId())
 			})
 		})
-		lobby.scene.switch(characterSelection);
+		lobby.scene.start(characterSelection);
 		lobby.scene.launch(chatOnline, characterSelection);
 	})
 	
@@ -254,7 +254,7 @@ lobby.create = function(){
 							
 						}
 						console.log(myLobby.getId())
-						lobby.scene.switch(characterSelection);
+						lobby.scene.start(characterSelection);
 						lobby.scene.launch(chatOnline, characterSelection);
 					}
 					

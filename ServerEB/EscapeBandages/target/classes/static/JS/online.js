@@ -804,7 +804,7 @@ onlineG.update = function(){
         onlineG.scene.restart()
         p.getSprite().setVelocity(0,0)
         m.getSprite().setVelocity(0,0)
-        onlineG.scene.switch(victoria)
+        onlineG.scene.start(victoria)
     }
 
 

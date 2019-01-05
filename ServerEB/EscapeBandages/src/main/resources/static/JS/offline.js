@@ -599,7 +599,7 @@ offline.update = function(){
 		this.scene.restart();
 		p.getSprite().setVelocity(0,0)
     	m.getSprite().setVelocity(0,0)
-		this.scene.switch(gameover)
+		this.scene.start(gameover)
     }
     
    
@@ -732,7 +732,7 @@ offline.update = function(){
         offline.scene.restart()
         p.getSprite().setVelocity(0,0)
         m.getSprite().setVelocity(0,0)
-        offline.scene.switch(victoria)
+        offline.scene.start(victoria)
     }
 
 }//FINAL UPDATE

@@ -65,7 +65,7 @@ submenu.create = function(){
 	})
 	//accion al hacer click sobre el boton Online
 	this.bon.on('pointerdown', function(){
-		submenu.scene.switch(online);
+		submenu.scene.start(online);
 	})
 
 /////////////////////BOTON OFFLINE//////////////////////////////
@@ -87,7 +87,7 @@ submenu.create = function(){
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
 		gameState = 1;
-		submenu.scene.switch(offline);
+		submenu.scene.start(offline);
 		submenu.scene.launch(heart, offline);
 	})
 
@@ -112,6 +112,6 @@ submenu.create = function(){
 	this.bback.on('pointerdown', function(){
 		//cambio de escena a menu
 		
-		submenu.scene.switch(menu);
+		submenu.scene.start(menu);
 	})
 }

@@ -217,7 +217,7 @@ online.create = function(){
 	this.bback.on('pointerdown', function(){
 		//cambio escena a submenu
 		
-		online.scene.switch(submenu);
+		online.scene.start(submenu);
 	})
 
 	////////////////////BOTON LOGIN////////////////////////////////////
@@ -318,7 +318,7 @@ online.create = function(){
 			
 			online.time.addEvent({
 	            delay: 1000,
-	            callback: function(){ online.scene.switch(lobby);},
+	            callback: function(){ online.scene.start(lobby);},
 	            callbackScope: online
 	        });
 			

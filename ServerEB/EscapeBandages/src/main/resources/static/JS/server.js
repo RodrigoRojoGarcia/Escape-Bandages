@@ -7,7 +7,7 @@ server.preload = function(){
 server.create = function(){
 	
 	if(!SERVER){
-		server.scene.switch(menu);
+		server.scene.start(menu);
 	}
 }
 

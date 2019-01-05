@@ -116,6 +116,7 @@ gameover.update = function(){
 				sendRestart(onRestart, onOut);
 			}
 			gameover.scene.start(lobby);
+			gameover.scene.stop(chatOnline);
 			
 		}
 	

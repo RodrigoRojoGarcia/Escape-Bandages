@@ -59,7 +59,7 @@ victoria.create = function(){
 	this.binit.on('pointerdown', function(){
 		//cambio de escena a menu
 		gameState = 0;
-		victoria.scene.switch(menu);
+		victoria.scene.start(menu);
 	})
 }
 

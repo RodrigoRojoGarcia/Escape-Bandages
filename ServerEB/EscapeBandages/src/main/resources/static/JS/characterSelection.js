@@ -125,7 +125,7 @@ characterSelection.create = function(){
 		
 		myUser.character = 0;
 		
-		characterSelection.scene.switch(online);
+		characterSelection.scene.start(online);
 		characterSelection.scene.stop(chatOnline);
 		
     }, function(){
