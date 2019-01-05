@@ -185,7 +185,6 @@ function Pharaoh(scene, x, y){
 	}
 
 	this.destroy = function(){
-		this.health.destroy();
 		this.fireDestroy();
 		this.pharaoh.destroy();
 	}

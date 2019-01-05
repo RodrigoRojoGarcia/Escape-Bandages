@@ -33,21 +33,37 @@ public class App implements WebSocketConfigurer
     }
     @Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(calcetineteHandler(), "/calcetineteMummy")
+		registry.addHandler(mummyHandler(), "/calcetineteMummy")
 		.setAllowedOrigins("*");
-		registry.addHandler(calcetineteHandler(), "/calcetinetePharaoh")
+		registry.addHandler(pharaohHandler(), "/calcetinetePharaoh")
 		.setAllowedOrigins("*");
-		registry.addHandler(calcetineteHandler(), "/calcetineteBox")
+		registry.addHandler(boxHandler(), "/calcetineteBox")
         .setAllowedOrigins("*");
-        registry.addHandler(calcetineteHandler(), "/calcetineteRope")
+        registry.addHandler(ropeHandler(), "/calcetineteRope")
 		.setAllowedOrigins("*");
-        registry.addHandler(calcetineteHandler(), "/calcetineteShek")
+        registry.addHandler(shekHandler(), "/calcetineteShek")
 		.setAllowedOrigins("*");
 	}
 	
 	@Bean
-	public MummyHandler calcetineteHandler() {
+	public MummyHandler mummyHandler() {
 		return new MummyHandler();
+    }
+    @Bean
+	public PharaohHandler pharaohHandler() {
+		return new PharaohHandler();
+    }
+    @Bean
+	public BoxHandler boxHandler() {
+		return new BoxHandler();
+    }
+    @Bean
+	public BoxHandler ropeHandler() {
+		return new BoxHandler();
+    }
+    @Bean
+	public ShekHandler shekHandler() {
+		return new ShekHandler();
 	}
 	
 

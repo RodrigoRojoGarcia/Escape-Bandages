@@ -14,11 +14,11 @@ heart.create = function(){
 		this.spriteHeight = 65;
 		
 		for(var i = 0; i < m.health; i++){
-			this.livesMummy[i] = scene.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
+			this.livesMummy[i] = this.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
 		}
 		
 		for(var i = 0; i < p.health; i++){
-			this.livesPharaoh[i] = scene.add.image(980 + (this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart')
+			this.livesPharaoh[i] = this.add.image(980 + (this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart')
 		}
 		
 		
@@ -32,11 +32,11 @@ heart.create = function(){
 		
 		if(myUser.character == 1){
 			for(var i = 0; i < m.health; i++){
-				this.lives[i] = scene.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
+				this.lives[i] = this.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
 			}
 		}else if(myUser.character == 2){
 			for(var i = 0; i < p.health; i++){
-				this.lives[i] = scene.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
+				this.lives[i] = this.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
 			}
 		}else{
 			console.log("UwU, este no es tu barrio, tu barrio es aquel")
@@ -57,37 +57,28 @@ heart.update = function(){
 			this.livesPharaoh[i].destroy();
 		}
 		
-		for(var i = 0; i < m.health; i++){
-			this.livesMummy[i].x = (this.spriteWidth/2) + (this.spriteWidth*i)
-			this.livesMummy[i].y = 1080 - (this.spriteHeight/2);
-		}
+		//for(var i = 0; i < m.health; i++){
+			//this.livesMummy[i].x = (this.spriteWidth/2) + (this.spriteWidth*i) 
+			//this.livesMummy[i].y = 1080 - (this.spriteHeight/2);
+		//}
 		
-		for(var i = 0; i < p.health; i++){
-			this.livesPharaoh[i].x = 980 + (this.spriteWidth/2) + (this.spriteWidth*i);
-			this.livesPharaoh[i].y = 1080 - (this.spriteHeight/2);
-		}
+		//for(var i = 0; i < p.health; i++){
+			//this.livesPharaoh[i].x = 980 + (this.spriteWidth/2) + (this.spriteWidth*i);
+			//this.livesPharaoh[i].y = 1080 - (this.spriteHeight/2);
+		//}
 	}else if(gameState == 2){
 		if(myUser.character == 1){
 			
 			for(var i = 2; i + 1 > m.health; i--){
 				this.lives[i].destroy();
 			}
-			
-			for(var i = 0; i < m.health; i++){
-				this.lives[i].x = (this.spriteWidth/2) + (this.spriteWidth*i)
-				this.lives[i].y = 1080 - (this.spriteHeight/2);
-			}
+						
 		}else if(myUser.character == 2){
 			
 			for(var i = 2; i + 1 > p.health; i--){
 				this.lives[i].destroy();
 			}
 			
-			
-			for(var i = 0; i < p.health; i++){
-				this.lives[i].x = (this.spriteWidth/2) + (this.spriteWidth*i)
-				this.lives[i].y = 1080 - (this.spriteHeight/2);
-			}
 		}else{
 			console.log("UwU, este no es tu barrio, tu barrio es aquel")
 		}

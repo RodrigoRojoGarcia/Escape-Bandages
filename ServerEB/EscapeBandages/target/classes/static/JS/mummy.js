@@ -247,7 +247,6 @@ function Mummy(scene, x, y){
 
 	this.destroy = function(){
 		this.destroyRopes();
-		this.health.destroy();
 		this.mummy.destroy();
 	}
 

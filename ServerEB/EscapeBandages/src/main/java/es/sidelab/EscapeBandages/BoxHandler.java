@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class MummyHandler extends TextWebSocketHandler{
+public class BoxHandler extends TextWebSocketHandler{
 	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 	
 	private ObjectMapper mapper = new ObjectMapper();

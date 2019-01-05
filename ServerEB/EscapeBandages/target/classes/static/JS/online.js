@@ -634,35 +634,34 @@ onlineG.update = function(){
     move = false;
     
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
+    //Actualizamos faraón
+    p.update(keys);
+    //Resetamos el estado de colisiones de los sensores del faraón
+    p.resetColliding();
+
+    //Actualizamos momia
+    m.update(keys);
+    //Resetamos el estado de colisiones de los sensores de la momia
+    m.resetColliding();
+
     if(p.dead  || m.dead){
 		this.scene.restart();
 		p.getSprite().setVelocity(0,0)
     	m.getSprite().setVelocity(0,0)
-		this.scene.switch(gameover)
-    }
-   
-    //Si el faraón no está muerto
-    if(!p.dead){   
-        //Actualizamos faraón
-        p.update(keys);
-        //Resetamos el estado de colisiones de los sensores del faraón
-        p.resetColliding();
-    }else{
-        //Si lo está que la cámara deje de seguirle
-        cameraPharaoh.stopFollow()
+        this.scene.switch(gameover)
+        
+        if(myUser.character == 1){
+            //Si lo está que la cámara deje de seguirla
+            cameraMummy.stopFollow();
+        }else if(myUser.character == 2){
+            //Si lo está que la cámara deje de seguirle
+            cameraPharaoh.stopFollow()
+        }
         p.destroy()
-    }
-    //Si la momia no está muerta
-    if(!m.dead){
-        //Actualizamos momia
-        m.update(keys);
-        //Resetamos el estado de colisiones de los sensores de la momia
-        m.resetColliding();
-    }else{
-        //Si lo está que la cámara deje de seguirla
-        cameraMummy.stopFollow();
         m.destroy()
     }
+   
+    
     
     //Si Shek no está muerto
     if(!s.dead){
@@ -799,20 +798,24 @@ onlineG.updateCalcetinete = function(){
         
 
         setInterval(function(){
-            for(var i = 0; i < 9; i++){
-                onlineG.posicionesX[i] = m.shackle[i].x;
-                onlineG.posicionesY[i] = m.shackle[i].y;
+            if(!m.dead || !p.dead){
+                for(var i = 0; i < 9; i++){
+                    onlineG.posicionesX[i] = m.shackle[i].x;
+                    onlineG.posicionesY[i] = m.shackle[i].y;
+                }
+    
+                sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
+                sendRope(onlineG.posicionesX, onlineG.posicionesY)
             }
-
-            sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
-            sendRope(onlineG.posicionesX, onlineG.posicionesY)
             //sendShek(enemies[0].healthBar.health, enemies[1].healthBar.health, enemies[2].healthBar.health, enemies[3].healthBar.health)
         }, 30);
     }
     else if(myUser.character == 2)
     {
         setInterval(function(){
-            sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS);
+            if(!p.dead || !m.dead){
+                sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS);
+            }
             sendBox(box[0].purpleBox.y, box[1].purpleBox.y);
         }, 30);
     }

@@ -12,13 +12,16 @@ function letsConnect(){
 		console.log(e);
 	}
 	conn.onmessage = function(mesg){
-		var parse = JSON.parse(mesg.data)
-		m.mummy.x = parse.x;
-		m.mummy.y = parse.y;
-		m.forceWS = parse.forceX;
-		m.jumpWS = parse.jump;
-		m.attackWS = parse.attacking;
-		m.health.life = parse.life;
+		if(!m.dead){
+			var parse = JSON.parse(mesg.data)
+			m.mummy.x = parse.x;
+			m.mummy.y = parse.y;
+			m.forceWS = parse.forceX;
+			m.jumpWS = parse.jump;
+			m.attackWS = parse.attacking;
+			m.health.life = parse.life;
+		
+		}
 		
 	}
 
@@ -32,15 +35,18 @@ function letsConnect(){
 		console.log(e);
 	}
 	connPharaoh.onmessage = function(mesg){
-		var parse = JSON.parse(mesg.data);
-		p.pharaoh.x = parse.x;
-		p.pharaoh.y = parse.y;
-		p.forceWS = parse.forceX;
-		p.jumpWS = parse.jump;
-		p.attackWS = parse.attacking;
-		p.health.life = parse.life;
-		onlineG.clickWS = parse.click;
+		if(!p.dead){
+			var parse = JSON.parse(mesg.data);
+			p.pharaoh.x = parse.x;
+			p.pharaoh.y = parse.y;
+			p.forceWS = parse.forceX;
+			p.jumpWS = parse.jump;
+			p.attackWS = parse.attacking;
+			p.health.life = parse.life;
+			onlineG.clickWS = parse.click;
 
+		}
+		
 	}
 	connPharaoh.onclose = function(mes){
 		console.log("Cerrado el calcetín");
@@ -64,13 +70,16 @@ function letsConnect(){
 		console.log(e);
 	}
 	connRope.onmessage = function(mesg){
-		if(myUser.character == 2){
-			var parse = JSON.parse(mesg.data)
-			for(var i = 0; i < m.shackle.length; i++){
-				m.shackle[i].x = parse.posx[i];
-				m.shackle[i].y = parse.posy[i];
+		if(!m.dead){
+			if(myUser.character == 2){
+				var parse = JSON.parse(mesg.data)
+				for(var i = 0; i < m.shackle.length; i++){
+					m.shackle[i].x = parse.posx[i];
+					m.shackle[i].y = parse.posy[i];
+				}
 			}
 		}
+		
 	}
 	connRope.onclose = function(mes){
 		console.log("Cerrado el calcetín");
