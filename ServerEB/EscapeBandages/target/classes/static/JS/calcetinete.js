@@ -7,6 +7,7 @@ function letsConnect(){
 	connBox = new WebSocket('ws://'+location.host+'/calcetineteBox')
 	connRope = new WebSocket('ws://'+location.host+'/calcetineteRope')
 	connShek = new WebSocket('ws://'+location.host+'/calcetineteShek')
+	connRestart = new WebSocket('ws://'+location.host+'/calcetineteRestart')
 
 	conn.onerror = function(e){
 		console.log(e);
@@ -100,6 +101,19 @@ function letsConnect(){
 		letsConnect()
 	}
 
+	connRestart.onerror = function(e){
+		console.log(e);
+	}
+	connRestart.onmessage = function(mesg){
+		var parse = JSON.parse(mesg.data)
+		onOut = parse.clickOut;
+		onRestart = parse.click
+	}
+	connRestart.onclose = function(mes){
+		console.log("Cerrado el calcetín");
+		letsConnect()
+	}
+
 }
 	
 	
@@ -167,4 +181,13 @@ function letsConnect(){
 			healthEnemy3: health3
 		}
 		connShek.send(JSON.stringify(obj))
+	}
+	
+	function sendRestart(onClick, onClick2){
+		var obj = {
+			id: 5,
+			click: onClick,
+			clickOut: onClick2
+		}
+		connRestart.send(JSON.stringify(obj))
 	}

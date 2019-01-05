@@ -85,6 +85,10 @@ onlineG.create = function(){
 ///////////////////////////////////CALCETINETE'S VARIABLES///////////////////////////////////
     this.clickNWS = false;
     this.clickWS = false;
+    if(myUser.character == 2){
+        onRestart = false;
+        sendRestart(onRestart, onOut);
+    }
     
 ///////////////////////////////////EXTRACCIÓN ELEMENTOS TILEMAP(JSON)///////////////////////////////////
 
@@ -634,22 +638,33 @@ onlineG.update = function(){
     move = false;
     
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
-    //Actualizamos faraón
-    p.update(keys);
-    //Resetamos el estado de colisiones de los sensores del faraón
-    p.resetColliding();
+    
 
-    //Actualizamos momia
-    m.update(keys);
-    //Resetamos el estado de colisiones de los sensores de la momia
-    m.resetColliding();
+    
+    if(!p.dead){
+		//Actualizamos faraón
+        p.update(keys);
+        //Resetamos el estado de colisiones de los sensores del faraón
+        p.resetColliding();
+    }
+    if(!m.dead){
+        //Actualizamos momia
+        m.update(keys);
+        //Resetamos el estado de colisiones de los sensores de la momia
+        m.resetColliding();
 
-    if(p.dead  || m.dead){
-		this.scene.restart();
-		p.getSprite().setVelocity(0,0)
-    	m.getSprite().setVelocity(0,0)
-        this.scene.switch(gameover)
+    }
+    if(p.dead || m.dead){
         
+        p.destroy();
+        m.destroy();
+
+        onlineG.scene.start(gameover);
+        onlineG.scene.stop(heart);
+
+        clearInterval(this.interval1);
+        clearInterval(this.interval2);
+
         if(myUser.character == 1){
             //Si lo está que la cámara deje de seguirla
             cameraMummy.stopFollow();
@@ -657,52 +672,58 @@ onlineG.update = function(){
             //Si lo está que la cámara deje de seguirle
             cameraPharaoh.stopFollow()
         }
-        p.destroy()
-        m.destroy()
+        
     }
    
     
-    
-    //Si Shek no está muerto
-    if(!s.dead){
-        //Actualizamos Shek
-        s.update();
-        //Reseteamos el estado de colisiones de los sensores del Shek
-        s.resetColliding();
-    }
-    //Si Shek no está muerto
-    if(!s2.dead){
-        //Actualizamos Shek
-        s2.update()
-        //Reseteamos el estado de colisiones de los sensores del Shek
-        s2.resetColliding()
-    }
-    for(var i=0;i<shek.length;i++){
-        if(!shek[i].dead){
-            shek[i].update();
-            shek[i].resetColliding();
+    if(!m.dead && !p.dead){
+        //Si Shek no está muerto
+        if(!s.dead){
+            //Actualizamos Shek
+            s.update();
+            //Reseteamos el estado de colisiones de los sensores del Shek
+            s.resetColliding();
         }
-    }
-    //Actualizamos Anubis
-    a.update();
-    //Actualizamos Bastet
-    b.update();
-    //Actualización de todas las cajas (recorre el array de todas las cajas)
-    for(var i = 0; i < box.length; i++){
-        
-        move = move || box[i].move;
-        box[i].update();
-    }
-    //Actualización de todos los botones (recorre el array de todos los botones)
-    for(var i = 0; i < buttons.length; i++){
-        buttons[i].update();
-        buttons[i].resetColliding();
-    }
+        //Si Shek no está muerto
+        if(!s2.dead){
+            //Actualizamos Shek
+            s2.update()
+            //Reseteamos el estado de colisiones de los sensores del Shek
+            s2.resetColliding()
+        }
+        for(var i=0;i<shek.length;i++){
+            if(!shek[i].dead){
+                shek[i].update();
+                shek[i].resetColliding();
+            }
+        }
 
-///////////////////////////////////RESOLVER COLISIONES///////////////////////////////////
-    //Resuelve colisiones de los botones
-    updateButtons();
-    openDoors();
+        //Actualizamos Anubis
+        a.update();
+        //Actualizamos Bastet
+        b.update();
+
+        //Actualización de todas las cajas (recorre el array de todas las cajas)
+        for(var i = 0; i < box.length; i++){
+            move = move || box[i].move;
+            box[i].update();
+        }
+        //Actualización de todos los botones (recorre el array de todos los botones)
+        for(var i = 0; i < buttons.length; i++){
+            buttons[i].update();
+            buttons[i].resetColliding();
+        }
+
+        ///////////////////////////////////RESOLVER COLISIONES///////////////////////////////////
+        //Resuelve colisiones de los botones
+        updateButtons();
+        openDoors();
+    }
+    
+    
+    
+
+
 ///////////////////////////////////RESOLVER CONTROLES///////////////////////////////////
     //Si se acaba de pulsar el espacio
     
@@ -797,7 +818,7 @@ onlineG.updateCalcetinete = function(){
         this.posicionesY = [];
         
 
-        setInterval(function(){
+        this.interval1 = setInterval(function(){
             if(!m.dead || !p.dead){
                 for(var i = 0; i < 9; i++){
                     onlineG.posicionesX[i] = m.shackle[i].x;
@@ -808,16 +829,16 @@ onlineG.updateCalcetinete = function(){
                 sendRope(onlineG.posicionesX, onlineG.posicionesY)
             }
             //sendShek(enemies[0].healthBar.health, enemies[1].healthBar.health, enemies[2].healthBar.health, enemies[3].healthBar.health)
-        }, 30);
+        }, 10);
     }
     else if(myUser.character == 2)
     {
-        setInterval(function(){
+        this.interval2 = setInterval(function(){
             if(!p.dead || !m.dead){
                 sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS);
             }
             sendBox(box[0].purpleBox.y, box[1].purpleBox.y);
-        }, 30);
+        }, 10);
     }
 
 

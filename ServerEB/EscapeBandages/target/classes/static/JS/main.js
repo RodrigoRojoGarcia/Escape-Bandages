@@ -31,6 +31,9 @@ var myLobby = new LobbyObj();
 
 var gameState = 0;
 
+var onRestart = false;
+var onOut = false;
+
 var disconnected = false; 
 var fx;
 

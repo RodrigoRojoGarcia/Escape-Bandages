@@ -36,6 +36,9 @@ gameover.create = function(){
 	this.go.scaleX += 0.3;
 	this.go.scaleY += 0.3;
 
+//////////////////////CALCETINES DE ESTA ESCENA//////////////////
+	
+
 //////////////////////BOTON REINICIAR///////////////////////////
 	//cargar boton Reiniciar
 	this.brei = this.add.sprite(960, 800, 'reinicio').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
@@ -56,9 +59,11 @@ gameover.create = function(){
 	//accion al hacer click sobre el boton Reiniciar
 	this.brei.on('pointerdown', function(){
 		if(gameState == 1){
-			gameover.scene.switch(offline);	
+			gameover.scene.start(offline);
+			gameover.scene.launch(heart, offline);
 		}else if(gameState == 2){
-			gameover.scene.switch(onlineG);
+			
+			onRestart = true;
 		}
 	})
 
@@ -82,9 +87,38 @@ gameover.create = function(){
 	})
 	//accion al hacer click sobre el boton Salir
 	this.bout.on('pointerdown', function(){
-		gameState = 0;
-		gameover.scene.switch(menu);
+		if(gameState == 1){
+			gameState = 0;
+			gameover.scene.start(menu);
+		}else if(gameState == 2){
+			gameState = 0;
+			
+			onOut = true;
+			
+		}
+		
 	})
 }
 
-gameover.update = function(){}
+gameover.update = function(){
+	
+		if(onRestart){
+			if(myUser.character == 1){
+				sendRestart(onRestart, onOut);
+			}
+			
+			gameover.scene.start(onlineG);
+			gameover.scene.launch(heart, onlineG);
+			
+		}
+		if(onOut){
+			if(myUser.character == 1){
+				sendRestart(onRestart, onOut);
+			}
+			gameover.scene.start(lobby);
+			
+		}
+	
+	
+
+}

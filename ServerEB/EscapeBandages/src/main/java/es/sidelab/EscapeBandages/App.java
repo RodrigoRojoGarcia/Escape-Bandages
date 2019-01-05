@@ -42,6 +42,8 @@ public class App implements WebSocketConfigurer
         registry.addHandler(ropeHandler(), "/calcetineteRope")
 		.setAllowedOrigins("*");
         registry.addHandler(shekHandler(), "/calcetineteShek")
+        .setAllowedOrigins("*");
+        registry.addHandler(restartHandler(), "/calcetineteRestart")
 		.setAllowedOrigins("*");
 	}
 	
@@ -64,6 +66,10 @@ public class App implements WebSocketConfigurer
     @Bean
 	public ShekHandler shekHandler() {
 		return new ShekHandler();
+    }
+    @Bean
+	public RestartHandler restartHandler() {
+		return new RestartHandler();
 	}
 	
 
