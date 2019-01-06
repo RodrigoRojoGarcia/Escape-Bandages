@@ -621,9 +621,18 @@ onlineG.create = function(){
 
     //CAJAS
     //Creamos una cada inservible
-    const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
+    /*const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
     const utilBox1 = this.matter.add.image(65*120, 0, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
-    const utilBox2 = this.matter.add.image(68*120, 3*120, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
+    const utilBox2 = this.matter.add.image(68*120, 3*120, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });*/
+
+    const caja = new Box(this, 1500, 150, 'box', 0, 0.01, 0.1, 10);
+    const utilBox1 = new Box(this, 65*120, 0, 'box', 0, 0.01, 0.1, 10);
+    const utilBox2 = new Box(this, 68*120, 3*120, 'box', 0, 0.01, 0.1, 10);
+    utilBoxes = [caja, utilBox1, utilBox2];
+    for(var i = 0;i<utilBoxes.length;i++){
+        utilBoxes[i].create();
+    }
+    
 
     //LLAMAR AL CALCETINETE
     onlineG.updateCalcetinete();
@@ -816,9 +825,9 @@ onlineG.updateCalcetinete = function(){
     {
         this.posicionesX = [];
         this.posicionesY = [];
-        
 
         this.interval1 = setInterval(function(){
+
             if(!m.dead || !p.dead){
                 for(var i = 0; i < 9; i++){
                     onlineG.posicionesX[i] = m.shackle[i].x;
@@ -827,17 +836,21 @@ onlineG.updateCalcetinete = function(){
     
                 sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
                 sendRope(onlineG.posicionesX, onlineG.posicionesY)
+                
             }
             //sendShek(enemies[0].healthBar.health, enemies[1].healthBar.health, enemies[2].healthBar.health, enemies[3].healthBar.health)
         }, 10);
     }
     else if(myUser.character == 2)
-    {
+    {   
+
         this.interval2 = setInterval(function(){
+
             if(!p.dead || !m.dead){
                 sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS);
             }
             sendBox(box[0].purpleBox.y, box[1].purpleBox.y);
+           
         }, 10);
     }
 

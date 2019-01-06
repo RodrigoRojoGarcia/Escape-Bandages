@@ -40,6 +40,10 @@ public class App implements WebSocketConfigurer
 		registry.addHandler(boxHandler(), "/calcetineteBox")
         .setAllowedOrigins("*");
         registry.addHandler(ropeHandler(), "/calcetineteRope")
+        .setAllowedOrigins("*");
+        registry.addHandler(boxesHandlerMummy(), "/calcetineteBoxesMummy")
+        .setAllowedOrigins("*");
+        registry.addHandler(boxesHandlerPharaoh(), "/calcetineteBoxesPharaoh")
 		.setAllowedOrigins("*");
         registry.addHandler(shekHandler(), "/calcetineteShek")
         .setAllowedOrigins("*");
@@ -62,6 +66,14 @@ public class App implements WebSocketConfigurer
     @Bean
 	public BoxHandler ropeHandler() {
 		return new BoxHandler();
+    }
+    @Bean
+	public BoxesHandler boxesHandlerMummy() {
+		return new BoxesHandler();
+    }
+    @Bean
+	public BoxesHandler boxesHandlerPharaoh() {
+		return new BoxesHandler();
     }
     @Bean
 	public ShekHandler shekHandler() {

@@ -131,7 +131,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 		
 		this.purpleBox.x = this.x;
 		//Empieza la animación de la caja y se puede arrastrar cuando el faraón esta cerca de ella (izquierda o derecha). 
-	    if (playerX < this.purpleBox.x && distance > 0 && distance < 300 || playerX > this.purpleBox.x  && distance < 0 && distance > -300)
+	    if (playerX < this.purpleBox.x && distance > 0 && distance < 300 || playerX > this.purpleBox.x && distance < 0 && distance > -300)
 	    {
 	    	this.purpleBox.anims.play(k, true);
 	    	this.move = true;

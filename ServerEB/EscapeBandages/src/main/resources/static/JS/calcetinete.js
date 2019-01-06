@@ -5,6 +5,8 @@ function letsConnect(){
 	conn = new WebSocket('ws://'+location.host+'/calcetineteMummy')
 	connPharaoh = new WebSocket('ws://'+location.host+'/calcetinetePharaoh')
 	connBox = new WebSocket('ws://'+location.host+'/calcetineteBox')
+	connBoxesMummy = new WebSocket('ws://'+location.host+'/calcetineteBoxesMummy')
+	connBoxesPharaoh = new WebSocket('ws://'+location.host+'/calcetineteBoxesPharaoh')
 	connRope = new WebSocket('ws://'+location.host+'/calcetineteRope')
 	connShek = new WebSocket('ws://'+location.host+'/calcetineteShek')
 	connRestart = new WebSocket('ws://'+location.host+'/calcetineteRestart')
@@ -61,11 +63,49 @@ function letsConnect(){
 		var parse = JSON.parse(mesg.data)
 		box[0].purpleBox.y = parse.y0;
 		box[1].purpleBox.y = parse.y1;
+		
 	}
 	connBox.onclose = function(mes){
 		console.log("Cerrado el calcetín");
 		letsConnect()
 	}
+
+	connBoxesMummy.onerror = function(e){
+		console.log(e);
+	}
+	connBoxesMummy.onmessage = function(mesg){
+		var parse = JSON.parse(mesg.data)
+		for(var i = 0; i < utilBoxes.length; i++){
+			utilBoxes[i].box.x = parse.posicionesX[i];
+			utilBoxes[i].box.y = parse.posicionesY[i];
+			utilBoxes[i].box.angle = parse.angulos[i];
+		}
+		console.log("cajasMomia");
+		
+	}
+	connBoxesMummy.onclose = function(mes){
+		console.log("Cerrado el calcetín");
+		letsConnect()
+	}
+
+	connBoxesPharaoh.onerror = function(e){
+		console.log(e);
+	}
+	connBoxesPharaoh.onmessage = function(mesg){
+		var parse = JSON.parse(mesg.data)
+		for(var i = 0; i < utilBoxes.length; i++){
+			utilBoxes[i].box.x = parse.posicionesX[i];
+			utilBoxes[i].box.y = parse.posicionesY[i];
+			utilBoxes[i].box.angle = parse.angulos[i];
+		}
+		console.log("cajasFaraon");
+	}
+	connBoxesPharaoh.onclose = function(mes){
+		console.log("Cerrado el calcetín");
+		letsConnect()
+	}
+
+	
 	
 	connRope.onerror = function(e){
 		console.log(e);
@@ -158,9 +198,28 @@ function letsConnect(){
 		var obj = {
 			id: 2,
 			y0: yBox0,
-			y1: yBox1
+			y1: yBox1,
+			
 		}
 		connBox.send(JSON.stringify(obj))
+	}
+
+	function sendBoxesMummy(arrayX, arrayY, arrayAngle){
+		var obj = {
+			posicionesX: arrayX,
+			posicionesY: arrayY,
+			angulos: arrayAngle
+		}
+		connBoxesMummy.send(JSON.stringify(obj));
+	}
+
+	function sendBoxesPharaoh(arrayX, arrayY, arrayAngle){
+		var obj = {
+			posicionesX: arrayX,
+			posicionesY: arrayY,
+			angulos: arrayAngle
+		}
+		connBoxesPharaoh.send(JSON.stringify(obj));
 	}
 
 	function sendRope(arrayX, arrayY){
