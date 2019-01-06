@@ -37,16 +37,13 @@ public class App implements WebSocketConfigurer
 		.setAllowedOrigins("*");
 		registry.addHandler(pharaohHandler(), "/calcetinetePharaoh")
 		.setAllowedOrigins("*");
-		registry.addHandler(boxHandler(), "/calcetineteBox")
-        .setAllowedOrigins("*");
-        registry.addHandler(ropeHandler(), "/calcetineteRope")
-        .setAllowedOrigins("*");
+		
+        
         registry.addHandler(boxesHandlerMummy(), "/calcetineteBoxesMummy")
         .setAllowedOrigins("*");
         registry.addHandler(boxesHandlerPharaoh(), "/calcetineteBoxesPharaoh")
 		.setAllowedOrigins("*");
-        registry.addHandler(shekHandler(), "/calcetineteShek")
-        .setAllowedOrigins("*");
+    
         registry.addHandler(restartHandler(), "/calcetineteRestart")
 		.setAllowedOrigins("*");
 	}
@@ -59,25 +56,14 @@ public class App implements WebSocketConfigurer
 	public PharaohHandler pharaohHandler() {
 		return new PharaohHandler();
     }
-    @Bean
-	public BoxHandler boxHandler() {
-		return new BoxHandler();
-    }
-    @Bean
-	public BoxHandler ropeHandler() {
-		return new BoxHandler();
-    }
+    
     @Bean
 	public BoxesHandler boxesHandlerMummy() {
 		return new BoxesHandler();
     }
     @Bean
-	public BoxesHandler boxesHandlerPharaoh() {
-		return new BoxesHandler();
-    }
-    @Bean
-	public ShekHandler shekHandler() {
-		return new ShekHandler();
+	public BoxesHandler2 boxesHandlerPharaoh() {
+		return new BoxesHandler2();
     }
     @Bean
 	public RestartHandler restartHandler() {

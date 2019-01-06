@@ -312,13 +312,19 @@ onlineG.create = function(){
     function onVictoryStartP({bodyA, bodyB, pair}){
         if(bodyB === zoneVictory){
             p.getSprite().setTint(0xddffdd)
-            scene.pharaohVictory = true;
+            if(myUser.character == 2){
+                scene.pharaohVictory = true;
+            }
+            
         }
     }
     function onVictoryStartM({bodyA, bodyB, pair}){
         if(bodyB === zoneVictory){
             m.getSprite().setTint(0xddffdd)
-            scene.mummyVictory = true;
+            if(myUser.character == 1){
+                scene.mummyVictory = true;
+            }
+            
         }
     }
 
@@ -328,13 +334,17 @@ onlineG.create = function(){
     function onVictoryOutP({bodyA, bodyB, pair}){
         if(bodyB === zoneVictory){
             p.getSprite().setTint(0xffffff)
-            scene.pharaohVictory = false;
+            if(myUser.character == 2){
+                scene.pharaohVictory = false;
+            }
         }
     }
     function onVictoryOutM({bodyA, bodyB, pair}){
         if(bodyB === zoneVictory){
             m.getSprite().setTint(0xffffff)
-            scene.mummyVictory = false;
+            if(myUser.character == 1){
+                scene.mummyVictory = false;
+            }
         }
     }
 
@@ -771,75 +781,62 @@ onlineG.update = function(){
         });
         
     }
-    /*
-    if(Phaser.Input.Keyboard.JustDown(keys.c)){
+
         
-        if(this.doubleCamera){
-            this.doubleCamera = false;
-            cameraPharaoh = this.cameras.add(0,0,1920,1080).setName('camPharaoh');
-            cameraMummy = this.cameras.add(1920,1080,0,0).setName('camMummy');
-            cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
-            cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-            cameraPharaoh.ignore(this.sayBastet1);
-            cameraPharaoh.ignore(this.sayBastet2);            
-        }else{
-            this.doubleCamera = true;
-            this.cameras.remove(cameraMummy)
-            this.cameras.remove(cameraPharaoh)
-            cameraMummy = this.cameras.add(0,0,940,1080).setName('camMummy');
-            cameraPharaoh = this.cameras.add(980,0,940,1080).setName('camPharaoh');
-            cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
-            cameraMummy.startFollow(m.getSprite(), false, 1, 1, -200);
-            cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-            cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-            cameraPharaoh.ignore(this.sayBastet1);
-            cameraPharaoh.ignore(this.sayBastet2);
-            cameraMummy.ignore(this.sayAnubis1);
-            cameraMummy.ignore(this.sayAnubis2);
-            cameraMummy.ignore(this.sayAnubis3);
-            for(var i=0;i<p.health.health.length;i++){
-                cameraMummy.ignore(p.health.health[i])
-            }
-            
-            for(var i=0;i<m.health.health.length;i++){
-                cameraPharaoh.ignore(m.health.health[i])
-            }
-            
-        }
-        
-    }
-    */
+    
     if(this.mummyVictory && this.pharaohVictory){
-        onlineG.scene.restart()
-        p.getSprite().setVelocity(0,0)
-        m.getSprite().setVelocity(0,0)
-        onlineG.scene.start(victoria)
+        scene.time.addEvent({
+            delay: 100,
+            callback: onlineG.sendVictory,
+            callbackScope: scene
+        });
+        
+        
     }
+
+    
 
 
 }//FINAL UPDATE
 
+onlineG.sendVictory = function(){
+    onlineG.scene.start(victoria);
+    onlineG.scene.stop(heart);
+    clearInterval(this.interval1);
+    clearInterval(this.interval2);
+}
+
 onlineG.updateCalcetinete = function(){
     const keys = this.keys
+    
+
     if(myUser.character == 1)
     {
         this.posicionesX = [];
         this.posicionesY = [];
 
+        this.healthEnemies = [];
+
         this.interval1 = setInterval(function(){
+            
 
             if(!m.dead || !p.dead){
+                for(var i = 0; i < 4; i++){
+                    onlineG.healthEnemies[i] = enemies[i].healthBar.health;
+                }
+
                 for(var i = 0; i < 9; i++){
                     onlineG.posicionesX[i] = m.shackle[i].x;
                     onlineG.posicionesY[i] = m.shackle[i].y;
                 }
     
-                sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown);
-                sendRope(onlineG.posicionesX, onlineG.posicionesY)
+                sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown, onlineG.posicionesX, onlineG.posicionesY, onlineG.healthEnemies, onlineG.mummyVictory);
                 
+                for(var i = 0; i < utilBoxes.length; i++){
+                    sendBoxesMummy(i, utilBoxes[i].box.x, utilBoxes[i].box.y, utilBoxes[i].box.angle, m.mummy.x, m.mummy.y, p.pharaoh.x, p.pharaoh.y);
+                }
             }
-            //sendShek(enemies[0].healthBar.health, enemies[1].healthBar.health, enemies[2].healthBar.health, enemies[3].healthBar.health)
-        }, 10);
+        }, 30);
     }
     else if(myUser.character == 2)
     {   
@@ -847,11 +844,15 @@ onlineG.updateCalcetinete = function(){
         this.interval2 = setInterval(function(){
 
             if(!p.dead || !m.dead){
-                sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS);
+                sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS, box[0].purpleBox.y, box[1].purpleBox.y, onlineG.pharaohVictory);
             }
-            sendBox(box[0].purpleBox.y, box[1].purpleBox.y);
+            
+            
+            for(var i = 0; i < utilBoxes.length; i++){
+                sendBoxesPharaoh(i, utilBoxes[i].box.x, utilBoxes[i].box.y, utilBoxes[i].box.angle, m.mummy.x, m.mummy.y, p.pharaoh.x, p.pharaoh.y);
+            }
            
-        }, 10);
+        }, 30);
     }
 
 

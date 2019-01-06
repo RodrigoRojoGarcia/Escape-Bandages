@@ -75,9 +75,7 @@ function Mummy(scene, x, y){
 	//Muerto?
 	this.dead = false;
 
-	this.posicionesXCajasM = [];
-    this.posicionesYCajasM = [];
-    this.angulosCajasM = [];
+	
 
 
 ///////////////////////////////////COLISIONES///////////////////////////////////
@@ -107,21 +105,6 @@ function Mummy(scene, x, y){
 			}
 		}
 		
-		for(var i = 0; i < utilBoxes.length; i++){
-			this.posicionesXCajasM[i] = utilBoxes[i].box.x;
-			this.posicionesYCajasM[i] = utilBoxes[i].box.y;
-			this.angulosCajasM[i] = utilBoxes[i].box.angle;
-		}
-
-		for(var i = 0; i < utilBoxes.length; i++){
-			if(bodyB === utilBoxes[i].getSprite().body.parts[1]){
-				sendBoxesMummy(this.posicionesXCajasM, this.posicionesYCajasM, this.angulosCajasM);
-			}
-			
-		}
-		
-
-
 		//Si con lo que colisiona es un sensor: no hacemos nada
 		if(bodyB.isSensor){
 			return;

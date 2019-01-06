@@ -40,7 +40,7 @@ victoria.create = function(){
 
 /////////////////BOTON VOLVER//////////////////
 	//cargar boton Volver
-	this.binit = this.add.sprite(1700, 955, 'backI').setInteractive();
+	this.binit = this.add.sprite(960, 950, 'backI').setInteractive();
 	this.binit.scaleX -= 0.4;
 	this.binit.scaleY -= 0.4;
 	//hacer boton invisible

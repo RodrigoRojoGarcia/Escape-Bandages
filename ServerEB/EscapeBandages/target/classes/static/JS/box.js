@@ -4,7 +4,7 @@ function Box(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frictionArg
 	
 ///////////////////////////////////CREACIÓN///////////////////////////////////
 	//Sprite
-	this.box = scene.matter.add.sprite(x,y,sprite).setInteractive({ cursor: 'url(Sprites/cetro2.png), pointer' });
+	this.box = scene.matter.add.sprite(x,y,sprite);
 	const {width: w, height: h} = this.box;
 	//Cuerpo de la caja
 	const mainBody = Bodies.rectangle(0,0,w,h);
@@ -56,9 +56,6 @@ function Box(scene, x, y, sprite, frictionStaticArg, frictionAirArg, frictionArg
 	
 ///////////////////////////////////CREATE///////////////////////////////////
 	this.create = function(){
-		if(myUser.character == 1){
-			this.box.setStatic(true);
-		}
 
 		//seleccion de nombre de animación
 		if(sprite === "PurpleBox1"){

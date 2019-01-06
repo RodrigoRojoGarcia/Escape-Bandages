@@ -15,6 +15,7 @@ heart.create = function(){
 		this.spriteWidth = 65;
 		this.spriteHeight = 65;
 		
+		
 		for(var i = 0; i < m.health; i++){
 			this.livesMummy[i] = this.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
 		}
@@ -32,19 +33,14 @@ heart.create = function(){
 		this.spriteWidth = 65;
 		this.spriteHeight = 65;
 		
-		if(myUser.character == 1){
-			this.hud = this.add.image(1920/2,1080/2,'hudMummy');
-			for(var i = 0; i < m.health; i++){
-				this.lives[i] = this.add.image(140 + (this.spriteWidth/2)+(this.spriteWidth*i + (i*15)),1080-(this.spriteHeight/2),'heart');
-			}
-		}else if(myUser.character == 2){
-			this.hud = this.add.image(1920/2,1080/2,'hudPharaoh');
-			for(var i = 0; i < p.health; i++){
-				this.lives[i] = this.add.image(140 + (this.spriteWidth/2)+(this.spriteWidth*i + (i*15)),1080-(this.spriteHeight/2),'heart');
-			}
-		}else{
-			console.log("UwU, este no es tu barrio, tu barrio es aquel")
-		}
+		this.time.addEvent({
+			delay: 500,
+			callback: heart.theFunction,
+			callbackScope: heart
+		});
+
+		
+		
 		
 		
 	}else{
@@ -80,6 +76,23 @@ heart.update = function(){
 		console.log("UwU, este no es tu barrio, tu barrio es aquel")
 	}
 }
+
+heart.theFunction = function(){
+	console.log("UWU JAJA");
+	if(myUser.character == 1){
+		heart.hud = heart.add.image(1920/2,1080/2,'hudMummy');
+		for(var i = 0; i < m.health; i++){
+			heart.lives[i] = heart.add.image(140 + (heart.spriteWidth/2)+(heart.spriteWidth*i + (i*15)),1080-(heart.spriteHeight/2),'heart');
+		}
+	}else if(myUser.character == 2){
+		heart.hud = heart.add.image(1920/2,1080/2,'hudPharaoh');
+		for(var i = 0; i < p.health; i++){
+			heart.lives[i] = heart.add.image(140 + (heart.spriteWidth/2)+(heart.spriteWidth*i + (i*15)),1080-(heart.spriteHeight/2),'heart');
+		}
+	}else{
+		console.log("UwU, este no es tu barrio, tu barrio es aquel")
+	}
+}	
 
 
 

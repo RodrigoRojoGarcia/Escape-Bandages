@@ -35,22 +35,25 @@ function Enemy(scene, x, y){
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody
 	this.onSensorCollide = function({bodyA, bodyB, pair}){
-		//Si el bodyB es alguna parte de la cuerda de la momia
-		if(bodyB === m.shackle[0].body || bodyB === m.shackle[1].body || bodyB === m.shackle[2].body|| bodyB === m.shackle[3].body || bodyB === m.shackle[4].body||bodyB === m.shackle[5].body||bodyB === m.shackle[6].body||bodyB === m.shackle[7].body||bodyB === m.shackle[8].body){
-			//Si la momia está atacando
-			if(m.onHit){
-				//Quitamos vida al enemigo
-				this.healthBar.damage(20)
-				//Ya me has atacado una vez, ya no estás atacando
-				m.onHit = false;
+		if(myUser.character == 1){
+			//Si el bodyB es alguna parte de la cuerda de la momia
+			if(bodyB === m.shackle[0].body || bodyB === m.shackle[1].body || bodyB === m.shackle[2].body|| bodyB === m.shackle[3].body || bodyB === m.shackle[4].body||bodyB === m.shackle[5].body||bodyB === m.shackle[6].body||bodyB === m.shackle[7].body||bodyB === m.shackle[8].body){
+				//Si la momia está atacando
+				if(m.onHit){
+					//Quitamos vida al enemigo
+					this.healthBar.damage(20)
+					//Ya me has atacado una vez, ya no estás atacando
+					m.onHit = false;
+				}
+			}
+			if(bodyB === p.fire[0].body ||bodyB === p.fire[1].body ||bodyB === p.fire[2].body){
+				if(p.onHit){
+					this.healthBar.damage(50)
+					p.onHit = false
+				}
 			}
 		}
-		if(bodyB === p.fire[0].body ||bodyB === p.fire[1].body ||bodyB === p.fire[2].body){
-			if(p.onHit){
-				this.healthBar.damage(50)
-				p.onHit = false
-			}
-		}
+		
 
 		//Si con lo que colisiona es un sensor: no hacemos nada (a menos que sea un trozo de cuerda, que no llega a esta parte)
 		if(bodyB.isSensor){

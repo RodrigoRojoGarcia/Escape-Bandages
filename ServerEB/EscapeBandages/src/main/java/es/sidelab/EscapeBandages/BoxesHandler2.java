@@ -10,17 +10,13 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import es.sidelab.EscapeBandages.BoxesHandler;
 
-
-public class BoxesHandler extends TextWebSocketHandler{
+public class BoxesHandler2 extends TextWebSocketHandler{
 	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
-	private static Map<Long, Box> boxes = new ConcurrentHashMap<>();
+	
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	public static Map<Long, Box> getBoxes(){
-		return boxes;
-	}
-
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
 		
@@ -29,8 +25,8 @@ public class BoxesHandler extends TextWebSocketHandler{
 		Long id = jnode.get("id").asLong();
 		double x = jnode.get("X").asDouble();
 		double y = jnode.get("Y").asDouble();
-		double angle = jnode.get("Ang").asDouble();
-		double posXM = jnode.get("xMummy").asDouble();
+        double angle = jnode.get("Ang").asDouble();
+        double posXM = jnode.get("xMummy").asDouble();
 		double posYM = jnode.get("yMummy").asDouble();
 		double posXP = jnode.get("xPharaoh").asDouble();
 		double posYP = jnode.get("yPharaoh").asDouble();
@@ -38,34 +34,31 @@ public class BoxesHandler extends TextWebSocketHandler{
 		double distMB = Math.sqrt(Math.pow(posXM - x, 2) + Math.pow(posYM - y, 2));
 		double distPB = Math.sqrt(Math.pow(posXP - x, 2) + Math.pow(posYP - y, 2));
 
-		if(distMB <= distPB && distMB < 1000){
-			if(boxes.containsKey(id)){
-				if(boxes.get(id).getX() != x){
-					boxes.get(id).setX(x);
-				}
-				if(boxes.get(id).getY() != y){
-					boxes.get(id).setY(y);
-				}
-				if(boxes.get(id).getAngle() != angle){
-					boxes.get(id).setAngle(angle);
-				}
-			}
-			else{
-				boxes.put(id, new Box(x, y, angle));
-			}
+        if(distPB < distMB && distPB < 1000){
+            if(BoxesHandler.getBoxes().containsKey(id)){
+                if(BoxesHandler.getBoxes().get(id).getX() != x){
+                    BoxesHandler.getBoxes().get(id).setX(x);
+                }
+                if(BoxesHandler.getBoxes().get(id).getY() != y){
+                    BoxesHandler.getBoxes().get(id).setY(y);
+                }
+                if(BoxesHandler.getBoxes().get(id).getAngle() != angle){
+                    BoxesHandler.getBoxes().get(id).setAngle(angle);
+                }
+            }
+            else{
+                BoxesHandler.getBoxes().put(id, new Box(x, y, angle));
+            }
 
-			for(WebSocketSession s : sessions.values()) {
-				s.sendMessage(new TextMessage(jnode.toString()));
-			}
-		}
-
+            for(WebSocketSession s : sessions.values()) {
+                s.sendMessage(new TextMessage(jnode.toString()));
+            }
+        }
 		
-
 		
 		//ObjectNode node = mapper.createObjectNode();
 		//node.put("UwU", uwu);
 		
-
 		
 		
 		

@@ -102,24 +102,21 @@ gameover.create = function(){
 
 gameover.update = function(){
 	
-		if(onRestart){
-			if(myUser.character == 1){
-				sendRestart(onRestart, onOut);
-			}
-			
-			gameover.scene.start(onlineG);
-			gameover.scene.launch(heart, onlineG);
-			
+	if(onRestart){
+		if(myUser.character == 1){
+			sendRestart(onRestart, onOut);
 		}
-		if(onOut){
-			if(myUser.character == 1){
-				sendRestart(onRestart, onOut);
-			}
-			gameover.scene.start(lobby);
-			gameover.scene.stop(chatOnline);
-			
+		
+		gameover.scene.start(onlineG);
+		gameover.scene.launch(heart, onlineG);
+		
+	}
+	if(onOut){
+		if(myUser.character == 1){
+			sendRestart(onRestart, onOut);
 		}
-	
-	
-
+		gameover.scene.start(lobby);
+		gameover.scene.stop(chatOnline);
+		
+	}
 }

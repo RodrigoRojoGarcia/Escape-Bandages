@@ -4,7 +4,19 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 	
 ///////////////////////////////////CREACIÓN///////////////////////////////////
 	//Sprite
-	this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive({ cursor: 'url(Sprites/cetro2.png), pointer' });
+	if(gameState == 1){
+		this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive({ cursor: 'url(Sprites/cetro2.png), pointer' });
+	}
+	else if(gameState == 2){
+		if(myUser.character == 1){
+			this.purpleBox = scene.matter.add.sprite(x,y,sprite);
+		}
+		else if(myUser.character == 2){
+			this.purpleBox = scene.matter.add.sprite(x,y,sprite).setInteractive({ cursor: 'url(Sprites/cetro2.png), pointer' });
+		}
+	}
+	
+	
 	const {width: w, height: h} = this.purpleBox;
 	//Cuerpo de la caja
 	const mainBody = Bodies.rectangle(0,0,w,h);

@@ -64,29 +64,6 @@ function Pharaoh(scene, x, y){
 	this.gettingHit = false;
 	//Muerto?
 	this.dead = false;
-
-	this.posicionesXCajasP = [];
-    this.posicionesYCajasP = [];
-    this.angulosCajasP = [];
-
-	this.interval = setInterval(function(){
-		for(var i = 0; i < utilBoxes.length; i++){
-			p.posicionesXCajasP[i] = utilBoxes[i].box.x;
-			p.posicionesYCajasP[i] = utilBoxes[i].box.y;
-			p.angulosCajasP[i] = utilBoxes[i].box.angle;
-		}
-
-		//var posX = p.pharaoh.x -
-		for(var i = 0; i < utilBoxes.length; i++){
-			if(bodyB === utilBoxes[i].getSprite().body.parts[1]){
-				sendBoxesPharaoh(p.posicionesXCajasP, p.posicionesYCajasP, p.angulosCajasP);
-			}
-			
-			
-		}
-
-	}, 30);
-
 	
 ///////////////////////////////////COLISIONES///////////////////////////////////
 	//Cuando colisiona un sensor del mainBody

@@ -4,11 +4,11 @@ var connPharaoh;
 function letsConnect(){
 	conn = new WebSocket('ws://'+location.host+'/calcetineteMummy')
 	connPharaoh = new WebSocket('ws://'+location.host+'/calcetinetePharaoh')
-	connBox = new WebSocket('ws://'+location.host+'/calcetineteBox')
+	
 	connBoxesMummy = new WebSocket('ws://'+location.host+'/calcetineteBoxesMummy')
 	connBoxesPharaoh = new WebSocket('ws://'+location.host+'/calcetineteBoxesPharaoh')
-	connRope = new WebSocket('ws://'+location.host+'/calcetineteRope')
-	connShek = new WebSocket('ws://'+location.host+'/calcetineteShek')
+	
+	
 	connRestart = new WebSocket('ws://'+location.host+'/calcetineteRestart')
 
 	conn.onerror = function(e){
@@ -17,12 +17,25 @@ function letsConnect(){
 	conn.onmessage = function(mesg){
 		if(!m.dead){
 			var parse = JSON.parse(mesg.data)
-			m.mummy.x = parse.x;
-			m.mummy.y = parse.y;
-			m.forceWS = parse.forceX;
-			m.jumpWS = parse.jump;
-			m.attackWS = parse.attacking;
-			m.health.life = parse.life;
+			
+			
+			if(myUser.character == 2){
+				m.mummy.x = parse.x;
+				m.mummy.y = parse.y;
+				m.forceWS = parse.forceX;
+				m.jumpWS = parse.jump;
+				m.attackWS = parse.attacking;
+				m.health.life = parse.life;
+				for(var i = 0; i < 4; i++){
+					enemies[i].healthBar.health = parse.arrHealth[i];
+				}
+				for(var i = 0; i < m.shackle.length; i++){
+					m.shackle[i].x = parse.posx[i];
+					m.shackle[i].y = parse.posy[i];
+				}
+				onlineG.mummyVictory = parse.vic;
+			}
+			
 		
 		}
 		
@@ -40,13 +53,19 @@ function letsConnect(){
 	connPharaoh.onmessage = function(mesg){
 		if(!p.dead){
 			var parse = JSON.parse(mesg.data);
-			p.pharaoh.x = parse.x;
-			p.pharaoh.y = parse.y;
-			p.forceWS = parse.forceX;
-			p.jumpWS = parse.jump;
-			p.attackWS = parse.attacking;
-			p.health.life = parse.life;
-			onlineG.clickWS = parse.click;
+			if(myUser.character == 1){
+				p.pharaoh.x = parse.x;
+				p.pharaoh.y = parse.y;
+				p.forceWS = parse.forceX;
+				p.jumpWS = parse.jump;
+				p.attackWS = parse.attacking;
+				p.health.life = parse.life;
+				onlineG.clickWS = parse.click;
+				box[0].purpleBox.y = parse.bY1;
+				box[1].purpleBox.y = parse.bY2;
+				onlineG.pharaohVictory = parse.vic;
+			}
+			
 
 		}
 		
@@ -56,30 +75,19 @@ function letsConnect(){
 		letsConnect()
 	}
 
-	connBox.onerror = function(e){
-		console.log(e);
-	}
-	connBox.onmessage = function(mesg){
-		var parse = JSON.parse(mesg.data)
-		box[0].purpleBox.y = parse.y0;
-		box[1].purpleBox.y = parse.y1;
-		
-	}
-	connBox.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	connBoxesMummy.onerror = function(e){
 		console.log(e);
 	}
 	connBoxesMummy.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
-		for(var i = 0; i < utilBoxes.length; i++){
-			utilBoxes[i].box.x = parse.posicionesX[i];
-			utilBoxes[i].box.y = parse.posicionesY[i];
-			utilBoxes[i].box.angle = parse.angulos[i];
+		if(myUser.character == 2){
+			utilBoxes[parse.id].box.x = parse.X;
+			utilBoxes[parse.id].box.y = parse.Y;
+			utilBoxes[parse.id].box.angle = parse.Ang;
 		}
+		
 		console.log("cajasMomia");
 		
 	}
@@ -93,11 +101,12 @@ function letsConnect(){
 	}
 	connBoxesPharaoh.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
-		for(var i = 0; i < utilBoxes.length; i++){
-			utilBoxes[i].box.x = parse.posicionesX[i];
-			utilBoxes[i].box.y = parse.posicionesY[i];
-			utilBoxes[i].box.angle = parse.angulos[i];
+		if(myUser.character == 1){
+			utilBoxes[parse.id].box.x = parse.X;
+			utilBoxes[parse.id].box.y = parse.Y;
+			utilBoxes[parse.id].box.angle = parse.Ang;
 		}
+		
 		console.log("cajasFaraon");
 	}
 	connBoxesPharaoh.onclose = function(mes){
@@ -107,40 +116,8 @@ function letsConnect(){
 
 	
 	
-	connRope.onerror = function(e){
-		console.log(e);
-	}
-	connRope.onmessage = function(mesg){
-		if(!m.dead){
-			if(myUser.character == 2){
-				var parse = JSON.parse(mesg.data)
-				for(var i = 0; i < m.shackle.length; i++){
-					m.shackle[i].x = parse.posx[i];
-					m.shackle[i].y = parse.posy[i];
-				}
-			}
-		}
-		
-	}
-	connRope.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
-	connShek.onerror = function(e){
-		console.log(e);
-	}
-	connShek.onmessage = function(mesg){
-		var parse = JSON.parse(mesg.data)
-		enemies[0].healthBar.health = parse.healthEnemy0;
-		enemies[1].healthBar.health = parse.healthEnemy1;
-		enemies[2].healthBar.health = parse.healthEnemy2;
-		enemies[3].healthBar.health = parse.healthEnemy3;
-	}
-	connShek.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
-
+	
+	
 	connRestart.onerror = function(e){
 		console.log(e);
 	}
@@ -168,7 +145,7 @@ function letsConnect(){
 		conn.send(JSON.stringify(obj))
 	}
 
-	function sendMummy(posX, posY, lifes, force, jumping, space){
+	function sendMummy(posX, posY, lifes, force, jumping, space, ropeX, ropeY, arrayHealth, victory){
 		var obj = {
 			id: 0,
 			x: posX,
@@ -176,11 +153,15 @@ function letsConnect(){
 			forceX: force,
 			jump: jumping,
 			attacking: space,
-			life: lifes
+			life: lifes,
+			posx: ropeX,
+			posy: ropeY,
+			arrHealth: arrayHealth,
+			vic: victory
 		}
 		conn.send(JSON.stringify(obj))
 	}
-	function sendPharaoh(posX, posY, lifes, force, jumping, space, clic){
+	function sendPharaoh(posX, posY, lifes, force, jumping, space, clic, boxY1, boxY2, victory){
 		var obj = {
 			id: 1,
 			x: posX,
@@ -189,35 +170,40 @@ function letsConnect(){
 			jump: jumping,
 			attacking: space,
 			life: lifes,
-			click: clic
+			click: clic,
+			bY1: boxY1,
+			bY2: boxY2, 
+			vic: victory
 		}
 		connPharaoh.send(JSON.stringify(obj))
 	}
 
-	function sendBox(yBox0, yBox1){
-		var obj = {
-			id: 2,
-			y0: yBox0,
-			y1: yBox1,
-			
-		}
-		connBox.send(JSON.stringify(obj))
-	}
+	
 
-	function sendBoxesMummy(arrayX, arrayY, arrayAngle){
+	function sendBoxesMummy(idN, posX, posY, angle, posXM, posYM, posXP, posYP){
 		var obj = {
-			posicionesX: arrayX,
-			posicionesY: arrayY,
-			angulos: arrayAngle
+			id: idN,
+			X: posX,
+			Y: posY,
+			Ang: angle,
+			xMummy: posXM,
+			yMummy: posYM,
+			xPharaoh: posXP,
+			yPharaoh: posYP
 		}
 		connBoxesMummy.send(JSON.stringify(obj));
 	}
 
-	function sendBoxesPharaoh(arrayX, arrayY, arrayAngle){
+	function sendBoxesPharaoh(idN, posX, posY, angle, posXM, posYM, posXP, posYP){
 		var obj = {
-			posicionesX: arrayX,
-			posicionesY: arrayY,
-			angulos: arrayAngle
+			id: idN,
+			X: posX,
+			Y: posY,
+			Ang: angle,
+			xPharaoh: posXP,
+			yPharaoh: posYP,
+			xMummy: posXM,
+			yMummy: posYM,
 		}
 		connBoxesPharaoh.send(JSON.stringify(obj));
 	}
@@ -231,16 +217,7 @@ function letsConnect(){
 		connRope.send(JSON.stringify(obj))
 	}
 	
-	function sendShek(health0, health1, health2, health3){
-		var obj = {
-			id: 4,
-			healthEnemy0: health0,
-			healthEnemy1: health1,
-			healthEnemy2: health2,
-			healthEnemy3: health3
-		}
-		connShek.send(JSON.stringify(obj))
-	}
+	
 	
 	function sendRestart(onClick, onClick2){
 		var obj = {
