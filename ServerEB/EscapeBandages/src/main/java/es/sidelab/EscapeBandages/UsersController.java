@@ -133,31 +133,44 @@ public class UsersController {
 				users.get(userName).setOnline(false);
 				
 				LobbyController.showDisconnected(userName);
-				
+				//Por todos los Lobbies
 				for(long id : LobbyController.getLobbies().keySet()) {
+					//Si existe el usuario 1
 					if(LobbyController.getLobbies().get(id).getUser1() != null) {
+						//Si el usuario 1 es el usuario que se desconecta
 						if(LobbyController.getLobbies().get(id).getUser1().getUserName().equals(userName)) {
+							//Eliminarlo
 							LobbyController.getLobbies().get(id).setUser1(null);
+							//Decir que no está lleno el lobby
 							LobbyController.getLobbies().get(id).setFull(false);
 						}	
 						
 					}
+					//Si existe el usuario 2
 					if(LobbyController.getLobbies().get(id).getUser2() != null) {
+						//Si el usuario 2 es el que se desconecta
 						if(LobbyController.getLobbies().get(id).getUser2().getUserName().equals(userName)) {
+							//Quitarlo
 							LobbyController.getLobbies().get(id).setUser2(null);
+							//El lobby ya no está lleno
 							LobbyController.getLobbies().get(id).setFull(false);
 						}
 					}
+					//Si está vacío el lobby
 					if(LobbyController.getLobbies().get(id).getUser1()==null && LobbyController.getLobbies().get(id).getUser2()==null) {
+						//Eliminamos es el lobby
 						LobbyController.removeLobby(id);
 					}
 				}
 				
 				
-				
+				//Por todos los clientes
 				for(Long id : ClientController.getClients().keySet()) {
+					//Si el cliente tiene asociado un usuario
 					if(ClientController.getClients().get(id).getUser() != null) {
+						//Es el usuario que se desconecta
 						if(ClientController.getClients().get(id).getUser().getUserName().equals(userName)) {
+							//Eliminamos la asociación del usuario
 							ClientController.getClients().get(id).setUser(null);
 						}
 					}
