@@ -3,7 +3,9 @@ var heart = new Phaser.Scene('Heart')
 
 heart.preload = function(){
 	 //CORAZÓN
-    this.load.image("heart","Sprites/heart.png");
+	this.load.image("heart","Sprites/heart.png");
+	this.load.image("hudMummy", "Sprites/hudMummy.png");
+	this.load.image("hudPharaoh", "Sprites/hudPharaoh.png");
 }
 heart.create = function(){
 	if(gameState == 1){
@@ -31,12 +33,14 @@ heart.create = function(){
 		this.spriteHeight = 65;
 		
 		if(myUser.character == 1){
+			this.hud = this.add.image(1920/2,1080/2,'hudMummy');
 			for(var i = 0; i < m.health; i++){
-				this.lives[i] = this.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
+				this.lives[i] = this.add.image(140 + (this.spriteWidth/2)+(this.spriteWidth*i + (i*15)),1080-(this.spriteHeight/2),'heart');
 			}
 		}else if(myUser.character == 2){
+			this.hud = this.add.image(1920/2,1080/2,'hudPharaoh');
 			for(var i = 0; i < p.health; i++){
-				this.lives[i] = this.add.image((this.spriteWidth/2)+(this.spriteWidth*i),1080-(this.spriteHeight/2),'heart');
+				this.lives[i] = this.add.image(140 + (this.spriteWidth/2)+(this.spriteWidth*i + (i*15)),1080-(this.spriteHeight/2),'heart');
 			}
 		}else{
 			console.log("UwU, este no es tu barrio, tu barrio es aquel")
