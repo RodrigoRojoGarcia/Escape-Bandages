@@ -52,11 +52,11 @@ Anubis, maestro de la Necrópolis, y Bastet, Diosa de la armonía del hogar, des
 ![diagramadeestados](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/uml%20estados.png)  
 Aquí se puede observar el flujo de escenas de nuestro prototipo FASE4.
 ![menu principal](https://user-images.githubusercontent.com/18311855/48101270-b3eba680-e226-11e8-9d21-0ba376e40106.PNG)  
-Se empieza en un menú principal con un botón para silenciar la música y otro botón para pasar al menú de selección de modo offline/online. (El modo online todavía no está activo).
+Se empieza en un menú principal con un botón para silenciar la música y otro botón para pasar al menú de selección de modo offline/online.
 ![online-offline](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/Online-Offline.PNG)  
 Del menú de selección de modo de juego se puede volver al menú principal o empezar una partida dando a 'offline'. 
 En el juego en sí hay varias maneras de cambiar de estado. La primera es reiniciar nivel con la tecla 'R' del teclado. 
-El siguiente cambio es cuando los jugadores se pasan en el nivel que se va a la escena de 'Victoria', de la cual solo se puede acceder al menú principal. 
+El siguiente cambio es cuando los jugadores se pasan en el nivel que se va a la escena de 'Victoria', de la cual se puede acceder al menú principal o volver a jugar el nivel. 
 ![victoria](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/Victoria.PNG)  
 Si uno de los jugadores pierde todas sus vidas se cambia a la escena de derrota, tras la cual se puede volver a jugar el nivel o volver al menú principal.
 ![game over](https://user-images.githubusercontent.com/18311855/48101266-b221e300-e226-11e8-9f5d-9aeaa9830380.PNG)  
@@ -93,16 +93,6 @@ Al final de la ejecución de la creación del servidor aparecerá por la consola
 ## Diagrama de clases de la aplicación
 ![classdiagram](https://user-images.githubusercontent.com/18311855/48830920-0031fd00-ed76-11e8-9bfd-621e18b9c3df.PNG)  
 La línea discontinua indica que llama a métodos de las otras clases. La clase App llama a métodos de las clases HostManager y UsersManager.
-
-
-## Capturas
-![introusuario](https://user-images.githubusercontent.com/18311855/48831513-450a6380-ed77-11e8-8036-751b012ae2cd.PNG)  
-Introducción de un usuario por cliente. Para llegar a la pantalla de selección de personaje cada usuario tiene que introducir un usuario que no se encuentre dentro del servidor.
-![usuariointroducido](https://user-images.githubusercontent.com/18311855/48831516-45a2fa00-ed77-11e8-8bbb-ce26d956fde8.PNG)  
-En la sala de selección de personaje se puede seleccionar solo un personaje, una vez seleccionado no hay vuelta atrás. Se muestra también el número de usuarios conectados al Lobby.
-![seleccionpersonaje](https://user-images.githubusercontent.com/18311855/48831515-45a2fa00-ed77-11e8-8293-94976d377fb9.PNG)  
-Los usuarios se podrán comunicar vía chat que se irá refrescando automáticamente en todos los clientes.
-![chat](https://user-images.githubusercontent.com/18311855/48831512-450a6380-ed77-11e8-88b3-73c281a6532c.PNG) 
 
 ## FASE 4
 ![fase3-1](https://user-images.githubusercontent.com/18311855/49178464-234d4580-f350-11e8-8f8a-e3852021365a.PNG)  
