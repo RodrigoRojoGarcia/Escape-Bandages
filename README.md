@@ -105,22 +105,22 @@ En la misma pantalla de selección de lobby tenemos una línea de entrada de tex
 ![fase4-lobby](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-5.PNG?raw=true)  
 ![fase4-lobby2](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-6.PNG?raw=true)  
 La pantalla de lobby se compone de: nombres de usuario conectados, botones de selección de personaje, chat (el cual hemos mejorado para que tenga mayor coherencia con el resto del juego) y botón de preparado.
-![fase4-checkbox](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-7.PNG?raw=true)  
+![fase4-mummy]()  
+![fase4-pharaoh]()  
 Una vez que seleccionas un personaje se te pone disponible una checkbox para decir si estás preparado para jugar, una vez que estén los dos jugadores preparados se iniciará el juego en local en cada uno de los clientes.
-![fase4-mummy](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-8.PNG?raw=true)  
-![fase4-pharaoh](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-9.PNG?raw=true)  
 Al seleccionar los personajes y, cambian los parámetros del chat, al escribir aparecerá tu nombre de usuario y el personaje que tengas actualmente escogido (marcado con un filtro verdoso). Así, como al tener seleccionado nuestro personaje, se le indicará a otro jugador, mostrándoselo con un filtro gris, además de indicar debajo de este el nombre de usuario de quien lo ha escogido.
 En el chat aparecen mensajes de cuando se unen los usuarios, cuando se desconectan, el personaje que escogen.
 ![fase4-checkbox2]()    
 Una vez ya dentro del juego, cada jugador tendrá su propia pantalla, en la cual, su cámara seguirá a su personaje correspondiente. También está incluido el chat, para que ambos se puedan comunicar. En esta fase necesitaremos pasar cierta información al otro usuario para poder mostrar la pantalla actual; así, les pasaremos por Websockets parámetros como la posición actual de cada personajes, la vida de los enemigos, la posición de las cajas y la arena que aparecen en el nivel, los booleans de los botones y las puertas para que ambas cosas funciones, etc.
-![fase4-chatgame]()   
+![fase4-chatgame](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/game.png?raw=true)   
+
 Obviamente, al tratarse de un juego cooperativo, en el cual es necesario ambos personajes para ganar, si uno de ellos se muere, en ambas pantallas aparecerá el 'Game Over', pasandose la información de la vida del otro para saber si ha muerto o no. En esta, tal y como hemos indicado anteriormente para el offline, nos dará la posibilidad de reiniciar o de salirnos.
-![fase4-gameover]()   
+![fase4-gameover](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Game%20Over.PNG?raw=true)   
 Otro aspecto implementado en esta fase, ha sido el hud de la vida de ambos personajes, mostrando una imagen del personaje al que le corresponde su barra de vida, junto con sus tres corazones correspondientes, los cuales irán desapareciendo al ser atacados por los enemigos.
 ![fase4-vida]()   
 Debemos mencionar dos pantallas más que aparecen en el juego, que serían la de pausa (pulsando 'esc') con el que saldrías del juego, por o que antes te piden una confirmación.
-![fase4-pausa]()   
+![fase4-pausa](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/salir%20esc.png?raw=true)   
 Y una pantalla de reinicio si pulsamos la tecla 'R', dónde también nos preguntarán si estamos seguros de querer reiniciar nivel.
-![fase4-reinicio]()   
+![fase4-reinicio](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/reiniciar%20r.png?raw=true)   
 Tendremos en cuenta que en cualquier momento se pueda dar una desconexión del servidor o haya fallo de conexión, por lo que hay otra escena para mostrar este mensaje, y así notificar al jugador.
 ![desconexion](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/desconexion.png?raw=true) 
