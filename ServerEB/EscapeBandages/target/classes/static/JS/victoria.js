@@ -105,8 +105,11 @@ victoria.update = function(){
 		if(myUser.character == 1){
 			sendRestart(onRestart, onOut);
 		}
-		victoria.scene.start(lobby);
-		victoria.scene.stop(chatOnline);
+		returnToLobby(myLobby.getId(), function(id){
+			victoria.scene.start(characterSelection);
+			victoria.scene.stop(chatOnline);
+		})
+		
 		
 	}
 }

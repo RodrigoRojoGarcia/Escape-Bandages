@@ -103,6 +103,10 @@ characterSelection.create = function(){
     this.user1 = this.add.dynamicBitmapText(1110, 50, 'font2', myUser.getUserName(), 32);
     this.user2 = this.add.dynamicBitmapText(1110, 100, 'font2', '', 32);
     
+    
+    this.chosenMummy = this.add.dynamicBitmapText(410, 760, 'font2', '', 32);
+    this.chosenPharaoh = this.add.dynamicBitmapText(1110, 760, 'font2', '', 32);
+    
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
 	//cargar boton Salir
@@ -143,14 +147,17 @@ characterSelection.create = function(){
 	//cargar boton eleccion Mummy
     
     this.bMummy = new UIButton(this, 600, 550, 'boton_mummy', function(){
-    	characterSelection.bcheck.show();
-		characterSelection.ready.setAlpha(1);
-		characterSelection.mummySelected = true
 
-        characterSelection.pharaohSelected = false
-        myUser.character = 1;
-
-		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy")
+		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy", function(userName){
+			if(userName !== ""){
+				characterSelection.bcheck.show();
+				characterSelection.ready.setAlpha(1);
+				characterSelection.mummySelected = true
+		        characterSelection.pharaohSelected = false
+		        myUser.character = 1;
+			}
+			
+		})
     }, function(){
     	characterSelection.bMummy.amplifyScale(0.05, 0.05)
     	characterSelection.bMummy.butt.anims.play('bmummyAnim2');
@@ -164,15 +171,17 @@ characterSelection.create = function(){
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
     
     this.bPharaoh = new UIButton(this, 1300, 550, 'boton_pharaoh', function(){
-    	characterSelection.bcheck.show();
-		characterSelection.ready.setAlpha(1);
-		characterSelection.mummySelected = false
 
-        characterSelection.pharaohSelected = true
-        myUser.character = 2;
-
-
-		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh")
+		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh",function(userName){
+			if(userName !== ""){
+				characterSelection.bcheck.show();
+				characterSelection.ready.setAlpha(1);
+				characterSelection.mummySelected = false
+		        characterSelection.pharaohSelected = true
+		        myUser.character = 2;
+			}
+			
+		})
     }, function(){
     	characterSelection.bPharaoh.amplifyScale(0.05, 0.05)
 		characterSelection.bPharaoh.butt.anims.play('bpharaohAnim2');
@@ -225,7 +234,12 @@ characterSelection.update = function(){
 	otherUser(myLobby.getId(), myUser.getUserName(), function(userName){
 		characterSelection.user2.text = userName;
 	})
-	
+	getUserNameMummy(myLobby.getId(), function(userName){
+		characterSelection.chosenMummy.text = userName;
+	})
+	getUserNamePharaoh(myLobby.getId(), function(userName){
+		characterSelection.chosenPharaoh.text = userName;
+	})
 	if(this.mummySelected){
 		this.bMummy.setTint(0xddffdd)
 	}else{

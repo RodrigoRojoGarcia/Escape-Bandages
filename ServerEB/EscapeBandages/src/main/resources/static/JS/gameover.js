@@ -119,9 +119,11 @@ gameover.update = function(){
 		}else if(myUser.character == 2){
 			sendRestart2(onRestart, onOut);
 		}
+		returnToLobby(myLobby.getId(), function(id){
+			gameover.scene.start(characterSelection);
+			gameover.scene.stop(chatOnline);
 		
-		gameover.scene.start(lobby);
-		gameover.scene.stop(chatOnline);
+		})
 		
 	}
 }

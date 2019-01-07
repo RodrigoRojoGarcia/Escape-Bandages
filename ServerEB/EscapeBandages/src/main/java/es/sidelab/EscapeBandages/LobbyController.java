@@ -230,25 +230,25 @@ public class LobbyController {
 		}
 		
 		@PutMapping(value="/{id}/{userName}/{character}")
-		public ResponseEntity<User> userSetCharacter(@PathVariable long id, @PathVariable String userName, @PathVariable String character){
+		public ResponseEntity<String> userSetCharacter(@PathVariable long id, @PathVariable String userName, @PathVariable String character){
 			if(lobbies.get(id)!=null) {
 				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
 					if(character.equalsIgnoreCase("mummy")) {
 						if(lobbies.get(id).getMummy().equals(""))
-						lobbies.get(id).setMummy(userName);
+							lobbies.get(id).setMummy(userName);
 						if(lobbies.get(id).getPharaoh().equals(userName)) {
 							lobbies.get(id).setPharaoh("");
 						}
-						return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
+						return new ResponseEntity<>(lobbies.get(id).getUser1().getUserName(),HttpStatus.OK);
 					}else if(character.equalsIgnoreCase("pharaoh")) {
 						if(lobbies.get(id).getPharaoh().equals(""))
 						lobbies.get(id).setPharaoh(userName);
 						if(lobbies.get(id).getMummy().equals(userName)) {
 							lobbies.get(id).setMummy("");
 						}
-						return new ResponseEntity<>(lobbies.get(id).getUser1(),HttpStatus.OK);
+						return new ResponseEntity<>(lobbies.get(id).getUser1().getUserName(),HttpStatus.OK);
 					}else {
-						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+						return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 					}
 				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)){
 					if(character.equalsIgnoreCase("mummy")) {
@@ -257,22 +257,22 @@ public class LobbyController {
 						if(lobbies.get(id).getPharaoh().equals(userName)) {
 							lobbies.get(id).setPharaoh("");
 						}
-						return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
+						return new ResponseEntity<>(lobbies.get(id).getUser2().getUserName(),HttpStatus.OK);
 					}else if(character.equalsIgnoreCase("pharaoh")) {
 						if(lobbies.get(id).getPharaoh().equals(""))
 						lobbies.get(id).setPharaoh(userName);
 						if(lobbies.get(id).getMummy().equals(userName)) {
 							lobbies.get(id).setMummy("");
 						}
-						return new ResponseEntity<>(lobbies.get(id).getUser2(),HttpStatus.OK);
+						return new ResponseEntity<>(lobbies.get(id).getUser2().getUserName(),HttpStatus.OK);
 					}else {
-						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+						return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 					}
 				}else {
-					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 				}
 			}else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 			}
 		}
 		
@@ -337,6 +337,74 @@ public class LobbyController {
 			return new ResponseEntity<>("",HttpStatus.OK);
 		}
 		
+		@GetMapping(value="/mummy/{id}")
+		public ResponseEntity<String> getUserNameMummy(@PathVariable Long id) {
+			if(lobbies.containsKey(id)) {
+				
+				if(lobbies.get(id).getMummy().equals("")) {
+					return new ResponseEntity<>(lobbies.get(id).getMummy(), HttpStatus.OK);
+				}else {
+					if(lobbies.get(id).getUser1()!=null) {
+						if(lobbies.get(id).getMummy().equals(lobbies.get(id).getUser1().getUserName())) {
+							return new ResponseEntity<>(lobbies.get(id).getMummy(), HttpStatus.OK);
+						}
+					}
+					if(lobbies.get(id).getUser2()!=null){
+						if(lobbies.get(id).getMummy().equals(lobbies.get(id).getUser2().getUserName())) {
+							return new ResponseEntity<>(lobbies.get(id).getMummy(), HttpStatus.OK);
+						}
+					}
+				}
+				
+				return new ResponseEntity<>("",HttpStatus.OK);
+				
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
+		@GetMapping(value="/pharaoh/{id}")
+		public ResponseEntity<String> getUserNamePharaoh(@PathVariable Long id) {
+			if(lobbies.containsKey(id)) {
+				
+				if(lobbies.get(id).getPharaoh().equals("")) {
+					return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
+				}
+				if(lobbies.get(id).getUser1()!=null) {
+					if(lobbies.get(id).getPharaoh().equals(lobbies.get(id).getUser1().getUserName())) {
+						return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
+					}
+				}
+				if(lobbies.get(id).getUser2()!=null){
+					if(lobbies.get(id).getPharaoh().equals(lobbies.get(id).getUser2().getUserName())) {
+						return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
+					}
+				}
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
+		
+		
+		@PutMapping(value="/{id}")
+		public ResponseEntity<Long> returnToLobby(@PathVariable Long id) {
+			if(lobbies.containsKey(id)) {
+				if(lobbies.get(id).getUser1()!=null) {
+					lobbies.get(id).getUser1().setReady(false);
+				}
+				if(lobbies.get(id).getUser2()!=null) {
+					lobbies.get(id).getUser2().setReady(false);
+				}
+				lobbies.get(id).setMummy("");
+				lobbies.get(id).setPharaoh("");
+				return new ResponseEntity<>(id, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+			}
+			
+		}
+		
 		
 		
 		
@@ -353,4 +421,6 @@ public class LobbyController {
 					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}
 			}
+			
+			
 }

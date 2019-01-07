@@ -45,12 +45,13 @@ function createPLobby(user,callback){
 	})
 }
 
-function setCharacter (idLobby, userName, character){
+function setCharacter (idLobby, userName, character, callback){
 	$.ajax({
 		method:"PUT",
 		url: 'http://'+location.host+'/lobby/'+idLobby+'/'+userName+'/'+character
-	}).done(function(user){
-		console.log("Character selected by: "+user.userName)
+	}).done(function(userName){
+		console.log("Character selected by: "+userName)
+		callback(userName)
 	})
 }
 
@@ -61,6 +62,26 @@ function otherUser(idLobby, userName,callback){
 		callback(userName)
 	}).fail(function(userName){
 		
+	})
+}
+
+function getUserNameMummy(idLobby, callback){
+	$.ajax({
+		url: 'http://'+location.host+'/lobby/mummy/'+idLobby
+	}).done(function(user){
+		callback(user)
+	}).fail(function(user){
+		console.log("UwU fallito")
+	})
+}
+
+function getUserNamePharaoh(idLobby, callback){
+	$.ajax({
+		url: 'http://'+location.host+'/lobby/pharaoh/'+idLobby
+	}).done(function(user){
+		callback(user)
+	}).fail(function(user){
+		console.log("UwU fallito")
 	})
 }
 
@@ -80,6 +101,18 @@ function bothReady(idLobby, callback){
 		callback(both)
 	}).fail(function(both){
 		
+	})
+}
+
+function returnToLobby(id,callback){
+	$.ajax({
+		method:"PUT",
+		url: 'http://'+location.host+'/lobby/'+id
+	}).done(function(id){
+		console.log("UwU return to lobby "+id)
+		callback(id)
+	}).fail(function(id){
+		console.log("UwU FATAL ERROR Lobby NOT FOUND UwU")
 	})
 }
 

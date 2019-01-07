@@ -831,12 +831,14 @@ onlineG.update = function(){
         else if(myUser.character == 2){
             sendRestart2(onRestart, onOut);
         }
-		onlineG.scene.start(lobby);
-        onlineG.scene.stop(chatOnline);
-        onlineG.scene.stop(heart);
-        
-        clearInterval(this.interval1);
-        clearInterval(this.interval2);
+		returnToLobby(myLobby.getId(), function(id){
+			onlineG.scene.start(characterSelection);
+	        onlineG.scene.stop(heart);
+	        
+	        clearInterval(this.interval1);
+	        clearInterval(this.interval2);
+		})
+		
 		
 	}
 
