@@ -24,7 +24,7 @@ chatOnline.create = function(){
 	
 //////////////////////////////////TEXTO CHAT///////////////////////////////////////
 	
-	
+	this.active = true;
 	//boolean que indica cuando esta escribiendo
     this.typing = false;
     //Input manual

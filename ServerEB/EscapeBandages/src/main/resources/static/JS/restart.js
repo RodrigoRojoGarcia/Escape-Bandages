@@ -1,6 +1,6 @@
-var pause = new Phaser.Scene('pause');
+var restart = new Phaser.Scene('restart');
 
-pause.preload = function(){
+restart.preload = function(){
     this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
     this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
     this.load.image('shade2','Sprites/shade2.png');
@@ -8,36 +8,34 @@ pause.preload = function(){
     this.load.image('no','Sprites/no.png');
 }
 
-pause.create = function(){
+restart.create = function(){
     myClient.setScene(this);
 
     this.active = true;
     this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 
     this.add.image(1920/2,1080/2,'shade2');
-    this.add.dynamicBitmapText(600, 350, 'font1', 'Seguro que deseas salir?', 70);
+    this.add.dynamicBitmapText(600, 350, 'font1', 'Seguro que deseas reiniciar?', 70);
     if(gameState == 1){
         offline.scene.pause();
     }
     
-
     this.yes = new UIButton(this, 650, 800, 'yes', function(){
-        pause.active = false;
+        restart.active = false;
         if(gameState == 2){
-            onOut = true;
+            onRestart = true;
         }else if(gameState == 1){
-            offline.scene.start(submenu);
-            offline.scene.stop(heart);
+            offline.scene.restart();
         }
-        pause.scene.stop(pause);
+        restart.scene.stop(restart);
 	}, function(){
-		pause.yes.amplifyScale(0.15,0.15)
+		restart.yes.amplifyScale(0.15,0.15)
 	}, function(){
-		pause.yes.reduceScale(0.15,0.15)
+		restart.yes.reduceScale(0.15,0.15)
     })
     
     this.no = new UIButton(this, 1200, 800, 'no', function(){
-        pause.active = false;
+        restart.active = false;
         if(gameState == 1){
             if(offline.anubisText == 3){
                 offline.input.setDefaultCursor('url(Sprites/cetro.png), pointer');
@@ -55,14 +53,14 @@ pause.create = function(){
                 onlineG.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
             }
         }
-		pause.scene.stop(pause);
+		restart.scene.stop(restart);
 	}, function(){
-		pause.no.amplifyScale(0.15,0.15)
+		restart.no.amplifyScale(0.15,0.15)
 	}, function(){
-		pause.no.reduceScale(0.15,0.15)
+		restart.no.reduceScale(0.15,0.15)
 	})
 }
 
-pause.update = function(){
+restart.update = function(){
 
 }

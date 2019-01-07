@@ -11,13 +11,18 @@ pause.preload = function(){
 pause.create = function(){
     myClient.setScene(this);
 
+    this.active = true;
     this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 
     this.add.image(1920/2,1080/2,'shade2');
-    this.add.dynamicBitmapText(600, 350, 'font1', 'Seguro de que deseas salir?', 70);
-    offline.scene.pause();
+    this.add.dynamicBitmapText(600, 350, 'font1', 'Seguro que deseas salir?', 70);
+    if(gameState == 1){
+        offline.scene.pause();
+    }
+    
 
     this.yes = new UIButton(this, 650, 800, 'yes', function(){
+        pause.active = false;
         if(gameState == 2){
             onOut = true;
         }else if(gameState == 1){
@@ -32,7 +37,7 @@ pause.create = function(){
     })
     
     this.no = new UIButton(this, 1200, 800, 'no', function(){
-        
+        pause.active = false;
         if(gameState == 1){
             if(offline.anubisText == 3){
                 offline.input.setDefaultCursor('url(Sprites/cetro.png), pointer');

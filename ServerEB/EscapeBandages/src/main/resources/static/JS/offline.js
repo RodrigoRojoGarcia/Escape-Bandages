@@ -679,19 +679,21 @@ offline.update = function(){
         }
     }
 
-    if(Phaser.Input.Keyboard.JustDown(keys.r)){
+    if(keys.r.isDown){
         
-        scene.time.addEvent({
-            delay: 100,
-            callback: ()=>(offline.scene.restart()),
-            callbackScope: scene
-        });
+        keys.r.isDown = false;
+        if(!pause.active && !restart.active){
+            offline.scene.launch(restart);
+        }
         
     }
 
     if(keys.esc.isDown){
+        
         keys.esc.isDown = false;
-        offline.scene.launch(pause);
+        if(!restart.active && !pause.active){
+            offline.scene.launch(pause);
+        }
     }
 
     if(Phaser.Input.Keyboard.JustDown(keys.c)){

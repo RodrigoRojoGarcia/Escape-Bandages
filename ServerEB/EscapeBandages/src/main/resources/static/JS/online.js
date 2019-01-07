@@ -567,7 +567,7 @@ onlineG.create = function(){
     */
 ///////////////////////////////////CONTROLES///////////////////////////////////
     //Extraemos las teclas de dirección, W,A,D y barra espaciadora de las KeyCodes de Phaser
-    const {LEFT, RIGHT, UP, DOWN, W, A, D, C, R, SPACE, ESC} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, DOWN, W, A, D, C, R, SPACE, ESC, T} = Phaser.Input.Keyboard.KeyCodes;
     //Les atribuimos a variables nuestras los KeyCodes de las teclas de dirección
     this.keys = this.input.keyboard.addKeys({
         left: LEFT,
@@ -580,7 +580,8 @@ onlineG.create = function(){
         c: C,
         r: R,
         space: SPACE,
-        esc: ESC
+        esc: ESC,
+        t: T
     });
     
     if(myUser.character==2){
@@ -789,21 +790,49 @@ onlineG.update = function(){
     
     if(Phaser.Input.Keyboard.JustDown(keys.r)){
         
-        scene.time.addEvent({
-            delay: 100,
-            callback: ()=>(onRestart = true),
-            callbackScope: scene
-        });
+        
+        if(!pause.active && !restart.active){
+            scene.time.addEvent({
+                delay: 50,
+                callback: ()=>(onlineG.scene.launch(restart)),
+                callbackScope: scene
+            });
+        }
+        
         
     }
 
     if(Phaser.Input.Keyboard.JustDown(keys.esc)){
+        
+        
+        if(!restart.active && !pause.active){
+            scene.time.addEvent({
+                delay: 50,
+                callback: ()=>(onlineG.scene.launch(pause)),
+                callbackScope: scene
+            });
+        }
+        
+    }
 
-        scene.time.addEvent({
-            delay: 100,
-            callback: ()=>(onlineG.scene.launch(pause)),
-            callbackScope: scene
-        });
+    if(Phaser.Input.Keyboard.JustDown(keys.t)){
+        if(chatOnline.active){
+            chatOnline.active = false;
+            scene.time.addEvent({
+                delay: 50,
+                callback: ()=>(onlineG.scene.sleep(chatOnline)),
+                callbackScope: scene
+            });
+        }
+        else{
+            chatOnline.active = true;
+            scene.time.addEvent({
+                delay: 50,
+                callback: ()=>(onlineG.scene.wake(chatOnline)),
+                callbackScope: scene
+            });
+        }
+        
     }
         
     
