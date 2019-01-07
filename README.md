@@ -49,13 +49,11 @@ Si in-game se pulsa 'C' la cámara cambia de cámara dividida (una cámara por p
 Anubis, maestro de la Necrópolis, y Bastet, Diosa de la armonía del hogar, despiertan a un faraón y a uno de sus sirvientes, los cuales estaban enamorados en vida y no pudieron estar juntos. Anubis y Bastet se apiadaron de ellos y su amor y les devuelven a la vida para que puedan vivir para siempre juntos, pero su poder es limitado. Devolver a un humano a la vida conlleva un coste y para hacer que sea permanente el faraón y la momia tienen que salir de la pirámide, pero no lo harán sin ningún problema. Hay dioses que están en contra de que puedan vivir otra vez, por lo que crean pruebas y llaman a bestias para impedir que salgan de la pirámide.
 
 ## Escenas
-![escenas_escape_bandages](https://user-images.githubusercontent.com/18311855/48098082-f8257980-e21b-11e8-80d8-394c09262489.PNG)   
-Aquí se puede observar el flujo de escenas de nuestro prototipo FASE 2.
-![diagramadeestados](https://user-images.githubusercontent.com/18311855/48832103-b3035a80-ed78-11e8-964b-5a9f7f591939.PNG)
-Aquí se puede observar el flujo de escenas de nuestro prototipo FASE3.
+![diagramadeestados](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/uml%20estados.png)  
+Aquí se puede observar el flujo de escenas de nuestro prototipo FASE4.
 ![menu principal](https://user-images.githubusercontent.com/18311855/48101270-b3eba680-e226-11e8-9d21-0ba376e40106.PNG)  
 Se empieza en un menú principal con un botón para silenciar la música y otro botón para pasar al menú de selección de modo offline/online. (El modo online todavía no está activo).
-![online-offline](https://user-images.githubusercontent.com/18311855/48101273-b51cd380-e226-11e8-98cb-e6f401777dc9.PNG)  
+![online-offline](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/Online-Offline.PNG)  
 Del menú de selección de modo de juego se puede volver al menú principal o empezar una partida dando a 'offline'. 
 En el juego en sí hay varias maneras de cambiar de estado. La primera es reiniciar nivel con la tecla 'R' del teclado. 
 El siguiente cambio es cuando los jugadores se pasan en el nivel que se va a la escena de 'Victoria', de la cual solo se puede acceder al menú principal. 
