@@ -41,7 +41,7 @@ onlineG.preload = function(){
 }//FIN DEL PRELOAD
 
 onlineG.create = function(){
-	
+	myClient.setScene(this);
 
 
 ///////////////////////////////////CONFIG///////////////////////////////////
@@ -662,6 +662,15 @@ onlineG.update = function(){
     //No se puede mover ninguna caja
     move = false;
     
+    //CERRAR INTERVALOS SI SE DESCONECTA
+    if(disconnected){
+        this.scene.stop(chatOnline);
+        this.scene.stop(heart);
+        clearInterval(this.interval1);
+        clearInterval(this.interval2);
+        
+    }
+
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
     
 
@@ -841,6 +850,7 @@ onlineG.update = function(){
 		
 		
 	}
+
 
     
 

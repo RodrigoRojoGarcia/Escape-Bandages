@@ -3,6 +3,7 @@ function Client(scene){
 	this.id = 0
 	this.myJSON={};
 	var that = this;
+	var newScene = scene;
 	this.create = function(){
 		
 		getIP(function(data){
@@ -54,7 +55,12 @@ function Client(scene){
 	}
 	
 	this.update = function(){
+		
 		this.interval = setInterval(that.getUpdater,500);
+	}
+
+	this.setScene = function(sceneNew){
+		newScene = sceneNew;
 	}
 	
 	this.getUpdater = function(){
@@ -64,12 +70,25 @@ function Client(scene){
 				method: "GET",
 				url:"http://"+location.host+"/clients/"+that.id
 			}).fail(function(){
-				console.error("Has perdido la conexión con el servidor. UwU")
+				if(!disconnected){
+					newScene.time.addEvent({
+						delay: 500,
+						callback: ()=>(newScene.scene.start(disconnect)),
+						callbackScope: that
+					});
+					
+					console.error("Has perdido la conexión con el servidor. UwU")
+				
+					clearInterval(that.interval);
+				}
 				disconnected=true;
-				that.scene.add.text(600,350,'Disconnected from server',{font: '70px Power Clear', fill:'#ff0000'})
+				
+				
+				
 			})
 			}
 		}
+		
 	}
 }
 

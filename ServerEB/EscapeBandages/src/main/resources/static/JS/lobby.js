@@ -10,6 +10,7 @@ lobby.preload = function(){
 	this.load.image('privado', 'Sprites/privado.png');
 	this.load.image('aleatorio', 'Sprites/aleatorio.png');
 	this.load.image('buscar', 'Sprites/buscar.png');
+	this.load.image('desconectar', 'Sprites/desconectar.png');
 	//font
 	this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
 	this.load.spritesheet("input", "Sprites/manualInput380.png", {frameWidth: 380, frameHeight: 50});
@@ -23,6 +24,7 @@ lobby.preload = function(){
 }
 
 lobby.create = function(){
+	myClient.setScene(this);
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
 	const backg = this.make.tilemap({key:"backgroundlob", tileWidth: 120, tileHeight: 120});
@@ -116,7 +118,7 @@ lobby.create = function(){
 /////////////////////////////////BOTONES///////////////////////////////////////
 ////////////////////////////////BOTON VOLVER//////////////////////////////////
 	//cargar boton Back
-	this.bback = this.add.sprite(300, 950, 'back').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bback = this.add.sprite(300, 950, 'desconectar').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.bback.scaleX -= 0.4;
 	this.bback.scaleY -= 0.4;
 	//hacer boton invisible
@@ -134,7 +136,9 @@ lobby.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.bback.on('pointerdown', function(){
 		//cambio de escena a menu
-		lobby.scene.start(submenu);
+		console.log(myUser.getUserName());
+		lobby.scene.start(online);
+		disconectUser(myUser.getUserName());
 	})
 /////////////////////////////////BOTON LOBBY ALEATORIO//////////////////////
 	//cargar boton Back

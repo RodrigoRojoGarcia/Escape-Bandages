@@ -101,19 +101,22 @@ chatOnline.create = function(){
 chatOnline.update = function(){
 	phrases = [];
 	
-	loadChats(myLobby.getId(), function(chats){
+	if(!disconnected){
+		loadChats(myLobby.getId(), function(chats){
 		
-		for(var i = 0; i < chats.length; i++){
-			phrases[i] = chats[i];
-		}
-		
-		
-	});
-	this.time.addEvent({
-        delay: 50,
-        callback: chatOnline.write,
-        callbackScope: chatOnline
-    });
+			for(var i = 0; i < chats.length; i++){
+				phrases[i] = chats[i];
+			}
+			
+			
+		});
+
+		this.time.addEvent({
+			delay: 50,
+			callback: chatOnline.write,
+			callbackScope: chatOnline
+		});
+	}
 }
 
 chatOnline.write = function(){

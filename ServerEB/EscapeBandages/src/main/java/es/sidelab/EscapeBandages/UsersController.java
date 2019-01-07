@@ -165,7 +165,7 @@ public class UsersController {
 				
 				
 				//Por todos los clientes
-				for(Long id : ClientController.getClients().keySet()) {
+				for(long id : ClientController.getClients().keySet()) {
 					//Si el cliente tiene asociado un usuario
 					if(ClientController.getClients().get(id).getUser() != null) {
 						//Es el usuario que se desconecta

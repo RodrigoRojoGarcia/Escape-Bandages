@@ -33,11 +33,20 @@ public class LobbyController {
 	public static void showDisconnected(String userName) {
 		if(!lobbies.isEmpty()) {
 			for(long id : lobbies.keySet()) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName) || lobbies.get(id).getUser2().getUserName().equals(userName)) {
-					Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
-			    	lobbies.get(id).addChat(chat);
-			    	
+				if(lobbies.get(id).getUser1() != null){
+					if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+						Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
+						lobbies.get(id).addChat(chat);
+					}
+					
 				}
+				if(lobbies.get(id).getUser2() != null){
+					if(lobbies.get(id).getUser2().getUserName().equals(userName)){
+						Chat chat = new Chat(userName+" se ha desconectado.","SERVER");
+						lobbies.get(id).addChat(chat);
+					}
+				}
+				
 			}
 		}
 		
@@ -415,6 +424,7 @@ public class LobbyController {
 				if(lobbies.get(id).getUser1() != null){
 					if(lobbies.get(id).getUser1().getUserName().equals(userName)){
 						lobbies.get(id).setUser1(null);
+						showDisconnected(userName);
 						lobbies.get(id).setFull(false);
 						if(lobbies.get(id).getMummy().equals(userName)){
 							lobbies.get(id).setMummy("");
@@ -431,6 +441,7 @@ public class LobbyController {
 				if(lobbies.get(id).getUser2() != null){
 					if(lobbies.get(id).getUser2().getUserName().equals(userName)){
 						lobbies.get(id).setUser2(null);
+						showDisconnected(userName);
 						lobbies.get(id).setFull(false);
 						if(lobbies.get(id).getMummy().equals(userName)){
 							lobbies.get(id).setMummy("");

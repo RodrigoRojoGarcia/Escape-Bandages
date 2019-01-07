@@ -127,6 +127,7 @@ characterSelection.create = function(){
 		
 		characterSelection.scene.start(lobby);
 		characterSelection.scene.stop(chatOnline);
+		clearInterval(characterSelection.goOn);
 		
     }, function(){
     	characterSelection.bback.amplifyScale(0.15, 0.15);
@@ -226,6 +227,12 @@ characterSelection.usersReady = function(){
 		})
 	}
 characterSelection.update = function(){
+	//borrar intervalos en desconexion
+	if(disconnected){
+		clearInterval(characterSelection.goOn);
+	}
+
+
 	//chatOnline.updateC();
 	otherUser(myLobby.getId(), myUser.getUserName(), function(userName){
 		characterSelection.user2.text = userName;

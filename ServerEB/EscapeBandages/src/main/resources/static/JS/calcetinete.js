@@ -40,10 +40,7 @@ function letsConnect(){
 	}
 
 
-	conn.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	connPharaoh.onerror = function(e){
 		console.log(e);
@@ -68,10 +65,7 @@ function letsConnect(){
 		}
 		
 	}
-	connPharaoh.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	
 
@@ -89,10 +83,7 @@ function letsConnect(){
 		console.log("cajasMomia");
 		
 	}
-	connBoxesMummy.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	connBoxesPharaoh.onerror = function(e){
 		console.log(e);
@@ -107,10 +98,7 @@ function letsConnect(){
 		
 		console.log("cajasFaraon");
 	}
-	connBoxesPharaoh.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	
 	
@@ -127,10 +115,7 @@ function letsConnect(){
 		
 		
 	}
-	connRestart.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	connRestart2.onerror = function(e){
 		console.log(e);
@@ -143,10 +128,7 @@ function letsConnect(){
 		
 		
 	}
-	connRestart2.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	connLifesMummy.onerror = function(e){
 		console.log(e);
@@ -164,10 +146,7 @@ function letsConnect(){
 		
 		
 	}
-	connLifesMummy.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 	connLifesPharaoh.onerror = function(e){
 		console.log(e);
@@ -185,10 +164,7 @@ function letsConnect(){
 		
 		
 	}
-	connLifesPharaoh.onclose = function(mes){
-		console.log("Cerrado el calcetín");
-		letsConnect()
-	}
+	
 
 
 }

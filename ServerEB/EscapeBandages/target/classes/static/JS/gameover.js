@@ -19,7 +19,7 @@ gameover.preload = function(){
 }
 
 gameover.create = function(){
-	
+	myClient.setScene(this);
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
 	//Puntero Default
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');

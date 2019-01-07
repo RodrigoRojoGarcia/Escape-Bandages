@@ -87,7 +87,7 @@ public class ClientController {
 		@DeleteMapping(value="/{id}")
 		public static void disconnectClient(@PathVariable long id) {
 			if(clients.get(id).getUser()!=null)
-			UsersController.disconnectUser(clients.get(id).getUser().getUserName());
+				UsersController.disconnectUser(clients.get(id).getUser().getUserName());
 			clients.remove(id);
 		}
 }

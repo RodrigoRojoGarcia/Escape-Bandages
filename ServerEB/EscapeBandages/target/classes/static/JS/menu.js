@@ -12,13 +12,14 @@ menu.preload = function(){
 	//botones volumenes
 	this.load.image('novolumen','Sprites/novolumen.png');
 	this.load.image('volumen','Sprites/volumen.png');
+	
 
 	//cargar audio
 	this.load.audio('music', 'music.mp3');
 }
 
 menu.create = function(){
-	
+	myClient.setScene(this);
 	letsConnect()
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
