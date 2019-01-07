@@ -105,12 +105,8 @@ En la sala de selección de personaje se puede seleccionar solo un personaje, un
 ![seleccionpersonaje](https://user-images.githubusercontent.com/18311855/48831515-45a2fa00-ed77-11e8-8293-94976d377fb9.PNG)  
 Los usuarios se podrán comunicar vía chat que se irá refrescando automáticamente en todos los clientes.
 ![chat](https://user-images.githubusercontent.com/18311855/48831512-450a6380-ed77-11e8-88b3-73c281a6532c.PNG) 
-##Capturas FASE 3 SEMANA 1
-![registerlogin](https://user-images.githubusercontent.com/34351330/49143511-79dc6480-f2fb-11e8-8c5b-ee38cb1c26c0.png)
-![rand](https://user-images.githubusercontent.com/34351330/49143738-f53e1600-f2fb-11e8-9b80-1f786f4e96d6.png)
 
-## FASE 3 SEMANA 1
-Hemos cambiado el sistema de nuestro servidor. Ahora cuando se carga el juego en una nueva pantalla de carga, se inicializa un cliente con id única por ordenador, pues coge la IP propia del cliente. Este cliente es el que llevará la cuenta del tiempo de incactividad en el servidor para la desconexión del mismo si hace tiempo que no se desconecta. El cliente recibe el mensaje, por consola y en la pantalla de título (todavía no se ha implementado para que aparezca en todas las pantallas a las que te muevas)
+## FASE 4
 ![fase3-1](https://user-images.githubusercontent.com/18311855/49178464-234d4580-f350-11e8-8f8a-e3852021365a.PNG)  
 ![fase3-2](https://user-images.githubusercontent.com/18311855/49178465-23e5dc00-f350-11e8-8a19-9aa66800fbb9.PNG)  
 Cuando el jugador va a la pantalla online le aparece una pantalla de registro/log in. Tenemos un sistema de guardado de datos, en un .txt en la carpeta target si se inicia el servidor desde el .jar,  que guarda usuarios únicos con contraseñas asociadas para registrar los usuarios. Una vez que hacen log in se cambia el estado de estos usuarios en el servidor a "ONLINE". Cada cliente puede tener asociado únicamente un usuario "ONLINE", por lo que si intentas loggear en un cliente que ya a iniciado con un usuario no te deja. El registro, a la izquierda, te permite introducir cualquier usuario y contraseña, mientras el usuario no esté en uso ya, y registrarte, inmediatamente después se podrá hacer log in con ese usuario y contraseña.  
