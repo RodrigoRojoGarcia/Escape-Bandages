@@ -127,6 +127,17 @@ function removeLobby(id){
 
 
 
+function removeUserFromLobby(id, userName){
+	$.ajax({
+		method: "DELETE",
+		url: 'http://'+location.host+'/lobby/user/'+id+'/'+userName,
+	}).done(function(user){
+		console.log("Usuario desconectado de lobby: "+user.userName);
+	})
+}
+
+
+
 
 
 

@@ -34,13 +34,7 @@ lobby.create = function(){
 
 ///////////////////////////////////CALCETINES///////////////////////////////////
 	
-	onOut = false;
-	if(myUser.character == 1){
-		sendRestart(onRestart, onOut);
-	}	
-	else if(myUser.character == 2){
-		sendRestart2(onRestart, onOut);
-	}
+	
 	
 
 ///////////////////////////////////ANTORCHAS///////////////////////////////////

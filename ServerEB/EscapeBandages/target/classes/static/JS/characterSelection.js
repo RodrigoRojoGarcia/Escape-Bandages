@@ -39,6 +39,15 @@ characterSelection.create = function(){
 	this.goOn = setInterval(characterSelection.usersReady, 1000);
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
+
+//////////////////////////////////CALCETINES//////////////////////////////////////
+	onOut = false;
+	if(myUser.character == 1){
+		sendRestart(onRestart, onOut);
+	}	
+	else if(myUser.character == 2){
+		sendRestart2(onRestart, onOut);
+	}
 	
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
@@ -112,24 +121,11 @@ characterSelection.create = function(){
 	//cargar boton Salir
     
     this.bback = new UIButton(this, 300, 950, 'backO', function(){
-    	characterSelection.bcheck.hide();
-		characterSelection.incheck.hide();
-		characterSelection.bPharaoh.show();
-		
-		characterSelection.bMummy.show();
-		
-		characterSelection.ready.setAlpha(0);
-		
-		characterSelection.mummySelected = false
-		characterSelection.pharaohSelected = false
-        
-        myUser.character = 0;
-
-		disconectUser(myUser.getUserName());
-		
+    	removeUserFromLobby(myLobby.getId(), myUser.getUserName());
+		myLobby.setId(0);
 		myUser.character = 0;
 		
-		characterSelection.scene.start(online);
+		characterSelection.scene.start(lobby);
 		characterSelection.scene.stop(chatOnline);
 		
     }, function(){
@@ -149,7 +145,7 @@ characterSelection.create = function(){
     this.bMummy = new UIButton(this, 600, 550, 'boton_mummy', function(){
 
 		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy", function(userName){
-			if(userName !== ""){
+			if(userName != ""){
 				characterSelection.bcheck.show();
 				characterSelection.ready.setAlpha(1);
 				characterSelection.mummySelected = true
@@ -173,7 +169,7 @@ characterSelection.create = function(){
     this.bPharaoh = new UIButton(this, 1300, 550, 'boton_pharaoh', function(){
 
 		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh",function(userName){
-			if(userName !== ""){
+			if(userName != ""){
 				characterSelection.bcheck.show();
 				characterSelection.ready.setAlpha(1);
 				characterSelection.mummySelected = false
