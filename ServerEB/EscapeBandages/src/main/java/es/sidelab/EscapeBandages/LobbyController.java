@@ -74,23 +74,30 @@ public class LobbyController {
 		@PostMapping(value="/private/{userName}")
 		public Long addToPrivLobby(@PathVariable String userName,@RequestBody User newUser) {
 			for(Long id : lobbies.keySet()) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
-					lobbies.get(id).setUser2(newUser);
-					lobbies.get(id).setFull(true);
-					
-					Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
-			    	lobbies.get(id).addChat(chat);
-					//Lobby found
-			    	return id;
-				}else if(lobbies.get(id).getUser2().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
-					lobbies.get(id).setUser1(newUser);
-					lobbies.get(id).setFull(true);
-					
-					Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
-			    	lobbies.get(id).addChat(chat);
-			    	//Lobby found
-					return id;
+				if(lobbies.get(id).getUser1() != null){
+					if(lobbies.get(id).getUser1().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
+						lobbies.get(id).setUser2(newUser);
+						lobbies.get(id).setFull(true);
+						
+						Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
+						lobbies.get(id).addChat(chat);
+						//Lobby found
+						return id;
+					}
+				
 				}
+				if(lobbies.get(id).getUser2() != null){
+					if(lobbies.get(id).getUser2().getUserName().equals(userName) && !lobbies.get(id).isFull() && lobbies.get(id).isPriv()) {
+						lobbies.get(id).setUser1(newUser);
+						lobbies.get(id).setFull(true);
+						
+						Chat chat = new Chat(newUser.getUserName()+" se ha conectado.","SERVER");
+						lobbies.get(id).addChat(chat);
+						//Lobby found
+						return id;
+					}
+				}
+				
 			}
 			return 0L;
 		}

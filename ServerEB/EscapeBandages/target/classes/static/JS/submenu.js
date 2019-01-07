@@ -15,6 +15,8 @@ submenu.preload = function(){
 }
 
 submenu.create = function(){
+	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
+
 	myClient.setScene(this);
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP

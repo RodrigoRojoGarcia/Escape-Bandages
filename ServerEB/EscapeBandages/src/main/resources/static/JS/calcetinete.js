@@ -80,7 +80,7 @@ function letsConnect(){
 		utilBoxes[parse.id].box.angle = parse.Ang;
 		
 		
-		console.log("cajasMomia");
+		
 		
 	}
 	
@@ -96,7 +96,7 @@ function letsConnect(){
 		utilBoxes[parse.id].box.angle = parse.Ang;
 		
 		
-		console.log("cajasFaraon");
+		
 	}
 	
 

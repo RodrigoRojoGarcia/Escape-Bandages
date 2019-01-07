@@ -798,8 +798,6 @@ onlineG.update = function(){
     }
 
     if(Phaser.Input.Keyboard.JustDown(keys.esc)){
-        
-        ;
 
         scene.time.addEvent({
             delay: 100,

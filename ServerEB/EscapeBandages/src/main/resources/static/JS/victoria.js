@@ -12,6 +12,8 @@ victoria.preload = function(){
 
 victoria.create = function(){
 	myClient.setScene(this);
+
+	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//background
 	var bgV = this.add.image(0, 0, 'bgV').setOrigin(0);
 	//letras victoria
@@ -48,19 +50,19 @@ victoria.create = function(){
 	this.brei.setAlpha(1);
 	//accion al poner el cursor sobre el boton Reiniciar
 	this.brei.on('pointerover', function(){
-		gameover.brei.scaleX += 0.15;
-		gameover.brei.scaleY += 0.15;
+		victoria.brei.scaleX += 0.15;
+		victoria.brei.scaleY += 0.15;
 	})
 	//accion al quitar el cursor del boton Reiniciar
 	this.brei.on('pointerout', function(){
-		gameover.brei.scaleX -= 0.15;
-		gameover.brei.scaleY -= 0.15;
+		victoria.brei.scaleX -= 0.15;
+		victoria.brei.scaleY -= 0.15;
 	})
 	//accion al hacer click sobre el boton Reiniciar
 	this.brei.on('pointerdown', function(){
 		if(gameState == 1){
-			gameover.scene.start(offline);
-			gameover.scene.launch(heart, offline);
+			victoria.scene.start(offline);
+			victoria.scene.launch(heart, offline);
 		}else if(gameState == 2){
 			
 			onRestart = true;
@@ -86,8 +88,15 @@ victoria.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.binit.on('pointerdown', function(){
 		//cambio de escena a menu
+		if(gameState == 1){
+			victoria.scene.start(submenu);
+		}
+		else if(gameState == 2){
+			onOut = true;
+		}
 		gameState = 0;
-		onOut = true;
+		
+		
 	})
 }
 
