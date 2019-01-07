@@ -136,17 +136,28 @@ characterSelection.create = function(){
 	//cargar boton eleccion Mummy
     
     this.bMummy = new UIButton(this, 600, 550, this.spritesMummy, function(){
-
-		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy", function(userName){
-			if(userName != ""){
-				characterSelection.bcheck.show();
-				characterSelection.ready.setAlpha(1);
-				characterSelection.mummySelected = true
-		        characterSelection.pharaohSelected = false
-		        myUser.character = 1;
-			}
-			
-		})
+		if(characterSelection.mummySelected){
+			setCharacter(myLobby.getId(), myUser.getUserName(), "uwu", function(userName){
+				if(userName == ""){
+					characterSelection.bcheck.hide();
+					characterSelection.ready.setAlpha(0);
+					characterSelection.mummySelected = false;
+					myUser.character = 0;
+				}
+			})
+		}else{
+			setCharacter(myLobby.getId(),myUser.getUserName(),"mummy", function(userName){
+				if(userName != ""){
+					characterSelection.bcheck.show();
+					characterSelection.ready.setAlpha(1);
+					characterSelection.mummySelected = true
+					characterSelection.pharaohSelected = false
+					myUser.character = 1;
+				}
+				
+			})
+		}
+		
     }, function(){
     	characterSelection.bMummy.amplifyScale(0.05, 0.05)
     	characterSelection.overMummy = true;
@@ -160,17 +171,28 @@ characterSelection.create = function(){
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
     
     this.bPharaoh = new UIButton(this, 1300, 550, this.spritesPharaoh, function(){
-
-		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh",function(userName){
-			if(userName != ""){
-				characterSelection.bcheck.show();
-				characterSelection.ready.setAlpha(1);
-				characterSelection.mummySelected = false
-		        characterSelection.pharaohSelected = true
-		        myUser.character = 2;
-			}
-			
-		})
+		if(characterSelection.pharaohSelected){
+			setCharacter(myLobby.getId(), myUser.getUserName(), "uwu", function(userName){
+				if(userName == ""){
+					characterSelection.bcheck.hide();
+					characterSelection.ready.setAlpha(0);
+					characterSelection.pharaohSelected = false;
+					myUser.character = 0;
+				}
+			})
+		}else{
+			setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh",function(userName){
+				if(userName != ""){
+					characterSelection.bcheck.show();
+					characterSelection.ready.setAlpha(1);
+					characterSelection.mummySelected = false
+					characterSelection.pharaohSelected = true
+					myUser.character = 2;
+				}
+				
+			})
+		}
+		
     }, function(){
     	characterSelection.bPharaoh.amplifyScale(0.05, 0.05)
 		characterSelection.overPharaoh = true;

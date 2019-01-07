@@ -268,7 +268,16 @@ public class LobbyController {
 								return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
 							}
 							return new ResponseEntity<>("",HttpStatus.OK);
-						}else {
+						}else if(character.equals("uwu")){
+							if(lobbies.get(id).getMummy().equals(userName)){
+								lobbies.get(id).setMummy("");
+								return new ResponseEntity<>("", HttpStatus.OK);
+							}
+							if(lobbies.get(id).getPharaoh().equals(userName)){
+								lobbies.get(id).setPharaoh("");
+								return new ResponseEntity<>("", HttpStatus.OK);
+							}
+						}else{
 							return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 						}
 					}
@@ -293,6 +302,15 @@ public class LobbyController {
 								return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
 							}
 							return new ResponseEntity<>("",HttpStatus.OK);
+						}else if(character.equals("uwu")){
+							if(lobbies.get(id).getMummy().equals(userName)){
+								lobbies.get(id).setMummy("");
+								return new ResponseEntity<>("", HttpStatus.OK);
+							}
+							if(lobbies.get(id).getPharaoh().equals(userName)){
+								lobbies.get(id).setPharaoh("");
+								return new ResponseEntity<>("", HttpStatus.OK);
+							}
 						}else {
 							return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 						}
