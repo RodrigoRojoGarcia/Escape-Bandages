@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+
 public class MummyHandler extends TextWebSocketHandler{
 	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 	
@@ -23,13 +24,15 @@ public class MummyHandler extends TextWebSocketHandler{
 		JsonNode jnode = mapper.readTree(message.getPayload());
 		//String uwu = jnode.get("UwU").asText();
 		
+
 		
-		//ObjectNode node = mapper.createObjectNode();
+		
 		//node.put("UwU", uwu);
 		
 		
 		for(WebSocketSession s : sessions.values()) {
-			s.sendMessage(new TextMessage(jnode.toString()));
+			if(!s.getId().equals(session.getId()))
+				s.sendMessage(new TextMessage(jnode.toString()));
 		}
 		
 		

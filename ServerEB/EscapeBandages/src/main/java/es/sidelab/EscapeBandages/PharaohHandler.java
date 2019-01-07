@@ -29,7 +29,8 @@ public class PharaohHandler extends TextWebSocketHandler{
 		
 		
 		for(WebSocketSession s : sessions.values()) {
-			s.sendMessage(new TextMessage(jnode.toString()));
+			if(!s.getId().equals(session.getId()))
+				s.sendMessage(new TextMessage(jnode.toString()));
 		}
 		
 		

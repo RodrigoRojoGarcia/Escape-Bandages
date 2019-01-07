@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class RestartHandler extends TextWebSocketHandler{
+public class RestartHandler2 extends TextWebSocketHandler{
 	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 	
 	private ObjectMapper mapper = new ObjectMapper();
@@ -29,8 +29,8 @@ public class RestartHandler extends TextWebSocketHandler{
 		
 		
 		for(WebSocketSession s : sessions.values()) {
-			if(!s.getId().equals(session.getId()))
-				s.sendMessage(new TextMessage(jnode.toString()));
+            if(!s.getId().equals(session.getId()))
+			    s.sendMessage(new TextMessage(jnode.toString()));
 		}
 		
 		

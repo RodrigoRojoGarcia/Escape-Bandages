@@ -85,10 +85,15 @@ onlineG.create = function(){
 ///////////////////////////////////CALCETINETE'S VARIABLES///////////////////////////////////
     this.clickNWS = false;
     this.clickWS = false;
-    if(myUser.character == 2){
-        onRestart = false;
+    onRestart = false;
+    if(myUser.character == 1){
         sendRestart(onRestart, onOut);
     }
+    else if(myUser.character == 2){
+        sendRestart2(onRestart, onOut);
+    }
+        
+    
     
 ///////////////////////////////////EXTRACCIÓN ELEMENTOS TILEMAP(JSON)///////////////////////////////////
 
@@ -574,7 +579,8 @@ onlineG.create = function(){
         d: D,
         c: C,
         r: R,
-        space: SPACE
+        space: SPACE,
+        esc: ESC
     });
     
     if(myUser.character==2){
@@ -776,12 +782,21 @@ onlineG.update = function(){
         
         scene.time.addEvent({
             delay: 100,
-            callback: ()=>(onlineG.scene.restart()),
+            callback: ()=>(onRestart = true),
             callbackScope: scene
         });
         
     }
 
+    if(Phaser.Input.Keyboard.JustDown(keys.esc)){
+        
+        scene.time.addEvent({
+            delay: 100,
+            callback: ()=>(onOut = true),
+            callbackScope: scene
+        });
+        
+    }
         
     
     if(this.mummyVictory && this.pharaohVictory){
@@ -793,6 +808,37 @@ onlineG.update = function(){
         
         
     }
+
+    if(onRestart){
+		if(myUser.character == 1){
+            sendRestart(onRestart, onOut);
+        }
+        else if(myUser.character == 2){
+            sendRestart2(onRestart, onOut);
+        }
+		
+		onlineG.scene.restart();
+        //onlineG.scene.launch(heart, onlineG);
+        
+        clearInterval(this.interval1);
+        clearInterval(this.interval2);
+		
+	}
+	if(onOut){
+		if(myUser.character == 1){
+			sendRestart(onRestart, onOut);
+        }
+        else if(myUser.character == 2){
+            sendRestart2(onRestart, onOut);
+        }
+		onlineG.scene.start(lobby);
+        onlineG.scene.stop(chatOnline);
+        onlineG.scene.stop(heart);
+        
+        clearInterval(this.interval1);
+        clearInterval(this.interval2);
+		
+	}
 
     
 
@@ -809,9 +855,12 @@ onlineG.sendVictory = function(){
 onlineG.updateCalcetinete = function(){
     const keys = this.keys
     
+    
+
 
     if(myUser.character == 1)
     {
+        
         this.posicionesX = [];
         this.posicionesY = [];
 
@@ -830,7 +879,7 @@ onlineG.updateCalcetinete = function(){
                     onlineG.posicionesY[i] = m.shackle[i].y;
                 }
     
-                sendMummy(m.mummy.x, m.mummy.y, m.health.life, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown, onlineG.posicionesX, onlineG.posicionesY, onlineG.healthEnemies, onlineG.mummyVictory);
+                sendMummy(m.mummy.x, m.mummy.y, m.health, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown, onlineG.posicionesX, onlineG.posicionesY, onlineG.healthEnemies, onlineG.mummyVictory);
                 
                 for(var i = 0; i < utilBoxes.length; i++){
                     sendBoxesMummy(i, utilBoxes[i].box.x, utilBoxes[i].box.y, utilBoxes[i].box.angle, m.mummy.x, m.mummy.y, p.pharaoh.x, p.pharaoh.y);
@@ -844,7 +893,7 @@ onlineG.updateCalcetinete = function(){
         this.interval2 = setInterval(function(){
 
             if(!p.dead || !m.dead){
-                sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health.life, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS, box[0].purpleBox.y, box[1].purpleBox.y, onlineG.pharaohVictory);
+                sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS, box[0].purpleBox.y, box[1].purpleBox.y, onlineG.pharaohVictory);
             }
             
             

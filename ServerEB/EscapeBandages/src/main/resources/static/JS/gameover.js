@@ -105,6 +105,8 @@ gameover.update = function(){
 	if(onRestart){
 		if(myUser.character == 1){
 			sendRestart(onRestart, onOut);
+		}else if(myUser.character == 2){
+			sendRestart2(onRestart, onOut);
 		}
 		
 		gameover.scene.start(onlineG);
@@ -114,7 +116,10 @@ gameover.update = function(){
 	if(onOut){
 		if(myUser.character == 1){
 			sendRestart(onRestart, onOut);
+		}else if(myUser.character == 2){
+			sendRestart2(onRestart, onOut);
 		}
+		
 		gameover.scene.start(lobby);
 		gameover.scene.stop(chatOnline);
 		

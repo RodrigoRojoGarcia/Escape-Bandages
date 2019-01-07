@@ -37,14 +37,17 @@ public class App implements WebSocketConfigurer
 		.setAllowedOrigins("*");
 		registry.addHandler(pharaohHandler(), "/calcetinetePharaoh")
 		.setAllowedOrigins("*");
-		
-        
-        registry.addHandler(boxesHandlerMummy(), "/calcetineteBoxesMummy")
+		registry.addHandler(boxesHandlerMummy(), "/calcetineteBoxesMummy")
         .setAllowedOrigins("*");
         registry.addHandler(boxesHandlerPharaoh(), "/calcetineteBoxesPharaoh")
 		.setAllowedOrigins("*");
-    
         registry.addHandler(restartHandler(), "/calcetineteRestart")
+        .setAllowedOrigins("*");
+        registry.addHandler(restartHandler2(), "/calcetineteRestart2")
+        .setAllowedOrigins("*");
+        registry.addHandler(mummyLifeHandler(), "/calcetinetemummyLife")
+        .setAllowedOrigins("*");
+        registry.addHandler(pharaohLifeHandler(), "/calcetinetepharaohLife")
 		.setAllowedOrigins("*");
 	}
 	
@@ -68,6 +71,18 @@ public class App implements WebSocketConfigurer
     @Bean
 	public RestartHandler restartHandler() {
 		return new RestartHandler();
+    }
+    @Bean
+	public RestartHandler2 restartHandler2() {
+		return new RestartHandler2();
+    }
+    @Bean
+	public MummyLifeHandler mummyLifeHandler() {
+		return new MummyLifeHandler();
+    }
+    @Bean
+	public PharaohLifeHandler pharaohLifeHandler() {
+		return new PharaohLifeHandler();
 	}
 	
 

@@ -33,10 +33,15 @@ lobby.create = function(){
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
 
 ///////////////////////////////////CALCETINES///////////////////////////////////
-	if(myUser.character == 2){
-		onOut = false;
+	
+	onOut = false;
+	if(myUser.character == 1){
 		sendRestart(onRestart, onOut);
+	}	
+	else if(myUser.character == 2){
+		sendRestart2(onRestart, onOut);
 	}
+	
 
 ///////////////////////////////////ANTORCHAS///////////////////////////////////
 	var torchesM = [];

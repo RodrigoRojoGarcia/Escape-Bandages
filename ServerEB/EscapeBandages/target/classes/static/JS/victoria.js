@@ -6,7 +6,8 @@ victoria.preload = function(){
     this.load.spritesheet('Mummyv','Sprites/mummySprites2.png', {frameWidth: 100, frameHeight: 150});
     this.load.spritesheet("Pharaohv","Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
     this.load.image('victoria','Sprites/victoria.png');
-    this.load.image('backI','Sprites/back.png');
+	this.load.image('backI','Sprites/back.png');
+	this.load.image('reinicio','Sprites/reiniciar.png');
 }
 
 victoria.create = function(){
@@ -38,6 +39,33 @@ victoria.create = function(){
     });
     pV.anims.play('pvAnim');
 
+//////////////////////BOTON REINICIAR///////////////////////////
+	//cargar boton Reiniciar
+	this.brei = this.add.sprite(960, 800, 'reinicio').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.brei.scaleX -= 0.2;
+	this.brei.scaleY -= 0.2;
+	//hacer boton visible
+	this.brei.setAlpha(1);
+	//accion al poner el cursor sobre el boton Reiniciar
+	this.brei.on('pointerover', function(){
+		gameover.brei.scaleX += 0.15;
+		gameover.brei.scaleY += 0.15;
+	})
+	//accion al quitar el cursor del boton Reiniciar
+	this.brei.on('pointerout', function(){
+		gameover.brei.scaleX -= 0.15;
+		gameover.brei.scaleY -= 0.15;
+	})
+	//accion al hacer click sobre el boton Reiniciar
+	this.brei.on('pointerdown', function(){
+		if(gameState == 1){
+			gameover.scene.start(offline);
+			gameover.scene.launch(heart, offline);
+		}else if(gameState == 2){
+			
+			onRestart = true;
+		}
+	})
 /////////////////BOTON VOLVER//////////////////
 	//cargar boton Volver
 	this.binit = this.add.sprite(960, 950, 'backI').setInteractive();
@@ -59,8 +87,26 @@ victoria.create = function(){
 	this.binit.on('pointerdown', function(){
 		//cambio de escena a menu
 		gameState = 0;
-		victoria.scene.start(menu);
+		onOut = true;
 	})
 }
 
-victoria.update = function(){}
+victoria.update = function(){
+	if(onRestart){
+		if(myUser.character == 1){
+			sendRestart(onRestart, onOut);
+		}
+		
+		victoria.scene.start(onlineG);
+		victoria.scene.launch(heart, onlineG);
+		
+	}
+	if(onOut){
+		if(myUser.character == 1){
+			sendRestart(onRestart, onOut);
+		}
+		victoria.scene.start(lobby);
+		victoria.scene.stop(chatOnline);
+		
+	}
+}
