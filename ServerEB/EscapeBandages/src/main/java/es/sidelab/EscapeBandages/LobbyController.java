@@ -241,31 +241,58 @@ public class LobbyController {
 		@PutMapping(value="/{id}/{userName}/{character}")
 		public ResponseEntity<String> userSetCharacter(@PathVariable long id, @PathVariable String userName, @PathVariable String character){
 			if(lobbies.get(id)!=null) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName) || lobbies.get(id).getUser2().getUserName().equals(userName)) {
-					if(character.equalsIgnoreCase("mummy")) {
-						if(lobbies.get(id).getMummy().equals("")){
-							lobbies.get(id).setMummy(userName);
-							if(lobbies.get(id).getPharaoh().equals(userName)) {
-								lobbies.get(id).setPharaoh("");
+				if(lobbies.get(id).getUser1() != null){
+					if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+						if(character.equalsIgnoreCase("mummy")) {
+							if(lobbies.get(id).getMummy().equals("")){
+								lobbies.get(id).setMummy(userName);
+								if(lobbies.get(id).getPharaoh().equals(userName)) {
+									lobbies.get(id).setPharaoh("");
+								}
+								return new ResponseEntity<>(lobbies.get(id).getMummy(), HttpStatus.OK);
 							}
-							return new ResponseEntity<>(lobbies.get(id).getMummy(), HttpStatus.OK);
-						}
-						return new ResponseEntity<>("",HttpStatus.OK);
-					}else if(character.equalsIgnoreCase("pharaoh")) {
-						if(lobbies.get(id).getPharaoh().equals("")){
-							lobbies.get(id).setPharaoh(userName);
-							if(lobbies.get(id).getMummy().equals(userName)) {
-								lobbies.get(id).setMummy("");
+							return new ResponseEntity<>("",HttpStatus.OK);
+						}else if(character.equalsIgnoreCase("pharaoh")) {
+							if(lobbies.get(id).getPharaoh().equals("")){
+								lobbies.get(id).setPharaoh(userName);
+								if(lobbies.get(id).getMummy().equals(userName)) {
+									lobbies.get(id).setMummy("");
+								}
+								return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
 							}
-							return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
+							return new ResponseEntity<>("",HttpStatus.OK);
+						}else {
+							return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 						}
-						return new ResponseEntity<>("",HttpStatus.OK);
-					}else {
-						return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 					}
-				}else {
-					return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 				}
+				if(lobbies.get(id).getUser2() != null){
+					if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+						if(character.equalsIgnoreCase("mummy")) {
+							if(lobbies.get(id).getMummy().equals("")){
+								lobbies.get(id).setMummy(userName);
+								if(lobbies.get(id).getPharaoh().equals(userName)) {
+									lobbies.get(id).setPharaoh("");
+								}
+								return new ResponseEntity<>(lobbies.get(id).getMummy(), HttpStatus.OK);
+							}
+							return new ResponseEntity<>("",HttpStatus.OK);
+						}else if(character.equalsIgnoreCase("pharaoh")) {
+							if(lobbies.get(id).getPharaoh().equals("")){
+								lobbies.get(id).setPharaoh(userName);
+								if(lobbies.get(id).getMummy().equals(userName)) {
+									lobbies.get(id).setMummy("");
+								}
+								return new ResponseEntity<>(lobbies.get(id).getPharaoh(), HttpStatus.OK);
+							}
+							return new ResponseEntity<>("",HttpStatus.OK);
+						}else {
+							return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
+						}
+					}
+				}
+				return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
+				
 			}else {
 				return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
 			}
@@ -423,8 +450,8 @@ public class LobbyController {
 			if(lobbies.containsKey(id)){
 				if(lobbies.get(id).getUser1() != null){
 					if(lobbies.get(id).getUser1().getUserName().equals(userName)){
-						lobbies.get(id).setUser1(null);
 						showDisconnected(userName);
+						lobbies.get(id).setUser1(null);
 						lobbies.get(id).setFull(false);
 						if(lobbies.get(id).getMummy().equals(userName)){
 							lobbies.get(id).setMummy("");
@@ -440,8 +467,8 @@ public class LobbyController {
 				}
 				if(lobbies.get(id).getUser2() != null){
 					if(lobbies.get(id).getUser2().getUserName().equals(userName)){
-						lobbies.get(id).setUser2(null);
 						showDisconnected(userName);
+						lobbies.get(id).setUser2(null);
 						lobbies.get(id).setFull(false);
 						if(lobbies.get(id).getMummy().equals(userName)){
 							lobbies.get(id).setMummy("");

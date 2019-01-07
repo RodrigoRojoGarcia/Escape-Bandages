@@ -799,12 +799,13 @@ onlineG.update = function(){
 
     if(Phaser.Input.Keyboard.JustDown(keys.esc)){
         
+        ;
+
         scene.time.addEvent({
             delay: 100,
-            callback: ()=>(onOut = true),
+            callback: ()=>(onlineG.scene.launch(pause)),
             callbackScope: scene
         });
-        
     }
         
     
@@ -842,7 +843,8 @@ onlineG.update = function(){
         }
 		returnToLobby(myLobby.getId(), function(id){
 			onlineG.scene.start(characterSelection);
-	        onlineG.scene.stop(heart);
+            onlineG.scene.stop(heart);
+            onlineG.scene.stop(pause);
 	        
 	        clearInterval(onlineG.interval1);
 	        clearInterval(onlineG.interval2);

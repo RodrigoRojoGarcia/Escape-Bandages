@@ -18,12 +18,15 @@ characterSelection.preload = function(){
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //boton eleccion momia
     this.load.spritesheet("boton_mummy","Sprites/boton_mummy_spritesheet.png",{frameWidth: 380, frameHeight: 380});
-    this.load.image('img_mummy', 'Sprites/boton_mummy.png');
-    this.load.image('img_mummy2', 'Sprites/boton_mummy2.png');
+    this.load.image('unableMummy', 'Sprites/boton_mummy2.png');
     //boton eleccion faraon
     this.load.spritesheet("boton_pharaoh","Sprites/boton_pharaoh_spritesheet.png",{frameWidth: 380, frameHeight: 380});
-    this.load.image('img_pharaoh', 'Sprites/boton_pharaoh.png');
-    this.load.image('img_pharaoh2', 'Sprites/boton_pharaoh2.png');
+    this.load.image('unablePharaoh', 'Sprites/boton_pharaoh2.png');
+	//boton momia seleccionada
+	this.load.spritesheet("boton_mummySelected","Sprites/boton_mummySelected_spritesheet.png",{frameWidth: 380, frameHeight: 380});
+
+	//boton faraon seleccionado
+	this.load.spritesheet("boton_pharaohSelected","Sprites/boton_pharaohSelected_spritesheet.png",{frameWidth: 380, frameHeight: 380});
 ///////////////////////////////////MAPA///////////////////////////////////
     //tileset
     this.load.image("tileO", "Sprites/tileset.png");
@@ -33,12 +36,20 @@ characterSelection.preload = function(){
 
 
 characterSelection.create = function(){
+	myClient.setScene(this);
+
+	this.overMummy = false;
+	this.overPharaoh = false;
 	this.once = 0;
 	this.mummySelected = false;
 	this.pharaohSelected = false;
 	this.goOn = setInterval(characterSelection.usersReady, 1000);
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
+///////////////////////////////////SPRITES////////////////////////////////////////
+	this.spritesPharaoh = 'boton_pharaoh';
+	this.spritesMummy = 'boton_mummy';
+
 
 //////////////////////////////////CALCETINES//////////////////////////////////////
 	onOut = false;
@@ -79,28 +90,9 @@ characterSelection.create = function(){
         torchesM2[i].anims.play('torchAnim');
     };
     
-    //Animación boton mummy
-    this.anims.create({
-        key: 'bmummyAnim',
-        frames: this.anims.generateFrameNumbers('boton_mummy',{start: 0, end: 0}),
-        frameRate: 10
-    });
-    this.anims.create({
-        key: 'bmummyAnim2',
-        frames: this.anims.generateFrameNumbers('boton_mummy',{start: 1, end: 1}),
-        frameRate: 10
-    });
-    //Animación boton pharaoh
-    this.anims.create({
-        key: 'bpharaohAnim',
-        frames: this.anims.generateFrameNumbers('boton_pharaoh',{start: 0, end: 0}),
-        frameRate: 10
-    });
-    this.anims.create({
-        key: 'bpharaohAnim2',
-        frames: this.anims.generateFrameNumbers('boton_pharaoh',{start: 1, end: 1}),
-        frameRate: 10
-    });
+	//botones unable
+	this.uMummy = this.add.image(600, 550, 'unableMummy');
+	this.uPharaoh = this.add.image(1300, 550, 'unablePharaoh');
 
     this.selecc = this.add.image(950,200,'select');
     
@@ -143,7 +135,7 @@ characterSelection.create = function(){
 	//////////////////////BOTON ELLECCION MOMIA///////////////////////////////
 	//cargar boton eleccion Mummy
     
-    this.bMummy = new UIButton(this, 600, 550, 'boton_mummy', function(){
+    this.bMummy = new UIButton(this, 600, 550, this.spritesMummy, function(){
 
 		setCharacter(myLobby.getId(),myUser.getUserName(),"mummy", function(userName){
 			if(userName != ""){
@@ -157,17 +149,17 @@ characterSelection.create = function(){
 		})
     }, function(){
     	characterSelection.bMummy.amplifyScale(0.05, 0.05)
-    	characterSelection.bMummy.butt.anims.play('bmummyAnim2');
+    	characterSelection.overMummy = true;
     }, function(){
     	characterSelection.bMummy.reduceScale(0.05, 0.05);
-		characterSelection.bMummy.butt.anims.play('bmummyAnim');
+		characterSelection.overMummy = false;
     })
     this.bMummy.show();
     
   
 	/////////////////////BOTON ELLECCION PHARAOH///////////////////////////////
     
-    this.bPharaoh = new UIButton(this, 1300, 550, 'boton_pharaoh', function(){
+    this.bPharaoh = new UIButton(this, 1300, 550, this.spritesPharaoh, function(){
 
 		setCharacter(myLobby.getId(),myUser.getUserName(),"pharaoh",function(userName){
 			if(userName != ""){
@@ -181,10 +173,10 @@ characterSelection.create = function(){
 		})
     }, function(){
     	characterSelection.bPharaoh.amplifyScale(0.05, 0.05)
-		characterSelection.bPharaoh.butt.anims.play('bpharaohAnim2');
+		characterSelection.overPharaoh = true;
     }, function(){
 		characterSelection.bPharaoh.reduceScale(0.05, 0.05)
-		characterSelection.bPharaoh.butt.anims.play('bpharaohAnim');
+		characterSelection.overPharaoh = false;
     })
     
     this.bPharaoh.show()
@@ -238,20 +230,60 @@ characterSelection.update = function(){
 		characterSelection.user2.text = userName;
 	})
 	getUserNameMummy(myLobby.getId(), function(userName){
+		if(userName != myUser.getUserName() && userName != ""){
+			characterSelection.bMummy.butt.setAlpha(0);
+			characterSelection.uMummy.setAlpha(1);
+		}
+		else{
+			characterSelection.bMummy.butt.setAlpha(1);
+			characterSelection.uMummy.setAlpha(0);
+		}
 		characterSelection.chosenMummy.text = userName;
 	})
 	getUserNamePharaoh(myLobby.getId(), function(userName){
+		if(userName != myUser.getUserName() && userName != ""){
+			characterSelection.bPharaoh.butt.setAlpha(0);
+			characterSelection.uPharaoh.setAlpha(1);
+		}
+		else{
+			characterSelection.bPharaoh.butt.setAlpha(1);
+			characterSelection.uPharaoh.setAlpha(0);
+		}
 		characterSelection.chosenPharaoh.text = userName;
 	})
 	if(this.mummySelected){
-		this.bMummy.setTint(0xddffdd)
+		this.spritesMummy = 'boton_mummySelected';
+		if(this.overMummy){
+			this.bMummy.butt.setTexture(this.spritesMummy, 1);
+		}else{
+			this.bMummy.butt.setTexture(this.spritesMummy, 0);
+		}
+		
 	}else{
-		this.bMummy.setTint(0xffffff)
+		this.spritesMummy = 'boton_mummy';
+		if(this.overMummy){
+			this.bMummy.butt.setTexture(this.spritesMummy, 1);
+		}else{
+			this.bMummy.butt.setTexture(this.spritesMummy, 0);
+		}
+		
 	}
 	if(this.pharaohSelected){
-		this.bPharaoh.setTint(0xddffdd)
+		this.spritesPharaoh = 'boton_pharaohSelected';
+		if(this.overPharaoh){
+			this.bPharaoh.butt.setTexture(this.spritesPharaoh, 1);
+		}else{
+			this.bPharaoh.butt.setTexture(this.spritesPharaoh, 0);
+		}
+		
 	}else{
-		this.bPharaoh.setTint(0xffffff)
+		this.spritesPharaoh = 'boton_pharaoh';
+		if(this.overPharaoh){
+			this.bPharaoh.butt.setTexture(this.spritesPharaoh, 1);
+		}else{
+			this.bPharaoh.butt.setTexture(this.spritesPharaoh, 0);
+		}
+		
 	}
 	
 	
