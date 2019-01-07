@@ -95,29 +95,32 @@ Al final de la ejecución de la creación del servidor aparecerá por la consola
 La línea discontinua indica que llama a métodos de las otras clases. La clase App llama a métodos de las clases HostManager y UsersManager.
 
 ## FASE 4
-![fase3-1](https://user-images.githubusercontent.com/18311855/49178464-234d4580-f350-11e8-8f8a-e3852021365a.PNG)  
-![fase3-2](https://user-images.githubusercontent.com/18311855/49178465-23e5dc00-f350-11e8-8a19-9aa66800fbb9.PNG)  
+![fase4-1](https://user-images.githubusercontent.com/18311855/49178464-234d4580-f350-11e8-8f8a-e3852021365a.PNG)  
+![fase4-2](https://user-images.githubusercontent.com/18311855/49178465-23e5dc00-f350-11e8-8a19-9aa66800fbb9.PNG)  
 Cuando el jugador va a la pantalla online le aparece una pantalla de registro/log in. Tenemos un sistema de guardado de datos, en un .txt en la carpeta target si se inicia el servidor desde el .jar,  que guarda usuarios únicos con contraseñas asociadas para registrar los usuarios. Una vez que hacen log in se cambia el estado de estos usuarios en el servidor a "ONLINE". Cada cliente puede tener asociado únicamente un usuario "ONLINE", por lo que si intentas loggear en un cliente que ya a iniciado con un usuario no te deja. El registro, a la izquierda, te permite introducir cualquier usuario y contraseña, mientras el usuario no esté en uso ya, y registrarte, inmediatamente después se podrá hacer log in con ese usuario y contraseña.  
-![fase3-3](https://user-images.githubusercontent.com/18311855/49178466-23e5dc00-f350-11e8-9d5c-83cfb5b6b1e0.PNG)  
+![fase4-3](https://user-images.githubusercontent.com/18311855/49178466-23e5dc00-f350-11e8-9d5c-83cfb5b6b1e0.PNG)  
 Una vez estés "ONLINE" (es decir, loggeado), tendrás una pantalla de selección de elección de lobby. Puedes buscar un lobby aleatorio, que te busca un lobby no privado en el que haya hueco y te mete, y en caso de no haberlo crea un nuevo lobby no privado y te introduce como usuario 1 de ese lobby. Los lobbies de nuestro servidor tienen como capacidad máxima de dos usuarios. Tenemos el botón de "Privado", que te genera un lobby privado con tu usuario de usuario 1, de esta manera, los usuarios que busquen aleatorio no entrarán y permitirás a tus amigos buscar tu lobby con tu nombre de usuario.   
-![fase3-4](https://user-images.githubusercontent.com/18311855/49178469-23e5dc00-f350-11e8-89b7-e8312311cf8a.PNG)  
+![fase4-4](https://user-images.githubusercontent.com/18311855/49178469-23e5dc00-f350-11e8-89b7-e8312311cf8a.PNG)  
 En la misma pantalla de selección de lobby tenemos una línea de entrada de texto en la que se puede introducir el nombre de usuario de tu amigo que haya generado un lobby privado y de esta manera te asocia a dicho lobby y te mete en el hueco que falte, en caso de no estar lleno.  
-![fase3-5](https://user-images.githubusercontent.com/18311855/49178470-247e7280-f350-11e8-964a-a6becec901bc.PNG)  
+![fase4-lobby](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-5.PNG?raw=true)  
+![fase4-lobby2](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-6.PNG?raw=true)  
 La pantalla de lobby se compone de: nombres de usuario conectados, botones de selección de personaje, chat (el cual hemos mejorado para que tenga mayor coherencia con el resto del juego) y botón de preparado.
+![fase4-checkbox](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-7.PNG?raw=true)  
 Una vez que seleccionas un personaje se te pone disponible una checkbox para decir si estás preparado para jugar, una vez que estén los dos jugadores preparados se iniciará el juego en local en cada uno de los clientes.
+![fase4-mummy](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-8.PNG?raw=true)  
+![fase4-pharaoh](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-9.PNG?raw=true)  
 Al seleccionar los personajes y, cambian los parámetros del chat, al escribir aparecerá tu nombre de usuario y el personaje que tengas actualmente escogido (marcado con un filtro verdoso). Así, como al tener seleccionado nuestro personaje, se le indicará a otro jugador, mostrándoselo con un filtro gris, además de indicar debajo de este el nombre de usuario de quien lo ha escogido.
 En el chat aparecen mensajes de cuando se unen los usuarios, cuando se desconectan, el personaje que escogen.
-![fase3-6](https://user-images.githubusercontent.com/18311855/49178471-247e7280-f350-11e8-9035-01c5a933ae83.PNG)  
-![fase3-7](https://user-images.githubusercontent.com/18311855/49178473-247e7280-f350-11e8-9440-18240dca3b47.PNG)  
-![fase3-8](https://user-images.githubusercontent.com/18311855/49178474-25170900-f350-11e8-89ca-a9c94ca60bd0.PNG)  
-![fase3-9](https://user-images.githubusercontent.com/18311855/49178475-25170900-f350-11e8-962d-fa07f1ee29b8.PNG)  
-![fase3-10](https://user-images.githubusercontent.com/18311855/49178477-25170900-f350-11e8-9442-a3d0cb4555ee.PNG)  
-![fase3-11](https://user-images.githubusercontent.com/18311855/49178478-25170900-f350-11e8-8b57-04177ad19bc6.PNG)  
+![fase4-checkbox2]()    
 Una vez ya dentro del juego, cada jugador tendrá su propia pantalla, en la cual, su cámara seguirá a su personaje correspondiente. También está incluido el chat, para que ambos se puedan comunicar. En esta fase necesitaremos pasar cierta información al otro usuario para poder mostrar la pantalla actual; así, les pasaremos por Websockets parámetros como la posición actual de cada personajes, la vida de los enemigos, la posición de las cajas y la arena que aparecen en el nivel, los booleans de los botones y las puertas para que ambas cosas funciones, etc.
-![fase4-chatgame]()
+![fase4-chatgame]()   
 Obviamente, al tratarse de un juego cooperativo, en el cual es necesario ambos personajes para ganar, si uno de ellos se muere, en ambas pantallas aparecerá el 'Game Over', pasandose la información de la vida del otro para saber si ha muerto o no. En esta, tal y como hemos indicado anteriormente para el offline, nos dará la posibilidad de reiniciar o de salirnos.
-![fase4-gameover]()
+![fase4-gameover]()   
 Otro aspecto implementado en esta fase, ha sido el hud de la vida de ambos personajes, mostrando una imagen del personaje al que le corresponde su barra de vida, junto con sus tres corazones correspondientes, los cuales irán desapareciendo al ser atacados por los enemigos.
-![fase4-vida]()
+![fase4-vida]()   
+Debemos mencionar dos pantallas más que aparecen en el juego, que serían la de pausa (pulsando 'esc') con el que saldrías del juego, por o que antes te piden una confirmación.
+![fase4-pausa]()   
+Y una pantalla de reinicio si pulsamos la tecla 'R', dónde también nos preguntarán si estamos seguros de querer reiniciar nivel.
+![fase4-reinicio]()   
 Tendremos en cuenta que en cualquier momento se pueda dar una desconexión del servidor o haya fallo de conexión, por lo que hay otra escena para mostrar este mensaje, y así notificar al jugador.
 ![desconexion](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/desconexion.png?raw=true) 
