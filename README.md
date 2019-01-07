@@ -9,7 +9,7 @@ ESCAPE BANDAGES
 
 - Juego de plataformas y puzles multijugador, de scroll lateral 2D. 
 - Ambientado en Egipto, en el interior de una de sus pirámides, en faraones, momias y trampas. 
-- Objetivo: poder salir de la pirámide, solucionando diferentes puzles; los jugadores controlarán a la momia del faraón y de uno de sus sirvientes. 
+- Objetivo: poder salir de la pirámide, solucionando diferentes puzles; los jugadores controlarán a la momia del faraón y la momia de uno de sus sirvientes. 
 - Modo de juego: cooperativo de dos jugadores que juegan simultáneamente ayudándose entre ellos para seguir adelante.
 
 ## Mecánicas
@@ -36,7 +36,7 @@ A lo largo del juego los jugadores se pueden encontrar a Sheks, serpientes con a
 ### Controles
 El faraón se moverá usando las teclas de flechas de dirección, el ratón para seleccionar los objetos que quiera mover usando la telequinesis y deberá usar la flecha de dirección hacia abajo para lanzar el fuego y el click izquierdo para la telequinesis. El sirviente sin embargo solo podrá moverse usando las teclas 'wasd' del teclado y la tecla 'espacio' para atacar con sus vendas (Los controles son del juego en local y pueden estar sujetos a cambios para el juego online.)
 Si in-game se pulsa 'C' la cámara cambia de cámara dividida (una cámara por personaje) a cámara única que sigue al faraón.
-![camara_dividida](https://user-images.githubusercontent.com/18311855/48102626-49d60000-e22c-11e8-98bd-62888b379677.PNG)  
+![camara_dividida](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/c%C3%A1mara_dividida.PNG)  
 
 ### Concept Art
 ![mummy](https://user-images.githubusercontent.com/18311855/45764286-ad7f7c00-bc32-11e8-9130-e81fcb195a75.png)
@@ -57,31 +57,31 @@ Se empieza en un menú principal con un botón para silenciar la música y otro 
 Del menú de selección de modo de juego se puede volver al menú principal o empezar una partida dando a 'offline'. 
 En el juego en sí hay varias maneras de cambiar de estado. La primera es reiniciar nivel con la tecla 'R' del teclado. 
 El siguiente cambio es cuando los jugadores se pasan en el nivel que se va a la escena de 'Victoria', de la cual solo se puede acceder al menú principal. 
-![victoria](https://user-images.githubusercontent.com/18311855/48101277-b64e0080-e226-11e8-8232-6402a2759ce9.PNG)  
+![victoria](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/Victoria.PNG)  
 Si uno de los jugadores pierde todas sus vidas se cambia a la escena de derrota, tras la cual se puede volver a jugar el nivel o volver al menú principal.
 ![game over](https://user-images.githubusercontent.com/18311855/48101266-b221e300-e226-11e8-9f5d-9aeaa9830380.PNG)  
 
 ## Pasos actuales del juego
 Los dos jugadores aparecen en una sala sin nada. 
-![1](https://user-images.githubusercontent.com/18311855/48101240-a504f400-e226-11e8-9ea0-724f08a2348b.PNG)  
+![1](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/1.PNG?raw=true)  
 Cuando avanzan aparecen Anubis y Bastet y les explican la situación y controles básicos. 
 Inmediatamente después el faraón no puede avanzar porque hay una puerta que le impide el paso, por lo que su amado tendrá que accionar un botón para permitirle avanzar.
-![2](https://user-images.githubusercontent.com/18311855/48101244-a7674e00-e226-11e8-8660-6e511452d529.PNG)  
+![2](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/2.PNG?raw=true)  
 En este momento la momia y el faraón se encuentran cada uno a un Shek y tendrán que derrotarlos por separado. 
-![3](https://user-images.githubusercontent.com/18311855/48101246-a8987b00-e226-11e8-8f3b-c872951e6e4d.PNG)  
+![3](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/3.PNG?raw=true)  
 El siguiente impedimento para avanzar es una gran caja en la habitación de la momia, la cual el faraón podrá mover con su telequinesis para permitirle el paso. 
-![4](https://user-images.githubusercontent.com/18311855/48101248-a9c9a800-e226-11e8-8818-256daa1beaa2.PNG)  
+![4](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/4.PNG?raw=true)  
 Ahora es el faraón el que no puede avanzar, la momia tendrá que saltar un agujero y dar a un botón para abrir una compuerta con la que el faraón podrá bajar a la estancia en la que se encuentra la momia.
-![5](https://user-images.githubusercontent.com/18311855/48101251-aa623e80-e226-11e8-8aed-a5d0256840af.PNG)  
-![6](https://user-images.githubusercontent.com/18311855/48101253-ab936b80-e226-11e8-9f0e-3172b7af03bf.PNG)  
+![5](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/5.PNG?raw=true)  
+![6](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/6.PNG?raw=true)  
  Ahora ambos pasan a una estancia más amplia en la que se encuentran dos Shek en plataformas volantes, una gran caja, un pasillo en la parte superior de la pared derecha y una puerta para un pasillo inferior en la pared derecha. Para que la puerta se abra los jugadores deberán matar a todos los Shek de la sala. 
-![7](https://user-images.githubusercontent.com/18311855/48101255-acc49880-e226-11e8-86e5-2b862c093dfc.PNG)  
+![7](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/7.PNG?raw=true)  
  Ahora ambos pueden avanzar, pero se encuentran con dos botones, los cuales tendrán que ser pulsados a la vez. Para poder hacerlo hay dos cajas en la cámara, aunque una de ellas está encerrada y tendrá que ser liberada. Para ello se necesita subir al pasillo superior con la ayuda de la telequinesis del faraón, allí se encontrará un botón que abre las compuertas de la caja y esta cae sobre uno de los botones y demuestra que pueden ser pulsados por ellas.
-![8](https://user-images.githubusercontent.com/18311855/48101259-adf5c580-e226-11e8-8dff-91b8a4c5000f.PNG)  
-![9](https://user-images.githubusercontent.com/18311855/48102043-75a3b680-e229-11e8-8baa-5f6574f5cb54.PNG)  
+![8](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/8.PNG?raw=true)  
+![9](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/9.PNG?raw=true)  
 Cuando se colocan las dos cajas sobre los botones los dos personajes son libres de avanzar, saltar un agujero y salir de la pirámide.
-![10](https://user-images.githubusercontent.com/18311855/48102044-75a3b680-e229-11e8-9a62-dc0f23a21143.PNG)  
-![11](https://user-images.githubusercontent.com/18311855/48102045-763c4d00-e229-11e8-8434-43e0a3160759.PNG)  
+![10](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/10.PNG?raw=true)  
+![11](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/11.PNG?raw=true)  
 
 
 ## Servidor REST
@@ -123,3 +123,5 @@ En el chat aparecen mensajes de cuando se unen los usuarios y de cuando se desco
 ![fase3-9](https://user-images.githubusercontent.com/18311855/49178475-25170900-f350-11e8-962d-fa07f1ee29b8.PNG)  
 ![fase3-10](https://user-images.githubusercontent.com/18311855/49178477-25170900-f350-11e8-9442-a3d0cb4555ee.PNG)  
 ![fase3-11](https://user-images.githubusercontent.com/18311855/49178478-25170900-f350-11e8-8b57-04177ad19bc6.PNG)  
+Tendremos en cuenta que en cualquier momento se pueda dar una desconexión del servidor o haya fallo de conexión, por lo que hay otra escena para mostrar este mensaje, y así notificar al jugador.
+![desconexion](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/desconexion.png?raw=true) 
