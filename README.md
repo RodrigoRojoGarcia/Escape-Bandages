@@ -96,7 +96,7 @@ Al final de la ejecución de la creación del servidor aparecerá por la consola
 La línea discontinua indica que llama a métodos de las otras clases. La clase App llama a métodos de las clases HostManager y UsersManager.
 
 ## FASE 4
-https://www.youtube.com/watch?v=b-vU2ZbIZa0
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/b-vU2ZbIZa0/0.jpg)](https://www.youtube.com/watch?v=b-vU2ZbIZa0)  
 ![fase4-1](https://user-images.githubusercontent.com/18311855/49178464-234d4580-f350-11e8-8f8a-e3852021365a.PNG)  
 ![fase4-2](https://user-images.githubusercontent.com/18311855/49178465-23e5dc00-f350-11e8-8a19-9aa66800fbb9.PNG)  
 Cuando el jugador va a la pantalla online le aparece una pantalla de registro/log in. Tenemos un sistema de guardado de datos, en un .txt en la carpeta target si se inicia el servidor desde el .jar,  que guarda usuarios únicos con contraseñas asociadas para registrar los usuarios. Una vez que hacen log in se cambia el estado de estos usuarios en el servidor a "ONLINE". Cada cliente puede tener asociado únicamente un usuario "ONLINE", por lo que si intentas loggear en un cliente que ya a iniciado con un usuario no te deja. El registro, a la izquierda, te permite introducir cualquier usuario y contraseña, mientras el usuario no esté en uso ya, y registrarte, inmediatamente después se podrá hacer log in con ese usuario y contraseña.  
