@@ -8,7 +8,7 @@ online.preload = function(){
 	//ANTORCHAS
     this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //boton login
-    this.load.image('login', 'Sprites/login.PNG');
+    this.load.image('login', 'Sprites/login.png');
   //boton registrar
     this.load.image('register', 'Sprites/register.png');
     //insertamos font externa
