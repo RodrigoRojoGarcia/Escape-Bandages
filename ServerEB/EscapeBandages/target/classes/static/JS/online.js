@@ -854,7 +854,9 @@ onlineG.update = function(){
             sendRestart2(onRestart, onOut);
         }
 		
-		onlineG.scene.restart();
+        onlineG.scene.restart();
+        onlineG.scene.stop(heart);
+        onlineG.scene.launch(heart, onlineG);
         //onlineG.scene.launch(heart, onlineG);
         
         clearInterval(this.interval1);

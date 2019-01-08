@@ -26,6 +26,8 @@ restart.create = function(){
             onRestart = true;
         }else if(gameState == 1){
             offline.scene.restart();
+            offline.scene.stop(heart);
+            offline.scene.launch(heart, offline);
         }
         restart.scene.stop(restart);
 	}, function(){
