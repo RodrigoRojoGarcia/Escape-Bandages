@@ -112,15 +112,18 @@ Una vez que seleccionas un personaje se te pone disponible una checkbox para dec
 Al seleccionar los personajes, cambian los parámetros del chat, al escribir aparecerá tu nombre de usuario y el personaje que tengas actualmente escogido que se le indicará a otro jugador, mostrándoselo con un filtro gris, además de indicar debajo de este el nombre de usuario de quien lo ha escogido.
 En el chat aparecen mensajes de cuando se unen los usuarios, cuando se desconectan, el personaje que escogen.
 ![fase4-checkbox2](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/check.png?raw=true)    
-Una vez ya dentro del juego, cada jugador tendrá su propia pantalla, en la cual, su cámara seguirá a su personaje correspondiente. También está incluido el chat, para que ambos se puedan comunicar. En esta fase necesitaremos pasar cierta información al otro usuario para poder mostrar la pantalla actual; así, les pasaremos por Websockets parámetros como la posición actual de cada personajes, la vida de los enemigos, la posición de las cajas y la arena que aparecen en el nivel, los booleans de los botones y las puertas para que ambas cosas funciones, etc.
-![fase4-chatgame](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/game.png?raw=true)   
-Obviamente, al tratarse de un juego cooperativo, en el cual es necesario ambos personajes para ganar, si uno de ellos se muere, en ambas pantallas aparecerá el 'Game Over', pasandose la información de la vida del otro para saber si ha muerto o no. En esta, tal y como hemos indicado anteriormente para el offline, nos dará la posibilidad de reiniciar o de salirnos.
+Una vez ya dentro del juego, cada jugador tendrá su propia pantalla, en la cual, su cámara seguirá a su personaje correspondiente. 
+![fase4-chatgame](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/game.png?raw=true) 
+También está incluido el chat, para que ambos se puedan comunicar. En esta fase necesitaremos pasar cierta información al otro usuario para poder mostrar la pantalla actual; así, les pasaremos por Websockets parámetros como la posición actual de cada personajes, la vida de los enemigos, la posición de las cajas y la arena que aparecen en el nivel, los booleans de los botones y las puertas para que ambas cosas funciones, etc.
+![fase4-chatbye](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/chat%20t.png?raw=true)   
+Una funcionalidad extra añadida es el poder ocultar el chat en el modo online mientras se juega, para ello solo habría que pulsar la tecla 't'. Para que vuelva a aparecer se le volvería a dar a la misma tecla.
 ![fase4-gameover](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Game%20Over.PNG?raw=true)   
-Otro aspecto implementado en esta fase, ha sido el hud de la vida de ambos personajes, mostrando una imagen del personaje al que le corresponde su barra de vida, junto con sus tres corazones correspondientes, los cuales irán desapareciendo al ser atacados por los enemigos.
+Obviamente, al tratarse de un juego cooperativo, en el cual es necesario ambos personajes para ganar, si uno de ellos se muere, en ambas pantallas aparecerá el 'Game Over', pasandose la información de la vida del otro para saber si ha muerto o no. En esta, tal y como hemos indicado anteriormente para el offline, nos dará la posibilidad de reiniciar o de salirnos.
 ![fase4-vida](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/vida.png?raw=true)   
-Debemos mencionar dos pantallas más que aparecen en el juego, que serían la de pausa (pulsando 'esc') con el que saldrías del juego, por o que antes te piden una confirmación.
+Otro aspecto implementado en esta fase, ha sido el hud de la vida de ambos personajes, mostrando una imagen del personaje al que le corresponde su barra de vida, junto con sus tres corazones correspondientes, los cuales irán desapareciendo al ser atacados por los enemigos.
 ![fase4-pausa](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/salir%20esc.png?raw=true)   
-Y una pantalla de reinicio si pulsamos la tecla 'R', dónde también nos preguntarán si estamos seguros de querer reiniciar nivel.
+Debemos mencionar dos pantallas más que aparecen en el juego, que serían la de pausa (pulsando 'esc') con el que saldrías del juego, por o que antes te piden una confirmación.
 ![fase4-reinicio](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/reiniciar%20r.png?raw=true)   
+Y una pantalla de reinicio si pulsamos la tecla 'R', dónde también nos preguntarán si estamos seguros de querer reiniciar nivel.
+![desconexion](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/desconexion.png?raw=true)   
 Tendremos en cuenta que en cualquier momento se pueda dar una desconexión del servidor o haya fallo de conexión, por lo que hay otra escena para mostrar este mensaje, y así notificar al jugador.
-![desconexion](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/desconexion.png?raw=true) 
