@@ -92,7 +92,7 @@ Ejecutar java -jar EscapeBandages-0.2.1.jar
 Al final de la ejecución de la creación del servidor aparecerá por la consola de comandos una IP, la cual es la que se tiene que incluir en el buscador web para acceder como cliente al juego.
 
 ## Diagrama de clases de la aplicación
-![classdiagram](https://user-images.githubusercontent.com/18311855/48830920-0031fd00-ed76-11e8-9bfd-621e18b9c3df.PNG)  
+![classdiagram](https://user-images.githubusercontent.com/18311855/50807663-79bc8500-12fb-11e9-8dac-b7166ccae2ed.PNG)  
 La línea discontinua indica que llama a métodos de las otras clases. La clase App llama a métodos de las clases HostManager y UsersManager.
 
 ## FASE 4
@@ -128,3 +128,10 @@ Debemos mencionar dos pantallas más que aparecen en el juego, que serían la de
 Y una pantalla de reinicio si pulsamos la tecla 'R', dónde también nos preguntarán si estamos seguros de querer reiniciar nivel.
 ![desconexion](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/desconexion.png?raw=true)   
 Tendremos en cuenta que en cualquier momento se pueda dar una desconexión del servidor o haya fallo de conexión, por lo que hay otra escena para mostrar este mensaje, y así notificar al jugador.
+## WEBSOCKET  
+La administración de websocket es la siguiente. Cada cliente manda mensajes como faraón o como momia, según el personaje que estén jugando, con sus posiciones, teclas de actuación y objetos que solo ellos modifican del escenario, como las cajas que se mueven por telequinesis para el faraón o la cuerda para la momia. Cada uno manda el mensaje para que el otro cliente actualice sus posiciones.  
+Para las cajas pequeñas, que ambos las pueden modificar, las vidas de los personajes ( para saber cuando aplicar el evento de muerte )  y el estado de reinicio y salir del nivel, se usan manejadores aparte.  
+Para las cajas el servidor calcula la posición de la caja con respecto a la última posición enviada del personaje más cercano a ella y se la reenvía al resto de clientes.  
+Para calcular el estado de muerte del otro personaje se espera a la respuesta del servidor para aplicar el estado de "derrota" para que no muera uno en una pantalla, pero en la otra no salga correctamente o a tiempo el estado de "derrota".  
+Los estados de reinicio y salir del nivel son dos booleanos y cada cliente responde a ellos en local, el servidor maneja los booleanos según las acciones de los clientes y actualiza esos valores en todos los clientes para sincronizar estos estados.
+
