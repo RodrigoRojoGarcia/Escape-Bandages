@@ -50,6 +50,7 @@ Anubis, maestro de la Necrópolis, y Bastet, Diosa de la armonía del hogar, des
 
 ## Escenas
 ![diagramadeestados](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/uml%20estados.png)  
+![diagramadeestados2](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/uml%20in%20game.png?raw=true)  
 Aquí se puede observar el flujo de escenas de nuestro prototipo FASE4.
 ![menu principal](https://user-images.githubusercontent.com/18311855/48101270-b3eba680-e226-11e8-9d21-0ba376e40106.PNG)  
 Se empieza en un menú principal con un botón para silenciar la música y otro botón para pasar al menú de selección de modo offline/online.
