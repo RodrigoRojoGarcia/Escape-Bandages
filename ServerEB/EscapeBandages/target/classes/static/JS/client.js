@@ -77,28 +77,27 @@ function Client(scene){
 					if(!disconnected){
 						newScene.time.addEvent({
 							delay: 500,
-							callback: disconnectScenes,
+							callback: that.disconnectScenes,
 							callbackScope: that
 						});
 						
 						console.error("Has perdido la conexión con el servidor. UwU")
 					
 						clearInterval(that.interval);
+						
 					}
-					disconnected=true;
+					disconnected = true;
 				}else{
 					timeDisconnected++;
-				}
-				
-				
-				
-				
-				
-				
+				}		
 			})
 			}
 		}
 		
+	}
+	this.disconnectScenes = function(){
+		onlineG.scene.stop(chatOnline)
+		newScene.scene.start(disconnect)
 	}
 }
 
@@ -110,12 +109,6 @@ function getIP(callback){
 		
 	})
 }
-function disconnectScenes(){
-	newScene.scene.start(disconnect)
-	if(gameState == 2){
-		newScene.scene.stop(chatOnline)
-		newScene.scene.stop(heart)
-	}
-}
+
 
 

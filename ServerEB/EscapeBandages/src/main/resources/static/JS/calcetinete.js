@@ -13,11 +13,7 @@ function letsConnect(){
 
 	conn.onerror = function(e){
 		console.log(e);
-		if(myUser.character == 1){
-			clearInterval(onlineG.interval1)
-		}else if(myUser.character == 2){
-			clearInterval(onlineG.interval2)
-		}
+		
 		
 	}
 	conn.onmessage = function(mesg){
@@ -44,17 +40,20 @@ function letsConnect(){
 		}
 		
 	}
+	conn.onclose = function(){
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
+	}
 
 
 	
 
 	connPharaoh.onerror = function(e){
 		console.log(e);
-		if(myUser.character == 1){
-			clearInterval(onlineG.interval1)
-		}else if(myUser.character == 2){
-			clearInterval(onlineG.interval2)
-		}
+		
 	}
 	connPharaoh.onmessage = function(mesg){
 		if(!p.dead){
@@ -76,17 +75,19 @@ function letsConnect(){
 		}
 		
 	}
-	
-	
-	
-
-	connBoxesMummy.onerror = function(e){
-		console.log(e);
+	connPharaoh.onclose = function(){
 		if(myUser.character == 1){
 			clearInterval(onlineG.interval1)
 		}else if(myUser.character == 2){
 			clearInterval(onlineG.interval2)
 		}
+	}
+	
+	
+
+	connBoxesMummy.onerror = function(e){
+		console.log(e);
+		
 	}
 	connBoxesMummy.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -99,15 +100,17 @@ function letsConnect(){
 		
 		
 	}
-	
-
-	connBoxesPharaoh.onerror = function(e){
-		console.log(e);
+	connBoxesMummy.onclose = function(){
 		if(myUser.character == 1){
 			clearInterval(onlineG.interval1)
 		}else if(myUser.character == 2){
 			clearInterval(onlineG.interval2)
 		}
+	}
+
+	connBoxesPharaoh.onerror = function(e){
+		console.log(e);
+		
 	}
 	connBoxesPharaoh.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -120,18 +123,20 @@ function letsConnect(){
 		
 	}
 	
-
+	connBoxesPharaoh.onclose = function(){
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
+	}
 	
 	
 	
 	
 	connRestart.onerror = function(e){
 		console.log(e);
-		if(myUser.character == 1){
-			clearInterval(onlineG.interval1)
-		}else if(myUser.character == 2){
-			clearInterval(onlineG.interval2)
-		}
+		
 	}
 	connRestart.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -141,15 +146,18 @@ function letsConnect(){
 		
 		
 	}
-	
-
-	connRestart2.onerror = function(e){
-		console.log(e);
+	connRestart.onclose = function(){
 		if(myUser.character == 1){
 			clearInterval(onlineG.interval1)
 		}else if(myUser.character == 2){
 			clearInterval(onlineG.interval2)
 		}
+	}
+	
+
+	connRestart2.onerror = function(e){
+		console.log(e);
+	
 	}
 	connRestart2.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -159,15 +167,18 @@ function letsConnect(){
 		
 		
 	}
-	
-
-	connLifesMummy.onerror = function(e){
-		console.log(e);
+	connRestart2.onclose = function(){
 		if(myUser.character == 1){
 			clearInterval(onlineG.interval1)
 		}else if(myUser.character == 2){
 			clearInterval(onlineG.interval2)
 		}
+	}
+	
+
+	connLifesMummy.onerror = function(e){
+		console.log(e);
+		
 	}
 	connLifesMummy.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -182,15 +193,18 @@ function letsConnect(){
 		
 		
 	}
-	
-
-	connLifesPharaoh.onerror = function(e){
-		console.log(e);
+	connLifesMummy.onclose = function(){
 		if(myUser.character == 1){
 			clearInterval(onlineG.interval1)
 		}else if(myUser.character == 2){
 			clearInterval(onlineG.interval2)
 		}
+	}
+	
+
+	connLifesPharaoh.onerror = function(e){
+		console.log(e);
+		
 	}
 	connLifesPharaoh.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -204,6 +218,13 @@ function letsConnect(){
 		});
 		
 		
+	}
+	connLifesPharaoh.onclose = function(){
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	
 

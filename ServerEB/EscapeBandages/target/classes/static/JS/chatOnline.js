@@ -95,12 +95,11 @@ chatOnline.create = function(){
     	textArr[i] = this.add.dynamicBitmapText(1560, 950 - 50*i, 'font1', '', 24);
     }
     
-	
+	this.intervalChat = setInterval(chatOnline.getsChat, 500)
 }
-
-chatOnline.update = function(){
+chatOnline.getsChat = function(){
 	phrases = [];
-	
+
 	if(!disconnected){
 		loadChats(myLobby.getId(), function(chats){
 		
@@ -117,6 +116,9 @@ chatOnline.update = function(){
 			callbackScope: chatOnline
 		});
 	}
+}
+chatOnline.update = function(){
+	
 }
 
 chatOnline.write = function(){
