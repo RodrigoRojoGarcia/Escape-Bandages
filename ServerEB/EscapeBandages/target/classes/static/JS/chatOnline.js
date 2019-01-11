@@ -110,7 +110,7 @@ chatOnline.getsChat = function(){
 			
 		});
 
-		this.time.addEvent({
+		chatOnline.time.addEvent({
 			delay: 50,
 			callback: chatOnline.write,
 			callbackScope: chatOnline

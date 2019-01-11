@@ -85,7 +85,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 				//y al soltar deja de ser estática y cae por la gravedad
 				scene.input.setDraggable(image);
 				scene.input.on('dragstart', function (pointer, gameObject) {
-					console.log(that);
+					
 					
 					image.setStatic(true);
 
