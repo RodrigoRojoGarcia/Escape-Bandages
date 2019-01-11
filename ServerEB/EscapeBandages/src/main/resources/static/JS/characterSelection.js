@@ -38,6 +38,7 @@ characterSelection.preload = function(){
 characterSelection.create = function(){
 	myClient.setScene(this);
 
+	this.onStart = false;
 	this.overMummy = false;
 	this.overPharaoh = false;
 	this.once = 0;
@@ -231,13 +232,42 @@ characterSelection.create = function(){
 }
 characterSelection.usersReady = function(){
 		bothReady(myLobby.getId(),function(both){
-			if(both){
+			if(!characterSelection.onStart){
+				if(both){
 					gameState = 2;
                     characterSelection.scene.start(onlineG);
                     characterSelection.scene.launch(heart, onlineG);
-
+                    characterSelection.onStart = true;
 					clearInterval(characterSelection.goOn);
+				}
 			}
+			
+			
+		})
+		getUserNameMummy(myLobby.getId(), function(userName){
+			if(userName != myUser.getUserName() && userName != ""){
+				characterSelection.bMummy.butt.setAlpha(0);
+				characterSelection.uMummy.setAlpha(1);
+			}
+			else{
+				characterSelection.bMummy.butt.setAlpha(1);
+				characterSelection.uMummy.setAlpha(0);
+			}
+			characterSelection.chosenMummy.text = userName;
+		})
+		otherUser(myLobby.getId(), myUser.getUserName(), function(userName){
+			characterSelection.user2.text = userName;
+		})
+		getUserNamePharaoh(myLobby.getId(), function(userName){
+			if(userName != myUser.getUserName() && userName != ""){
+				characterSelection.bPharaoh.butt.setAlpha(0);
+				characterSelection.uPharaoh.setAlpha(1);
+			}
+			else{
+				characterSelection.bPharaoh.butt.setAlpha(1);
+				characterSelection.uPharaoh.setAlpha(0);
+			}
+			characterSelection.chosenPharaoh.text = userName;
 		})
 	}
 characterSelection.update = function(){
@@ -246,33 +276,6 @@ characterSelection.update = function(){
 		clearInterval(characterSelection.goOn);
 	}
 
-
-	//chatOnline.updateC();
-	otherUser(myLobby.getId(), myUser.getUserName(), function(userName){
-		characterSelection.user2.text = userName;
-	})
-	getUserNameMummy(myLobby.getId(), function(userName){
-		if(userName != myUser.getUserName() && userName != ""){
-			characterSelection.bMummy.butt.setAlpha(0);
-			characterSelection.uMummy.setAlpha(1);
-		}
-		else{
-			characterSelection.bMummy.butt.setAlpha(1);
-			characterSelection.uMummy.setAlpha(0);
-		}
-		characterSelection.chosenMummy.text = userName;
-	})
-	getUserNamePharaoh(myLobby.getId(), function(userName){
-		if(userName != myUser.getUserName() && userName != ""){
-			characterSelection.bPharaoh.butt.setAlpha(0);
-			characterSelection.uPharaoh.setAlpha(1);
-		}
-		else{
-			characterSelection.bPharaoh.butt.setAlpha(1);
-			characterSelection.uPharaoh.setAlpha(0);
-		}
-		characterSelection.chosenPharaoh.text = userName;
-	})
 	if(this.mummySelected){
 		this.spritesMummy = 'boton_mummySelected';
 		if(this.overMummy){

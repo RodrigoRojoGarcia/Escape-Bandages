@@ -4,6 +4,7 @@ function Client(scene){
 	this.myJSON={};
 	var that = this;
 	var newScene = scene;
+	var timeDisconnected = 0;
 	this.create = function(){
 		
 		getIP(function(data){
@@ -37,12 +38,12 @@ function Client(scene){
 		
 		
 		
-		postClient(parseInt(myIP), function(data){
-			
-			that.id = data.id;
-			
-			console.log("Got IP! :" + that.id);
-		})
+			postClient(parseInt(myIP), function(data){
+				
+				that.id = data.id;
+				
+				console.log("Got IP! :" + that.id);
+			})
 		    
 		});
 		
@@ -69,19 +70,28 @@ function Client(scene){
 			$.ajax({
 				method: "GET",
 				url:"http://"+location.host+"/clients/"+that.id
+			}).done(function(){
+				timeDisconnected = 0;
 			}).fail(function(){
-				if(!disconnected){
-					newScene.time.addEvent({
-						delay: 500,
-						callback: ()=>(newScene.scene.start(disconnect)),
-						callbackScope: that
-					});
+				if(timeDisconnected >= 16){
+					if(!disconnected){
+						newScene.time.addEvent({
+							delay: 500,
+							callback: disconnectScenes,
+							callbackScope: that
+						});
+						
+						console.error("Has perdido la conexión con el servidor. UwU")
 					
-					console.error("Has perdido la conexión con el servidor. UwU")
-				
-					clearInterval(that.interval);
+						clearInterval(that.interval);
+					}
+					disconnected=true;
+				}else{
+					timeDisconnected++;
 				}
-				disconnected=true;
+				
+				
+				
 				
 				
 				
@@ -100,6 +110,12 @@ function getIP(callback){
 		
 	})
 }
-
+function disconnectScenes(){
+	newScene.scene.start(disconnect)
+	if(gameState == 2){
+		newScene.scene.stop(chatOnline)
+		newScene.scene.stop(heart)
+	}
+}
 
 

@@ -13,6 +13,12 @@ function letsConnect(){
 
 	conn.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
+		
 	}
 	conn.onmessage = function(mesg){
 		if(!m.dead){
@@ -44,6 +50,11 @@ function letsConnect(){
 
 	connPharaoh.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	connPharaoh.onmessage = function(mesg){
 		if(!p.dead){
@@ -66,11 +77,16 @@ function letsConnect(){
 		
 	}
 	
-
+	
 	
 
 	connBoxesMummy.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	connBoxesMummy.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -87,6 +103,11 @@ function letsConnect(){
 
 	connBoxesPharaoh.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	connBoxesPharaoh.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -106,6 +127,11 @@ function letsConnect(){
 	
 	connRestart.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	connRestart.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -119,6 +145,11 @@ function letsConnect(){
 
 	connRestart2.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	connRestart2.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -132,6 +163,11 @@ function letsConnect(){
 
 	connLifesMummy.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	connLifesMummy.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
@@ -150,6 +186,11 @@ function letsConnect(){
 
 	connLifesPharaoh.onerror = function(e){
 		console.log(e);
+		if(myUser.character == 1){
+			clearInterval(onlineG.interval1)
+		}else if(myUser.character == 2){
+			clearInterval(onlineG.interval2)
+		}
 	}
 	connLifesPharaoh.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
