@@ -9,16 +9,8 @@ function Client(scene){
 		
 		getIP(function(data){
 			myClient.myJSON = data;
-			
+			that.gIP();
 		})
-		
-		this.scene.time.addEvent({
-        delay: 1000,
-        callback: that.gIP,
-        callbackScope: that
-		});
-		
-		
 		
 	}
 	this.gIP =function () {
