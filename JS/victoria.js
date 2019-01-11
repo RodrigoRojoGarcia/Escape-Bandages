@@ -11,7 +11,7 @@ victoria.preload = function(){
 }
 
 victoria.create = function(){
-	myClient.setScene(this);
+
 
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//background
@@ -60,13 +60,9 @@ victoria.create = function(){
 	})
 	//accion al hacer click sobre el boton Reiniciar
 	this.brei.on('pointerdown', function(){
-		if(gameState == 1){
-			victoria.scene.start(offline);
-			victoria.scene.launch(heart, offline);
-		}else if(gameState == 2){
-			
-			onRestart = true;
-		}
+		victoria.scene.start(offline);
+		victoria.scene.launch(heart, offline);
+		
 	})
 /////////////////BOTON VOLVER//////////////////
 	//cargar boton Volver
@@ -88,37 +84,12 @@ victoria.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.binit.on('pointerdown', function(){
 		//cambio de escena a menu
-		if(gameState == 1){
-			victoria.scene.start(submenu);
-		}
-		else if(gameState == 2){
-			onOut = true;
-		}
-		gameState = 0;
 		
+		victoria.scene.start(submenu);
 		
 	})
 }
 
 victoria.update = function(){
-	if(onRestart){
-		if(myUser.character == 1){
-			sendRestart(onRestart, onOut);
-		}
-		
-		victoria.scene.start(onlineG);
-		victoria.scene.launch(heart, onlineG);
-		
-	}
-	if(onOut){
-		if(myUser.character == 1){
-			sendRestart(onRestart, onOut);
-		}
-		returnToLobby(myLobby.getId(), function(id){
-			victoria.scene.start(characterSelection);
-			victoria.scene.stop(chatOnline);
-		})
-		
-		
-	}
+	
 }

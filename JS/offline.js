@@ -1,46 +1,11 @@
 var offline = new Phaser.Scene('Offline');
 
 offline.preload = function(){
-///////////////////////////////////MAPA///////////////////////////////////
-    //Carga del tileset
-    this.load.image("tile", "Sprites/tileset.png");
-    //Carga del tilemap
-    this.load.tilemapTiledJSON("map", "map.json");
 
-///////////////////////////////////SPRITESHEETS///////////////////////////////////
-    //MOMIA
-    this.load.spritesheet("Mummy","Sprites/mummySprites2.png", {frameWidth: 100, frameHeight: 150});
-    //FARAÓN
-    this.load.spritesheet("Pharaoh","Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
-    //ANTORCHAS
-    this.load.spritesheet("torch","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
-    //ARENA
-    this.load.spritesheet("sand","Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
-    //SHEK
-    this.load.spritesheet("snake","Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
-    //BOTÓN
-    this.load.spritesheet("button","Sprites/button.png",{frameWidth: 120, frameHeight: 30});
-    //ANUBIS
-    this.load.spritesheet("Anubis","Sprites/anubisSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
-    //BASTET
-    this.load.spritesheet("Bastet","Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
-    //CAJA CON EFECTO
-    this.load.spritesheet("PurpleBox1", "Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
-    //FUEGO DEL FARAÓN
-    this.load.spritesheet("Fire", "Sprites/firePharaohSprites.png",{frameWidth: 125, frameHeight: 125});
-    
-///////////////////////////////////IMAGENES///////////////////////////////////
-    //PUERTA
-    this.load.image("door","Sprites/door.png");
-    //CAJA
-    this.load.image("box","Sprites/caja0.1.png");
-    //CUERDA
-    this.load.image("rope", "Sprites/rope.png");
    
 }//FIN DEL PRELOAD
 
 offline.create = function(){
-	myClient.setScene(this);
 
 
 ///////////////////////////////////CONFIG///////////////////////////////////
@@ -696,42 +661,7 @@ offline.update = function(){
         }
     }
 
-    if(Phaser.Input.Keyboard.JustDown(keys.c)){
-        
-        if(this.doubleCamera){
-            this.doubleCamera = false;
-            cameraPharaoh = this.cameras.add(0,0,1920,1080).setName('camPharaoh');
-            cameraMummy = this.cameras.add(1920,1080,0,0).setName('camMummy');
-            cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
-            cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-            cameraPharaoh.ignore(this.sayBastet1);
-            cameraPharaoh.ignore(this.sayBastet2);            
-        }else{
-            this.doubleCamera = true;
-            this.cameras.remove(cameraMummy)
-            this.cameras.remove(cameraPharaoh)
-            cameraMummy = this.cameras.add(0,0,940,1080).setName('camMummy');
-            cameraPharaoh = this.cameras.add(980,0,940,1080).setName('camPharaoh');
-            cameraPharaoh.startFollow(p.getSprite(), false, 1, 1, -200);
-            cameraMummy.startFollow(m.getSprite(), false, 1, 1, -200);
-            cameraPharaoh.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-            cameraMummy.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-            cameraPharaoh.ignore(this.sayBastet1);
-            cameraPharaoh.ignore(this.sayBastet2);
-            cameraMummy.ignore(this.sayAnubis1);
-            cameraMummy.ignore(this.sayAnubis2);
-            cameraMummy.ignore(this.sayAnubis3);
-            for(var i=0;i<p.health.health.length;i++){
-                cameraMummy.ignore(p.health.health[i])
-            }
-            
-            for(var i=0;i<m.health.health.length;i++){
-                cameraPharaoh.ignore(m.health.health[i])
-            }
-            
-        }
-        
-    }
+    
     if(this.mummyVictory && this.pharaohVictory){
         offline.scene.start(victoria)
         this.scene.stop(heart);

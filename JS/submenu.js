@@ -1,23 +1,11 @@
 var submenu = new Phaser.Scene('Submenu');
 
 submenu.preload = function(){
-	//carga imagenes
-	this.load.image('off', 'Sprites/offline.png');
-	this.load.image('on', 'Sprites/online.png');
-	this.load.image('back', 'Sprites/back.png');
-	///////////////////////////////////MAPA///////////////////////////////////
-    //tileset
-    this.load.image("tile", "Sprites/tileset.png");
-    //tilemap
-    this.load.tilemapTiledJSON("background", "background.json");
-    //ANTORCHAS
-    this.load.spritesheet("torch","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+	
 }
 
 submenu.create = function(){
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
-
-	myClient.setScene(this);
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
 	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});
@@ -50,26 +38,6 @@ submenu.create = function(){
 
 
 ////////////////////////BOTONES//////////////////////////////////
-/////////////////////BOTON ONLINE//////////////////////////////
-	//cargar boton Online
-	this.bon = this.add.sprite(650, 550, 'on').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	//hacer boton invisible
-	this.bon.setAlpha(1);
-	//accion al poner el cursor sobre el boton Online
-	this.bon.on('pointerover', function(){
-		submenu.bon.scaleX += 0.15;
-		submenu.bon.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Online
-	this.bon.on('pointerout', function(){
-		submenu.bon.scaleX -= 0.15;
-		submenu.bon.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Online
-	this.bon.on('pointerdown', function(){
-		submenu.scene.start(online);
-	})
-
 /////////////////////BOTON OFFLINE//////////////////////////////
 	//cargar boton Offline
 	this.boff = this.add.sprite(1200, 550, 'off').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });

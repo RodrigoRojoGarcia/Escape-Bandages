@@ -1,15 +1,10 @@
 var pause = new Phaser.Scene('pause');
 
 pause.preload = function(){
-    this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
-    this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
-    this.load.image('shade2','Sprites/shade2.png');
-    this.load.image('yes','Sprites/si.png');
-    this.load.image('no','Sprites/no.png');
+
 }
 
 pause.create = function(){
-    myClient.setScene(this);
 
     this.active = true;
     this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
