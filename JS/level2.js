@@ -77,10 +77,12 @@ level2.create = function(){
     	callback: level2.tripwireActive,
     	context: level2
     })
+
+    this.platform = new Platform(this, 660, 1500, 'door', 960, 1560)
     
 }
 level2.tripwireActive = function(){
-	level2.m.mummy.setTint(0x00ff00)
+	level2.platform.action()
 }
 level2.update = function(){
 	if(!this.p.dead){
@@ -98,4 +100,5 @@ level2.update = function(){
 			this.enemies[i].resetColliding()
 		}
 	}
+	this.platform.update()
 }
