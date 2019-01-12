@@ -190,23 +190,27 @@ offline.create = function(){
             door2.setVisible(false);
             door1.setSensor(true);
             door2.setSensor(true);
-        }else if(offline.buttons[1].active){
-            door3.x = 31*120 - 60;
-            door4.x = 32*120 + 180;
-            door3bis.x = 31*120 + 60;
-            door4bis.x = 32*120 + 60;
-        }else if(offline.buttons[4].active){
-            doorsPuzzle[0].x = 65*120 - 60;
-            doorsPuzzle[1].x = 66*120 + 180;
         }else{
             door1.setVisible(true);
             door2.setVisible(true);
             door1.setSensor(false);
             door2.setSensor(false);
+        }
+        if(offline.buttons[1].active){
+            door3.x = 31*120 - 60;
+            door4.x = 32*120 + 180;
+            door3bis.x = 31*120 + 60;
+            door4bis.x = 32*120 + 60;
+        }else{
             door3.x = 31*120 + 60;
             door4.x = 32*120 + 60;
             door3bis.x = 31*120 - 60;
             door4bis.x = 32*120 + 180;
+        } 
+        if(offline.buttons[4].active){
+            doorsPuzzle[0].x = 65*120 - 60;
+            doorsPuzzle[1].x = 66*120 + 180;
+        }else{
             doorsPuzzle[0].x = 65*120 + 60;
             doorsPuzzle[1].x = 66*120 + 60;   
         }
