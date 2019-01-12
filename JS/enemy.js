@@ -1,9 +1,10 @@
-function Enemy(scene, x, y){
+function Enemy(scene, x, y, sprite){
 		var scene = scene;
 		const {Body, Bodies} = Phaser.Physics.Matter.Matter;
+		
 	///////////////////////////////////CREACIÓN///////////////////////////////////
 		//Sprite
-		this.enemy = scene.matter.add.sprite(x,y,'snake');
+		this.enemy = scene.matter.add.sprite(x,y,sprite);
 		const {width: w, height: h} = this.enemy;
 		//Cuerpo del enemigo
 		const mainBody = Bodies.rectangle(0,0,w*0.6,h,{chamfer: {radius:10}});
@@ -31,7 +32,8 @@ function Enemy(scene, x, y){
 		//Está muerto?
 		this.dead = false;
 
-
+		var walk;
+		var stay;
 	///////////////////////////////////COLISIONES///////////////////////////////////
 		//Cuando colisiona un sensor del mainBody
 		this.onSensorCollide = function({bodyA, bodyB, pair}){
@@ -111,26 +113,16 @@ function Enemy(scene, x, y){
 			return this.enemy;
 		}
 
-	///////////////////////////////////CREATE///////////////////////////////////
-		this.create = function(){
-				
-	///////////////////////////////////ANIMATIONS///////////////////////////////////
-			const anims = scene.anims;
-			//Animación a la derecha
-			anims.create({
-				key: 'rightS',
-				frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
-				frameRate: 10,
-				repeat: -1
-			});
-			//Quieto mirando a la derecha
-			anims.create({
-				key: 'stayRightS',
-				frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
-				frameRate: 5,
-				repeat: -1
-			});
-		}//FIN CREATE
+
+		if(sprite === 'snake'){
+			walk = 'rightS'
+			stay = 'stayRightS'
+		}
+		if(sprite === 'scorpion'){
+			walk = 'walkScor'
+			stay = 'stayScor'
+		}
+
 
 	///////////////////////////////////UPDATE///////////////////////////////////
 		this.update = function(){
@@ -224,12 +216,12 @@ function Enemy(scene, x, y){
 				//Si la fuerza en X del sprite no es 0
 				if(this.enemy.body.velocity.x !== 0){
 					//Reproducimos la animación de andar
-					this.enemy.anims.play("rightS", true);
+					this.enemy.anims.play(walk, true);
 				}
 				//Si la velocidad es 0
 				else{
 					//Reproducimos la animación de estar quieto
-					this.enemy.anims.play("stayRightS", true);
+					this.enemy.anims.play(stay, true);
 				}
 			}
 			//Si no está tocando el suelo
@@ -237,7 +229,7 @@ function Enemy(scene, x, y){
 				//Paramos la animación
 				this.enemy.anims.stop();
 				//Mostramos la textura 0, por defecto
-				this.enemy.setTexture("snake", 0);
+				this.enemy.setTexture(sprite, 0);
 			}
 			
 	///////////////////////////////////RENDER HEALTHBAR///////////////////////////////////

@@ -80,8 +80,7 @@ offline.create = function(){
     //FARAÓN
     //Creamos un objeto Faraón, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     this.p = new Pharaoh(this, spawnPointPharaoh.x, spawnPointPharaoh.y);
-    //Llamamos a la función crear, que crea las animaciones del mismo
-    this.p.create();
+
     //Le atribuímos una profundidad de 1, por lo que pasará por delante de objetos a los que no le introduzcamos ningún valor de depth modificado
     //(El valor de depth por defecto es 0)
     this.p.getSprite().depth = 2
@@ -89,8 +88,7 @@ offline.create = function(){
     //MOMIA
     //Creamos un objeto Momia, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     this.m = new Mummy(this,spawnPointMummy.x, spawnPointMummy.y);
-    //Llamamos a la función crear, que crea las animaciones del mismo
-    this.m.create();
+
     //Le atribuímos una profundidad de 1, por lo que pasará por delante de objetos a los que no le introduzcamos ningún valor de depth modificado
     this.m.getSprite().depth = 2
 
@@ -98,21 +96,19 @@ offline.create = function(){
     this.enemies = [];
     //SHEK
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
-    this.s = new Enemy(this,spawnPointShek.x, spawnPointShek.y);
-    //Llamamos a la función crear, que crea las animaciones del mismo
-    this.s.create();
+    this.s = new Enemy(this,spawnPointShek.x, spawnPointShek.y, 'snake');
+ 
 
     this.enemies[0] = this.s;
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
-    this.s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y);
-    //Llamamos a la función crear, que crea las animaciones del mismo
-    this.s2.create();
+    this.s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y, 'snake');
+ 
 
     this.enemies[1] = this.s2;
 
     this.shek = [];
-    this.shek[0] = new Enemy(this,spawnpointShek3.x, spawnpointShek3.y);
-    this.shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y);
+    this.shek[0] = new Enemy(this,spawnpointShek3.x, spawnpointShek3.y, 'snake');
+    this.shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y, 'snake');
     this.enemies[2] = this.shek[0];
     this.enemies[3] = this.shek[1];
 
@@ -121,14 +117,11 @@ offline.create = function(){
     //ANUBIS
     //Creamos un objeto Dios, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     this.a = new God(this, spawnPointAnubis.x + 60/2, spawnPointAnubis.y + 90/2, "Anubis");
-    //Llamamos a la función crear, que crea las animaciones del mismo
-    this.a.create();
+  
 
     //Creamos un objeto Dios, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
     this.b = new God(this, spawnPointBastet.x + 60/2, spawnPointBastet.y + 90/2, "Bastet");
-    //Llamamos a la función crear, que crea las animaciones del mismo
-    this.b.create();
-
+  
 ///////////////////////////////////CAMERA///////////////////////////////////
     //Hacemos que cada una siga a un personaje
     this.cameraPharaoh.startFollow(this.p.getSprite(), false, 1, 1, -200);
@@ -145,13 +138,7 @@ offline.create = function(){
         this.torches.push(this.add.sprite(225 + 480*i,215,'torch'));
 
     };
-    //Animación de las antorchas
-    this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
+
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<4;i++){
         this.torches[i].anims.play('torchAnim');

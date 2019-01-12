@@ -25,11 +25,10 @@ level2.create = function(){
     this.matter.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels + 240);
 
     const spawnPoint = this.map.findObject("Spawns", obj => obj.name === "Player");
+    const spawnPointScorpionNest = this.map.findObject("Spawns", obj => obj.name === "Scorpion");
 
     this.p = new Pharaoh(this, spawnPoint.x, spawnPoint.y);
     this.m = new Mummy(this, spawnPoint.x, spawnPoint.y);
-    this.p.create()
-    this.m.create()
 
     this.cameraPharaoh.startFollow(this.p.getSprite(), false, 1, 1, -200, 400);
     this.cameraMummy.startFollow(this.m.getSprite(), false, 1, 1, -200, 400);
@@ -38,6 +37,10 @@ level2.create = function(){
     this.cameraMummy.setBounds(0,0,this.map.widthInPixels,this.map.heightInPixels);
 
     this.enemies = []
+
+    this.enemies[0] = new Enemy(this, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'scorpion')
+
+
     ///////////////////////////////////CONTROLES///////////////////////////////////
     //Extraemos las teclas de dirección, W,A,D y barra espaciadora de las KeyCodes de Phaser
     const {LEFT, RIGHT, UP, DOWN, W, A, D, C, R, SPACE, ESC} = Phaser.Input.Keyboard.KeyCodes;
@@ -58,5 +61,10 @@ level2.create = function(){
 }
 level2.update = function(){
 	this.p.update(level2.keys)
+	this.p.resetColliding()
 	this.m.update(level2.keys)
+	this.m.resetColliding()
+	for(var i =0;i<this.enemies.length;i++){
+		//this.enemies[i].update()
+	}
 }

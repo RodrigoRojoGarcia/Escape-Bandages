@@ -226,33 +226,6 @@ function Mummy(scene, x, y){
 			this.mummy.destroy();
 		}
 
-	///////////////////////////////////CREATE///////////////////////////////////
-		this.create = function(){
-	///////////////////////////////////ANIMATIONS///////////////////////////////////
-			const anims = scene.anims;
-			//Animación a la derecha
-			anims.create({
-				key: 'rightM',
-				frames: anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
-				frameRate: 10,
-				repeat: -1
-			});
-			//Quieto mirando a la derecha
-			anims.create({
-				key: 'stayRightM',
-				frames: anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
-				frameRate: 5,
-				repeat: -1
-			});
-			//Saltando a la derecha
-			anims.create({
-				key: 'jumpRightM',
-				frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
-				frameRate: 20,
-				repeat: 0
-			})
-		} //FIN CREATE
-
 	///////////////////////////////////UPDATE///////////////////////////////////
 		this.update = function(k){
 			var keys = k;

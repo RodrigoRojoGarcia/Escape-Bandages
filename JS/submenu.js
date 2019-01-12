@@ -23,13 +23,7 @@ submenu.create = function(){
         torchesM.push(this.add.sprite(225 + 1400*i,250,'torch'));
         torchesM2.push(this.add.sprite(225 + 1400*i,800,'torch'));
     };
-    //Animación de las antorchas
-    this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
+    
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<2;i++){
         torchesM[i].anims.play('torchAnim');
@@ -57,7 +51,7 @@ submenu.create = function(){
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
 		gameState = 1;
-		submenu.scene.start(level2);
+		submenu.scene.start(offline);
 		submenu.scene.launch(heart, offline);
 	})
 

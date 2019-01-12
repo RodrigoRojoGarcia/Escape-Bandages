@@ -61,6 +61,8 @@ menu.preload = function(){
     this.load.spritesheet("torch","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //SHEK
     this.load.spritesheet("snake","Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
+    //SCORPION
+    this.load.spritesheet("scorpion","Sprites/scorpion_spritesheet.png",{frameWidth: 55, frameHeight: 33});
     //BOTÓN
     this.load.spritesheet("button","Sprites/button.png",{frameWidth: 120, frameHeight: 30});
     //ANUBIS
@@ -87,6 +89,136 @@ menu.preload = function(){
 
 menu.create = function(){
 	
+
+
+///////////////////////////////////ANIMATIONS///////////////////////////////////
+	
+	const anims = menu.anims;
+		//Animación a la derecha
+	///////////////////////////////MUMMY//////////////////////////////////
+	anims.create({
+		key: 'rightM',
+		frames: anims.generateFrameNumbers('Mummy', {start: 4, end: 7}),
+		frameRate: 10,
+		repeat: -1
+	});
+	//Quieto mirando a la derecha
+	anims.create({
+		key: 'stayRightM',
+		frames: anims.generateFrameNumbers('Mummy', {start: 0, end: 3}),
+		frameRate: 5,
+		repeat: -1
+	});
+	//Saltando a la derecha
+	anims.create({
+		key: 'jumpRightM',
+		frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
+		frameRate: 20,
+		repeat: 0
+	})
+
+	///////////////////////////////PHARAOH//////////////////////////////////
+	//Animación a la derecha
+	anims.create({
+		key: 'rightP',
+		frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
+		frameRate: 5,
+		repeat: -1
+	});
+	//Quieto mirando a la derecha
+	anims.create({
+		key: 'stayRightP',
+		frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
+		frameRate: 5,
+		repeat: -1
+	});
+	//Saltando a la derecha
+	anims.create({
+		key: 'jumpRightP',
+		frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
+		frameRate: 10,
+		repeat: 0
+	});
+	///////////////////////////////FIRE//////////////////////////////////
+	//Fuego llano
+	anims.create({
+		key: 'planeFire',
+		frames: anims.generateFrameNumbers('Fire', {start: 0, end: 1}),
+		frameRate: 10,
+		repeat: -1
+	});
+	//Llamarada
+	anims.create({
+		key: 'endFire',
+		frames: anims.generateFrameNumbers('Fire', {start: 2, end: 3}),
+		frameRate: 10,
+		repeat: -1
+	});
+	///////////////////////////////SNAKE//////////////////////////////////
+	anims.create({
+		key: 'rightS',
+		frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
+		frameRate: 10,
+		repeat: -1
+	});
+	//Quieto mirando a la derecha
+	anims.create({
+		key: 'stayRightS',
+		frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
+		frameRate: 5,
+		repeat: -1
+	});
+	///////////////////////////////SCORPION//////////////////////////////////
+	anims.create({
+		key: 'walkScor',
+		frames: anims.generateFrameNumbers('scorpion', {start: 0, end: 3}),
+		frameRate: 10,
+		repeat: -1
+	});
+	//Quieto mirando a la derecha
+	anims.create({
+		key: 'stayScor',
+		frames: anims.generateFrameNumbers('scorpion', {start: 0, end: 3}),
+		frameRate: 5,
+		repeat: -1
+	});
+	///////////////////////////////ANUBIS//////////////////////////////////
+	
+	//Quieto mirando a la derecha
+	anims.create({
+		key: 'god1',
+		frames: anims.generateFrameNumbers('Anubis', {start: 0, end: 3}),
+		frameRate: 5,
+		repeat: -1
+	});
+	///////////////////////////////BASTET//////////////////////////////////
+	
+	//Quieto mirando a la derecha
+	anims.create({
+		key: 'god2',
+		frames: anims.generateFrameNumbers('Bastet', {start: 0, end: 3}),
+		frameRate: 5,
+		repeat: -1
+	});
+
+	    //Animación de las antorchas
+    anims.create({
+        key: 'torchAnim',
+        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
+        frameRate: 10,
+        repeat: -1
+    });
+    ///////////////////////////////BASTET//////////////////////////////////
+    anims.create({
+		key: 'box1',
+		frames: anims.generateFrameNumbers('PurpleBox1', {start: 1, end: 2}),
+		frameRate: 5,
+		repeat: -1
+	});
+
+
+
+
 	
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//cargar letras Escape Bandages

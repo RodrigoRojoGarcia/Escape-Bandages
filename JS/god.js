@@ -22,29 +22,16 @@ function God(scene, x, y, sprite){
 		this.god.destroy();
 	}
 
-///////////////////////////////////CREATE///////////////////////////////////
-	this.create = function(){
-		//Si el sprite es Anubis
-		if(sprite === "Anubis"){
-			//K obtiene el valor del sprite de Anubis
-			k = 'god1';
-		}
-		//Si el sprite es Bastet
-		if(sprite === "Bastet"){
-			//K obtiene el valor del sprite de Bastet
-			k = 'god2';
-		}
+	if(sprite === "Anubis"){
+		//K obtiene el valor del sprite de Anubis
+		k = 'god1';
+	}
+	//Si el sprite es Bastet
+	if(sprite === "Bastet"){
+		//K obtiene el valor del sprite de Bastet
+		k = 'god2';
+	}
 
-///////////////////////////////////ANIMATIONS///////////////////////////////////
-		const anims = scene.anims;
-		//Quieto mirando a la derecha
-		anims.create({
-			key: k,
-			frames: anims.generateFrameNumbers(sprite, {start: 0, end: 3}),
-			frameRate: 5,
-			repeat: -1
-		});
-	}//FIN CREATE
 
 ///////////////////////////////////UPDATE///////////////////////////////////
 	this.update = function(){
