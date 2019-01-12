@@ -28,7 +28,7 @@ gameover.create = function(){
 
 //////////////////////BOTON REINICIAR///////////////////////////
 	//cargar boton Reiniciar
-	this.brei = this.add.sprite(960, 800, 'reinicio').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.brei = this.add.sprite(960, 800, 'restart').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.brei.scaleX -= 0.2;
 	this.brei.scaleY -= 0.2;
 	//hacer boton visible
@@ -53,7 +53,7 @@ gameover.create = function(){
 
 //////////////////////BOTON SALIR///////////////////////////////
 	//cargar boton Salir
-	this.bout = this.add.sprite(960, 950, 'out').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bout = this.add.sprite(960, 950, 'exit').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.bout.scaleX -= 0.3;
 	this.bout.scaleY -= 0.3;
 	//hacer boton visible

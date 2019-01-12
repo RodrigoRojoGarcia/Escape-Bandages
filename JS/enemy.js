@@ -11,7 +11,7 @@ function Enemy(scene, x, y, sprite, acc, vel){
 		//Sensores de abajo, izquierda y derecha
 		this.sensors = {
 			bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
-			left: Bodies.rectangle(-w*0.35,0,2,h*0.7, {isSensor: true}),
+			left: Bodies.rectangle(-w*0.35,0,2,h*0.8, {isSensor: true}),
 			right: Bodies.rectangle(w*0.35,0,2,h*0.7, {isSensor: true})
 		};
 		//Composición de las cuatro partes del cuerpo
@@ -163,12 +163,12 @@ function Enemy(scene, x, y, sprite, acc, vel){
 
 			if(!scene.m.dead){
 				distanceMX = this.enemy.x - scene.m.getX()
-				if(Math.abs(this.enemy.y - scene.m.getY()) < 200)
+				if(Math.abs(this.enemy.y - scene.m.getY()) < 240)
 				distanceMY = true
 			}
 			if(!scene.p.dead){
 				distancePX = this.enemy.x - scene.p.getX();
-				if(Math.abs(this.enemy.y - scene.p.getY()) < 200)
+				if(Math.abs(this.enemy.y - scene.p.getY()) < 240)
 				distancePY = true;
 			}
 			if(!(distanceMX === Infinity && distancePX === Infinity)){

@@ -7,24 +7,34 @@ menu.preload = function(){
 	this.load.image('gameoveri','Sprites/gameoveri.png');
 	//Escape Bandages
 	this.load.image('title','Sprites/title.png');
+	//Victoria
+	this.load.image('victoria','Sprites/victoria.png');
 	//////////////////////////////BOTONES//////////////////////////////
 	//botones volumenes
 	this.load.image('novolumen','Sprites/novolumen.png');
 	this.load.image('volumen','Sprites/volumen.png');	
-	//boton play
+	//boton jugar
 	this.load.image('play','Sprites/play.png');
+	//boton play
+	this.load.image('play1','Sprites/play1.png')
 	//boton offline
 	this.load.image('off', 'Sprites/offline.png');
 	//boton volver
 	this.load.image('back', 'Sprites/back.png');
+	//boton bacl
+	this.load.image('back1', 'Sprites/back1.png')
 	//boton sí
  	this.load.image('yes','Sprites/si.png');
  	//botón no
     this.load.image('no','Sprites/no.png');
 	//salir
 	this.load.image('out','Sprites/salir.png');
+	//exit
+	this.load.image('exit', 'Sprites/exit.png')
 	//reiniciar
 	this.load.image('reinicio','Sprites/reiniciar.png');
+	//restars
+	this.load.image('restart','Sprites/restart.png')
     ///////////////////////////////AUDIO///////////////////////////////////
 	//cargar audio
 	this.load.audio('music', 'music.mp3');
@@ -85,6 +95,8 @@ menu.preload = function(){
     this.load.image("rope", "Sprites/rope.png");
     //TRIPWIRE
     this.load.image("tripwire", "Sprites/tripwire.png");
+    //CORZONCITOS
+    this.load.image('love', 'Sprites/lovehearts.png')
 
     
 }
@@ -118,6 +130,12 @@ menu.create = function(){
 		frameRate: 20,
 		repeat: 0
 	})
+	anims.create({
+		key: 'jumpRightMCicle',
+		frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
+		frameRate: 5,
+		repeat: -1
+	})
 
 	///////////////////////////////PHARAOH//////////////////////////////////
 	//Animación a la derecha
@@ -140,6 +158,12 @@ menu.create = function(){
 		frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
 		frameRate: 10,
 		repeat: 0
+	});
+	anims.create({
+		key: 'jumpRightPCicle',
+		frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
+		frameRate: 5,
+		repeat: -1
 	});
 	///////////////////////////////FIRE//////////////////////////////////
 	//Fuego llano
@@ -236,7 +260,7 @@ menu.create = function(){
 
 ////////////////////BOTON PLAY/////////////////////////////////
 	//cargar boton Play
-	this.bplay = new UIButton(this, 400, 500, 'play', function(){
+	this.bplay = new UIButton(this, 400, 500, 'play1', function(){
 		//cambio de escena a submenu
 		menu.scene.start(submenu);
 	}, function(){

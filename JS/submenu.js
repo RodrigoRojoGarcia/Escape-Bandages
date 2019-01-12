@@ -51,13 +51,13 @@ submenu.create = function(){
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
 		gameState = 1;
-		submenu.scene.start(level2);
+		submenu.scene.start(offline);
 		submenu.scene.launch(heart, level2);
 	})
 
 //////////////////////BOTON BACK////////////////////////////////
 	//cargar boton Back
-	this.bback = this.add.sprite(300, 950, 'back').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bback = this.add.sprite(300, 950, 'back1').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.bback.scaleX -= 0.4;
 	this.bback.scaleY -= 0.4;
 	//hacer boton invisible
