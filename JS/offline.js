@@ -557,6 +557,9 @@ offline.update = function(){
         this.p.update(keys);
         //Resetamos el estado de colisiones de los sensores del faraón
         this.p.resetColliding();
+        if(this.p.pharaoh.y > 10*120){
+            this.p.dead = true;
+        }
     }else{
         //Si lo está que la cámara deje de seguirle
         this.cameraPharaoh.stopFollow()
@@ -568,6 +571,11 @@ offline.update = function(){
         this.m.update(keys);
         //Resetamos el estado de colisiones de los sensores de la momia
         this.m.resetColliding();
+        //Caida momia
+        if(this.m.mummy.y > 10*120){
+            this.m.dead = true;
+            
+        }
     }else{
         //Si lo está que la cámara deje de seguirla
         this.cameraMummy.stopFollow();

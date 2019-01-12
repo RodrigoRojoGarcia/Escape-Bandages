@@ -83,6 +83,8 @@ menu.preload = function(){
     this.load.image("box","Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "Sprites/rope.png");
+    //TRIPWIRE
+    this.load.image("tripwire", "Sprites/tripwire.png");
 
     
 }

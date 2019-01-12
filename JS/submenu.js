@@ -52,7 +52,7 @@ submenu.create = function(){
 		//cambio de escena al juego offline
 		gameState = 1;
 		submenu.scene.start(level2);
-		submenu.scene.launch(heart, offline);
+		submenu.scene.launch(heart, level2);
 	})
 
 //////////////////////BOTON BACK////////////////////////////////

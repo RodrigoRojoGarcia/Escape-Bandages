@@ -198,11 +198,7 @@ function Pharaoh(scene, x, y){
 				this.dead = true;
 			};
 			//Caida faraón
-			if(this.pharaoh.y > 10*120){
-				this.dead = true;
-				
-				offline.scene.start(gameover)
-			}
+			
 			//Si no estoy muerto
 			if(!this.dead){
 	///////////////////////////////////CONTROLES///////////////////////////////////

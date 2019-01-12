@@ -238,11 +238,7 @@ function Mummy(scene, x, y){
 			if(this.health <= 0){
 				this.dead = true;
 			}
-			//Caida momia
-			if(this.mummy.y > 10*120){
-				this.dead = true;
-				
-			}
+			
 			//Si no estoy muerto
 			if(!this.dead){
 

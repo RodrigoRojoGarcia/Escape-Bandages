@@ -4,7 +4,7 @@ level2.preload = function(){
 
 }
 level2.create = function(){
-
+	const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 	currentScene = this;
 
 	this.input.setDefaultCursor('url(Sprites/cetro.png), pointer')
@@ -30,8 +30,8 @@ level2.create = function(){
     this.p = new Pharaoh(this, spawnPoint.x, spawnPoint.y);
     this.m = new Mummy(this, spawnPoint.x, spawnPoint.y);
 
-    this.cameraPharaoh.startFollow(this.p.getSprite(), false, 1, 1, -200, 400);
-    this.cameraMummy.startFollow(this.m.getSprite(), false, 1, 1, -200, 400);
+    this.cameraPharaoh.startFollow(this.p.getSprite(), false, 1, 1, -200, 350);
+    this.cameraMummy.startFollow(this.m.getSprite(), false, 1, 1, -200, 350);
 
     this.cameraPharaoh.setBounds(0,0,this.map.widthInPixels,this.map.heightInPixels);
     this.cameraMummy.setBounds(0,0,this.map.widthInPixels,this.map.heightInPixels);
@@ -63,14 +63,24 @@ level2.create = function(){
         space: SPACE,
         esc: ESC
     });
-
-    /*this.matter.world.createDebugGraphic();
+    this.tripwire = this.matter.add.sprite(937.5,1500,'tripwire')
+    var tripwireSensor = Bodies.rectangle(937.5, 1500, this.tripwire.width, this.tripwire.height, {isSensor:true, isStatic:true})
+    this.tripwire.setExistingBody(tripwireSensor)
+    this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
     this.input.keyboard.on("keydown_F", event => {
       this.matter.world.drawDebug = !this.matter.world.drawDebug;
       this.matter.world.debugGraphic.clear();
-    });*/
+    });
+    level2.matterCollision.addOnCollideStart({
+    	objectA: level2.tripwire,
+    	callback: level2.tripwireActive,
+    	context: level2
+    })
     
+}
+level2.tripwireActive = function(){
+	level2.m.mummy.setTint(0x00ff00)
 }
 level2.update = function(){
 	if(!this.p.dead){
