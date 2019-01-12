@@ -520,9 +520,9 @@ offline.create = function(){
     //Añadimos a un array de arena 30 granos de arena (10 por for)
     this.arena = []
     for(var i = 0; i < 200; i++){
-        this.arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand');
+        this.arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand', 0, { restitution: 1, friction: 0.1 });
         this.arena[i].setScale(1.5);
-        //, { restitution: 1, friction: 0.1 }
+        //
     }    
 
 
@@ -531,9 +531,9 @@ offline.create = function(){
 
     //CAJAS
     //Creamos una cada inservible
-    const caja = this.matter.add.image(1500, 150, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
-    const utilBox1 = this.matter.add.image(65*120, 0, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
-    const utilBox2 = this.matter.add.image(68*120, 3*120, 'box', { restitution: 0, frictionAir: 0, friction: 0.2, density: 0.0005 });
+    const caja = this.matter.add.image(1500, 150, 'box', 0, {density: 0.0005 });
+    const utilBox1 = this.matter.add.image(65*120, 0, 'box', 0, {density: 0.0005 });
+    const utilBox2 = this.matter.add.image(68*120, 3*120, 'box', 0, {density: 0.0005 });
 
 }//FIN DEL CREATE
 
