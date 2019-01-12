@@ -99,6 +99,7 @@ function Mummy(scene, x, y){
 			if(bodyA===this.sensors.left){
 				//Estamos colisionando por la izquierda
 				this.isColliding.left = true;
+				this.mummy.setTint(0x00ff00)
 				//Si la separación entre los objetos es mayor a 0.5
 				if(pair.separation > 0.5){
 					//Aumentamos la x del sprite la separación-0.5 (para que no se atasque)

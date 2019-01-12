@@ -41,7 +41,7 @@ function Pharaoh(scene, x, y){
 		//Array que contiene los sprites del fuego en distintas posiciones
 		this.fire = [];
 		for(var i = 0; i < 3; i++){
-			this.fire[i] = scene.matter.add.sprite(this.block.position.x+125+(i*125), this.block.position.y, 'Fire', null, {isSensor: true});
+			this.fire[i] = scene.matter.add.sprite(this.block.position.x+125+(i*125), this.block.position.y, 'Fire');
 			var sensor = Bodies.rectangle(this.block.position.x+125+(i*125), this.block.position.y, this.fire[i].width, this.fire[i].height,{isSensor:true})
 			this.fire[i].setExistingBody(sensor)
 			this.fire[i].depth=1

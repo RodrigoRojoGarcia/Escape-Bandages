@@ -465,14 +465,14 @@ offline.create = function(){
     }
 
 ///////////////////////////////////DEBUG///////////////////////////////////
-    /*    //Muestra las líneas de colisión de los elementos del mundo pulsando la F
+        //Muestra las líneas de colisión de los elementos del mundo pulsando la F
     this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
     this.input.keyboard.on("keydown_F", event => {
       this.matter.world.drawDebug = !this.matter.world.drawDebug;
       this.matter.world.debugGraphic.clear();
     });
-    */
+    
 ///////////////////////////////////CONTROLES///////////////////////////////////
     //Extraemos las teclas de dirección, W,A,D y barra espaciadora de las KeyCodes de Phaser
     const {LEFT, RIGHT, UP, DOWN, W, A, D, C, R, SPACE, ESC} = Phaser.Input.Keyboard.KeyCodes;
