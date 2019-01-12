@@ -64,7 +64,7 @@ level2.create = function(){
         esc: ESC
     });
     this.tripwire = this.matter.add.sprite(937.5,1500,'tripwire')
-    var tripwireSensor = Bodies.rectangle(937.5, 1500, this.tripwire.width, this.tripwire.height, {isSensor:true, isStatic:true})
+    var tripwireSensor = Bodies.rectangle(937.5, 1500, this.tripwire.width+10, this.tripwire.height, {isSensor:true, isStatic:true})
     this.tripwire.setExistingBody(tripwireSensor)
     this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
@@ -76,13 +76,18 @@ level2.create = function(){
     	objectA: level2.tripwire,
     	callback: level2.tripwireActive,
     	context: level2
-    })
+    }) 
 
-    this.platform = new Platform(this, 660, 1500, 'door', 960, 1560)
+    this.platform = new Platform(this, 660, 1500, 'door', 1560, 960)
     
 }
-level2.tripwireActive = function(){
-	level2.platform.action()
+level2.tripwireActive = function({bodyA, bodyB, pair}){
+	if(bodyB === level2.m.shackle[8].body){
+		if(level2.m.onHit){
+			level2.platform.action()
+		}
+	}
+	
 }
 level2.update = function(){
 	if(!this.p.dead){
