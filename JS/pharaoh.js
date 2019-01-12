@@ -13,11 +13,12 @@ function Pharaoh(scene, x, y){
 		this.sensors = {
 			bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
 			left: Bodies.rectangle(-w*0.35,0,2,h*0.5, {isSensor: true}),
-			right: Bodies.rectangle(w*0.35,0,2,h*0.5, {isSensor: true})
+			right: Bodies.rectangle(w*0.35,0,2,h*0.5, {isSensor: true}),
+			top: Bodies.rectangle(0, -h*0.5, w*0.25, 2, {isSensor: true})
 		};
 		//Composición de las cuatro partes del cuerpo
 		const compoundBody = Body.create({
-			parts: [mainBody, this.sensors.bottom, this.sensors.right, this.sensors.left],
+			parts: [mainBody, this.sensors.bottom, this.sensors.right, this.sensors.left, this.sensors.top],
 			frictionStatic: 0,
 			frictionAir: 0.02,
 			friction: 0.1
@@ -27,7 +28,7 @@ function Pharaoh(scene, x, y){
 
 	///////////////////////////////////ATRIBUTOS///////////////////////////////////
 		//Te dice si colisiona con la izquierda, derecha o abajo
-		this.isColliding = {left: false, right: false, bottom: false};
+		this.isColliding = {left: false, right: false, bottom: false, top: false};
 		//Si está en aire
 		this.onAirP = false;
 		//Si no se puede mover
@@ -41,7 +42,7 @@ function Pharaoh(scene, x, y){
 		//Array que contiene los sprites del fuego en distintas posiciones
 		this.fire = [];
 		for(var i = 0; i < 3; i++){
-			this.fire[i] = scene.matter.add.sprite(this.block.position.x+125+(i*125), this.block.position.y, 'Fire');
+			this.fire[i] = scene.matter.add.sprite(this.block.position.x+125+(i*125), this.block.position.y, 'Fire', {isSensor:true});
 			var sensor = Bodies.rectangle(this.block.position.x+125+(i*125), this.block.position.y, this.fire[i].width, this.fire[i].height,{isSensor:true})
 			this.fire[i].setExistingBody(sensor)
 			this.fire[i].depth=1
@@ -121,14 +122,14 @@ function Pharaoh(scene, x, y){
 
 		//Eventos que llaman a onSensorCollide cuando los sensores empiezan a colisionar con cualquier cosa y cuando están colisionando con cualquier cosa
 		scene.matterCollision.addOnCollideStart({
-			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
+			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right, this.sensors.top],
 			callback: this.onSensorCollide,
 			context: this
 
 		});
 
 		scene.matterCollision.addOnCollideActive({
-			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
+			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right, this.sensors.top],
 			callback: this.onSensorCollide,
 			context: this
 		});
@@ -139,6 +140,7 @@ function Pharaoh(scene, x, y){
 			this.isColliding.left = false;
 			this.isColliding.bottom = false;
 			this.isColliding.right = false;
+			this.isColliding.top = false;
 		}
 
 		//Devuelve el sprite

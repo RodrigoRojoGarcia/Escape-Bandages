@@ -1,4 +1,4 @@
-function Enemy(scene, x, y, sprite){
+function Enemy(scene, x, y, sprite, acc, vel){
 		var scene = scene;
 		const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 		
@@ -11,8 +11,8 @@ function Enemy(scene, x, y, sprite){
 		//Sensores de abajo, izquierda y derecha
 		this.sensors = {
 			bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
-			left: Bodies.rectangle(-w*0.35,0,2,h*0.8, {isSensor: true}),
-			right: Bodies.rectangle(w*0.35,0,2,h*0.8, {isSensor: true})
+			left: Bodies.rectangle(-w*0.35,0,2,h*0.7, {isSensor: true}),
+			right: Bodies.rectangle(w*0.35,0,2,h*0.7, {isSensor: true})
 		};
 		//Composición de las cuatro partes del cuerpo
 		const compoundBody = Body.create({
@@ -34,6 +34,8 @@ function Enemy(scene, x, y, sprite){
 		this.onAir=false;
 		var walk;
 		var stay;
+		this.acceleration = acc;
+		this.maxVelocity = vel;
 	///////////////////////////////////COLISIONES///////////////////////////////////
 		//Cuando colisiona un sensor del mainBody
 		this.onSensorCollide = function({bodyA, bodyB, pair}){
@@ -46,26 +48,38 @@ function Enemy(scene, x, y, sprite){
 					//Ya me has atacado una vez, ya no estás atacando
 					scene.m.onHit = false;
 					if(bodyA === this.sensors.left){
-						
 						this.enemy.x += 25;
 					}
 					if(bodyA === this.sensors.right){
 						
 						this.enemy.x -= 25;
 					}
+					this.enemy.setTint(0xff3333)
+					scene.time.addEvent({
+						delay: 300,
+						callback: ()=>(this.enemy.setTint(0xffffff)),
+						callbackScope: scene
+					});
 				}
 			}
 			if(bodyB === scene.p.fire[0].body ||bodyB === scene.p.fire[1].body ||bodyB === scene.p.fire[2].body){
 				if(scene.p.onHit){
 					this.healthBar.damage(50)
 					scene.p.onHit = false
-				}
-				if(bodyA === this.sensors.left){
+					if(bodyA === this.sensors.left){
 					this.enemy.x += 12;
+					}
+					if(bodyA === this.sensors.right){
+						this.enemy.x -= 12;
+					}
+					this.enemy.setTint(0xff3333)
+					scene.time.addEvent({
+						delay: 300,
+						callback: ()=>(this.enemy.setTint(0xffffff)),
+						callbackScope: scene
+					});
 				}
-				if(bodyA === this.sensors.right){
-					this.enemy.x -= 12;
-				}
+				
 			}
 
 			//Si con lo que colisiona es un sensor: no hacemos nada (a menos que sea un trozo de cuerda, que no llega a esta parte)
@@ -142,7 +156,119 @@ function Enemy(scene, x, y, sprite){
 	///////////////////////////////////UPDATE///////////////////////////////////
 		this.update = function(){
 			//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
-			var movingForce = 0.1;
+			var distanceMX = Infinity;
+			var distanceMY = false;
+			var distancePX = Infinity;
+			var distancePY = false;
+
+			if(!scene.m.dead){
+				distanceMX = this.enemy.x - scene.m.getX()
+				if(Math.abs(this.enemy.y - scene.m.getY()) < 200)
+				distanceMY = true
+			}
+			if(!scene.p.dead){
+				distancePX = this.enemy.x - scene.p.getX();
+				if(Math.abs(this.enemy.y - scene.p.getY()) < 200)
+				distancePY = true;
+			}
+			if(!(distanceMX === Infinity && distancePX === Infinity)){
+				if(distanceMY && distancePY){
+					if(distanceMX < distancePX){
+						if (distanceMX > 0 && distanceMX < 600)
+						{
+							//Nos movemos a la izquierda
+							this.enemy.applyForce({x:-this.acceleration, y:0});
+							//Miramos a la izquierda
+							this.enemy.flipX = true;
+						}
+						//Si está a la derecha del enemigo y sus distancia es menor a 400
+						else if (distanceMX < 0 && distanceMX > -600)
+						{
+							//Nos movemos a la derecha
+							this.enemy.applyForce({x:this.acceleration, y:0});
+							//Miramos a la derecha
+							this.enemy.flipX = false;
+						}
+							//Si no está cerca de ninguno y está tocando el suelo
+							else if(this.isColliding.bottom){
+							//Velocidad a 0
+							this.enemy.setVelocityX(0);    
+						}
+					}else if(distancePX <= distanceMX){
+						if (distancePX > 0 && distancePX < 600)
+						{
+							//Nos movemos a la izquierda
+							this.enemy.applyForce({x:-this.acceleration, y:0});
+							//Miramos a la izquierda
+							this.enemy.flipX = true;
+						}
+						//Si está a la derecha del enemigo y sus distancia es menor a 400
+						else if (distancePX < 0 && distancePX > -600)
+						{
+							//Nos movemos a la derecha
+							this.enemy.applyForce({x:this.acceleration, y:0});
+							//Miramos a la derecha
+							this.enemy.flipX = false;
+
+						}
+						//Si no está cerca de ninguno y está tocando el suelo
+						else if(this.isColliding.bottom){
+							//Velocidad a 0
+							this.enemy.setVelocityX(0);    
+						}
+					}
+				}else if(distanceMY){
+					if (distanceMX > 0 && distanceMX < 600)
+					{
+						//Nos movemos a la izquierda
+						this.enemy.applyForce({x:-this.acceleration, y:0});
+						//Miramos a la izquierda
+						this.enemy.flipX = true;
+					}
+					//Si está a la derecha del enemigo y sus distancia es menor a 400
+					else if (distanceMX < 0 && distanceMX > -600)
+					{
+						//Nos movemos a la derecha
+						this.enemy.applyForce({x:this.acceleration, y:0});
+						//Miramos a la derecha
+						this.enemy.flipX = false;
+					}
+					//Si no está cerca de ninguno y está tocando el suelo
+					else if(this.isColliding.bottom){
+					//Velocidad a 0
+					this.enemy.setVelocityX(0);    
+					}
+				}else if(distancePY){
+					if (distancePX > 0 && distancePX < 600)
+					{
+						//Nos movemos a la izquierda
+						this.enemy.applyForce({x:-this.acceleration, y:0});
+						//Miramos a la izquierda
+						this.enemy.flipX = true;
+					}
+					//Si está a la derecha del enemigo y sus distancia es menor a 400
+					else if (distancePX < 0 && distancePX > -600)
+					{
+						//Nos movemos a la derecha
+						this.enemy.applyForce({x:this.acceleration, y:0});
+						//Miramos a la derecha
+						this.enemy.flipX = false;
+
+					}
+					//Si no está cerca de ninguno y está tocando el suelo
+					else if(this.isColliding.bottom){
+						//Velocidad a 0
+						this.enemy.setVelocityX(0);    
+					}
+				}
+			}
+			
+
+
+
+
+
+/*
 			//Si la momia no es´ta muerta
 			if(!scene.m.dead){
 				//Cogemos su valor de la X
@@ -152,12 +278,12 @@ function Enemy(scene, x, y, sprite){
 				var distanceM = this.enemy.x - mummy;
 				var distanceY = this.enemy.y -mummyY
 				
-				if(Math.abs(distanceY) < 160){
+				if(Math.abs(distanceY) < 200){
 					//Si está a la derecha del enemigo y su distancia es menor a 400
 					if (mummy<this.enemy.x && distanceM > 0 && distanceM < 600)
 					{
 						//Nos movemos a la izquierda
-						this.enemy.applyForce({x:-movingForce, y:0});
+						this.enemy.applyForce({x:-this.acceleration, y:0});
 						//Miramos a la izquierda
 						this.enemy.flipX = true;
 					}
@@ -165,7 +291,7 @@ function Enemy(scene, x, y, sprite){
 					else if (mummy>this.enemy.x && distanceM < 0 && distanceM > -600)
 					{
 						//Nos movemos a la derecha
-						this.enemy.applyForce({x:movingForce, y:0});
+						this.enemy.applyForce({x:this.acceleration, y:0});
 						//Miramos a la derecha
 						this.enemy.flipX = false;
 					}
@@ -191,7 +317,7 @@ function Enemy(scene, x, y, sprite){
 					if (pharaoh < this.enemy.x && distanceP > 0 && distanceP < 600)
 					{
 						//Nos movemos a la izquierda
-						this.enemy.applyForce({x:-movingForce, y:0});
+						this.enemy.applyForce({x:-this.acceleration, y:0});
 						//Miramos a la izquierda
 						this.enemy.flipX = true;
 					}
@@ -199,7 +325,7 @@ function Enemy(scene, x, y, sprite){
 					else if (pharaoh > this.enemy.x  && distanceP < 0 && distanceP > -600)
 					{
 						//Nos movemos a la derecha
-						this.enemy.applyForce({x:movingForce, y:0});
+						this.enemy.applyForce({x:this.acceleration, y:0});
 						//Miramos a la derecha
 						this.enemy.flipX = false;
 
@@ -212,19 +338,20 @@ function Enemy(scene, x, y, sprite){
 				}
 				
 			}
+			*/
 			if(this.isColliding.bottom && (this.isColliding.left || this.isColliding.right)){
 				this.enemy.setVelocityY(-6)
 			}
 			//PONER VELOCIDAD MÁXIMA DEL SPRITE EN |0.5|
 			//Si la velocidad del sprite supera 0.5
-			if(this.enemy.body.velocity.x > 0.5){
+			if(this.enemy.body.velocity.x > this.maxVelocity){
 				//Dejamos la velocidad en 0.5
-				this.enemy.setVelocityX(0.5);
+				this.enemy.setVelocityX(this.maxVelocity);
 			}
 			//Si la velocidad del sprite baja de -0.5
-			else if(this.enemy.body.velocity.x < -0.5){
+			else if(this.enemy.body.velocity.x < -this.maxVelocity){
 				//Dejamos la velocidad en 0.5
-				this.enemy.setVelocityX(-0.5);
+				this.enemy.setVelocityX(-this.maxVelocity);
 			}
 
 

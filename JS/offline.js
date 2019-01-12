@@ -96,19 +96,19 @@ offline.create = function(){
     this.enemies = [];
     //SHEK
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
-    this.s = new Enemy(this,spawnPointShek.x, spawnPointShek.y, 'snake');
+    this.s = new Enemy(this,spawnPointShek.x, spawnPointShek.y, 'snake', 0.1, 0.5);
  
 
     this.enemies[0] = this.s;
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
-    this.s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y, 'snake');
+    this.s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y, 'snake', 0.1, 0.5);
  
 
     this.enemies[1] = this.s2;
 
     this.shek = [];
-    this.shek[0] = new Enemy(this,spawnpointShek3.x, spawnpointShek3.y, 'snake');
-    this.shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y, 'snake');
+    this.shek[0] = new Enemy(this,spawnpointShek3.x, spawnpointShek3.y, 'snake', 0.1, 0.5);
+    this.shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y, 'snake', 0.1, 0.5);
     this.enemies[2] = this.shek[0];
     this.enemies[3] = this.shek[1];
 

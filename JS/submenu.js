@@ -51,7 +51,7 @@ submenu.create = function(){
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
 		gameState = 1;
-		submenu.scene.start(offline);
+		submenu.scene.start(level2);
 		submenu.scene.launch(heart, offline);
 	})
 

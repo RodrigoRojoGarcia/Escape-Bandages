@@ -38,7 +38,12 @@ level2.create = function(){
 
     this.enemies = []
 
-    this.enemies[0] = new Enemy(this, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'scorpion')
+    this.numEnemies = 0;
+
+    this.genScorp = setInterval(function(){
+    	level2.enemies[level2.numEnemies] = new Enemy(level2, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'scorpion', 0.04, 0.4)
+    	level2.numEnemies++;
+    }, 5000)
 
 
     ///////////////////////////////////CONTROLES///////////////////////////////////
@@ -58,13 +63,29 @@ level2.create = function(){
         space: SPACE,
         esc: ESC
     });
+
+    /*this.matter.world.createDebugGraphic();
+    this.matter.world.drawDebug = false;
+    this.input.keyboard.on("keydown_F", event => {
+      this.matter.world.drawDebug = !this.matter.world.drawDebug;
+      this.matter.world.debugGraphic.clear();
+    });*/
+    
 }
 level2.update = function(){
-	this.p.update(level2.keys)
-	this.p.resetColliding()
-	this.m.update(level2.keys)
-	this.m.resetColliding()
+	if(!this.p.dead){
+		this.p.update(level2.keys)
+		this.p.resetColliding()
+	}
+	if(!this.m.dead){
+		this.m.update(level2.keys)
+		this.m.resetColliding()
+	}
+	
 	for(var i =0;i<this.enemies.length;i++){
-		//this.enemies[i].update()
+		if(!this.enemies[i].dead){
+			this.enemies[i].update()
+			this.enemies[i].resetColliding()
+		}
 	}
 }

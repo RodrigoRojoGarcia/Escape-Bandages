@@ -13,12 +13,13 @@ function Mummy(scene, x, y){
 		this.sensors = {
 			bottom: Bodies.rectangle(0,h*0.5,w*0.25,2, {isSensor: true}),
 			left: Bodies.rectangle(-w*0.35,0,2,h*0.5, {isSensor: true}),
-			right: Bodies.rectangle(w*0.35,0,2,h*0.5, {isSensor: true})
+			right: Bodies.rectangle(w*0.35,0,2,h*0.5, {isSensor: true}),
+			top: Bodies.rectangle(0, -h*0.5, w*0.25, 2, {isSensor:true})
 
 		};
 		//Composición de las cuatro partes del cuerpo
 		const compoundBody = Body.create({
-			parts: [mainBody, this.sensors.bottom, this.sensors.right, this.sensors.left],
+			parts: [mainBody, this.sensors.bottom, this.sensors.right, this.sensors.left, this.sensors.top],
 			frictionStatic: 0,
 			frictionAir: 0.02,
 			friction: 0.1
@@ -28,7 +29,7 @@ function Mummy(scene, x, y){
 
 	///////////////////////////////////ATRIBUTOS///////////////////////////////////
 		//Te dice si colisiona con la izquierda, derecha o abajo	
-		this.isColliding = {left: false, right: false, bottom: false};
+		this.isColliding = {left: false, right: false, bottom: false, top: false};
 		//Si está en aire
 		this.onAirM = false;
 		//Si no se puede mover
@@ -99,7 +100,7 @@ function Mummy(scene, x, y){
 			if(bodyA===this.sensors.left){
 				//Estamos colisionando por la izquierda
 				this.isColliding.left = true;
-				this.mummy.setTint(0x00ff00)
+				
 				//Si la separación entre los objetos es mayor a 0.5
 				if(pair.separation > 0.5){
 					//Aumentamos la x del sprite la separación-0.5 (para que no se atasque)
@@ -125,14 +126,14 @@ function Mummy(scene, x, y){
 
 		//Eventos que llaman a onSensorCollide cuando los sensores empiezan a colisionar con cualquier cosa y cuando están colisionando con cualquier cosa
 		scene.matterCollision.addOnCollideStart({
-			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
+			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right, this.sensors.top],
 			callback: this.onSensorCollide,
 			context: this
 
 		});
 
 		scene.matterCollision.addOnCollideActive({
-			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right],
+			objectA: [this.sensors.bottom, this.sensors.left, this.sensors.right, this.sensors.top],
 			callback: this.onSensorCollide,
 			context: this
 		});
@@ -143,6 +144,7 @@ function Mummy(scene, x, y){
 			this.isColliding.left = false;
 			this.isColliding.bottom = false;
 			this.isColliding.right = false;
+			this.isColliding.top = false;
 		}
 
 		//Devuelve el sprite

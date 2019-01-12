@@ -62,7 +62,7 @@ menu.preload = function(){
     //SHEK
     this.load.spritesheet("snake","Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
     //SCORPION
-    this.load.spritesheet("scorpion","Sprites/scorpion_spritesheet.png",{frameWidth: 55, frameHeight: 33});
+    this.load.spritesheet("scorpion","Sprites/scorpion_spritesheet.png",{frameWidth: 110, frameHeight: 70});
     //BOTÓN
     this.load.spritesheet("button","Sprites/button.png",{frameWidth: 120, frameHeight: 30});
     //ANUBIS
