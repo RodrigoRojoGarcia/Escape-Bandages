@@ -8,8 +8,8 @@ function Platform (scene, x, y, sprite, ymax, ymin){
 	this.plat.setAngle(90)
 	this.plat.setFixedRotation()
 	this.velocity = 0;
-
-
+	this.plat.setStatic(true)
+	this.goingUp = true
 
 
 
@@ -17,7 +17,12 @@ function Platform (scene, x, y, sprite, ymax, ymin){
 	this.action = function(){
 		this.activated = !this.activated;
 		if(this.activated){
-			this.velocity = 2
+			if(this.goingUp){
+				this.velocity = -2
+			}else{
+				this.velocity = 2
+			}
+			
 			this.plat.setStatic(false)
 		}else{
 			this.plat.setStatic(true)
@@ -32,9 +37,11 @@ function Platform (scene, x, y, sprite, ymax, ymin){
 			
 			if(this.plat.y + this.plat.height/2 > ymax){
 				this.velocity = -2
+				this.goingUp = true;
 			}
 			if(this.plat.y - this.plat.height/2< ymin){
 				this.velocity = 2
+				this.goingUp = false;
 			}
 		}else{
 			
