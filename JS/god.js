@@ -52,16 +52,16 @@ function God(scene, x, y, sprite){
 		//Si somos Anubis, miramos al faraón
 		if(sprite === "Anubis"){
 			//Si el faraón no está muerto, claro
-			if(!p.dead){
-				player = p.getX();	
+			if(!this.scene.p.dead){
+				player = this.scene.p.getX();	
 			}
 			
 		}
 		//Si somos Bastet, miramos a la momia
 		if(sprite === "Bastet"){
 			//Si la momia no está muerta, claro
-			if(!m.dead){
-				player = m.getX();
+			if(!this.scene.m.dead){
+				player = this.scene.m.getX();
 			}
 		}
 		//Distancia al jugador

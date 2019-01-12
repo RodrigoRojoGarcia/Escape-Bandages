@@ -1,5 +1,5 @@
 function Enemy(scene, x, y){
-		this.scene = scene;
+		var scene = scene;
 		const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 	///////////////////////////////////CREACIÓN///////////////////////////////////
 		//Sprite
@@ -27,7 +27,7 @@ function Enemy(scene, x, y){
 		//Te dice si colisiona con la izquierda, derecha o abajo
 		this.isColliding = {left: false, right: false, bottom: false};
 		//Objeto barra de vida, que almacena su vida (primer parámetro), se tiene que actualizar su posición
-		this.healthBar = new healthBar(100, this.enemy.x-(this.enemy.width/2), this.enemy.y-(this.enemy.height/2)+5,this.enemy.width,5);
+		this.healthBar = new healthBar(scene, 100, this.enemy.x-(this.enemy.width/2), this.enemy.y-(this.enemy.height/2)+5,this.enemy.width,5);
 		//Está muerto?
 		this.dead = false;
 
@@ -36,19 +36,19 @@ function Enemy(scene, x, y){
 		//Cuando colisiona un sensor del mainBody
 		this.onSensorCollide = function({bodyA, bodyB, pair}){
 			//Si el bodyB es alguna parte de la cuerda de la momia
-			if(bodyB === m.shackle[0].body || bodyB === m.shackle[1].body || bodyB === m.shackle[2].body|| bodyB === m.shackle[3].body || bodyB === m.shackle[4].body||bodyB === m.shackle[5].body||bodyB === m.shackle[6].body||bodyB === m.shackle[7].body||bodyB === m.shackle[8].body){
+			if(bodyB === scene.m.shackle[0].body || bodyB === scene.m.shackle[1].body || bodyB === scene.m.shackle[2].body|| bodyB === scene.m.shackle[3].body || bodyB === scene.m.shackle[4].body||bodyB === scene.m.shackle[5].body||bodyB === scene.m.shackle[6].body||bodyB === scene.m.shackle[7].body||bodyB === scene.m.shackle[8].body){
 				//Si la momia está atacando
-				if(m.onHit){
+				if(scene.m.onHit){
 					//Quitamos vida al enemigo
 					this.healthBar.damage(20)
 					//Ya me has atacado una vez, ya no estás atacando
-					m.onHit = false;
+					scene.m.onHit = false;
 				}
 			}
-			if(bodyB === p.fire[0].body ||bodyB === p.fire[1].body ||bodyB === p.fire[2].body){
-				if(p.onHit){
+			if(bodyB === scene.p.fire[0].body ||bodyB === scene.p.fire[1].body ||bodyB === scene.p.fire[2].body){
+				if(scene.p.onHit){
 					this.healthBar.damage(50)
-					p.onHit = false
+					scene.p.onHit = false
 				}
 			}
 
@@ -137,10 +137,10 @@ function Enemy(scene, x, y){
 			//Fuerza que se va a añadir para hacer el movimiento más fluido (y permitir que mueva cosas)
 			var movingForce = 0.1;
 			//Si la momia no es´ta muerta
-			if(!m.dead){
+			if(!scene.m.dead){
 				//Cogemos su valor de la X
-				var mummy = m.getX();
-				var mummyY = m.getY();
+				var mummy = scene.m.getX();
+				var mummyY = scene.m.getY();
 				//Para la distancia
 				var distanceM = this.enemy.x - mummy;
 				var distanceY = this.enemy.y -mummyY
@@ -171,10 +171,10 @@ function Enemy(scene, x, y){
 				
 			}
 			//Si el faraón no está muerto
-			if(!p.dead){
+			if(!scene.p.dead){
 				//Cogemos su valor de la X
-				var pharaoh = p.getX();
-				var pharaohY = p.getY()
+				var pharaoh = scene.p.getX();
+				var pharaohY = scene.p.getY()
 				//Para la distancia
 				var distanceP = this.enemy.x - pharaoh;
 				var distanceY = this.enemy.y -pharaohY

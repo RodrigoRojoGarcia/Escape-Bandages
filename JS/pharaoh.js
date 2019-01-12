@@ -1,7 +1,7 @@
 function Pharaoh(scene, x, y){
 	
-		p = this;
-		this.scene = scene;
+		var p = this;
+		var scene = scene;
 		const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 	///////////////////////////////////CREACIÓN///////////////////////////////////
 		//Sprite
@@ -64,16 +64,16 @@ function Pharaoh(scene, x, y){
 		//Cuando colisiona un sensor del mainBody
 		this.onSensorCollide = function({bodyA, bodyB, pair}){
 			//Si el shek no está muerto
-			for(var i=0;i<enemies.length;i++){
-				if(!enemies[i].dead){
+			for(var i=0;i<scene.enemies.length;i++){
+				if(!scene.enemies[i].dead){
 					//Si el bodyB es el shek
-					if(bodyB === enemies[i].getSprite().body.parts[1]){
+					if(bodyB === scene.enemies[i].getSprite().body.parts[1]){
 						//Si no estamos en periodo de invulnerabilidad
 						if(!this.gettingHit){
 							//Nos golpean
 							this.getHit();
 							//Nos ponemos rojos
-							p.pharaoh.setTint(0xff3333)
+							scene.p.pharaoh.setTint(0xff3333)
 							//Al cabo de un tiempo llamamos a invulnerable
 							scene.time.addEvent({
 								delay: 300,

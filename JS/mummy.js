@@ -1,7 +1,7 @@
 function Mummy(scene, x, y){
 
-		m = this;
-		this.scene = scene;	
+		var m = this;
+		var scene = scene;	
 		const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 	///////////////////////////////////CREACIÓN///////////////////////////////////
 		//Sprite
@@ -66,16 +66,16 @@ function Mummy(scene, x, y){
 		//Cuando colisiona un sensor del mainBody
 		this.onSensorCollide = function({bodyA, bodyB, pair}){
 			//Si el shek no está muerto
-			for(var i=0;i<enemies.length;i++){
-				if(!enemies[i].dead){
+			for(var i=0;i<scene.enemies.length;i++){
+				if(!scene.enemies[i].dead){
 					//Si el bodyB es el shek
-					if(bodyB === enemies[i].getSprite().body.parts[1]){
+					if(bodyB === scene.enemies[i].getSprite().body.parts[1]){
 						//Si no estamos en periodo de invulnerabilidad
 						if(!this.gettingHit){
 							//Nos golpean
 							this.getHit();
 							//Nos ponemos rojos
-							m.mummy.setTint(0xff3333)
+							scene.m.mummy.setTint(0xff3333)
 							//Al cabo de un tiempo llamamos a invulnerable
 							scene.time.addEvent({
 								delay: 300,

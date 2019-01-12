@@ -38,6 +38,8 @@ menu.preload = function(){
     this.load.tilemapTiledJSON("background", "background.json");
     //Carga del tilemap
     this.load.tilemapTiledJSON("map", "map.json");
+    //Carga del tilemap
+    this.load.tilemapTiledJSON("map2", "pyramid2.json");
 
     /////////////////////////////////FONDOS/////////////////////////
     this.load.image('shade2','Sprites/shade2.png');

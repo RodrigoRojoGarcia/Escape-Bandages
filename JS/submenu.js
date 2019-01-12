@@ -13,7 +13,7 @@ submenu.create = function(){
 	const tiles = backg.addTilesetImage("tileset","tile");
     //Extraemos las capas del TILEMAP
     const bg= backg.createDynamicLayer("Background", tiles, 0,0);
-	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
+
 
 ///////////////////////////////////ANTORCHAS///////////////////////////////////
 	var torchesM = [];
@@ -57,7 +57,7 @@ submenu.create = function(){
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
 		gameState = 1;
-		submenu.scene.start(offline);
+		submenu.scene.start(level2);
 		submenu.scene.launch(heart, offline);
 	})
 

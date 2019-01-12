@@ -1,12 +1,12 @@
-function healthBar (maxHealth, x, y, width, height) {
-
+function healthBar (scene, maxHealth, x, y, width, height) {
+	var scene = scene;
 ///////////////////////////////////ATRIBUTOS///////////////////////////////////
 	//Vida máxima
 	this.maxHealth = maxHealth;
 	//Vida restante
 	this.health = maxHealth;
 	//Los gráficos dónde dibujamos las barras de vida
-	this.graphics = scene.add.graphics({ x: map.widthInPixels, y: map.heightInPixels });
+	this.graphics = scene.add.graphics({ x: offline.map.widthInPixels, y: offline.map.heightInPixels });
 ///////////////////////////////////MÉTODOS///////////////////////////////////
 	//Quitamos vida
 	this.damage = function(dmg){
