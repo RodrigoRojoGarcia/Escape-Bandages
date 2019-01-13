@@ -28,50 +28,30 @@ gameover.create = function(){
 
 //////////////////////BOTON REINICIAR///////////////////////////
 	//cargar boton Reiniciar
-	this.brei = this.add.sprite(960, 800, 'restart').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	this.brei.scaleX -= 0.2;
-	this.brei.scaleY -= 0.2;
-	//hacer boton visible
-	this.brei.setAlpha(1);
-	//accion al poner el cursor sobre el boton Reiniciar
-	this.brei.on('pointerover', function(){
-		gameover.brei.scaleX += 0.15;
-		gameover.brei.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Reiniciar
-	this.brei.on('pointerout', function(){
-		gameover.brei.scaleX -= 0.15;
-		gameover.brei.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Reiniciar
-	this.brei.on('pointerdown', function(){
+
+	this.brei = new UIButton(this, 960, 800, 'restart', function(){
 		gameover.scene.start(offline);
 		gameover.scene.launch(heart, offline);
-		
+	}, function(){
+		gameover.brei.amplifyScale(0.15, 0.15)
+	}, function(){
+		gameover.brei.reduceScale(0.15, 0.15)
 	})
-
+	this.brei.reduceScale(0.2, 0.2)
+	this.brei.show()
 
 //////////////////////BOTON SALIR///////////////////////////////
 	//cargar boton Salir
-	this.bout = this.add.sprite(960, 950, 'exit').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	this.bout.scaleX -= 0.3;
-	this.bout.scaleY -= 0.3;
-	//hacer boton visible
-	this.bout.setAlpha(1);
-	//accion al poner el cursor sobre el boton Salir
-	this.bout.on('pointerover', function(){
-		gameover.bout.scaleX += 0.15;
-		gameover.bout.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Salir
-	this.bout.on('pointerout', function(){
-		gameover.bout.scaleX -= 0.15;
-		gameover.bout.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Salir
-	this.bout.on('pointerdown', function(){
+
+	this.bout = new UIButton(960, 950, 'exit', function(){
 		gameover.scene.start(menu);
+	}, function(){
+		gameover.bout.amplifyScale(0.15, 0.15)
+	}, function(){
+		gameover.bout.reduceScale(0.15, 0.15)
 	})
+	this.bout.reduceScale(0.3, 0.3)
+	this.bout.show()
 }
 
 gameover.update = function(){

@@ -27,51 +27,29 @@ victoria.create = function(){
 
 //////////////////////BOTON REINICIAR///////////////////////////
 	//cargar boton Reiniciar
-	this.brei = this.add.sprite(960, 800, 'restart').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	this.brei.scaleX -= 0.2;
-	this.brei.scaleY -= 0.2;
-	//hacer boton visible
-	this.brei.setAlpha(1);
-	//accion al poner el cursor sobre el boton Reiniciar
-	this.brei.on('pointerover', function(){
-		victoria.brei.scaleX += 0.15;
-		victoria.brei.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Reiniciar
-	this.brei.on('pointerout', function(){
-		victoria.brei.scaleX -= 0.15;
-		victoria.brei.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Reiniciar
-	this.brei.on('pointerdown', function(){
+
+	this.brei = new UIButton(this, 960, 800, 'restart', function(){
 		victoria.scene.start(offline);
 		victoria.scene.launch(heart, offline);
-		
+	}, function(){
+		victoria.brei.amplifyScale(0.15, 0.15)
+	}, function(){
+		victoria.brei.reduceScale(0.15, 0.15)
 	})
+	this.brei.reduceScale(0.2,0.2)
+	this.brei.show()
+
 /////////////////BOTON VOLVER//////////////////
 	//cargar boton Volver
-	this.binit = this.add.sprite(960, 950, 'exit').setInteractive();
-	this.binit.scaleX -= 0.4;
-	this.binit.scaleY -= 0.4;
-	//hacer boton invisible
-	this.binit.setAlpha(1);
-	//accion al poner el cursor sobre el boton Back
-	this.binit.on('pointerover', function(){
-		victoria.binit.scaleX += 0.15;
-		victoria.binit.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Back
-	this.binit.on('pointerout', function(){
-		victoria.binit.scaleX -= 0.15;
-		victoria.binit.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Back
-	this.binit.on('pointerdown', function(){
-		//cambio de escena a menu
-		
+	this.binit = new UIButton(this, 960, 950, 'exit', function(){
 		victoria.scene.start(submenu);
-		
+	}, function(){
+		victoria.binit.amplifyScale(0.15, 0.15)
+	}, function(){
+		victoria.binit.reduceScale(0.15, 0.15)
 	})
+	this.binit.reduceScale(0.4,0.4)
+	this.binit.show()
 }
 
 victoria.update = function(){

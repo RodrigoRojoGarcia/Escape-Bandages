@@ -33,49 +33,27 @@ submenu.create = function(){
 
 ////////////////////////BOTONES//////////////////////////////////
 /////////////////////BOTON OFFLINE//////////////////////////////
-	//cargar boton Offline
-	this.boff = this.add.sprite(1200, 550, 'off').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	//hacer boton invisible
-	this.boff.setAlpha(1);
-	//accion al poner el cursor sobre el boton Offline
-	this.boff.on('pointerover', function(){
-		submenu.boff.scaleX += 0.15;
-		submenu.boff.scaleY += 0.15;
-	})
-	//accion al quitar el cursor del boton Offline
-	this.boff.on('pointerout', function(){
-		submenu.boff.scaleX -= 0.15;
-		submenu.boff.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Offline
-	this.boff.on('pointerdown', function(){
+	this.boff =  new UIButton(this, 950, 550, 'off', function(){
 		//cambio de escena al juego offline
-		gameState = 1;
 		submenu.scene.start(offline);
 		submenu.scene.launch(heart, level2);
+	}, function(){
+		submenu.boff.amplifyScale(0.15, 0.15)
+	}, function(){
+		submenu.boff.reduceScale(0.15, 0.15)
 	})
+	this.boff.show()
 
+	
 //////////////////////BOTON BACK////////////////////////////////
-	//cargar boton Back
-	this.bback = this.add.sprite(300, 950, 'back1').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
-	this.bback.scaleX -= 0.4;
-	this.bback.scaleY -= 0.4;
-	//hacer boton invisible
-	this.bback.setAlpha(1);
-	//accion al poner el cursor sobre el boton Back
-	this.bback.on('pointerover', function(){
-		submenu.bback.scaleX += 0.15;
-		submenu.bback.scaleY += 0.15;
+
+	this.bback = new UIButton(300, 950, 'back1', function(){
+		submenu.scene.start(menu)
+	}, function(){
+		submenu.bback.amplifyScale(0.15, 0.15)
+	}, function(){
+		submenu.bback.reduceScale(0.15, 0.15)
 	})
-	//accion al quitar el cursor del boton Back
-	this.bback.on('pointerout', function(){
-		submenu.bback.scaleX -= 0.15;
-		submenu.bback.scaleY -= 0.15;
-	})
-	//accion al hacer click sobre el boton Back
-	this.bback.on('pointerdown', function(){
-		//cambio de escena a menu
-		
-		submenu.scene.start(menu);
-	})
+	this.bback.show()
+	this.bback.reduceScale(0.4, 0.4)
 }
