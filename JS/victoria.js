@@ -12,7 +12,7 @@ victoria.create = function(){
 	//background
 	var bgV = this.add.image(0, 0, 'bgmenu').setOrigin(0);
 	//letras victoria
-	var vic = this.add.sprite(960, 540, 'victoria');
+	var vic = this.add.sprite(960, 540, 'victory');
 
 ////////////////////Victoria Mummy//////////////////////////////////
 	var mumV = this.add.sprite(1300, 400,'Mummy');

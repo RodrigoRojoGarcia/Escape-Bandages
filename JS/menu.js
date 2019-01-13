@@ -9,6 +9,8 @@ menu.preload = function(){
 	this.load.image('title','Sprites/title.png');
 	//Victoria
 	this.load.image('victoria','Sprites/victoria.png');
+	//Victory
+	this.load.image('victory','Sprites/victory.png')
 	//////////////////////////////BOTONES//////////////////////////////
 	//botones volumenes
 	this.load.image('novolumen','Sprites/novolumen.png');

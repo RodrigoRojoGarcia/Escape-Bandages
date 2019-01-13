@@ -314,12 +314,24 @@ offline.create = function(){
     this.bastetText = 0;
     //ANUBIS
     //Textos del tutorial de Anubis
-    var wordsAnubis1 = ["Hola, soy Anubis, maestro de la Necropolis.",
+    var wordsAnubis1 = ["Greetings, I'm Anubis, god of the Necropolis.",
+    "I've resurrected you because you fell in love with\nsomeone you couldn't, so I'm giving you\nthe opportunity to live together.",
+    "But for this to work, you'll need to escape from the\npyramid... TOGETHER"]
+
+    var wordsAnubis2 = ["I give you the gift of the arcane fire, you'll be able\nto collect the heat around you and concentrated in flames",
+    "in front of you. In order to do that you just need to presss\nthe down arrow key."]
+
+    var wordsAnubis3 = ["I give you the gift of the ancient psychokinesis,\nto use it you'll need to aim with this ceptre, press",
+    "the left button and drag."]
+
+
+
+    var palabrasAnubis1 = ["Hola, soy Anubis, maestro de la Necropolis.",
     "Te he revivido porque en vida te enamoraste de una\npersona de la que no podías, por lo que os doy la\noportunidad de vivir juntos.",
     "Para ello necesitaréis salir de la pirámide JUNTOS"];
-    var wordsAnubis2 = ["Te otorgo el poder del fuego místico, podrás recoger\nel calor de tu alrededor y concentrarlo en llamas",
+    var palabrasAnubis2 = ["Te otorgo el poder del fuego místico, podrás recoger\nel calor de tu alrededor y concentrarlo en llamas",
     "delante de tí para lograrlo solo has de pulsar\nla tecla de dirección 'abajo'"];
-    var wordsAnubis3 = ["Te otorgo también el poder de la telequinesis\npara usarlo has de apuntar con este cetro, pulsar",
+    var palabrasAnubis3 = ["Te otorgo también el poder de la telequinesis\npara usarlo has de apuntar con este cetro, pulsar",
     "el botón izquierdo y arrastrar."]
     //Hacemos que el texto aparezca en el mismo lugar que el objeto de texto de Tiled
     this.sayAnubis1 = this.add.text(textAnubis.x, textAnubis.y, wordsAnubis1).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
@@ -340,10 +352,20 @@ offline.create = function(){
 
     //BASTET
     //Textos del tutorial de Bastet
-    var wordsBastet1 = ["Hola, soy Bastet, Diosa de la armonía del hogar.",
+
+    var wordsBastet1 = ["Greetings, I'm Bastet, domestic cat goddess.",
+    "I've resurrected you because in life you fell in love with\nsomeone you couldn't, so I'm ginving you\nthe opportunity to live together.",
+    "But for this to work, you'll need to escape the\npyramid... TOGETHER"]
+
+    var wordsBastet2 = ["I give you the gift of the cursed bandages\nyou'll be able to stretch your bandages pressing 'SPACE', this way",
+    "you'll be able to defeat any foe\nthat may appear upon you."]
+
+
+
+    var palabrasBastet1 = ["Hola, soy Bastet, Diosa de la armonía del hogar.",
     "Te he revivido porque en vida te enamoraste de una\npersona de la que no deberías, por lo que os doy la\n oportunidad de vivir juntos.",
     "Para ello necesitaréis salir de la pirámide JUNTOS"];
-    var wordsBastet2 = ["Te otorgo el poder de las vendas malditas\npodrás estirar tus vendas pulsando 'ESPACIO' y de",
+    var palabrasBastet2 = ["Te otorgo el poder de las vendas malditas\npodrás estirar tus vendas pulsando 'ESPACIO' y de",
     "esta manera podrás derrotar los enemigos\nque se antepongan"];
     //Hacemos que el texto aparezca en el mismo lugar que el objeto de texto de Tiled
     this.sayBastet1 = this.add.text(textBastet.x, textBastet.y, wordsBastet1).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
