@@ -46,8 +46,8 @@ level2.create = function(){
 
     
 
-    const door1 = this.matter.add.image(20*120+60, 16*120+60, 'door', null, {isStatic:true});
-    door1.setAngle(-90);
+    this.door1 = this.matter.add.image(20*120+60, 16*120+60, 'door', null, {isStatic:true});
+    this.door1.setAngle(-90);
 
 
     ///////////////////////////////////CONTROLES///////////////////////////////////
@@ -110,4 +110,11 @@ level2.update = function(){
 		}
 	}
 	this.platform.update()
+
+
+    if(!this.scorpionNest.activated){
+        this.door1.x = 19*120+60;
+    }else{
+        this.door1.x = 20*120+60
+    }
 }
