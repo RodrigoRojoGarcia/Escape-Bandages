@@ -47,7 +47,7 @@ submenu.create = function(){
 	
 //////////////////////BOTON BACK////////////////////////////////
 
-	this.bback = new UIButton(300, 950, 'back1', function(){
+	this.bback = new UIButton(this, 300, 950, 'back1', function(){
 		submenu.scene.start(menu)
 	}, function(){
 		submenu.bback.amplifyScale(0.15, 0.15)

@@ -106,8 +106,9 @@ menu.preload = function(){
 menu.create = function(){
 	
 
-
-///////////////////////////////////ANIMATIONS///////////////////////////////////
+	if(!loaded){
+		loaded = true;
+	///////////////////////////////////ANIMATIONS///////////////////////////////////
 	
 	const anims = menu.anims;
 		//Animación a la derecha
@@ -243,6 +244,8 @@ menu.create = function(){
 		frameRate: 5,
 		repeat: -1
 	});
+	}
+
 
 
 
