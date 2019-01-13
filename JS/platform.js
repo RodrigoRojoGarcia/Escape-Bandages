@@ -31,7 +31,6 @@ function Platform (scene, x, y, sprite, ymax, ymin){
 
 
 	this.update = function(){
-		console.log(this.activated)
 		if(this.activated){
 			
 			

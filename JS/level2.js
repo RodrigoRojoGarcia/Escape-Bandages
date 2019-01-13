@@ -26,6 +26,7 @@ level2.create = function(){
 
     const spawnPoint = this.map.findObject("Spawns", obj => obj.name === "Player");
     const spawnPointScorpionNest = this.map.findObject("Spawns", obj => obj.name === "Scorpion");
+    const spawnZoneScorpion = this.map.findObject("Spawns", obj => obj.name === "SpawnZoneScorpion")
 
     this.p = new Pharaoh(this, spawnPoint.x, spawnPoint.y);
     this.m = new Mummy(this, spawnPoint.x, spawnPoint.y);
@@ -40,10 +41,13 @@ level2.create = function(){
 
     this.numEnemies = 0;
 
-    this.genScorp = setInterval(function(){
-    	level2.enemies[level2.numEnemies] = new Enemy(level2, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'scorpion', 0.04, 0.4)
-    	level2.numEnemies++;
-    }, 5000)
+    
+    this.scorpionNest = new Nest(this, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'box', 'scorpion', 0.04, 0.4, 5000, spawnZoneScorpion)
+
+    
+
+    const door1 = this.matter.add.image(20*120+60, 16*120+60, 'door', null, {isStatic:true});
+    door1.setAngle(-90);
 
 
     ///////////////////////////////////CONTROLES///////////////////////////////////
