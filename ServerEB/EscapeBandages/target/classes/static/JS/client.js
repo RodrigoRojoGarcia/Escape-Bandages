@@ -29,7 +29,7 @@ function Client(scene){
 			}
 		
 		
-		
+			console.log(myIP)
 			postClient(parseInt(myIP), function(data){
 				
 				that.id = data.id;
