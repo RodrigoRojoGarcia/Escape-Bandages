@@ -35,13 +35,13 @@ chatOnline.create = function(){
     //inK.anims.play('manualInput');
     
     this.inputK.on('pointerdown', function(){
-    	chatOnline.typing = true;
+    	chatOnline.typing = !chatOnline.typing;
     	chatOnline.inputK.anims.stop();
     	chatOnline.inputK.setTexture('input', 0);
 	})
 	//accion al quitar el cursor del boton Salir
 	this.inputK.on('pointerout', function(){
-		chatOnline.typing = false;
+		
 		if(textEntry.text.length == 0){
 			chatOnline.inputK.anims.play('manualInput');
 		}

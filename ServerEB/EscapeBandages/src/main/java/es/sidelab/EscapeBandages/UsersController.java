@@ -52,7 +52,7 @@ public class UsersController {
 	
 	
 	@PostMapping(value="/register/{id}/{userName}/{password}")
-	public int registerUser(@PathVariable Long id,@PathVariable String userName, @PathVariable String password) {
+	public int registerUser(@PathVariable String id,@PathVariable String userName, @PathVariable String password) {
 		if(ClientController.getClients().get(id)!=null) {
 			if(ClientController.getClients().get(id).getUser()==null) {
 				if(!users.containsKey(userName)) {
@@ -77,7 +77,7 @@ public class UsersController {
 	}	
 	
 	@PostMapping(value="/{id}/{userName}/{password}")
-	public int newUser(@PathVariable Long id,@PathVariable String userName, @PathVariable String password) {
+	public int newUser(@PathVariable String id,@PathVariable String userName, @PathVariable String password) {
 		//Si el cliente correspondiente a la id pasada por la url no existe
 		if(ClientController.getClients().get(id)!=null) {
 			if(ClientController.getClients().get(id).getUser()==null) {
@@ -165,7 +165,7 @@ public class UsersController {
 				
 				
 				//Por todos los clientes
-				for(long id : ClientController.getClients().keySet()) {
+				for(String id : ClientController.getClients().keySet()) {
 					//Si el cliente tiene asociado un usuario
 					if(ClientController.getClients().get(id).getUser() != null) {
 						//Es el usuario que se desconecta

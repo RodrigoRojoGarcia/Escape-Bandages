@@ -42,7 +42,7 @@ onlineG.preload = function(){
 
 onlineG.create = function(){
 	myClient.setScene(this);
-
+	chatOnline.typing = false;
 
 ///////////////////////////////////CONFIG///////////////////////////////////
     const {Engine, Bodies, World} = Phaser.Physics.Matter.Matter;
@@ -816,7 +816,7 @@ onlineG.update = function(){
     }
 
     if(Phaser.Input.Keyboard.JustDown(keys.t)){
-        if(chatOnline.active){
+        if(chatOnline.active && !chatOnline.typing){
             chatOnline.active = false;
             scene.time.addEvent({
                 delay: 50,
@@ -921,8 +921,14 @@ onlineG.updateCalcetinete = function(){
                     onlineG.posicionesX[i] = m.shackle[i].x;
                     onlineG.posicionesY[i] = m.shackle[i].y;
                 }
-    
-                sendMummy(m.mummy.x, m.mummy.y, m.health, m.mummy.body.force.x, keys.w.isDown, keys.space.isDown, onlineG.posicionesX, onlineG.posicionesY, onlineG.healthEnemies, onlineG.mummyVictory);
+                var pressingSpace = false;
+                var pressingW = false;
+                if(!chatOnline.typing){
+                	pressingSpace = keys.space.isDown
+                	pressingW = keys.w.isDown
+                }
+                
+                sendMummy(m.mummy.x, m.mummy.y, m.health, m.mummy.body.force.x, pressingW, pressingSpace, onlineG.posicionesX, onlineG.posicionesY, onlineG.healthEnemies, onlineG.mummyVictory);
                 
                 for(var i = 0; i < utilBoxes.length; i++){
                     sendBoxesMummy(i, utilBoxes[i].box.x, utilBoxes[i].box.y, utilBoxes[i].box.angle, m.mummy.x, m.mummy.y, p.pharaoh.x, p.pharaoh.y);
@@ -936,7 +942,16 @@ onlineG.updateCalcetinete = function(){
         this.interval2 = setInterval(function(){
 
             if(!p.dead || !m.dead){
-                sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health, p.pharaoh.body.force.x, keys.up.isDown, keys.down.isDown, onlineG.clickNWS, box[0].purpleBox.y, box[1].purpleBox.y, onlineG.pharaohVictory);
+            	var pressingUp = false;
+            	var pressingDown = false;
+            	if(!chatOnline.typing){
+            		pressingUp = keys.up.isDown
+            		pressingDown = keys.down.isDown
+            	}
+            	
+            	
+            	
+                sendPharaoh(p.pharaoh.x, p.pharaoh.y, p.health, p.pharaoh.body.force.x, pressingUp, pressingDown, onlineG.clickNWS, box[0].purpleBox.y, box[1].purpleBox.y, onlineG.pharaohVictory);
             }
             
             

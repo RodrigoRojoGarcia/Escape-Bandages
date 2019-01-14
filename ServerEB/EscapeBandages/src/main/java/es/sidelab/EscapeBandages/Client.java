@@ -2,20 +2,20 @@ package es.sidelab.EscapeBandages;
 
 public class Client {
 
-		private long id;
+		private String id;
 		private int timeOfInactivity = 0;
 		private User user;
 		public Client() {
 			
 		}
-		public Client(long id) {
+		public Client(String id) {
 			this.id = id;
 		}
 		
-		public long getId() {
+		public String getId() {
 			return this.id;
 		}
-		public void setId(long id) {
+		public void setId(String id) {
 			this.id = id;
 		}
 		public void increaseInactivty() {

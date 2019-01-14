@@ -256,46 +256,50 @@ function Pharaoh(scene, x, y){
 			if(!this.dead){
 				if(myUser.character == 2)
 				{
-						///////////////////////////////////CONTROLES///////////////////////////////////
-					//Cuando flecha a la izquierda está presionado y el sprite no está quieto
-					if (keys.left.isDown && !this.steady)
-					{
-						//Le aplicamos la fuerza hacia la izquierda
-						this.pharaoh.applyForce({x:-movingForce, y:0});
-						//Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
-						this.pharaoh.flipX = true;
-					}
-					//Cuando flecha a la derecha está presionado y el sprite no está quieto
-					else if (keys.right.isDown && !this.steady)
-					{
-						//Le aplicamos la fuerza hacia la derecha
-						this.pharaoh.applyForce({x:movingForce, y:0});
-						//Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
-						this.pharaoh.flipX = false;
-					}
-					//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
-					else if(this.isColliding.bottom && !this.steady){
-						//Ponemos la velocidad a 0
-						this.pharaoh.setVelocityX(0);    
-					}
-					//Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
-					if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
-						//Estamos en el aire
-						this.onAirP = true;
-						//Reproducimos la animación de salto
-						this.pharaoh.play("jumpRightP", true);
-						//Después de un tiempo llamamos a JUMP
-						scene.time.addEvent({
-							delay: 40,
-							callback: this.jump,
-							callbackScope: scene
-						});
-					}
-					if(Phaser.Input.Keyboard.JustDown(keys.down) && this.isColliding.bottom && !this.steady){
-						if(!this.onHit && !this.attacking){
-							this.createFire();
+					
+					if(!chatOnline.typing){
+							///////////////////////////////////CONTROLES///////////////////////////////////
+						//Cuando flecha a la izquierda está presionado y el sprite no está quieto
+						if (keys.left.isDown && !this.steady)
+						{
+							//Le aplicamos la fuerza hacia la izquierda
+							this.pharaoh.applyForce({x:-movingForce, y:0});
+							//Hacemos que mire hacia la izquierda (true=izquierda, false=derecha)
+							this.pharaoh.flipX = true;
+						}
+						//Cuando flecha a la derecha está presionado y el sprite no está quieto
+						else if (keys.right.isDown && !this.steady)
+						{
+							//Le aplicamos la fuerza hacia la derecha
+							this.pharaoh.applyForce({x:movingForce, y:0});
+							//Hacemos que mire hacia la derecha (true=izquierda, false=derecha)
+							this.pharaoh.flipX = false;
+						}
+						//Cuando no se presiona ninguna tecla de movimiento, el sprite está en el suelo y no está quieto
+						else if(this.isColliding.bottom && !this.steady){
+							//Ponemos la velocidad a 0
+							this.pharaoh.setVelocityX(0);    
+						}
+						//Si acabas de presionar flecha hacia arriba y estás tocando el suelo y no está quieto
+						if(Phaser.Input.Keyboard.JustDown(keys.up) && this.isColliding.bottom && !this.steady){
+							//Estamos en el aire
+							this.onAirP = true;
+							//Reproducimos la animación de salto
+							this.pharaoh.play("jumpRightP", true);
+							//Después de un tiempo llamamos a JUMP
+							scene.time.addEvent({
+								delay: 40,
+								callback: this.jump,
+								callbackScope: scene
+							});
+						}
+						if(Phaser.Input.Keyboard.JustDown(keys.down) && this.isColliding.bottom && !this.steady){
+							if(!this.onHit && !this.attacking){
+								this.createFire();
+							}
 						}
 					}
+					
 					
 
 					//PONER VELOCIDAD MÁXIMA DEL SPRITE EN |2|

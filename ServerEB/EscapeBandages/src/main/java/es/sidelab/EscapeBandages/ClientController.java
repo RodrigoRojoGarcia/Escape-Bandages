@@ -19,11 +19,11 @@ public class ClientController {
 	
 	
 	//Guarda todos los clientes conectados al servidor identificados por ids únicas calculadas en el juego
-		private static Map<Long, Client> clients = new ConcurrentHashMap<>();
+		private static Map<String, Client> clients = new ConcurrentHashMap<>();
 		
-		private static Map<Long, Integer> numberWindows = new ConcurrentHashMap<>();
+		private static Map<String, Integer> numberWindows = new ConcurrentHashMap<>();
 	
-	public static Map<Long,Client> getClients(){
+	public static Map<String,Client> getClients(){
 		return clients;
 	}
 	
@@ -35,7 +35,7 @@ public class ClientController {
 		}
 		
 		@GetMapping(value="/user/{id}")
-		public ResponseEntity<User> getUser(@PathVariable long id){
+		public ResponseEntity<User> getUser(@PathVariable String id){
 			if(clients.get(id)!=null) {
 				return new ResponseEntity<>(clients.get(id).getUser(),HttpStatus.OK);
 			}else {
@@ -46,7 +46,7 @@ public class ClientController {
 		
 		//Get para que no se desconecte el cliente. Resetea el tiempo de inactividad del mismo
 		@GetMapping(value="/{id}")
-		public ResponseEntity<Client> getClient(@PathVariable long id){
+		public ResponseEntity<Client> getClient(@PathVariable String id){
 			Client client = clients.get(id);
 			if(client != null) {
 				client.resetInactivity();
@@ -58,12 +58,12 @@ public class ClientController {
 		
 		//Hacemos un post de un cliente nuevo, esto ocurrirá cuando se conecte un cliente.
 		@PostMapping(value="/{id}")
-		public ResponseEntity<Client> addClient(@PathVariable long id){
+		public ResponseEntity<Client> addClient(@PathVariable String id){
 			if(!numberWindows.containsKey(id)) {
 				numberWindows.put(id, 1);
-				if(!clients.containsKey(id*10+1)) {
-				Client client = new Client(id*10+1);
-				clients.put(id*10+1, client);
+				if(!clients.containsKey(id+"1")) {
+				Client client = new Client(id+"1");
+				clients.put(id+"1", client);
 				return new ResponseEntity<>(client, HttpStatus.OK);
 				}else {
 					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -71,9 +71,9 @@ public class ClientController {
 			}else {
 				int windowN = numberWindows.get(id)+1;
 				numberWindows.put(id, windowN);
-				if(!clients.containsKey(id*10+windowN)) {
-					Client client = new Client(id*10+windowN);
-					clients.put(id*10+windowN, client);
+				if(!clients.containsKey(id+windowN)) {
+					Client client = new Client(id+windowN);
+					clients.put(id+windowN, client);
 					return new ResponseEntity<>(client, HttpStatus.OK);
 				}else {
 					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -85,7 +85,7 @@ public class ClientController {
 		}
 		//Eliminamos un cliente cuando se desconecta
 		@DeleteMapping(value="/{id}")
-		public static void disconnectClient(@PathVariable long id) {
+		public static void disconnectClient(@PathVariable String id) {
 			if(clients.get(id).getUser()!=null)
 				UsersController.disconnectUser(clients.get(id).getUser().getUserName());
 			clients.remove(id);
