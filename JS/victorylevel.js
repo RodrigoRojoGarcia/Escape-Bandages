@@ -28,8 +28,8 @@ vlevel.create = function(){
     };
 
 
-	//letras victoria
-	var viclev = this.add.sprite(960, 540, 'vlevel');
+	//letras victoria nivel
+	var viclev = this.add.sprite(960, 540, 'victorylevel');
 
 ////////////////////Victoria Mummy//////////////////////////////////
 	var mumV = this.add.sprite(1300, 400,'Mummy');
