@@ -19,22 +19,22 @@ public class Chat {
 		
 		
 		int numeroSentencias = sentence.length()/30;
-		if(numeroSentencias > 3) {
+
+		if(numeroSentencias >= 3) {
 			this.sentences = 3;
 			this.sentence1 = sentence.substring(0,29);
 			this.sentence2 = sentence.substring(29,59);
 			this.sentence3 = sentence.substring(59,89);
-		}else
-		if(numeroSentencias == 3) {
+		}else if(numeroSentencias == 2) {
 			this.sentences = 3;
 			this.sentence1 = sentence.substring(0,29);
 			this.sentence2 = sentence.substring(29,59);
 			this.sentence3 = sentence.substring(59);
-		}else if(numeroSentencias == 2) {
+		}else if (numeroSentencias == 1){
 			this.sentences = 2;
 			this.sentence1 = sentence.substring(0,29);
 			this.sentence2 = sentence.substring(29);
-		}else if (numeroSentencias <= 1){
+		}else if(numeroSentencias < 1) {
 			this.sentences = 1;
 			this.sentence1 = sentence;
 		}

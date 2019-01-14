@@ -3,6 +3,7 @@ package es.sidelab.EscapeBandages;
 public class Personaje{
     private int life;
 
+
     public Personaje(int life){
         this.life = life;
 
@@ -15,4 +16,5 @@ public class Personaje{
     public void setLife(int life){
         this.life = life;
     }
+
 }

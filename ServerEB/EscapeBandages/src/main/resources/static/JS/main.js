@@ -33,6 +33,7 @@ var gameState = 0;
 
 var onRestart = false;
 var onOut = false;
+var onRestartWS = false;
 
 var disconnected = false; 
 var fx;

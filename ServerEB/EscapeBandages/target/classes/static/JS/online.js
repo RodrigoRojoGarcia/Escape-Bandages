@@ -103,7 +103,15 @@ onlineG.create = function(){
     			onlineG.descText2.depth = 100;
     			onlineG.time.addEvent({
                     delay: 5000,
-                    callback: ()=>(onOut = true),
+                    callback: ()=>(returnToLobby(myLobby.getId(), function(id){
+            			onlineG.scene.start(characterSelection);
+                        onlineG.scene.stop(heart);
+                        onlineG.scene.stop(pause);
+            	        
+            	        clearInterval(onlineG.interval1);
+            	        clearInterval(onlineG.interval2);
+            	        clearInterval(onlineG.stillHavingAFriend)
+            		})),
                     callbackScope: scene
                 });
     		}
@@ -868,10 +876,10 @@ onlineG.update = function(){
 
     if(onRestart){
 		if(myUser.character == 1){
-            sendRestart(onRestart, onOut);
+            sendRestart(onRestart);
         }
         else if(myUser.character == 2){
-            sendRestart2(onRestart, onOut);
+            sendRestart2(onRestart);
         }
 		
         onlineG.scene.restart();
@@ -885,21 +893,16 @@ onlineG.update = function(){
 		
 	}
 	if(onOut){
-		if(myUser.character == 1){
-			sendRestart(onRestart, onOut);
-        }
-        else if(myUser.character == 2){
-            sendRestart2(onRestart, onOut);
-        }
-		returnToLobby(myLobby.getId(), function(id){
-			onlineG.scene.start(characterSelection);
+		removeUserFromLobby(myLobby.getId(), myUser.userName)
+		
+			onlineG.scene.start(lobby);
             onlineG.scene.stop(heart);
             onlineG.scene.stop(pause);
 	        
 	        clearInterval(onlineG.interval1);
 	        clearInterval(onlineG.interval2);
 	        clearInterval(onlineG.stillHavingAFriend)
-		})
+		
 		
 		
 	}

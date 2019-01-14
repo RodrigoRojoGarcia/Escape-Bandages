@@ -141,7 +141,7 @@ function letsConnect(){
 	connRestart.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
 		
-		onOut = parse.clickOut;
+		
 		onRestart = parse.click;
 		
 		
@@ -162,7 +162,7 @@ function letsConnect(){
 	connRestart2.onmessage = function(mesg){
 		var parse = JSON.parse(mesg.data)
 		
-		onOut = parse.clickOut;
+		
 		onRestart = parse.click
 		
 		
@@ -319,19 +319,18 @@ function letsConnect(){
 	
 	
 	
-	function sendRestart(onClick, onClick2){
+	function sendRestart(onClick){
 		var obj = {
 			id: 5,
-			click: onClick,
-			clickOut: onClick2
+			click: onClick
+			
 		}
 		connRestart.send(JSON.stringify(obj))
 	}
-	function sendRestart2(onClick, onClick2){
+	function sendRestart2(onClick){
 		var obj = {
 			id: 5,
-			click: onClick,
-			clickOut: onClick2
+			click: onClick
 		}
 		connRestart.send(JSON.stringify(obj))
 	}

@@ -8,6 +8,7 @@ public class User {
 	private boolean online;
 	private int timeInactive=0;
 	private boolean ready;
+	private boolean restart;
 	
 	
 	public User() {
@@ -50,6 +51,12 @@ public class User {
 	}
 	public void setReady(boolean ready) {
 		this.ready = ready;
+	}
+	public boolean getRestart() {
+		return this.restart;
+	}
+	public void setRestart(boolean restart) {
+		this.restart = restart;
 	}
 	
 	@Override
