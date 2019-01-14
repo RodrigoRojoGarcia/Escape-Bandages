@@ -75,6 +75,8 @@ offline.create = function(){
     //Botones
     this.buttons = this.map.createFromObjects('Buttons', 4, { key: 'button' });
     
+    //escena love
+    this.loving = false;
 
 ///////////////////////////////////PLAYERS///////////////////////////////////
     //FARAÓN
@@ -688,6 +690,42 @@ offline.update = function(){
         this.scene.stop(heart);
     }
 
+    if(Math.abs(this.p.pharaoh.x - this.m.mummy.x) < 240 && Math.abs(this.p.pharaoh.y - this.m.mummy.y) < 120 && !this.loving){
+        this.loving = true;
+        this.p.love = true;
+        this.m.love = true;
+
+        if(this.p.pharaoh.x < this.m.mummy.x){
+            this.p.pharaoh.flipX = false;
+            this.m.mummy.flipX = true;
+        }else{
+            this.p.pharaoh.flipX = true;
+            this.m.mummy.flipX = false;
+        }
+
+        this.m.mummy.anims.play("jumpRightMCicle", true);
+        this.p.pharaoh.anims.play("jumpRightPCicle", true);
+        var x = (this.m.mummy.x + this.p.pharaoh.x) / 2;
+        var y = this.p.pharaoh.y - 100;
+
+        this.hearts = this.add.sprite(x, y, 'love');
+        this.hearts.anims.play("loving", true);
+
+        this.time.addEvent({
+            delay: 5000,
+            callback: this.stopLove,
+            callbackScope: this
+        });
+
+    }
+
 }//FINAL UPDATE
+
+offline.stopLove = function(){
+    this.p.love = false;
+    this.m.love = false;
+    this.hearts.anims.stop();
+    this.hearts.destroy();
+}
 
 

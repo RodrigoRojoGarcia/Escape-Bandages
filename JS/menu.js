@@ -102,11 +102,12 @@ menu.preload = function(){
     //TRIPWIRE
     this.load.image("tripwire", "Sprites/tripwire.png");
     //CORAZONCITOS
-    this.load.image('love', 'Sprites/lovehearts.png');
+    this.load.spritesheet('love', 'Sprites/lovehearts.png',{frameWidth: 175, frameHeight: 300});
     //PLATAFORMA
     this.load.image('platform', 'Sprites/platform.png');
     //NIDO
     this.load.spritesheet("nest","Sprites/nest.png",{frameWidth: 120, frameHeight: 120});
+
     
 }
 
@@ -187,6 +188,15 @@ menu.create = function(){
 		frameRate: 5,
 		repeat: 0
 	});
+	//CORAZONES
+	anims.create({
+		key: 'loving',
+		frames: anims.generateFrameNumbers('love', {start: 0, end: 2}),
+		frameRate: 5,
+		repeat: -1
+	});
+
+
 	///////////////////////////////FIRE//////////////////////////////////
 	//Fuego llano
 	anims.create({

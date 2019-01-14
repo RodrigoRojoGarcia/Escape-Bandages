@@ -60,6 +60,8 @@ function Pharaoh(scene, x, y){
 		this.gettingHit = false;
 		//Muerto?
 		this.dead = false;
+		//Escena amor
+		this.love = false;
 
 	///////////////////////////////////COLISIONES///////////////////////////////////
 		//Cuando colisiona un sensor del mainBody
@@ -204,7 +206,7 @@ function Pharaoh(scene, x, y){
 			//Caida faraón
 			
 			//Si no estoy muerto
-			if(!this.dead){
+			if(!this.dead && !this.love){
 	///////////////////////////////////CONTROLES///////////////////////////////////
 				//Cuando flecha a la izquierda está presionado y el sprite no está quieto
 				if (keys.left.isDown && !this.steady)

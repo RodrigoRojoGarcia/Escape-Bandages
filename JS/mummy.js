@@ -62,6 +62,8 @@ function Mummy(scene, x, y){
 		this.gettingHit = false;
 		//Muerto?
 		this.dead = false;
+		//Escena amor
+		this.love = false;
 
 	///////////////////////////////////COLISIONES///////////////////////////////////
 		//Cuando colisiona un sensor del mainBody
@@ -244,7 +246,7 @@ function Mummy(scene, x, y){
 			}
 			
 			//Si no estoy muerto
-			if(!this.dead){
+			if(!this.dead && !this.love){
 
 	///////////////////////////////////CONTROLES///////////////////////////////////
 				//Cuando a está presionado y el sprite no está quieto		

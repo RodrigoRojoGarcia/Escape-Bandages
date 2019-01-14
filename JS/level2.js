@@ -97,6 +97,25 @@ level2.create = function(){
 }
 
 level2.update = function(){
+    const keys = this.keys;
+    
+    if(keys.r.isDown){
+        
+        keys.r.isDown = false;
+        if(!pause.active && !restart.active){
+            offline.scene.launch(restart);
+        }
+        
+    }
+
+    if(keys.esc.isDown){
+        
+        keys.esc.isDown = false;
+        if(!restart.active && !pause.active){
+            offline.scene.launch(pause);
+        }
+    }
+
     this.move = false;
 	if(!this.p.dead){
 		this.p.update(level2.keys)

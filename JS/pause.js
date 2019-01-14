@@ -12,15 +12,13 @@ pause.create = function(){
     this.add.image(1920/2,1080/2,'shade2');
     this.add.dynamicBitmapText(600, 350, 'font1', 'Seguro que deseas salir?', 70);
     
-    offline.scene.pause();
+    currentScene.scene.pause();
     
-    
-
     this.yes = new UIButton(this, 650, 800, 'yes', function(){
         pause.active = false;
        
-        offline.scene.start(submenu);
-        offline.scene.stop(heart);
+        currentScene.scene.start(submenu);
+        currentScene.scene.stop(heart);
         
         pause.scene.stop(pause);
 	}, function(){
@@ -38,7 +36,7 @@ pause.create = function(){
         else{
             offline.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
         }
-        offline.scene.resume();
+        currentScene.scene.resume();
     
 		pause.scene.stop(pause);
 	}, function(){
