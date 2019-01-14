@@ -33,6 +33,8 @@ menu.preload = function(){
 	this.load.image('out','Sprites/salir.png');
 	//exit
 	this.load.image('exit', 'Sprites/exit.png')
+	//next level
+	this.load.image('next','Sprites/next.png');
 	//reiniciar
 	this.load.image('reinicio','Sprites/reiniciar.png');
 	//restars
