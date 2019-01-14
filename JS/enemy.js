@@ -1,4 +1,4 @@
-function Enemy(scene, x, y, sprite, acc, vel){
+function Enemy(scene, x, y, sprite, acc, vel, mummyDmg, pharaohDmg){
 		var scene = scene;
 		const {Body, Bodies} = Phaser.Physics.Matter.Matter;
 		
@@ -44,7 +44,7 @@ function Enemy(scene, x, y, sprite, acc, vel){
 				//Si la momia está atacando
 				if(scene.m.onHit){
 					//Quitamos vida al enemigo
-					this.healthBar.damage(20)
+					this.healthBar.damage(mummyDmg)
 					//Ya me has atacado una vez, ya no estás atacando
 					scene.m.onHit = false;
 					if(bodyA === this.sensors.left){
@@ -64,7 +64,7 @@ function Enemy(scene, x, y, sprite, acc, vel){
 			}
 			if(bodyB === scene.p.fire[0].body ||bodyB === scene.p.fire[1].body ||bodyB === scene.p.fire[2].body){
 				if(scene.p.onHit){
-					this.healthBar.damage(50)
+					this.healthBar.damage(pharaohDmg)
 					scene.p.onHit = false
 					if(bodyA === this.sensors.left){
 					this.enemy.x += 12;

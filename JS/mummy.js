@@ -73,10 +73,13 @@ function Mummy(scene, x, y){
 					if(bodyB === scene.enemies[i].getSprite().body.parts[1]){
 						//Si no estamos en periodo de invulnerabilidad
 						if(!this.gettingHit){
-							//Nos golpean
-							this.getHit();
-							//Nos ponemos rojos
-							scene.m.mummy.setTint(0xff3333)
+							if(!this.dead){
+								//Nos golpean
+								this.getHit();
+								//Nos ponemos rojos
+								scene.m.mummy.setTint(0xff3333)
+							}
+							
 							//Al cabo de un tiempo llamamos a invulnerable
 							scene.time.addEvent({
 								delay: 300,
@@ -236,6 +239,7 @@ function Mummy(scene, x, y){
 			var movingForce = 0.1;
 			//Actualizamos la vida
 			if(this.health <= 0){
+				this.mummy.anims.play("deathM", true);
 				this.dead = true;
 			}
 			

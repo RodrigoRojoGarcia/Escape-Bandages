@@ -42,7 +42,7 @@ level2.create = function(){
     this.numEnemies = 0;
 
     
-    this.scorpionNest = new Nest(this, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'box', 'scorpion', 0.04, 0.4, 7000, spawnZoneScorpion)
+    this.scorpionNest = new Nest(this, spawnPointScorpionNest.x + 60, spawnPointScorpionNest.y + 60, 'nest', 'scorpion', 0.04, 0.4, 7000, spawnZoneScorpion, 8);
 
     
 
@@ -84,8 +84,8 @@ level2.create = function(){
     });
    
 
-    this.platform = new Platform(this, 5*120 + 60, 12 * 120 + 60, 'door', 12 * 120 + 60, 8 * 120 +60)
-    this.platform2 = new Platform(this, 11*120 + 60, 10 * 120 + 60, 'door', 10 * 120 + 60, 7 * 120 + 60)
+    this.platform = new Platform(this, 5*120 + 60, 12 * 120 + 60, 'platform', 13 * 120, 8 * 120 + 60)
+    this.platform2 = new Platform(this, 11*120 + 60, 10 * 120 + 60, 'platform', 10 * 120, 7 * 120 + 60)
     this.move = false;
     this.box = []
     this.box[0] = new PurpleBox(this, 2280, 1820, 960, 1820, 'PurpleBox1', 0, 0.01, 0.1, 100)
@@ -115,7 +115,7 @@ level2.update = function(){
 	}
 	this.platform.update()
     this.platform2.update()
-
+    this.scorpionNest.update();
 
     if(!this.scorpionNest.activated){
         this.door1.x = 19*120+60;
