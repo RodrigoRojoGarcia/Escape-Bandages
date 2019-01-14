@@ -42,7 +42,7 @@ level2.create = function(){
     this.numEnemies = 0;
 
     
-    this.scorpionNest = new Nest(this, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'box', 'scorpion', 0.04, 0.4, 5000, spawnZoneScorpion)
+    this.scorpionNest = new Nest(this, spawnPointScorpionNest.x, spawnPointScorpionNest.y, 'box', 'scorpion', 0.04, 0.4, 7000, spawnZoneScorpion)
 
     
 
@@ -67,33 +67,37 @@ level2.create = function(){
         space: SPACE,
         esc: ESC
     });
-    this.tripwire = this.matter.add.sprite(937.5,1500,'tripwire')
-    var tripwireSensor = Bodies.rectangle(937.5, 1500, this.tripwire.width+10, this.tripwire.height, {isSensor:true, isStatic:true})
-    this.tripwire.setExistingBody(tripwireSensor)
+
+    this.tripwire = new Tripwire(this, 7, 12, 'tripwire', function(){
+        level2.platform.action()
+    })
+    this.tripwire2 = new Tripwire(this, 24, 7, 'tripwire', function(){
+        level2.platform2.action()
+    })
+
+    
     this.matter.world.createDebugGraphic();
     this.matter.world.drawDebug = false;
     this.input.keyboard.on("keydown_F", event => {
       this.matter.world.drawDebug = !this.matter.world.drawDebug;
       this.matter.world.debugGraphic.clear();
     });
-    level2.matterCollision.addOnCollideStart({
-    	objectA: level2.tripwire,
-    	callback: level2.tripwireActive,
-    	context: level2
-    }) 
+   
 
-    this.platform = new Platform(this, 660, 1500, 'door', 1560, 960)
-    
+    this.platform = new Platform(this, 5*120 + 60, 12 * 120 + 60, 'door', 12 + 120 + 60, 8 * 120 +60)
+    this.platform2 = new Platform(this, 11*120 + 60, 10 * 120 + 60, 'door', 10 * 120 + 60, 7 * 120 + 60)
+    this.move = false;
+    this.box = []
+    this.box[0] = new PurpleBox(this, 2280, 1820, 960, 1820, 'PurpleBox1', 0, 0.01, 0.1, 100)
+
+    for(var i = 0; i< this.box.length;i++){
+        this.box[i].create()
+    }
+        
 }
-level2.tripwireActive = function({bodyA, bodyB, pair}){
-	if(bodyB === level2.m.shackle[8].body){
-		if(level2.m.onHit){
-			level2.platform.action()
-		}
-	}
-	
-}
+
 level2.update = function(){
+    this.move = false;
 	if(!this.p.dead){
 		this.p.update(level2.keys)
 		this.p.resetColliding()
@@ -110,6 +114,7 @@ level2.update = function(){
 		}
 	}
 	this.platform.update()
+    this.platform2.update()
 
 
     if(!this.scorpionNest.activated){
@@ -117,4 +122,9 @@ level2.update = function(){
     }else{
         this.door1.x = 20*120+60
     }
+    for(var i=0;i<this.box.length;i++){
+        this.move = this.move || this.box[i].move;
+        this.box[i].update();
+    }
+
 }

@@ -1,7 +1,5 @@
 function Platform (scene, x, y, sprite, ymax, ymin){
 	this.scene = scene;
-
-
 	this.plat = this.scene.matter.add.sprite(x,y,sprite);
 
 	this.activated = false;
