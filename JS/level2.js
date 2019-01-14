@@ -84,7 +84,7 @@ level2.create = function(){
     });
    
 
-    this.platform = new Platform(this, 5*120 + 60, 12 * 120 + 60, 'door', 12 + 120 + 60, 8 * 120 +60)
+    this.platform = new Platform(this, 5*120 + 60, 12 * 120 + 60, 'door', 12 * 120 + 60, 8 * 120 +60)
     this.platform2 = new Platform(this, 11*120 + 60, 10 * 120 + 60, 'door', 10 * 120 + 60, 7 * 120 + 60)
     this.move = false;
     this.box = []
