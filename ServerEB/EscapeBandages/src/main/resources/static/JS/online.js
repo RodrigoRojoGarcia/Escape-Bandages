@@ -94,7 +94,21 @@ onlineG.create = function(){
     }
         
     
-    
+    this.stillHavingAFriend = setInterval(function(){
+    	isMyLobbyFull(myLobby.getId(), function(full){
+    		if(!full){
+    			onlineG.descText1 = onlineG.add.dynamicBitmapText(400, 350, 'font2', 'EL OTRO MIEMBRO DE LA PARTIDA SE HA DESCONECTADO', 70);
+    			onlineG.descText2 = onlineG.add.dynamicBitmapText(700, 430, 'font2', 'DEVOLVIENDO AL LOBBY', 70);
+    			onlineG.descText1.depth = 100;
+    			onlineG.descText2.depth = 100;
+    			onlineG.time.addEvent({
+                    delay: 5000,
+                    callback: ()=>(onOut = true),
+                    callbackScope: scene
+                });
+    		}
+    	})
+    }, 500)
 ///////////////////////////////////EXTRACCIÓN ELEMENTOS TILEMAP(JSON)///////////////////////////////////
 
     //SPAWNPOINTS
@@ -267,23 +281,29 @@ onlineG.create = function(){
             door2.setVisible(false);
             door1.setSensor(true);
             door2.setSensor(true);
-        }else if(buttons[1].active){
+        }else{
+        	door1.setVisible(true);
+            door2.setVisible(true);
+            door1.setSensor(false);
+            door2.setSensor(false);
+        }
+        if(buttons[1].active){
             door3.x = 31*120 - 60;
             door4.x = 32*120 + 180;
             door3bis.x = 31*120 + 60;
             door4bis.x = 32*120 + 60;
-        }else if(buttons[4].active){
-            doorsPuzzle[0].x = 65*120 - 60;
-            doorsPuzzle[1].x = 66*120 + 180;
         }else{
-            door1.setVisible(true);
-            door2.setVisible(true);
-            door1.setSensor(false);
-            door2.setSensor(false);
-            door3.x = 31*120 + 60;
+        	door3.x = 31*120 + 60;
             door4.x = 32*120 + 60;
             door3bis.x = 31*120 - 60;
             door4bis.x = 32*120 + 180;
+        }
+        if(buttons[4].active){
+            doorsPuzzle[0].x = 65*120 - 60;
+            doorsPuzzle[1].x = 66*120 + 180;
+        }else{
+            
+            
             doorsPuzzle[0].x = 65*120 + 60;
             doorsPuzzle[1].x = 66*120 + 60;   
         }
@@ -859,8 +879,9 @@ onlineG.update = function(){
         onlineG.scene.launch(heart, onlineG);
         //onlineG.scene.launch(heart, onlineG);
         
-        clearInterval(this.interval1);
-        clearInterval(this.interval2);
+        clearInterval(onlineG.interval1);
+        clearInterval(onlineG.interval2);
+        clearInterval(onlineG.stillHavingAFriend)
 		
 	}
 	if(onOut){
@@ -877,6 +898,7 @@ onlineG.update = function(){
 	        
 	        clearInterval(onlineG.interval1);
 	        clearInterval(onlineG.interval2);
+	        clearInterval(onlineG.stillHavingAFriend)
 		})
 		
 		

@@ -64,7 +64,7 @@ chatOnline.create = function(){
         {
             textEntry.text = textEntry.text.substr(0, textEntry.text.length - 1);
         }
-        else if (event.keyCode === 32 || (event.keyCode >= 48 && event.keyCode < 90) && chatOnline.typing)
+        else if (event.keyCode === 32 || (event.keyCode >= 48 && event.keyCode <= 90) && chatOnline.typing)
         {
             textEntry.text += event.key;
         }
@@ -84,7 +84,7 @@ chatOnline.create = function(){
         	
         	
         }
-        else if(event.keyCode >= 186 && event.keyCode < 222 && chatOnline.typing)
+        else if(event.keyCode >= 186 && event.keyCode <= 222 && chatOnline.typing)
         {
         	textEntry.text += event.key;
         }
@@ -123,10 +123,35 @@ chatOnline.update = function(){
 
 chatOnline.write = function(){
 	
-	for(var i = 0; i < 19; i++){
-		if(phrases[i] != undefined){
-			textArr[i].setText(phrases[i].user + '(' + phrases[i].character + '): '+ phrases[i].sentence);
+	var chatline = 0;
+	var i = 0;
+	
+	for(var linesNum = 0; linesNum < 19; linesNum++){
+		if(phrases[chatline]!=undefined){
+			if(phrases[chatline].sentences == 3){
+				textArr[linesNum].setText(phrases[chatline].sentence3);
+				linesNum++;
+				textArr[linesNum].setText(phrases[chatline].sentence2);
+				linesNum++;
+				textArr[linesNum].setText(phrases[chatline].sentence1)
+				linesNum++;
+				textArr[linesNum].setText(phrases[chatline].user + '(' + phrases[chatline].character + '): ');
+				chatline++;
+			}else if(phrases[chatline].sentences == 2){
+				textArr[linesNum].setText(phrases[chatline].sentence2);
+				linesNum++;
+				textArr[linesNum].setText(phrases[chatline].sentence1);
+				linesNum++;
+				textArr[linesNum].setText(phrases[chatline].user + '(' + phrases[chatline].character + '): ');
+				chatline++;
+			}else if(phrases[chatline].sentences == 1){
+				textArr[linesNum].setText(phrases[chatline].sentence1);
+				linesNum++;
+				textArr[linesNum].setText(phrases[chatline].user + '(' + phrases[chatline].character + '): ');
+				chatline++;
+			}
 		}
 	}
+	
 }
 

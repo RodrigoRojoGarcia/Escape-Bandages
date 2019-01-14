@@ -53,6 +53,35 @@ public class LobbyController {
 	}
 	
 	
+	public static void showReady(String userName, long id, boolean ready) {
+		if(lobbies.get(id)!=null) {
+			if(lobbies.get(id).getUser1()!=null) {
+				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+					if(!ready) {
+						Chat chat = new Chat(userName+ " ya no se encuentra preparado.","SERVER");
+						lobbies.get(id).addChat(chat);
+					}else {
+						Chat chat = new Chat(userName+" se encuentra preparado para empezar el juego.", "SERVER");
+						lobbies.get(id).addChat(chat);
+					}
+					
+				}
+			}
+			if(lobbies.get(id).getUser2()!=null) {
+				if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+					if(ready) {
+						Chat chat = new Chat(userName+ " ya no se encuentra preparado.","SERVER");
+						lobbies.get(id).addChat(chat);
+					}else {
+						Chat chat = new Chat(userName+" se encuentra preparado para empezar el juego.", "SERVER");
+						lobbies.get(id).addChat(chat);
+					}
+				}
+			}
+		}
+	}
+	
+	
 	
 	
 	//Devuelve todos los lobbies
@@ -172,7 +201,7 @@ public class LobbyController {
 				if(lobbies.get(id).getUser1()!=null) {
 					if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
 						//Añadir el chat al lobby que se solicita
-						Chat chat = new Chat(sentence,userName);
+						Chat chat = new Chat(sentence.toString(),userName);
 						if(lobbies.get(id).getMummy().equals(userName)) {
 							chat.setCharacter("Mummy");
 						}
@@ -187,7 +216,7 @@ public class LobbyController {
 				if(lobbies.get(id).getUser2()!=null) {
 					if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
 						//Añadir el chat al lobby que se solicita
-						Chat chat = new Chat(sentence,userName);
+						Chat chat = new Chat(sentence.toString(),userName);
 						if(lobbies.get(id).getMummy().equals(userName)) {
 							chat.setCharacter("Mummy");
 						}
@@ -212,6 +241,9 @@ public class LobbyController {
 					lobbies.get(id).getUser1().setReady(ready);
 					if(UsersController.getUsers().get(userName)!=null) {
 						UsersController.getUsers().get(userName).setReady(ready);
+						
+						showReady(userName, id, ready);
+						
 						return new ResponseEntity<>(UsersController.getUsers().get(userName),HttpStatus.OK);
 					}else {
 						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -220,6 +252,9 @@ public class LobbyController {
 					lobbies.get(id).getUser2().setReady(ready);
 					if(UsersController.getUsers().get(userName)!=null) {
 						UsersController.getUsers().get(userName).setReady(ready);
+						
+						showReady(userName, id, ready);
+						
 						return new ResponseEntity<>(UsersController.getUsers().get(userName),HttpStatus.OK);
 					}else {
 						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -352,7 +387,14 @@ public class LobbyController {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		}
-		
+		@GetMapping(value="/full/{id}")
+		public ResponseEntity<Boolean> isLobbyFull (@PathVariable long id){
+			if(lobbies.get(id)!=null) {
+				return new ResponseEntity<Boolean>(lobbies.get(id).isFull(), HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
 		@GetMapping(value="/userName/{id}/{userName}")
 		public ResponseEntity<String> otherUser(@PathVariable long id, @PathVariable String userName){
 			if(lobbies.get(id)!=null) {

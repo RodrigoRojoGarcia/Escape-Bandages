@@ -64,6 +64,15 @@ function otherUser(idLobby, userName,callback){
 		
 	})
 }
+function isMyLobbyFull(idLobby,callback){
+	$.ajax({
+		url:'http://'+location.host+'/lobby/full/'+idLobby
+	}).done(function(full){
+		callback(full)
+	}).fail(function(full){
+		
+	})
+}
 
 function getUserNameMummy(idLobby, callback){
 	$.ajax({
