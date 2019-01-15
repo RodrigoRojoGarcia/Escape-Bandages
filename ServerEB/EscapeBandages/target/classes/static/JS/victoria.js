@@ -109,7 +109,7 @@ victoria.update = function(){
 		returnToLobby(myLobby.getId(), function(id){
 			victoria.scene.stop(victoria)
 			victoria.scene.start(characterSelection);
-			victoria.scene.stop(chatOnline);
+			
 		})
 		
 		

@@ -883,6 +883,7 @@ onlineG.sendVictory = function(){
     onlineG.scene.stop(heart);
     clearInterval(this.interval1);
     clearInterval(this.interval2);
+    clearInterval(this.stillHavingAFriend)
 }
 
 onlineG.updateCalcetinete = function(){
