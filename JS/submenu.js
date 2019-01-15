@@ -39,8 +39,8 @@ submenu.create = function(){
 	//level 1
 	this.blv1 =  new UIButton(this, 750, 550, 'lv1', function(){
 		//cambio de escena al juego offline
-		submenu.scene.start(level2);
-		submenu.scene.launch(heart, level2);
+		submenu.scene.start(offline);
+		submenu.scene.launch(heart, offline);
 	}, function(){
 		submenu.blv1.amplifyScale(0.15, 0.15)
 	}, function(){
