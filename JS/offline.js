@@ -319,12 +319,12 @@ offline.create = function(){
     //Textos del tutorial de Anubis
     var wordsAnubis1 = ["Greetings, I'm Anubis, god of the Necropolis.",
     "I've resurrected you because you fell in love with\nsomeone you couldn't, so I'm giving you\nthe opportunity to live together.",
-    "But for this to work, you'll need to escape from the\npyramid... TOGETHER"]
+    "But to make it work, you'll need to escape from the\npyramid... TOGETHER"]
 
-    var wordsAnubis2 = ["I give you the gift of the arcane fire, you'll be able\nto collect the heat around you and concentrated", 
-    "in flames in front of you. In order to do that \nyou just need to press the down arrow key."]
+    var wordsAnubis2 = ["I give you the gift of the arcane fire, you'll be able\nto collect the heat around you and focus it", 
+    "in flames in front of you. In order to do that \nyou just need to press the 'down arrow' key."]
 
-    var wordsAnubis3 = ["I give you the gift of the ancient psychokinesis,\nto use it you'll need to aim with this ceptre, press",
+    var wordsAnubis3 = ["I also give you the gift of the ancient psychokinesis,\nto use it you'll need to aim with this scepter, press",
     "the left button and drag."]
 
 
@@ -357,8 +357,8 @@ offline.create = function(){
     //Textos del tutorial de Bastet
 
     var wordsBastet1 = ["Greetings, I'm Bastet, domestic cat goddess.",
-    "I've resurrected you because in life you fell in love with\nsomeone you couldn't, so I'm ginving you\nthe opportunity to live together.",
-    "But for this to work, you'll need to escape the\npyramid... TOGETHER"]
+    "I've resurrected you because in life you fell in love with\nsomeone you couldn't, so I'm giving you\nthe opportunity to live together.",
+    "But to make it work, you'll need to escape from the\npyramid... TOGETHER"]
 
     var wordsBastet2 = ["I give you the gift of the cursed bandages\nyou'll be able to stretch your bandages pressing 'SPACE',",
     "this way you'll be able to defeat any foe\nthat may appear upon you."]
