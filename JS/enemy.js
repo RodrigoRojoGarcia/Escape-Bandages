@@ -161,12 +161,12 @@ function Enemy(scene, x, y, sprite, acc, vel, mummyDmg, pharaohDmg){
 			var distancePX = Infinity;
 			var distancePY = false;
 
-			if(!scene.m.dead){
+			if(!scene.m.dead && !scene.m.love){
 				distanceMX = this.enemy.x - scene.m.getX()
 				if(Math.abs(this.enemy.y - scene.m.getY()) < 240)
 				distanceMY = true
 			}
-			if(!scene.p.dead){
+			if(!scene.p.dead && !scene.p.love){
 				distancePX = this.enemy.x - scene.p.getX();
 				if(Math.abs(this.enemy.y - scene.p.getY()) < 240)
 				distancePY = true;

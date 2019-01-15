@@ -78,6 +78,7 @@ offline.create = function(){
     //escena love
     this.loving = false;
 
+
 ///////////////////////////////////PLAYERS///////////////////////////////////
     //FARAÓN
     //Creamos un objeto Faraón, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
@@ -126,8 +127,8 @@ offline.create = function(){
   
 ///////////////////////////////////CAMERA///////////////////////////////////
     //Hacemos que cada una siga a un personaje
-    this.cameraPharaoh.startFollow(this.p.getSprite(), false, 1, 1, -200);
-    this.cameraMummy.startFollow(this.m.getSprite(), false, 1, 1, -200);
+    this.cameraPharaoh.startFollow(this.p.getSprite(), false, 1, 0, -100);
+    this.cameraMummy.startFollow(this.m.getSprite(), false, 1, 0, -100);
     //Ponemos a las dos los límites del mapa
     this.cameraPharaoh.setBounds(0,0,this.map.widthInPixels,this.map.heightInPixels);
     this.cameraMummy.setBounds(0,0,this.map.widthInPixels,this.map.heightInPixels);
@@ -320,8 +321,8 @@ offline.create = function(){
     "I've resurrected you because you fell in love with\nsomeone you couldn't, so I'm giving you\nthe opportunity to live together.",
     "But for this to work, you'll need to escape from the\npyramid... TOGETHER"]
 
-    var wordsAnubis2 = ["I give you the gift of the arcane fire, you'll be able\nto collect the heat around you and concentrated in flames",
-    "in front of you. In order to do that you just need to presss\nthe down arrow key."]
+    var wordsAnubis2 = ["I give you the gift of the arcane fire, you'll be able\nto collect the heat around you and concentrated", 
+    "in flames in front of you. In order to do that \nyou just need to press the down arrow key."]
 
     var wordsAnubis3 = ["I give you the gift of the ancient psychokinesis,\nto use it you'll need to aim with this ceptre, press",
     "the left button and drag."]
@@ -359,8 +360,8 @@ offline.create = function(){
     "I've resurrected you because in life you fell in love with\nsomeone you couldn't, so I'm ginving you\nthe opportunity to live together.",
     "But for this to work, you'll need to escape the\npyramid... TOGETHER"]
 
-    var wordsBastet2 = ["I give you the gift of the cursed bandages\nyou'll be able to stretch your bandages pressing 'SPACE', this way",
-    "you'll be able to defeat any foe\nthat may appear upon you."]
+    var wordsBastet2 = ["I give you the gift of the cursed bandages\nyou'll be able to stretch your bandages pressing 'SPACE',",
+    "this way you'll be able to defeat any foe\nthat may appear upon you."]
 
 
 
@@ -553,7 +554,7 @@ offline.create = function(){
     //Añadimos a un array de arena 30 granos de arena (10 por for)
     this.arena = []
     for(var i = 0; i < 200; i++){
-        this.arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand', 0, { restitution: 1, friction: 0.1 });
+        this.arena[i] = this.matter.add.sprite(spawnPointSand.x + 0.5+i, spawnPointSand.y, 'sand', 0);
         this.arena[i].setScale(1.5);
         //
     }    
@@ -697,12 +698,21 @@ offline.update = function(){
     if(this.mummyVictory && this.pharaohVictory){
         offline.scene.start(victorylevel);
         this.scene.stop(heart);
+        lvl1passed = true;
     }
     if(!this.p.dead && !this.m.dead){
         if(Math.abs(this.p.pharaoh.x - this.m.mummy.x) < 240 && Math.abs(this.p.pharaoh.y - this.m.mummy.y) < 120 && !this.loving){
             this.loving = true;
             this.p.love = true;
             this.m.love = true;
+
+            this.m.mummy.anims.play("jumpMCicle", true);
+            this.p.pharaoh.anims.play("jumpRightPCicle", true);
+            var x = (this.m.mummy.x + this.p.pharaoh.x) / 2;
+            var y = this.p.pharaoh.y - 100;
+
+            this.hearts = this.add.sprite(x, y, 'love');
+            this.hearts.anims.play("loving", true);
 
             if(this.p.pharaoh.x < this.m.mummy.x){
                 this.p.pharaoh.flipX = false;
@@ -711,14 +721,7 @@ offline.update = function(){
                 this.p.pharaoh.flipX = true;
                 this.m.mummy.flipX = false;
             }
-
-            this.m.mummy.anims.play("jumpRightMCicle", true);
-            this.p.pharaoh.anims.play("jumpRightPCicle", true);
-            var x = (this.m.mummy.x + this.p.pharaoh.x) / 2;
-            var y = this.p.pharaoh.y - 100;
-
-            this.hearts = this.add.sprite(x, y, 'love');
-            this.hearts.anims.play("loving", true);
+            
 
             this.time.addEvent({
                 delay: 5000,
@@ -738,6 +741,8 @@ offline.stopLove = function(){
     this.hearts.anims.stop();
     this.hearts.destroy();
 }
+
+
 
 offline.startGameOver = function(){
     this.scene.start(gameover);

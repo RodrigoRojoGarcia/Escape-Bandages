@@ -48,16 +48,21 @@ submenu.create = function(){
 	})
 	this.blv1.show();
 	//level 2
-	this.blv2 =  new UIButton(this, 1150, 550, 'lv2', function(){
-		//cambio de escena al juego offline2
-		submenu.scene.start(level2);
-		submenu.scene.launch(heart, level2);
-	}, function(){
-		submenu.blv2.amplifyScale(0.15, 0.15)
-	}, function(){
-		submenu.blv2.reduceScale(0.15, 0.15)
-	})
-	this.blv2.show();
+	if(lvl1passed){
+		this.blv2 =  new UIButton(this, 1150, 550, 'lv2', function(){
+			//cambio de escena al juego offline2
+			submenu.scene.start(level2);
+			submenu.scene.launch(heart, level2);
+		}, function(){
+			submenu.blv2.amplifyScale(0.15, 0.15)
+		}, function(){
+			submenu.blv2.reduceScale(0.15, 0.15)
+		})
+		this.blv2.show();
+	}else{
+		this.add.image(1150, 550, 'lv2locked');
+	}
+	
 
 //////////////////////BOTON CONTROLES////////////////////////////////
 	this.bcon = new UIButton(this, 1500, 950, 'controls', function(){

@@ -29,4 +29,5 @@ var game = new Phaser.Game(config);
 var fx;
 var currentScene;
 var loaded = false;
+var lvl1passed = false;
 	

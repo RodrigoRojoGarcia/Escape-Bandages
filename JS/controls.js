@@ -30,7 +30,7 @@ controls.create = function(){
 
 ////////////////////Victoria Mummy//////////////////////////////////
 	var mumV = this.add.sprite(640, 300,'Mummy');
-
+	mumV.anims.play('stayRightM', true);
 	//letras wasd
 	var lwasd = this.add.sprite(1040, 300, 'wasd');
 	//letras space
@@ -38,6 +38,7 @@ controls.create = function(){
 
 ////////////////////Victoria Pharaoh//////////////////////////////////
 	var pV = this.add.sprite(640, 600,'Pharaoh');
+	pV.anims.play('stayRightP', true);
 
 	//flechas
 	var lflechas = this.add.sprite(1040, 600, 'flechas');
@@ -53,7 +54,7 @@ controls.create = function(){
 
 //////////////////////BOTON BACK////////////////////////////////
 	this.bback = new UIButton(this, 300, 950, 'back1', function(){
-		controls.scene.start(menu)
+		controls.scene.start(submenu);
 	}, function(){
 		controls.bback.amplifyScale(0.15, 0.15)
 	}, function(){

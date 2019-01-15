@@ -106,7 +106,7 @@ level2.create = function(){
     }
     
     this.scorpionNest = new Nest(this, spawnPointScorpionNest.x + 60, spawnPointScorpionNest.y + 60, 'nest', 'scorpion', 0.04, 0.4, 7000, spawnZoneScorpion, 8);
-    this.scorpionNest2 = new Nest(this, spawnPointScorpionNest2.x + 60, spawnPointScorpionNest2.y + 60, 'nest', 'scorpion', 0.04, 0.4, 1000, spawnZoneScorpion2, 8);
+    this.scorpionNest2 = new Nest(this, spawnPointScorpionNest2.x + 60, spawnPointScorpionNest2.y + 60, 'nest', 'scorpion', 0.04, 0.4, 2000, spawnZoneScorpion2, 8);
 
     this.nests[0] = this.scorpionNest;
     this.nests[1] = this.scorpionNest2;

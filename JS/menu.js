@@ -38,6 +38,7 @@ menu.preload = function(){
 	//botones levels
 	this.load.image('lv1', 'Sprites/lv1.png');
 	this.load.image('lv2', 'Sprites/lv2.png');
+	this.load.image('lv2locked', 'Sprites/lv2locked.png');
 	//boton controls
 	this.load.image('controls', 'Sprites/controls.png');
 	//boton volver
@@ -167,6 +168,12 @@ menu.create = function(){
 	anims.create({
 		key: 'jumpRightMCicle',
 		frames: anims.generateFrameNumbers('Mummy', {start: 13, end: 15}),
+		frameRate: 5,
+		repeat: -1
+	})
+	anims.create({
+		key: 'jumpMCicle',
+		frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
 		frameRate: 5,
 		repeat: -1
 	})
