@@ -36,6 +36,7 @@ submenu.create = function(){
 
 ////////////////////////BOTONES//////////////////////////////////
 /////////////////////BOTONES LEVELS//////////////////////////////
+	//level 1
 	this.blv1 =  new UIButton(this, 750, 550, 'lv1', function(){
 		//cambio de escena al juego offline
 		submenu.scene.start(offline);
@@ -45,8 +46,8 @@ submenu.create = function(){
 	}, function(){
 		submenu.blv1.reduceScale(0.15, 0.15)
 	})
-	this.blv1.show()
-
+	this.blv1.show();
+	//level 2
 	this.blv2 =  new UIButton(this, 1150, 550, 'lv2', function(){
 		//cambio de escena al juego offline2
 		submenu.scene.start(level2);
@@ -56,8 +57,18 @@ submenu.create = function(){
 	}, function(){
 		submenu.blv2.reduceScale(0.15, 0.15)
 	})
-	this.blv2.show()
+	this.blv2.show();
 
+//////////////////////BOTON CONTROLES////////////////////////////////
+	this.bcon = new UIButton(this, 1500, 950, 'controls', function(){
+		submenu.scene.start(controls)
+	}, function(){
+		submenu.bcon.amplifyScale(0.15, 0.15)
+	}, function(){
+		submenu.bcon.reduceScale(0.15, 0.15)
+	})
+	this.bcon.show();
+	this.bcon.reduceScale(0.4, 0.4);
 	
 //////////////////////BOTON BACK////////////////////////////////
 	this.bback = new UIButton(this, 300, 950, 'back1', function(){
@@ -67,6 +78,6 @@ submenu.create = function(){
 	}, function(){
 		submenu.bback.reduceScale(0.15, 0.15)
 	})
-	this.bback.show()
-	this.bback.reduceScale(0.4, 0.4)
+	this.bback.show();
+	this.bback.reduceScale(0.4, 0.4);
 }

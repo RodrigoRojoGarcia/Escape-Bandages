@@ -15,6 +15,14 @@ menu.preload = function(){
 	this.load.image('victorylevel','Sprites/victory_level.png')
 	//Victory
 	this.load.image('victory','Sprites/victory.png')
+	//wasd
+	this.load.image('wasd','Sprites/wasd.png')
+	//space
+	this.load.image('space','Sprites/space.png')
+	//flechas
+	this.load.image('flechas','Sprites/flechas.png')
+	//flecha
+	this.load.image('flecha','Sprites/flecha.png')
 	//////////////////////////////BOTONES//////////////////////////////
 	//botones volumenes
 	this.load.image('novolumen','Sprites/novolumen.png');
@@ -26,6 +34,8 @@ menu.preload = function(){
 	//botones levels
 	this.load.image('lv1', 'Sprites/lv1.png');
 	this.load.image('lv2', 'Sprites/lv2.png');
+	//boton controls
+	this.load.image('controls', 'Sprites/controls.png');
 	//boton volver
 	this.load.image('back', 'Sprites/back.png');
 	//boton back
