@@ -47,11 +47,11 @@ controls.create = function(){
 
 //////////////////////BOTON BACK////////////////////////////////
 	this.bback = new UIButton(this, 300, 950, 'back1', function(){
-		submenu.scene.start(menu)
+		controls.scene.start(menu)
 	}, function(){
-		submenu.bback.amplifyScale(0.15, 0.15)
+		controls.bback.amplifyScale(0.15, 0.15)
 	}, function(){
-		submenu.bback.reduceScale(0.15, 0.15)
+		controls.bback.reduceScale(0.15, 0.15)
 	})
 	this.bback.show();
 	this.bback.reduceScale(0.4, 0.4);
