@@ -1,5 +1,9 @@
 ESCAPE BANDAGES
 =======================================================
+## FASE 5
+Kongregate: https://www.kongregate.com/games/tricky7377/escape-bandages
+New Grounds: https://www.newgrounds.com/portal/view/724632?updated=1547529437
+itch.io: https://ernestojm.itch.io/escape-bandages
 
 - Ernesto Jiménez Martínez 	e.jimenezmar.2016@alumnos.urjc.es //	ernesjimenez@hotmail.com // ErnestooJM
 - Irene Núñez Carranza 		i.nunez.2016@alumnos.urjc.es 	//	inmusic.nazul@gmail.com // Eneri21
