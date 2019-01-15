@@ -84,7 +84,7 @@ function Mummy(scene, x, y){
 							
 							//Al cabo de un tiempo llamamos a invulnerable
 							scene.time.addEvent({
-								delay: 300,
+								delay: 2000,
 								callback: this.invulnerable,
 								callbackScope: scene
 							});
@@ -110,7 +110,7 @@ function Mummy(scene, x, y){
 								
 								//Al cabo de un tiempo llamamos a invulnerable
 								scene.time.addEvent({
-									delay: 300,
+									delay: 2000,
 									callback: this.invulnerable,
 									callbackScope: scene
 								});

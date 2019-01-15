@@ -95,6 +95,8 @@ menu.preload = function(){
     this.load.spritesheet("sand","Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
     //PUERTA
     this.load.image("door","Sprites/door.png");
+    //PUERTA GRIS
+    this.load.image("stoneDoor","Sprites/stone_door.png");
     //CAJA
     this.load.image("box","Sprites/caja0.1.png");
     //CUERDA
@@ -143,7 +145,7 @@ menu.create = function(){
 	})
 	anims.create({
 		key: 'jumpRightMCicle',
-		frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
+		frames: anims.generateFrameNumbers('Mummy', {start: 13, end: 15}),
 		frameRate: 5,
 		repeat: -1
 	})
