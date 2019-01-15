@@ -18,6 +18,10 @@ restart.create = function(){
     this.yes = new UIButton(this, 650, 800, 'yes', function(){
         restart.active = false;
         
+        for(var i = 0; i < currentScene.nests.length; i++){
+            currentScene.nests[i].deactivate();
+        }
+        
         currentScene.scene.restart();
         currentScene.scene.stop(heart);
         currentScene.scene.launch(heart, currentScene);

@@ -102,7 +102,7 @@ menu.preload = function(){
     //TRIPWIRE
     this.load.image("tripwire", "Sprites/tripwire.png");
     //CORAZONCITOS
-    this.load.spritesheet('love', 'Sprites/lovehearts.png',{frameWidth: 175, frameHeight: 300});
+    this.load.spritesheet('love', 'Sprites/lovehearts.png',{frameWidth: 70, frameHeight: 120});
     //PLATAFORMA
     this.load.image('platform', 'Sprites/platform.png');
     //NIDO
@@ -191,7 +191,7 @@ menu.create = function(){
 	//CORAZONES
 	anims.create({
 		key: 'loving',
-		frames: anims.generateFrameNumbers('love', {start: 0, end: 2}),
+		frames: anims.generateFrameNumbers('love', {start: 0, end: 3}),
 		frameRate: 5,
 		repeat: -1
 	});

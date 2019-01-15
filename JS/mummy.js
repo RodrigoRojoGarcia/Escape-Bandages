@@ -94,6 +94,34 @@ function Mummy(scene, x, y){
 					}	
 				}
 			}
+			for(var i=0;i<scene.nests.length;i++){
+				for(var j = 0; j < scene.nests[i].enemies.length; j++){
+					if(!scene.nests[i].enemies[j].dead){
+						//Si el bodyB es el shek
+						if(bodyB === scene.nests[i].enemies[j].getSprite().body.parts[1]){
+							//Si no estamos en periodo de invulnerabilidad
+							if(!this.gettingHit){
+								if(!this.dead){
+									//Nos golpean
+									this.getHit();
+									//Nos ponemos rojos
+									scene.m.mummy.setTint(0xff3333)
+								}
+								
+								//Al cabo de un tiempo llamamos a invulnerable
+								scene.time.addEvent({
+									delay: 300,
+									callback: this.invulnerable,
+									callbackScope: scene
+								});
+							}else{
+								return;
+							}
+						}	
+					}
+				}
+				
+			}
 			
 
 
