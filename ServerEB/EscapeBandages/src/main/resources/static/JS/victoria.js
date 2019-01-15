@@ -1,13 +1,9 @@
 var victoria = new Phaser.Scene('Victoria');
 
 victoria.preload = function(){
-	//carga sprites mummy
-	this.load.image('bgV','Sprites/bgmenu.png');
-    this.load.spritesheet('Mummyv','Sprites/mummySprites2.png', {frameWidth: 100, frameHeight: 150});
-    this.load.spritesheet("Pharaohv","Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
-    this.load.image('victoria','Sprites/victoria.png');
-	this.load.image('backI','Sprites/back.png');
-	this.load.image('reinicio','Sprites/reiniciar.png');
+
+
+   
 }
 
 victoria.create = function(){
@@ -15,30 +11,20 @@ victoria.create = function(){
 
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	//background
-	var bgV = this.add.image(0, 0, 'bgV').setOrigin(0);
+	var bgV = this.add.image(0, 0, 'bgmenu').setOrigin(0);
 	//letras victoria
 	var vic = this.add.sprite(960, 540, 'victoria');
 
 ////////////////////Victoria Mummy//////////////////////////////////
-	var mumV = this.add.sprite(1300, 400,'Mummyv');
+	var mumV = this.add.sprite(1300, 400,'Mummy');
 	//Animación salto victoria
-    this.anims.create({
-        key: 'mvAnim',
-        frames: this.anims.generateFrameNumbers('Mummyv',{start: 13, end: 15}),
-        frameRate: 5,
-        repeat: -1
-    });
+    
     mumV.anims.play('mvAnim');
 
 ////////////////////Victoria Pharaoh//////////////////////////////////
-	var pV = this.add.sprite(640, 400,'Pharaohv');
+	var pV = this.add.sprite(640, 400,'Pharaoh');
 	//Animación salto victoria
-    this.anims.create({
-        key: 'pvAnim',
-        frames: this.anims.generateFrameNumbers('Pharaohv',{start: 8, end: 10}),
-        frameRate: 3,
-        repeat: -1
-    });
+    
     pV.anims.play('pvAnim');
 
 //////////////////////BOTON REINICIAR///////////////////////////
@@ -61,6 +47,7 @@ victoria.create = function(){
 	//accion al hacer click sobre el boton Reiniciar
 	this.brei.on('pointerdown', function(){
 		if(gameState == 1){
+			victoria.scene.stop(victoria)
 			victoria.scene.start(offline);
 			victoria.scene.launch(heart, offline);
 		}else if(gameState == 2){
@@ -70,7 +57,7 @@ victoria.create = function(){
 	})
 /////////////////BOTON VOLVER//////////////////
 	//cargar boton Volver
-	this.binit = this.add.sprite(960, 950, 'backI').setInteractive();
+	this.binit = this.add.sprite(960, 950, 'back').setInteractive();
 	this.binit.scaleX -= 0.4;
 	this.binit.scaleY -= 0.4;
 	//hacer boton invisible
@@ -89,6 +76,7 @@ victoria.create = function(){
 	this.binit.on('pointerdown', function(){
 		//cambio de escena a menu
 		if(gameState == 1){
+			victoria.scene.stop(victoria)
 			victoria.scene.start(submenu);
 		}
 		else if(gameState == 2){
@@ -104,8 +92,10 @@ victoria.update = function(){
 	if(onRestart){
 		if(myUser.character == 1){
 			sendRestart(onRestart, onOut);
+		}else if(myUser.character == 2){
+			sendRestart2(onRestart, onOut)
 		}
-		
+		victoria.scene.stop(victoria)
 		victoria.scene.start(onlineG);
 		victoria.scene.launch(heart, onlineG);
 		
@@ -113,8 +103,11 @@ victoria.update = function(){
 	if(onOut){
 		if(myUser.character == 1){
 			sendRestart(onRestart, onOut);
+		}else if(myUser.character == 2){
+			sendRestart2(onRestart, onOut)
 		}
 		returnToLobby(myLobby.getId(), function(id){
+			victoria.scene.stop(victoria)
 			victoria.scene.start(characterSelection);
 			victoria.scene.stop(chatOnline);
 		})

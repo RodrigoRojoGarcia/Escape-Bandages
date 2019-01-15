@@ -3,33 +3,21 @@ var lobby = new Phaser.Scene('Lobby');
 
 lobby.preload = function(){
 	//carga de imagenes
-	//titulo
-	this.load.image('lobbytxt', 'Sprites/lobby.png');
-	//botones
-	this.load.image('backlob', 'Sprites/back.png');
-	this.load.image('privado', 'Sprites/privado.png');
-	this.load.image('aleatorio', 'Sprites/aleatorio.png');
-	this.load.image('buscar', 'Sprites/buscar.png');
-	this.load.image('desconectar', 'Sprites/desconectar.png');
-	//font
-	this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
-	this.load.spritesheet("input", "Sprites/manualInput380.png", {frameWidth: 380, frameHeight: 50});
-	///////////////////////////////////MAPA///////////////////////////////////
-    //tileset
-    this.load.image("tilelob", "Sprites/tileset.png");
-    //tilemap
-    this.load.tilemapTiledJSON("backgroundlob", "background.json");
-    //ANTORCHAS
-    this.load.spritesheet("torchl","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+	
+
+	
+	
+   
+   
 }
 
 lobby.create = function(){
 	myClient.setScene(this);
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
-	const backg = this.make.tilemap({key:"backgroundlob", tileWidth: 120, tileHeight: 120});
+	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
-	const tiles = backg.addTilesetImage("tileset","tilelob");
+	const tiles = backg.addTilesetImage("tileset","tile");
     //Extraemos las capas del TILEMAP
     const bg= backg.createDynamicLayer("Background", tiles, 0,0);
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
@@ -44,20 +32,14 @@ lobby.create = function(){
 	var torchesM2 = [];
     //Creamos un array de antorchas y les atribuimos un sprite de Phaser, que no de Matter
     for(var i = 0; i < 2; i++){
-        torchesM.push(this.add.sprite(225 + 1400*i,250,'torchl'));
-        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torchl'));
+        torchesM.push(this.add.sprite(225 + 1400*i,250,'torch'));
+        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torch'));
     };
-    //Animación de las antorchas
-    this.anims.create({
-        key: 'torchlAnim',
-        frames: this.anims.generateFrameNumbers('torchl',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
+    
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<2;i++){
-        torchesM[i].anims.play('torchlAnim');
-        torchesM2[i].anims.play('torchlAnim');
+        torchesM[i].anims.play('torchAnim');
+        torchesM2[i].anims.play('torchAnim');
     };
 
 
@@ -65,12 +47,7 @@ lobby.create = function(){
 	this.lobtxt = this.add.sprite(960, 200, 'lobbytxt');
 
 	//////////////////////////////////ANIMACIONES///////////////////////////////////////
-	this.anims.create({
-	    key: 'manualInput',
-	    frames: this.anims.generateFrameNumbers('input',{start: 0, end: 1}),
-	    frameRate: 5,
-	    repeat: -1
-	})
+	
 
 //////////////////////////////////TEXTO CHAT///////////////////////////////////////
 	//boolean que indica cuando esta escribiendo
@@ -100,7 +77,7 @@ lobby.create = function(){
     this.backSpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACEBACK);
 
     this.input.keyboard.on('keydown', function (event) {
-        if (event.keyCode === 8 && textEntry.text.length > 0 && lobby.typing)
+        if (event.keyCode === 8 && lobby.textEntry.text.length > 0 && lobby.typing)
         {
             lobby.textEntry.text = lobby.textEntry.text.substr(0, lobby.textEntry.text.length - 1);
         }

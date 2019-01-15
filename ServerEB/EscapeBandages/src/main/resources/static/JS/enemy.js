@@ -119,21 +119,8 @@ function Enemy(scene, x, y){
 		this.create = function(){
 				
 	///////////////////////////////////ANIMATIONS///////////////////////////////////
-			const anims = scene.anims;
-			//Animación a la derecha
-			anims.create({
-				key: 'rightS',
-				frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
-				frameRate: 10,
-				repeat: -1
-			});
-			//Quieto mirando a la derecha
-			anims.create({
-				key: 'stayRightS',
-				frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
-				frameRate: 5,
-				repeat: -1
-			});
+
+			
 		}//FIN CREATE
 
 	///////////////////////////////////UPDATE///////////////////////////////////
@@ -381,21 +368,8 @@ function Enemy(scene, x, y){
 		this.create = function(){
 				
 	///////////////////////////////////ANIMATIONS///////////////////////////////////
-			const anims = scene.anims;
-			//Animación a la derecha
-			anims.create({
-				key: 'rightS',
-				frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
-				frameRate: 10,
-				repeat: -1
-			});
-			//Quieto mirando a la derecha
-			anims.create({
-				key: 'stayRightS',
-				frames: anims.generateFrameNumbers('snake', {start: 0, end: 7}),
-				frameRate: 5,
-				repeat: -1
-			});
+
+			
 		}//FIN CREATE
 
 	///////////////////////////////////UPDATE///////////////////////////////////

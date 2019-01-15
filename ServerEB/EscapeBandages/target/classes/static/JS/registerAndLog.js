@@ -4,23 +4,15 @@ var online = new Phaser.Scene('Online');
 online.preload = function(){
 	//cargar imagenes
 	//volver
-	this.load.image('backO','Sprites/back.png');
-	//ANTORCHAS
-    this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+	
     //boton login
-    this.load.image('login', 'Sprites/login.png');
+   
   //boton registrar
-    this.load.image('register', 'Sprites/register.png');
-    //insertamos font externa
-    this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
-    this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
+    
+    
 ///////////////////////////////////MAPA///////////////////////////////////
-    //tileset
-    this.load.image("tileO", "Sprites/tileset.png");
-    //tilemap
-    this.load.tilemapTiledJSON("backgroundO", "background.json");
-    //Input
-    this.load.spritesheet("input", "Sprites/manualInput.png", {frameWidth: 420, frameHeight: 50});
+   
+    
 }
 
 online.create = function(){
@@ -30,9 +22,9 @@ online.create = function(){
 
 	///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
-	const backg = this.make.tilemap({key:"backgroundO", tileWidth: 120, tileHeight: 120});
+	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
-	const tiles = backg.addTilesetImage("tileset","tileO");
+	const tiles = backg.addTilesetImage("tileset","tile");
     //Extraemos las capas del TILEMAP
     const bg = backg.createDynamicLayer("Background", tiles, 0,0);
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
@@ -42,23 +34,13 @@ online.create = function(){
 	var torchesM2 = [];
     //Creamos un array de antorchas y les atribuimos un sprite de Phaser, que no de Matter
     for(var i = 0; i < 2; i++){
-        torchesM.push(this.add.sprite(225 + 1400*i,250,'torchO'));
-        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torchO'));
+        torchesM.push(this.add.sprite(225 + 1400*i,250,'torch'));
+        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torch'));
     };
     //Animación de las antorchas
-    this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torchO',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
+    
     //Animación del input
-    this.anims.create({
-    	key: 'manualInput',
-    	frames: this.anims.generateFrameNumbers('input',{start: 0, end: 1}),
-    	frameRate: 5,
-    	repeat: -1
-    })
+   
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<2;i++){
         torchesM[i].anims.play('torchAnim');
@@ -198,7 +180,7 @@ online.create = function(){
 //////////////////////////BOTONES///////////////////////////////////
 	//////////////////////BOTON VOLVER///////////////////////////////
 	//cargar boton Salir
-	this.bback = this.add.sprite(300, 950, 'backO').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
+	this.bback = this.add.sprite(300, 950, 'back').setInteractive({ cursor: 'url(Sprites/cursor3.png), pointer' });
 	this.bback.scaleX -= 0.4;
 	this.bback.scaleY -= 0.4;
 	//hacer boton visible

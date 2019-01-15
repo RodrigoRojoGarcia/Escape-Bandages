@@ -131,7 +131,7 @@ public class UsersController {
 			if(users.get(userName)!=null) {
 				//Cambiar su estado a OFFLINE
 				users.get(userName).setOnline(false);
-				
+				users.get(userName).setReady(false);
 				LobbyController.showDisconnected(userName);
 				//Por todos los Lobbies
 				for(long id : LobbyController.getLobbies().keySet()) {

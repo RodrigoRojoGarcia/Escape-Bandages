@@ -202,43 +202,8 @@ function Pharaoh(scene, x, y){
 
 	///////////////////////////////////CREATE///////////////////////////////////	
 		this.create = function(){
-	///////////////////////////////////ANIMATIONS///////////////////////////////////
-			const anims = scene.anims;
-			//Animación a la derecha
-			anims.create({
-				key: 'rightP',
-				frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
-				frameRate: 5,
-				repeat: -1
-			});
-			//Quieto mirando a la derecha
-			anims.create({
-				key: 'stayRightP',
-				frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
-				frameRate: 5,
-				repeat: -1
-			});
-			//Saltando a la derecha
-			anims.create({
-				key: 'jumpRightP',
-				frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
-				frameRate: 10,
-				repeat: 0
-			});
-			//Fuego llano
-			anims.create({
-				key: 'planeFire',
-				frames: anims.generateFrameNumbers('Fire', {start: 0, end: 1}),
-				frameRate: 10,
-				repeat: -1
-			});
-			//Llamarada
-			anims.create({
-				key: 'endFire',
-				frames: anims.generateFrameNumbers('Fire', {start: 2, end: 3}),
-				frameRate: 10,
-				repeat: -1
-			});
+
+			
 		}//FIN CREATE
 
 	///////////////////////////////////UPDATE///////////////////////////////////
@@ -703,42 +668,7 @@ function Pharaoh(scene, x, y){
 	///////////////////////////////////CREATE///////////////////////////////////	
 		this.create = function(){
 	///////////////////////////////////ANIMATIONS///////////////////////////////////
-			const anims = scene.anims;
-			//Animación a la derecha
-			anims.create({
-				key: 'rightP',
-				frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
-				frameRate: 5,
-				repeat: -1
-			});
-			//Quieto mirando a la derecha
-			anims.create({
-				key: 'stayRightP',
-				frames: anims.generateFrameNumbers('Pharaoh', {start: 0, end: 3}),
-				frameRate: 5,
-				repeat: -1
-			});
-			//Saltando a la derecha
-			anims.create({
-				key: 'jumpRightP',
-				frames: anims.generateFrameNumbers('Pharaoh', {start: 8, end: 10}),
-				frameRate: 10,
-				repeat: 0
-			});
-			//Fuego llano
-			anims.create({
-				key: 'planeFire',
-				frames: anims.generateFrameNumbers('Fire', {start: 0, end: 1}),
-				frameRate: 10,
-				repeat: -1
-			});
-			//Llamarada
-			anims.create({
-				key: 'endFire',
-				frames: anims.generateFrameNumbers('Fire', {start: 2, end: 3}),
-				frameRate: 10,
-				repeat: -1
-			});
+			
 		}//FIN CREATE
 
 	///////////////////////////////////UPDATE///////////////////////////////////

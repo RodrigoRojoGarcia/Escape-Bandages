@@ -3,10 +3,7 @@ var heart = new Phaser.Scene('Heart')
 
 heart.preload = function(){
 	 //CORAZÓN
-	this.load.image("heart","Sprites/heart.png");
-	this.load.image("hudMummy", "Sprites/hudMummy.png");
-	this.load.image("hudPharaoh", "Sprites/hudPharaoh.png");
-	this.load.image("hudOffline", "Sprites/hudOffline.png");
+
 }
 heart.create = function(){
 	if(gameState == 1){

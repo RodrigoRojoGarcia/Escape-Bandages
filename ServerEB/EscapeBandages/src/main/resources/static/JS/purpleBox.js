@@ -122,14 +122,8 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 
 	///////////////////////////////////ANIMATIONS///////////////////////////////////
 			//Animación de la caja cuando se vuelve morada
-			const anims = scene.anims;
-			//Animation to the right
-			anims.create({
-				key: k,
-				frames: anims.generateFrameNumbers(sprite, {start: 1, end: 2}),
-				frameRate: 5,
-				repeat: -1
-			});
+		
+			
 		}//FIN CREATE
 	///////////////////////////////////UPDATE///////////////////////////////////
 		this.update = function(){
@@ -149,7 +143,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 			//Empieza la animación de la caja y se puede arrastrar cuando el faraón esta cerca de ella (izquierda o derecha). 
 			if (playerX < this.purpleBox.x && distance > 0 && distance < 300 || playerX > this.purpleBox.x && distance < 0 && distance > -300)
 			{
-				this.purpleBox.anims.play(k, true);
+				this.purpleBox.anims.play('box1', true);
 				this.move = true;
 			}else{
 				this.purpleBox.setTexture(sprite, 0);
@@ -259,14 +253,8 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 
 	///////////////////////////////////ANIMATIONS///////////////////////////////////
 			//Animación de la caja cuando se vuelve morada
-			const anims = scene.anims;
-			//Animation to the right
-			anims.create({
-				key: k,
-				frames: anims.generateFrameNumbers(sprite, {start: 1, end: 2}),
-				frameRate: 5,
-				repeat: -1
-			});
+
+	
 		}//FIN CREATE
 	///////////////////////////////////UPDATE///////////////////////////////////
 		this.update = function(){
@@ -286,7 +274,7 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 			//Empieza la animación de la caja y se puede arrastrar cuando el faraón esta cerca de ella (izquierda o derecha). 
 			if (playerX < this.purpleBox.x && distance > 0 && distance < 300 || playerX > this.purpleBox.x  && distance < 0 && distance > -300)
 			{
-				this.purpleBox.anims.play(k, true);
+				this.purpleBox.anims.play('box1', true);
 				this.move = true;
 			}else{
 				this.purpleBox.setTexture(sprite, 0);

@@ -3,41 +3,7 @@ var onlineG = new Phaser.Scene('OnlineG');
 
 
 onlineG.preload = function(){
-///////////////////////////////////MAPA///////////////////////////////////
-    //Carga del tileset
-    this.load.image("tile", "Sprites/tileset.png");
-    //Carga del tilemap
-    this.load.tilemapTiledJSON("map", "map.json");
 
-///////////////////////////////////SPRITESHEETS///////////////////////////////////
-    //MOMIA
-    this.load.spritesheet("Mummy","Sprites/mummySprites2.png", {frameWidth: 100, frameHeight: 150});
-    //FARAÓN
-    this.load.spritesheet("Pharaoh","Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
-    //ANTORCHAS
-    this.load.spritesheet("torch","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
-    //ARENA
-    this.load.spritesheet("sand","Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
-    //SHEK
-    this.load.spritesheet("snake","Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
-    //BOTÓN
-    this.load.spritesheet("button","Sprites/button.png",{frameWidth: 120, frameHeight: 30});
-    //ANUBIS
-    this.load.spritesheet("Anubis","Sprites/anubisSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
-    //BASTET
-    this.load.spritesheet("Bastet","Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
-    //CAJA CON EFECTO
-    this.load.spritesheet("PurpleBox1", "Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
-    //FUEGO DEL FARAÓN
-    this.load.spritesheet("Fire", "Sprites/firePharaohSprites.png",{frameWidth: 125, frameHeight: 125});
-    
-///////////////////////////////////IMAGENES///////////////////////////////////
-    //PUERTA
-    this.load.image("door","Sprites/door.png");
-    //CAJA
-    this.load.image("box","Sprites/caja0.1.png");
-    //CUERDA
-    this.load.image("rope", "Sprites/rope.png");
 }//FIN DEL PRELOAD
 
 onlineG.create = function(){
@@ -107,6 +73,7 @@ onlineG.create = function(){
             			onlineG.scene.start(characterSelection);
                         onlineG.scene.stop(heart);
                         onlineG.scene.stop(pause);
+                        onlineG.scene.stop(onlineG)
             	        
             	        clearInterval(onlineG.interval1);
             	        clearInterval(onlineG.interval2);
@@ -231,13 +198,7 @@ onlineG.create = function(){
         torches.push(this.add.sprite(225 + 480*i,215,'torch'));
 
     };
-    //Animación de las antorchas
-    this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
+    
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<4;i++){
         torches[i].anims.play('torchAnim');
@@ -721,7 +682,7 @@ onlineG.update = function(){
         
         p.destroy();
         m.destroy();
-
+        onlineG.scene.stop(onlineG)
         onlineG.scene.start(gameover);
         onlineG.scene.stop(heart);
 
@@ -881,11 +842,11 @@ onlineG.update = function(){
         else if(myUser.character == 2){
             sendRestart2(onRestart);
         }
-		
-        onlineG.scene.restart();
+		onlineG.scene.stop(onlineG)
+        onlineG.scene.start(onlineG);
         onlineG.scene.stop(heart);
         onlineG.scene.launch(heart, onlineG);
-        //onlineG.scene.launch(heart, onlineG);
+       
         
         clearInterval(onlineG.interval1);
         clearInterval(onlineG.interval2);
@@ -894,10 +855,13 @@ onlineG.update = function(){
 	}
 	if(onOut){
 		removeUserFromLobby(myLobby.getId(), myUser.userName)
+			
 		
+			onlineG.scene.stop(heart);
+            onlineG.scene.stop(chatOnline)
+            onlineG.scene.stop(onlineG)
 			onlineG.scene.start(lobby);
-            onlineG.scene.stop(heart);
-            onlineG.scene.stop(pause);
+            
 	        
 	        clearInterval(onlineG.interval1);
 	        clearInterval(onlineG.interval2);
@@ -914,6 +878,7 @@ onlineG.update = function(){
 }//FINAL UPDATE
 
 onlineG.sendVictory = function(){
+	onlineG.scene.stop(onlineG)
     onlineG.scene.start(victoria);
     onlineG.scene.stop(heart);
     clearInterval(this.interval1);

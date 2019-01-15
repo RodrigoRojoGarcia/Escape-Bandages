@@ -69,7 +69,7 @@ public class LobbyController {
 			}
 			if(lobbies.get(id).getUser2()!=null) {
 				if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
-					if(ready) {
+					if(!ready) {
 						Chat chat = new Chat(userName+ " ya no se encuentra preparado.","SERVER");
 						lobbies.get(id).addChat(chat);
 					}else {
@@ -237,31 +237,37 @@ public class LobbyController {
 		@PutMapping(value="/ready/{id}/{userName}/{ready}")
 		public ResponseEntity<User> userSetReady(@PathVariable long id, @PathVariable String userName, @PathVariable boolean ready){
 			if(lobbies.get(id)!=null) {
-				if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
-					lobbies.get(id).getUser1().setReady(ready);
-					if(UsersController.getUsers().get(userName)!=null) {
-						UsersController.getUsers().get(userName).setReady(ready);
-						
-						showReady(userName, id, ready);
-						
-						return new ResponseEntity<>(UsersController.getUsers().get(userName),HttpStatus.OK);
-					}else {
-						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				if(lobbies.get(id).getUser1()!=null) {
+					if(lobbies.get(id).getUser1().getUserName().equals(userName)) {
+						lobbies.get(id).getUser1().setReady(ready);
+						if(UsersController.getUsers().get(userName)!=null) {
+							UsersController.getUsers().get(userName).setReady(ready);
+							
+							showReady(userName, id, ready);
+							
+							return new ResponseEntity<>(UsersController.getUsers().get(userName),HttpStatus.OK);
+						}else {
+							return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+						}
 					}
-				}else if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
-					lobbies.get(id).getUser2().setReady(ready);
-					if(UsersController.getUsers().get(userName)!=null) {
-						UsersController.getUsers().get(userName).setReady(ready);
-						
-						showReady(userName, id, ready);
-						
-						return new ResponseEntity<>(UsersController.getUsers().get(userName),HttpStatus.OK);
-					}else {
-						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}	
+				if(lobbies.get(id).getUser2()!=null) {
+					if(lobbies.get(id).getUser2().getUserName().equals(userName)) {
+						lobbies.get(id).getUser2().setReady(ready);
+						if(UsersController.getUsers().get(userName)!=null) {
+							UsersController.getUsers().get(userName).setReady(ready);
+							
+							showReady(userName, id, ready);
+							
+							return new ResponseEntity<>(UsersController.getUsers().get(userName),HttpStatus.OK);
+						}else {
+							return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+						}
 					}
-				}else {
-					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				
+				
 			}else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -479,11 +485,17 @@ public class LobbyController {
 		
 		@PutMapping(value="/{id}")
 		public ResponseEntity<Long> returnToLobby(@PathVariable Long id) {
-			if(lobbies.containsKey(id)) {
+			if(lobbies.get(id)!=null) {
 				if(lobbies.get(id).getUser1()!=null) {
+					if(UsersController.getUsers().get(lobbies.get(id).getUser1().getUserName())!=null) {
+						UsersController.getUsers().get(lobbies.get(id).getUser1().getUserName()).setReady(false);
+					}
 					lobbies.get(id).getUser1().setReady(false);
 				}
 				if(lobbies.get(id).getUser2()!=null) {
+					if(UsersController.getUsers().get(lobbies.get(id).getUser2().getUserName())!=null) {
+						UsersController.getUsers().get(lobbies.get(id).getUser2().getUserName()).setReady(false);
+					}
 					lobbies.get(id).getUser2().setReady(false);
 				}
 				lobbies.get(id).setMummy("");
@@ -520,6 +532,10 @@ public class LobbyController {
 						showDisconnected(userName);
 						lobbies.get(id).setUser1(null);
 						lobbies.get(id).setFull(false);
+						if(UsersController.getUsers().get(userName)!=null) {
+							UsersController.getUsers().get(userName).setReady(false);
+						}
+						
 						if(lobbies.get(id).getMummy().equals(userName)){
 							lobbies.get(id).setMummy("");
 						}
@@ -537,6 +553,9 @@ public class LobbyController {
 						showDisconnected(userName);
 						lobbies.get(id).setUser2(null);
 						lobbies.get(id).setFull(false);
+						if(UsersController.getUsers().get(userName)!=null) {
+							UsersController.getUsers().get(userName).setReady(false);
+						}
 						if(lobbies.get(id).getMummy().equals(userName)){
 							lobbies.get(id).setMummy("");
 						}

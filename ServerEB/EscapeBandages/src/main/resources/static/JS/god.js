@@ -36,14 +36,8 @@ function God(scene, x, y, sprite){
 		}
 
 ///////////////////////////////////ANIMATIONS///////////////////////////////////
-		const anims = scene.anims;
-		//Quieto mirando a la derecha
-		anims.create({
-			key: k,
-			frames: anims.generateFrameNumbers(sprite, {start: 0, end: 3}),
-			frameRate: 5,
-			repeat: -1
-		});
+		
+		
 	}//FIN CREATE
 
 ///////////////////////////////////UPDATE///////////////////////////////////

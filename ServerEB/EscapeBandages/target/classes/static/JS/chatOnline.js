@@ -3,10 +3,7 @@ var chatOnline = new Phaser.Scene('ChatOnline');
 this.chats = 0;
 
 chatOnline.preload = function(){
-	this.load.image('chatBack','Sprites/chatBack.png');
-	this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
-    this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
-    this.load.spritesheet("input", "Sprites/manualInput380.png", {frameWidth: 380, frameHeight: 50});
+	
 }
 
 chatOnline.create = function(){
@@ -15,12 +12,7 @@ chatOnline.create = function(){
 	//BACKGROUND
 	this.add.image(1540 + 380/2, 0 + 1080/2, 'chatBack');
 //////////////////////////////////ANIMACIONES///////////////////////////////////////
-	this.anims.create({
-	    key: 'manualInput',
-	    frames: this.anims.generateFrameNumbers('input',{start: 0, end: 1}),
-	    frameRate: 5,
-	    repeat: -1
-	})
+	
 	
 //////////////////////////////////TEXTO CHAT///////////////////////////////////////
 	
@@ -128,7 +120,7 @@ chatOnline.write = function(){
 	
 	for(var linesNum = 0; linesNum < 19; linesNum++){
 		if(phrases[chatline]!=undefined){
-			if(phrases[chatline].sentences == 3){
+			if(phrases[chatline].sentences == 3 && linesNum <= 15){
 				textArr[linesNum].setText(phrases[chatline].sentence3);
 				linesNum++;
 				textArr[linesNum].setText(phrases[chatline].sentence2);
@@ -137,14 +129,14 @@ chatOnline.write = function(){
 				linesNum++;
 				textArr[linesNum].setText(phrases[chatline].user + '(' + phrases[chatline].character + '): ');
 				chatline++;
-			}else if(phrases[chatline].sentences == 2){
+			}else if(phrases[chatline].sentences == 2 && linesNum <= 16){
 				textArr[linesNum].setText(phrases[chatline].sentence2);
 				linesNum++;
 				textArr[linesNum].setText(phrases[chatline].sentence1);
 				linesNum++;
 				textArr[linesNum].setText(phrases[chatline].user + '(' + phrases[chatline].character + '): ');
 				chatline++;
-			}else if(phrases[chatline].sentences == 1){
+			}else if(phrases[chatline].sentences == 1 && linesNum <= 17){
 				textArr[linesNum].setText(phrases[chatline].sentence1);
 				linesNum++;
 				textArr[linesNum].setText(phrases[chatline].user + '(' + phrases[chatline].character + '): ');

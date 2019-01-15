@@ -1,17 +1,7 @@
 var submenu = new Phaser.Scene('Submenu');
 
 submenu.preload = function(){
-	//carga imagenes
-	this.load.image('off', 'Sprites/offline.png');
-	this.load.image('on', 'Sprites/online.png');
-	this.load.image('back', 'Sprites/back.png');
-	///////////////////////////////////MAPA///////////////////////////////////
-    //tileset
-    this.load.image("tile", "Sprites/tileset.png");
-    //tilemap
-    this.load.tilemapTiledJSON("background", "background.json");
-    //ANTORCHAS
-    this.load.spritesheet("torch","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+	
 }
 
 submenu.create = function(){
@@ -35,13 +25,6 @@ submenu.create = function(){
         torchesM.push(this.add.sprite(225 + 1400*i,250,'torch'));
         torchesM2.push(this.add.sprite(225 + 1400*i,800,'torch'));
     };
-    //Animación de las antorchas
-    this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<2;i++){
         torchesM[i].anims.play('torchAnim');
@@ -67,6 +50,7 @@ submenu.create = function(){
 	})
 	//accion al hacer click sobre el boton Online
 	this.bon.on('pointerdown', function(){
+		submenu.scene.stop(submenu)
 		submenu.scene.start(online);
 	})
 
@@ -89,6 +73,7 @@ submenu.create = function(){
 	this.boff.on('pointerdown', function(){
 		//cambio de escena al juego offline
 		gameState = 1;
+		submenu.scene.stop(submenu)
 		submenu.scene.start(offline);
 		submenu.scene.launch(heart, offline);
 	})
@@ -113,7 +98,7 @@ submenu.create = function(){
 	//accion al hacer click sobre el boton Back
 	this.bback.on('pointerdown', function(){
 		//cambio de escena a menu
-		
+		submenu.scene.stop(submenu)
 		submenu.scene.start(menu);
 	})
 }

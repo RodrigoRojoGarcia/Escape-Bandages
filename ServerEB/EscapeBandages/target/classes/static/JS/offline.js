@@ -1,41 +1,7 @@
 var offline = new Phaser.Scene('Offline');
 
 offline.preload = function(){
-///////////////////////////////////MAPA///////////////////////////////////
-    //Carga del tileset
-    this.load.image("tile", "Sprites/tileset.png");
-    //Carga del tilemap
-    this.load.tilemapTiledJSON("map", "map.json");
 
-///////////////////////////////////SPRITESHEETS///////////////////////////////////
-    //MOMIA
-    this.load.spritesheet("Mummy","Sprites/mummySprites2.png", {frameWidth: 100, frameHeight: 150});
-    //FARAÓN
-    this.load.spritesheet("Pharaoh","Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
-    //ANTORCHAS
-    this.load.spritesheet("torch","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
-    //ARENA
-    this.load.spritesheet("sand","Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
-    //SHEK
-    this.load.spritesheet("snake","Sprites/snake_spritesheet2.png",{frameWidth: 100, frameHeight: 140});
-    //BOTÓN
-    this.load.spritesheet("button","Sprites/button.png",{frameWidth: 120, frameHeight: 30});
-    //ANUBIS
-    this.load.spritesheet("Anubis","Sprites/anubisSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
-    //BASTET
-    this.load.spritesheet("Bastet","Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
-    //CAJA CON EFECTO
-    this.load.spritesheet("PurpleBox1", "Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
-    //FUEGO DEL FARAÓN
-    this.load.spritesheet("Fire", "Sprites/firePharaohSprites.png",{frameWidth: 125, frameHeight: 125});
-    
-///////////////////////////////////IMAGENES///////////////////////////////////
-    //PUERTA
-    this.load.image("door","Sprites/door.png");
-    //CAJA
-    this.load.image("box","Sprites/caja0.1.png");
-    //CUERDA
-    this.load.image("rope", "Sprites/rope.png");
    
 }//FIN DEL PRELOAD
 
@@ -182,12 +148,7 @@ offline.create = function(){
 
     };
     //Animación de las antorchas
-    this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torch',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
+    
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<4;i++){
         torches[i].anims.play('torchAnim');
@@ -594,6 +555,7 @@ offline.update = function(){
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
 
     if(p.dead  || m.dead){
+    	this.scene.stop(offline)
 		this.scene.start(gameover);
         this.scene.stop(heart);
     }
@@ -733,6 +695,7 @@ offline.update = function(){
         
     }
     if(this.mummyVictory && this.pharaohVictory){
+    	this.scene.stop(offline)
         offline.scene.start(victoria)
         this.scene.stop(heart);
     }

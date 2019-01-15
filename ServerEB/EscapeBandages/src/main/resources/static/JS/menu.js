@@ -3,19 +3,11 @@ var menu = new Phaser.Scene('Menu');
 
 menu.preload = function(){
 	//cargar imagenes
-	//background
-	this.load.image('bgmenu','Sprites/bgmenu.png');
-	//Escape Bandages
-	this.load.image('title','Sprites/title.png');
-	//boton play
-	this.load.image('play','Sprites/play.png');
-	//botones volumenes
-	this.load.image('novolumen','Sprites/novolumen.png');
-	this.load.image('volumen','Sprites/volumen.png');
+	
+	
 	
 
-	//cargar audio
-	this.load.audio('music', 'music.mp3');
+
 }
 
 menu.create = function(){
@@ -38,6 +30,7 @@ menu.create = function(){
 	//cargar boton Play
 	this.bplay = new UIButton(this, 400, 500, 'play', function(){
 		//cambio de escena a submenu
+		menu.scene.stop(menu)
 		menu.scene.start(submenu);
 	}, function(){
 		menu.bplay.amplifyScale(0.15,0.15)

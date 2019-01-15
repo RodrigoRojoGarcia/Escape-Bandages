@@ -65,7 +65,7 @@ function Client(scene){
 			}).done(function(){
 				timeDisconnected = 0;
 			}).fail(function(){
-				if(timeDisconnected >= 16){
+				if(timeDisconnected >= 12){
 					if(!disconnected){
 						newScene.time.addEvent({
 							delay: 500,

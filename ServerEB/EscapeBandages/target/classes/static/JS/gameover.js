@@ -3,19 +3,12 @@ var gameover = new Phaser.Scene('Gameover');
 
 gameover.preload = function(){
 	//carga imagenes
-	//salir
-	this.load.image('out','Sprites/salir.png');
+
 	//reiniciar
-	this.load.image('reinicio','Sprites/reiniciar.png');
-	//game over
-	this.load.image('gameoveri','Sprites/gameoveri.png');
+
+
 	///////////////////////////////////MAPA///////////////////////////////////
-    //tileset
-    this.load.image("tileg", "Sprites/tileset.png");
-    //tilemap
-    this.load.tilemapTiledJSON("backgroundg", "background.json");
-    //ANTORCHAS
-    this.load.spritesheet("torchg","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
+    
 }
 
 gameover.create = function(){
@@ -24,9 +17,9 @@ gameover.create = function(){
 	//Puntero Default
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
     //TILEMAP
-	const backg = this.make.tilemap({key:"backgroundg", tileWidth: 120, tileHeight: 120});
+	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
-	const tiles = backg.addTilesetImage("tileset","tileg");
+	const tiles = backg.addTilesetImage("tileset","tile");
     //Extraemos las capas del TILEMAP
     const bg= backg.createDynamicLayer("Background", tiles, 0,0);
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
@@ -61,6 +54,7 @@ gameover.create = function(){
 		if(gameState == 1){
 			gameover.scene.start(offline);
 			gameover.scene.launch(heart, offline);
+			gameover.scene.stop(gameover)
 		}else if(gameState == 2){
 			
 			onRestart = true;
@@ -90,6 +84,7 @@ gameover.create = function(){
 		if(gameState == 1){
 			gameState = 0;
 			gameover.scene.start(menu);
+			gameover.scene.stop(gameover)
 		}else if(gameState == 2){
 			gameState = 0;
 			
@@ -108,7 +103,7 @@ gameover.update = function(){
 		}else if(myUser.character == 2){
 			sendRestart2(onRestart, onOut);
 		}
-		
+		gameover.scene.stop(gameover)
 		gameover.scene.start(onlineG);
 		gameover.scene.launch(heart, onlineG);
 		
@@ -120,8 +115,9 @@ gameover.update = function(){
 			sendRestart2(onRestart, onOut);
 		}
 		returnToLobby(myLobby.getId(), function(id){
+			gameover.scene.stop(gameover)
 			gameover.scene.start(characterSelection);
-			gameover.scene.stop(chatOnline);
+			
 		
 		})
 		

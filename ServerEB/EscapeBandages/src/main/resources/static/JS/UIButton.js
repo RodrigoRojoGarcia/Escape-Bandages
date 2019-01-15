@@ -1,5 +1,5 @@
 function UIButton(scene, posX, posY, sprite, onclick, over, out){
-	that = this
+	var that = this
 	this.scene = scene
 	this.posX = posX
 	this.posY = posY

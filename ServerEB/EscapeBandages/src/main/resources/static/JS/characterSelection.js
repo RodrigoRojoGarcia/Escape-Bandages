@@ -3,35 +3,10 @@ var characterSelection = new Phaser.Scene('characterSelection');
 characterSelection.preload = function(){
 	//cargar imagenes
 	//letras seleccionar personaje
-	this.load.image('select','Sprites/letras_seleccionar.png');
-	//volver
-	this.load.image('backO','Sprites/back.png');
-	this.load.bitmapFont('font1', 'Fonts/font.png', 'Fonts/font.fnt');
-    this.load.bitmapFont('font2', 'Fonts/font2.png', 'Fonts/font2.fnt');
-    
-	//letras ready
-    this.load.image('ready', 'Sprites/listo.png');
-    //checks
-    this.load.image('nocheck', 'Sprites/nocheck.png');
-    this.load.image('check', 'Sprites/check.png');
-	//ANTORCHAS
-    this.load.spritesheet("torchO","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
-    //boton eleccion momia
-    this.load.spritesheet("boton_mummy","Sprites/boton_mummy_spritesheet.png",{frameWidth: 380, frameHeight: 380});
-    this.load.image('unableMummy', 'Sprites/boton_mummy2.png');
-    //boton eleccion faraon
-    this.load.spritesheet("boton_pharaoh","Sprites/boton_pharaoh_spritesheet.png",{frameWidth: 380, frameHeight: 380});
-    this.load.image('unablePharaoh', 'Sprites/boton_pharaoh2.png');
-	//boton momia seleccionada
-	this.load.spritesheet("boton_mummySelected","Sprites/boton_mummySelected_spritesheet.png",{frameWidth: 380, frameHeight: 380});
 
-	//boton faraon seleccionado
-	this.load.spritesheet("boton_pharaohSelected","Sprites/boton_pharaohSelected_spritesheet.png",{frameWidth: 380, frameHeight: 380});
-///////////////////////////////////MAPA///////////////////////////////////
-    //tileset
-    this.load.image("tileO", "Sprites/tileset.png");
-    //tilemap
-    this.load.tilemapTiledJSON("backgroundO", "background.json");
+    
+    
+
 }
 
 
@@ -63,9 +38,9 @@ characterSelection.create = function(){
 	
 ///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
-	const backg = this.make.tilemap({key:"backgroundO", tileWidth: 120, tileHeight: 120});
+	const backg = this.make.tilemap({key:"background", tileWidth: 120, tileHeight: 120});
     //Le añadimos el TILESET al TILEMAP
-	const tiles = backg.addTilesetImage("tileset","tileO");
+	const tiles = backg.addTilesetImage("tileset","tile");
     //Extraemos las capas del TILEMAP
     const bg= backg.createDynamicLayer("Background", tiles, 0,0);
 	const layer = backg.createDynamicLayer("Foreground",tiles,0,0);
@@ -74,17 +49,11 @@ characterSelection.create = function(){
 	var torchesM2 = [];
     //Creamos un array de antorchas y les atribuimos un sprite de Phaser, que no de Matter
     for(var i = 0; i < 2; i++){
-        torchesM.push(this.add.sprite(225 + 1400*i,250,'torchO'));
-        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torchO'));
+        torchesM.push(this.add.sprite(225 + 1400*i,250,'torch'));
+        torchesM2.push(this.add.sprite(225 + 1400*i,800,'torch'));
     };
     
-    //Animación de las antorchas
-    this.anims.create({
-        key: 'torchAnim',
-        frames: this.anims.generateFrameNumbers('torchO',{start: 0, end: 3}),
-        frameRate: 10,
-        repeat: -1
-    });
+   
     //Ponemos las animaciones en bucle, de las cuatro creadas
     for(var i = 0; i<2;i++){
         torchesM[i].anims.play('torchAnim');
@@ -113,11 +82,11 @@ characterSelection.create = function(){
 	//////////////////////BOTON VOLVER///////////////////////////////
 	//cargar boton Salir
     
-    this.bback = new UIButton(this, 300, 950, 'backO', function(){
+    this.bback = new UIButton(this, 300, 950, 'back', function(){
     	removeUserFromLobby(myLobby.getId(), myUser.getUserName());
 		myLobby.setId(0);
 		myUser.character = 0;
-		
+		characterSelection.scene.stop(characterSelection)
 		characterSelection.scene.start(lobby);
 		characterSelection.scene.stop(chatOnline);
 		clearInterval(characterSelection.goOn);
@@ -235,8 +204,9 @@ characterSelection.usersReady = function(){
 			if(!characterSelection.onStart){
 				if(both){
 					gameState = 2;
+					characterSelection.scene.stop(characterSelection)
                     characterSelection.scene.start(onlineG);
-                    characterSelection.scene.launch(heart, onlineG);
+                    onlineG.scene.launch(heart, onlineG);
                     characterSelection.onStart = true;
 					clearInterval(characterSelection.goOn);
 				}

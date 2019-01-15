@@ -11,7 +11,7 @@ public class UsersManager {
 	
 	private static boolean serverIsOn = false;
 	
-	private static int maxTimeOfInactivity = 8;
+	private static int maxTimeOfInactivity = 12;
 	
 	private static int timeUnit = 500;
 	
