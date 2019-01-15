@@ -7,6 +7,8 @@ menu.preload = function(){
 	this.load.image('gameoveri','Sprites/gameoveri.png');
 	//Escape Bandages
 	this.load.image('title','Sprites/title.png');
+	//select level
+	this.load.image('levels','Sprites/select_level.png');
 	//Victoria
 	this.load.image('victoria','Sprites/victoria.png');
 	//Level Complete
@@ -21,11 +23,12 @@ menu.preload = function(){
 	this.load.image('play','Sprites/play.png');
 	//boton play
 	this.load.image('play1','Sprites/play1.png')
-	//boton offline
-	this.load.image('off', 'Sprites/offline.png');
+	//botones levels
+	this.load.image('lv1', 'Sprites/lv1.png');
+	this.load.image('lv2', 'Sprites/lv2.png');
 	//boton volver
 	this.load.image('back', 'Sprites/back.png');
-	//boton bacl
+	//boton back
 	this.load.image('back1', 'Sprites/back1.png')
 	//boton sí
  	this.load.image('yes','Sprites/si.png');

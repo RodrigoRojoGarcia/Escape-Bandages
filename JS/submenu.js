@@ -31,22 +31,35 @@ submenu.create = function(){
     };
 
 
+    //letras select level
+    var selectlv = this.add.sprite(960, 240, 'levels');
+
 ////////////////////////BOTONES//////////////////////////////////
-/////////////////////BOTON OFFLINE//////////////////////////////
-	this.boff =  new UIButton(this, 950, 550, 'off', function(){
+/////////////////////BOTONES LEVELS//////////////////////////////
+	this.blv1 =  new UIButton(this, 750, 550, 'lv1', function(){
 		//cambio de escena al juego offline
 		submenu.scene.start(offline);
 		submenu.scene.launch(heart, offline);
 	}, function(){
-		submenu.boff.amplifyScale(0.15, 0.15)
+		submenu.blv1.amplifyScale(0.15, 0.15)
 	}, function(){
-		submenu.boff.reduceScale(0.15, 0.15)
+		submenu.blv1.reduceScale(0.15, 0.15)
 	})
-	this.boff.show()
+	this.blv1.show()
+
+	this.blv2 =  new UIButton(this, 1150, 550, 'lv2', function(){
+		//cambio de escena al juego offline2
+		submenu.scene.start(level2);
+		submenu.scene.launch(heart, level2);
+	}, function(){
+		submenu.blv2.amplifyScale(0.15, 0.15)
+	}, function(){
+		submenu.blv2.reduceScale(0.15, 0.15)
+	})
+	this.blv2.show()
 
 	
 //////////////////////BOTON BACK////////////////////////////////
-
 	this.bback = new UIButton(this, 300, 950, 'back1', function(){
 		submenu.scene.start(menu)
 	}, function(){

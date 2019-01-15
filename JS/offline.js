@@ -686,7 +686,7 @@ offline.update = function(){
 
     
     if(this.mummyVictory && this.pharaohVictory){
-        offline.scene.start(vlevel);
+        offline.scene.start(victorylevel);
         this.scene.stop(heart);
     }
 

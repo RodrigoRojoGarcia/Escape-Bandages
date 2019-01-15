@@ -1,9 +1,9 @@
-var vlevel = new Phaser.Scene('Victory Level');
+var victorylevel = new Phaser.Scene('Victory Level');
 
-vlevel.preload = function(){
+victorylevel.preload = function(){
 }
 
-vlevel.create = function(){
+victorylevel.create = function(){
 	this.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
 	///////////////////////////////////CREACIÓN MAPA///////////////////////////////////
     //TILEMAP
@@ -42,12 +42,12 @@ vlevel.create = function(){
 //////////////////////BOTON NEXT///////////////////////////
 	//cargar boton
 	this.bnext = new UIButton(this, 960, 800, 'next', function(){
-		vlevel.scene.start(level2);
-		vlevel.scene.launch(heart, level2);
+		victorylevel.scene.start(level2);
+		victorylevel.scene.launch(heart, level2);
 	}, function(){
-		vlevel.bnext.amplifyScale(0.15, 0.15)
+		victorylevel.bnext.amplifyScale(0.15, 0.15)
 	}, function(){
-		vlevel.bnext.reduceScale(0.15, 0.15)
+		victorylevel.bnext.reduceScale(0.15, 0.15)
 	})
 	this.bnext.reduceScale(0.2,0.2)
 	this.bnext.show()
@@ -55,15 +55,15 @@ vlevel.create = function(){
 /////////////////BOTON SALIR//////////////////
 	//cargar boton
 	this.binit = new UIButton(this, 960, 950, 'exit', function(){
-		vlevel.scene.start(submenu);
+		victorylevel.scene.start(submenu);
 	}, function(){
-		vlevel.binit.amplifyScale(0.15, 0.15)
+		victorylevel.binit.amplifyScale(0.15, 0.15)
 	}, function(){
-		vlevel.binit.reduceScale(0.15, 0.15)
+		victorylevel.binit.reduceScale(0.15, 0.15)
 	})
 	this.binit.reduceScale(0.4,0.4);
 	this.binit.show();
 }
 
-vlevel.update = function(){
+victorylevel.update = function(){
 }
