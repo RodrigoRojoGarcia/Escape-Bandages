@@ -232,7 +232,10 @@ function Pharaoh(scene, x, y){
 				this.dead = true;
 			};
 			//Caida faraón
-			
+			if(this.dead){
+				this.pharaoh.setTint(0xffffff);
+			}
+
 			//Si no estoy muerto
 			if(!this.dead && !this.love){
 	///////////////////////////////////CONTROLES///////////////////////////////////

@@ -272,6 +272,10 @@ function Mummy(scene, x, y){
 				this.mummy.anims.play("deathM", true);
 				this.dead = true;
 			}
+
+			if(this.dead){
+				this.mummy.setTint(0xffffff);
+			}
 			
 			//Si no estoy muerto
 			if(!this.dead && !this.love){
