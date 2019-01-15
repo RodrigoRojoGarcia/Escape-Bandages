@@ -695,8 +695,8 @@ offline.update = function(){
 
     
     if(this.mummyVictory && this.pharaohVictory){
-        offline.scene.start(level2)
-        //this.scene.stop(heart);
+        offline.scene.start(victorylevel);
+        this.scene.stop(heart);
     }
     if(!this.p.dead && !this.m.dead){
         if(Math.abs(this.p.pharaoh.x - this.m.mummy.x) < 240 && Math.abs(this.p.pharaoh.y - this.m.mummy.y) < 120 && !this.loving){
