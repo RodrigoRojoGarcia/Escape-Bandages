@@ -61,8 +61,8 @@ vlevel.create = function(){
 	}, function(){
 		vlevel.binit.reduceScale(0.15, 0.15)
 	})
-	this.binit.reduceScale(0.4,0.4)
-	this.binit.show()
+	this.binit.reduceScale(0.4,0.4);
+	this.binit.show();
 }
 
 vlevel.update = function(){
