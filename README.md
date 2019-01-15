@@ -143,13 +143,13 @@ Si se usa en modo online en un ordenador se puede bloquear el movimiento de un p
 
 
 ## FASE 5
-CHANGE_LOG:
-·Nidos de enemigos  
-·Escorpiones
-·Plataformas móviles
-·MÁS PUZLES
-·Nuevo nivel
-·Nuevos menús
-·Nuevas animaciones
-·Nuevas mecánicas
+CHANGE_LOG:  
+·Nidos de enemigos    
+·Escorpiones  
+·Plataformas móviles  
+·MÁS PUZLES  
+·Nuevo nivel  
+·Nuevos menús  
+·Nuevas animaciones  
+·Nuevas mecánicas  
 
