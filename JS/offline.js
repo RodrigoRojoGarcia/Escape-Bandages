@@ -318,7 +318,7 @@ offline.create = function(){
     //ANUBIS
     //Textos del tutorial de Anubis
     var wordsAnubis1 = ["Greetings, I'm Anubis, god of the Necropolis.",
-    "I've resurrected you because you fell in love with\nsomeone you couldn't, so I'm giving you\nthe opportunity to live together.",
+    "I've resurrected you because you fell in love with\nsomeone you weren't supposed to, so I'm giving you\nthe opportunity to live together.",
     "But to make it work, you'll need to escape from the\npyramid... TOGETHER"]
 
     var wordsAnubis2 = ["I give you the gift of the arcane fire, you'll be able\nto collect the heat around you and focus it", 
@@ -357,11 +357,11 @@ offline.create = function(){
     //Textos del tutorial de Bastet
 
     var wordsBastet1 = ["Greetings, I'm Bastet, domestic cat goddess.",
-    "I've resurrected you because in life you fell in love with\nsomeone you couldn't, so I'm giving you\nthe opportunity to live together.",
+    "I've resurrected you because you fell in love with\nsomeone you weren't supposed to, so I'm giving you\nthe opportunity to live together.",
     "But to make it work, you'll need to escape from the\npyramid... TOGETHER"]
 
-    var wordsBastet2 = ["I give you the gift of the cursed bandages\nyou'll be able to stretch your bandages pressing 'SPACE',",
-    "this way you'll be able to defeat any foe\nthat may appear upon you."]
+    var wordsBastet2 = ["I give you the gift of the cursed bandages\nyou'll be able to stretch your bandages pressing",
+    "'SPACE', this way you'll be able to defeat any foe\nthat may appear upon you."]
 
 
 
