@@ -35,7 +35,6 @@ A lo largo del juego los jugadores se pueden encontrar a Sheks, serpientes con a
 
 ### Controles
 El faraón se moverá usando las teclas de flechas de dirección, el ratón para seleccionar los objetos que quiera mover usando la telequinesis y deberá usar la flecha de dirección hacia abajo para lanzar el fuego y el click izquierdo para la telequinesis. El sirviente sin embargo solo podrá moverse usando las teclas 'wasd' del teclado y la tecla 'espacio' para atacar con sus vendas (Los controles son del juego en local y pueden estar sujetos a cambios para el juego online.)
-Si in-game se pulsa 'C' la cámara cambia de cámara dividida (una cámara por personaje) a cámara única que sigue al faraón.
 ![camara_dividida](https://raw.githubusercontent.com/RodrigoRojoGarcia/Escape-Bandages/readme/Capturas/c%C3%A1mara_dividida.PNG)  
 
 ### Concept Art
@@ -88,7 +87,7 @@ Cuando se colocan las dos cajas sobre los botones los dos personajes son libres 
 ## Servidor REST
 Instrucciones para ejecutar (desde la consola de comandos): 
 Ir al path Escape-Bandages/ServerEB/EscapeBandages/target
-Ejecutar java -jar EscapeBandages-0.3.2.jar
+Ejecutar java -jar EscapeBandages-0.3.3.8.jar
 Al final de la ejecución de la creación del servidor aparecerá por la consola de comandos una IP, la cual es la que se tiene que incluir en el buscador web para acceder como cliente al juego.
 
 ## Diagrama de clases de la aplicación
@@ -100,6 +99,8 @@ Link a vídeo explicativo:
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/b-vU2ZbIZa0/0.jpg)](https://www.youtube.com/watch?v=b-vU2ZbIZa0)  
 ![fase4-1](https://user-images.githubusercontent.com/18311855/49178464-234d4580-f350-11e8-8f8a-e3852021365a.PNG)  
 ![fase4-2](https://user-images.githubusercontent.com/18311855/49178465-23e5dc00-f350-11e8-8a19-9aa66800fbb9.PNG)  
+Al iniciar el juego sale una pantalla de cargando, que es una escena que carga todos los elementos audiovisuales del juego y crea el cleinte. Este cliente se maneja mediante APIREST, se calcula una IP única por ordenador haciendo una combinación de la IP pública de este, su IPv4 y el número de ventanas del juego que tiene abiertas en ese ordenador, de esta forma se pueden abrir varias sesiones al juego desde ordenadores de redes diferentes, de la misma red local y desde diferentes ventanas dentro del mismo ordenador.
+El juego te da la opción de jugar online y offline, se va a proceder a explicar ahora la parte online:
 Cuando el jugador va a la pantalla online le aparece una pantalla de registro/log in. Tenemos un sistema de guardado de datos, en un .txt en la carpeta target si se inicia el servidor desde el .jar,  que guarda usuarios únicos con contraseñas asociadas para registrar los usuarios. Una vez que hacen log in se cambia el estado de estos usuarios en el servidor a "ONLINE". Cada cliente puede tener asociado únicamente un usuario "ONLINE", por lo que si intentas loggear en un cliente que ya a iniciado con un usuario no te deja. El registro, a la izquierda, te permite introducir cualquier usuario y contraseña, mientras el usuario no esté en uso ya, y registrarte, inmediatamente después se podrá hacer log in con ese usuario y contraseña.  
 ![fase4-3](https://user-images.githubusercontent.com/18311855/49178466-23e5dc00-f350-11e8-9d5c-83cfb5b6b1e0.PNG)  
 Una vez estés "ONLINE" (es decir, loggeado), tendrás una pantalla de selección de elección de lobby. Puedes buscar un lobby aleatorio, que te busca un lobby no privado en el que haya hueco y te mete, y en caso de no haberlo crea un nuevo lobby no privado y te introduce como usuario 1 de ese lobby. Los lobbies de nuestro servidor tienen como capacidad máxima de dos usuarios. Tenemos el botón de "Privado", que te genera un lobby privado con tu usuario de usuario 1, de esta manera, los usuarios que busquen aleatorio no entrarán y permitirás a tus amigos buscar tu lobby con tu nombre de usuario.   
@@ -107,33 +108,36 @@ Una vez estés "ONLINE" (es decir, loggeado), tendrás una pantalla de selecció
 En la misma pantalla de selección de lobby tenemos una línea de entrada de texto en la que se puede introducir el nombre de usuario de tu amigo que haya generado un lobby privado y de esta manera te asocia a dicho lobby y te mete en el hueco que falte, en caso de no estar lleno.  
 ![fase4-lobby](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-5.PNG?raw=true)  
 ![fase4-lobby2](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Fase3-6.PNG?raw=true)  
-La pantalla de lobby se compone de: nombres de usuario conectados, botones de selección de personaje, chat (el cual hemos mejorado para que tenga mayor coherencia con el resto del juego) y botón de preparado.
-Una vez que seleccionas un personaje se te pone disponible una checkbox para decir si estás preparado para jugar, una vez que estén los dos jugadores preparados se iniciará el juego en local en cada uno de los clientes.
+La pantalla de lobby se compone de: nombres de usuario conectados, botones de selección de personaje, chat (el cual hemos mejorado para que tenga mayor coherencia con el resto del juego), botón de preparado y nombre del usuario que tiene seleccionado al personaje debajo de la imagen de este.
+Una vez que seleccionas un personaje se ilumina con una luz verde a su alrededor, si el otro usuario tiene seleccionado un personaje este se pone gris y no se podrá activar, se te pone disponible una checkbox para decir si estás preparado para jugar, una vez que estén los dos jugadores preparados se iniciará el juego en local en cada uno de los clientes.
 ![fase4-mummy](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/mummy.png?raw=true)  
 ![fase4-pharaoh](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/pharaoh.png?raw=true)  
 ![fase4-select](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/seleccion.png?raw=true)  
-Al seleccionar los personajes, cambian los parámetros del chat, al escribir aparecerá tu nombre de usuario y el personaje que tengas actualmente escogido que se le indicará a otro jugador, mostrándoselo con un filtro gris, además de indicar debajo de este el nombre de usuario de quien lo ha escogido.
-En el chat aparecen mensajes de cuando se unen los usuarios, cuando se desconectan, el personaje que escogen.
+Al seleccionar los personajes, cambian los parámetros del chat, al escribir aparecerá tu nombre de usuario y el personaje que tengas actualmente escogido que se le indicará a otro jugador, mostrándoselo con un filtro gris, además de indicar debajo de este el nombre de usuario de quien lo ha escogido. También si el mensaje es demasiado largo aparecerá dividido en más líneas.
+En el chat aparecen mensajes de cuando se unen los usuarios, cuando se desconectan, el personaje que escogen y cuando están listos o no para jugar.
 ![fase4-checkbox2](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/check.png?raw=true)    
 Una vez ya dentro del juego, cada jugador tendrá su propia pantalla, en la cual, su cámara seguirá a su personaje correspondiente. 
 ![fase4-chatgame](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/game.png?raw=true) 
-También está incluido el chat, para que ambos se puedan comunicar. En esta fase necesitaremos pasar cierta información al otro usuario para poder mostrar la pantalla actual; así, les pasaremos por Websockets parámetros como la posición actual de cada personajes, la vida de los enemigos, la posición de las cajas y la arena que aparecen en el nivel, los booleans de los botones y las puertas para que ambas cosas funciones, etc.
+También está incluido el chat, para que ambos se puedan comunicar. En esta fase necesitaremos pasar cierta información al otro usuario para poder mostrar la pantalla actual; así, les pasaremos por Websockets parámetros como la posición actual de cada personajes, la vida de los enemigos, la posición de las cajas, la vida de los enemigos, etc.
 ![fase4-chatbye](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/chat%20t.png?raw=true)   
-Una funcionalidad extra añadida es el poder ocultar el chat en el modo online mientras se juega, para ello solo habría que pulsar la tecla 't'. Para que vuelva a aparecer se le volvería a dar a la misma tecla.
+Una funcionalidad extra añadida es el poder ocultar el chat en el modo online mientras se juega, para ello solo habría que pulsar la tecla 't'. Para que vuelva a aparecer se le volvería a dar a la misma tecla. Para escribir en el chat cuando esté activo hay que pulsar en el cuadro de escritura de texto, entonces el jugador se pone modo "escritura" y no podrá moverse, aunque el juego siga corriendo. Para quitar este modo "escritura", el jugador ha de hacer click de nuevo en el recuadro de texto.
 ![fase4-gameover](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/Game%20Over.PNG?raw=true)   
-Obviamente, al tratarse de un juego cooperativo, en el cual es necesario ambos personajes para ganar, si uno de ellos se muere, en ambas pantallas aparecerá el 'Game Over', pasandose la información de la vida del otro para saber si ha muerto o no. En esta, tal y como hemos indicado anteriormente para el offline, nos dará la posibilidad de reiniciar o de salirnos.
+Obviamente, al tratarse de un juego cooperativo, en el cual es necesario ambos personajes para ganar, si uno de ellos se muere, en ambas pantallas aparecerá el 'Game Over', pasandose la información de la vida del otro para saber si ha muerto o no. En esta, tal y como hemos indicado anteriormente para el offline, nos dará la posibilidad de reiniciar o de salirnos. Esta información la comparten ambos usuarios, cuando uno decida reiniciar o salir en la pantalla del otro ocurrirá lo mismo.
 ![fase4-vida](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/vida.png?raw=true)   
 Otro aspecto implementado en esta fase, ha sido el hud de la vida de ambos personajes, mostrando una imagen del personaje al que le corresponde su barra de vida, junto con sus tres corazones correspondientes, los cuales irán desapareciendo al ser atacados por los enemigos.
 ![fase4-pausa](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/salir%20esc.png?raw=true)   
-Debemos mencionar dos pantallas más que aparecen en el juego, que serían la de pausa (pulsando 'esc') con el que saldrías del juego, por o que antes te piden una confirmación.
+Debemos mencionar dos pantallas más que aparecen en el juego, que serían la de pausa (pulsando 'esc') con el que saldrías del juego, por o que antes te piden una confirmación. En esta pantalla se comunica el reinicio del juego como en la pantalla de gameOver, sin embargo, un jugador puede elegir salirse del juego por su cuenta, sin llegar a pantallas de victoria o gameover, con esta pantalla, por lo que el otro jugador lo que recibe es un mensaje diciendo que su compañero se ha desconectado y es devuelto a la pantalla de lobby. Esto también ocurrirá si uno de los dos jugadores pierde la conexión durante la partida.
 ![fase4-reinicio](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/reiniciar%20r.png?raw=true)   
-Y una pantalla de reinicio si pulsamos la tecla 'R', dónde también nos preguntarán si estamos seguros de querer reiniciar nivel.
+Y una pantalla de reinicio si pulsamos la tecla 'R', dónde también nos preguntarán si estamos seguros de querer reiniciar nivel, este dato se tranmitirá de la misma manera que el reinicio desde gameOver.
 ![desconexion](https://github.com/RodrigoRojoGarcia/Escape-Bandages/blob/readme/Capturas/desconexion.png?raw=true)   
-Tendremos en cuenta que en cualquier momento se pueda dar una desconexión del servidor o haya fallo de conexión, por lo que hay otra escena para mostrar este mensaje, y así notificar al jugador.
+Tendremos en cuenta que en cualquier momento se pueda dar una desconexión del servidor o haya fallo de conexión, por lo que hay otra escena para mostrar este mensaje, y así notificar al jugador. El fallo de desconexión se calcula mediante pulling desde ambos lados, desde el servidor y el cliente. Ambos esperan tener respuestas de que el servidor o el cliente esté ahí, si no reciben esta respuesta durante 6 segundos automáticamente se desconectan. En el cliente aparecerá la pantalla de desconectado del servidor y en el servidor se eliminará al cliente de la lista de clientes conectados.
 ## WEBSOCKET  
 La administración de websocket es la siguiente. Cada cliente manda mensajes como faraón o como momia, según el personaje que estén jugando, con sus posiciones, teclas de actuación y objetos que solo ellos modifican del escenario, como las cajas que se mueven por telequinesis para el faraón o la cuerda para la momia. Cada uno manda el mensaje para que el otro cliente actualice sus posiciones.  
 Para las cajas pequeñas, que ambos las pueden modificar, las vidas de los personajes ( para saber cuando aplicar el evento de muerte )  y el estado de reinicio y salir del nivel, se usan manejadores aparte.  
 Para las cajas el servidor calcula la posición de la caja con respecto a la última posición enviada del personaje más cercano a ella y se la reenvía al resto de clientes.  
 Para calcular el estado de muerte del otro personaje se espera a la respuesta del servidor para aplicar el estado de "derrota" para que no muera uno en una pantalla, pero en la otra no salga correctamente o a tiempo el estado de "derrota".  
 Los estados de reinicio y salir del nivel son dos booleanos y cada cliente responde a ellos en local, el servidor maneja los booleanos según las acciones de los clientes y actualiza esos valores en todos los clientes para sincronizar estos estados.
+
+## HINTS
+Si se usa en modo online en un ordenador se puede bloquear el movimiento de un personaje pulsando la tecla y mientras se pulsa hacer click en la otra ventana, el personaje seguirá actuando como si esa tecla se mantuviese presionada.
 
