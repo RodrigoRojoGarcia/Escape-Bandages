@@ -12,15 +12,19 @@ restart.create = function(){
     this.add.image(1920/2,1080/2,'shade2');
     this.add.dynamicBitmapText(600, 350, 'font1', 'Seguro que deseas reiniciar?', 70);
    
-    offline.scene.pause();
+    currentScene.scene.pause();
     
     
     this.yes = new UIButton(this, 650, 800, 'yes', function(){
         restart.active = false;
         
-        offline.scene.restart();
-        offline.scene.stop(heart);
-        offline.scene.launch(heart, offline);
+        for(var i = 0; i < currentScene.nests.length; i++){
+            currentScene.nests[i].deactivate();
+        }
+        
+        currentScene.scene.restart();
+        currentScene.scene.stop(heart);
+        currentScene.scene.launch(heart, currentScene);
         
         restart.scene.stop(restart);
 	}, function(){
@@ -37,7 +41,7 @@ restart.create = function(){
         else{
             offline.input.setDefaultCursor('url(Sprites/cursor2.png), pointer');
         }
-        offline.scene.resume();
+        currentScene.scene.resume();
        
 		restart.scene.stop(restart);
 	}, function(){

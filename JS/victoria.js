@@ -29,8 +29,8 @@ victoria.create = function(){
 	//cargar boton Reiniciar
 
 	this.brei = new UIButton(this, 960, 800, 'restart', function(){
-		victoria.scene.start(offline);
-		victoria.scene.launch(heart, offline);
+		victoria.scene.start(currentScene);
+		victoria.scene.launch(heart, currentScene);
 	}, function(){
 		victoria.brei.amplifyScale(0.15, 0.15)
 	}, function(){

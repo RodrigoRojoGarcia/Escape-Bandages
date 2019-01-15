@@ -30,8 +30,8 @@ gameover.create = function(){
 	//cargar boton Reiniciar
 
 	this.brei = new UIButton(this, 960, 800, 'restart', function(){
-		gameover.scene.start(offline);
-		gameover.scene.launch(heart, offline);
+		gameover.scene.start(currentScene);
+		gameover.scene.launch(heart, currentScene);
 	}, function(){
 		gameover.brei.amplifyScale(0.15, 0.15)
 	}, function(){
@@ -43,7 +43,7 @@ gameover.create = function(){
 //////////////////////BOTON SALIR///////////////////////////////
 	//cargar boton Salir
 
-	this.bout = new UIButton(960, 950, 'exit', function(){
+	this.bout = new UIButton(this, 960, 950, 'exit', function(){
 		gameover.scene.start(menu);
 	}, function(){
 		gameover.bout.amplifyScale(0.15, 0.15)

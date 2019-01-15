@@ -67,8 +67,12 @@ menu.preload = function(){
     ///////////////SPRITESHEETS///////////////
     //MOMIA
     this.load.spritesheet("Mummy","Sprites/mummySprites2.png", {frameWidth: 100, frameHeight: 150});
+    //MUERTE MOMIA
+    this.load.spritesheet("MummyDeath","Sprites/mummyDeath.png", {frameWidth: 100, frameHeight: 150});
     //FARAÓN
     this.load.spritesheet("Pharaoh","Sprites/pharaohsprites.png", {frameWidth: 100, frameHeight: 150});
+    //MUERTE FARAÓN
+    this.load.spritesheet("PharaohDeath","Sprites/pharaohDeath.png", {frameWidth: 100, frameHeight: 150});
     //ANTORCHAS
     this.load.spritesheet("torch","Sprites/torchspriteSheet.png",{frameWidth: 30, frameHeight: 95});
     //SHEK
@@ -91,14 +95,20 @@ menu.preload = function(){
     this.load.spritesheet("sand","Sprites/sand.png",{frameWidth: 10, frameHeight: 10});
     //PUERTA
     this.load.image("door","Sprites/door.png");
+    //PUERTA GRIS
+    this.load.image("stoneDoor","Sprites/stone_door.png");
     //CAJA
     this.load.image("box","Sprites/caja0.1.png");
     //CUERDA
     this.load.image("rope", "Sprites/rope.png");
     //TRIPWIRE
     this.load.image("tripwire", "Sprites/tripwire.png");
-    //CORZONCITOS
-    this.load.image('love', 'Sprites/lovehearts.png')
+    //CORAZONCITOS
+    this.load.spritesheet('love', 'Sprites/lovehearts.png',{frameWidth: 70, frameHeight: 120});
+    //PLATAFORMA
+    this.load.image('platform', 'Sprites/platform.png');
+    //NIDO
+    this.load.spritesheet("nest","Sprites/nest.png",{frameWidth: 120, frameHeight: 120});
 
     
 }
@@ -135,10 +145,16 @@ menu.create = function(){
 	})
 	anims.create({
 		key: 'jumpRightMCicle',
-		frames: anims.generateFrameNumbers('Mummy', {start: 8, end: 10}),
+		frames: anims.generateFrameNumbers('Mummy', {start: 13, end: 15}),
 		frameRate: 5,
 		repeat: -1
 	})
+	anims.create({
+		key: 'deathM',
+		frames: anims.generateFrameNumbers('MummyDeath', {start: 0, end: 9}),
+		frameRate: 5,
+		repeat: 0
+	});
 
 	///////////////////////////////PHARAOH//////////////////////////////////
 	//Animación a la derecha
@@ -168,6 +184,21 @@ menu.create = function(){
 		frameRate: 5,
 		repeat: -1
 	});
+	anims.create({
+		key: 'deathP',
+		frames: anims.generateFrameNumbers('PharaohDeath', {start: 0, end: 8}),
+		frameRate: 5,
+		repeat: 0
+	});
+	//CORAZONES
+	anims.create({
+		key: 'loving',
+		frames: anims.generateFrameNumbers('love', {start: 0, end: 3}),
+		frameRate: 5,
+		repeat: -1
+	});
+
+
 	///////////////////////////////FIRE//////////////////////////////////
 	//Fuego llano
 	anims.create({

@@ -75,6 +75,8 @@ offline.create = function(){
     //Botones
     this.buttons = this.map.createFromObjects('Buttons', 4, { key: 'button' });
     
+    //escena love
+    this.loving = false;
 
 ///////////////////////////////////PLAYERS///////////////////////////////////
     //FARAÓN
@@ -96,23 +98,23 @@ offline.create = function(){
     this.enemies = [];
     //SHEK
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
-    this.s = new Enemy(this,spawnPointShek.x, spawnPointShek.y, 'snake', 0.1, 0.5);
+    this.s = new Enemy(this,spawnPointShek.x, spawnPointShek.y, 'snake', 0.1, 0.5, 20, 50);
  
 
     this.enemies[0] = this.s;
     //Creamos un objeto Enemigo, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
-    this.s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y, 'snake', 0.1, 0.5);
+    this.s2 = new Enemy(this,spawnPointShek2.x, spawnPointShek2.y, 'snake', 0.1, 0.5, 20, 50);
  
 
     this.enemies[1] = this.s2;
 
     this.shek = [];
-    this.shek[0] = new Enemy(this,spawnpointShek3.x, spawnpointShek3.y, 'snake', 0.1, 0.5);
-    this.shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y, 'snake', 0.1, 0.5);
+    this.shek[0] = new Enemy(this,spawnpointShek3.x, spawnpointShek3.y, 'snake', 0.1, 0.5, 20, 50);
+    this.shek[1] = new Enemy(this, spawnpointShek4.x, spawnpointShek4.y, 'snake', 0.1, 0.5, 20, 50);
     this.enemies[2] = this.shek[0];
     this.enemies[3] = this.shek[1];
 
-
+    this.nests = [];
 ///////////////////////////////////GODS////////////////////////////////////
     //ANUBIS
     //Creamos un objeto Dios, el cual contiene un sprite. Le colocamos en las coordenadas del objeto spawnpoint del JSON
@@ -370,6 +372,11 @@ offline.create = function(){
     //Hacemos que el texto aparezca en el mismo lugar que el objeto de texto de Tiled
     this.sayBastet1 = this.add.text(textBastet.x, textBastet.y, wordsBastet1).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
     this.sayBastet2 = this.add.text(textBastet.x, textBastet.y, wordsBastet2).setFontSize(24).setFontStyle('bold').setFontFamily('Power Clear').setBackgroundColor('#000000');
+    //INTENTO DE CAMBIAR FONT
+    //this.sayBastet1 = this.add.bitmapText(textBastet.x, textBastet.y, 'font2', wordsBastet1, 24, 1);
+    //this.sayBastet1.letterSpacing = 1;
+
+
     //Profundidad 100 para que aparezca delante de todo
     this.sayBastet1.depth = 100;
     //Invisible mientras no esté en el tutorial
@@ -572,8 +579,12 @@ offline.update = function(){
 ///////////////////////////////////ACTUALIZACIÓN DE SPRITES///////////////////////////////////
 
     if(this.p.dead  || this.m.dead){
-		this.scene.start(gameover);
-        this.scene.stop(heart);
+        this.time.addEvent({
+            delay: 2000,
+            callback: this.startGameOver,
+            callbackScope: this
+        });
+		
     }
     
    
@@ -589,7 +600,7 @@ offline.update = function(){
     }else{
         //Si lo está que la cámara deje de seguirle
         this.cameraPharaoh.stopFollow()
-        this.p.destroy()
+        
     }
     //Si la momia no está muerta
     if(!this.m.dead){
@@ -605,7 +616,7 @@ offline.update = function(){
     }else{
         //Si lo está que la cámara deje de seguirla
         this.cameraMummy.stopFollow();
-        this.m.destroy()
+        
     }
     
     //Si Shek no está muerto
@@ -684,10 +695,53 @@ offline.update = function(){
 
     
     if(this.mummyVictory && this.pharaohVictory){
-        offline.scene.start(victoria)
-        this.scene.stop(heart);
+        offline.scene.start(level2)
+        //this.scene.stop(heart);
     }
+    if(!this.p.dead && !this.m.dead){
+        if(Math.abs(this.p.pharaoh.x - this.m.mummy.x) < 240 && Math.abs(this.p.pharaoh.y - this.m.mummy.y) < 120 && !this.loving){
+            this.loving = true;
+            this.p.love = true;
+            this.m.love = true;
+
+            if(this.p.pharaoh.x < this.m.mummy.x){
+                this.p.pharaoh.flipX = false;
+                this.m.mummy.flipX = true;
+            }else{
+                this.p.pharaoh.flipX = true;
+                this.m.mummy.flipX = false;
+            }
+
+            this.m.mummy.anims.play("jumpRightMCicle", true);
+            this.p.pharaoh.anims.play("jumpRightPCicle", true);
+            var x = (this.m.mummy.x + this.p.pharaoh.x) / 2;
+            var y = this.p.pharaoh.y - 100;
+
+            this.hearts = this.add.sprite(x, y, 'love');
+            this.hearts.anims.play("loving", true);
+
+            this.time.addEvent({
+                delay: 5000,
+                callback: this.stopLove,
+                callbackScope: this
+            });
+
+        }
+    }
+    
 
 }//FINAL UPDATE
+
+offline.stopLove = function(){
+    this.p.love = false;
+    this.m.love = false;
+    this.hearts.anims.stop();
+    this.hearts.destroy();
+}
+
+offline.startGameOver = function(){
+    this.scene.start(gameover);
+    this.scene.stop(heart);
+}
 
 

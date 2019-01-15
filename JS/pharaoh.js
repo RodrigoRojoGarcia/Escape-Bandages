@@ -60,6 +60,8 @@ function Pharaoh(scene, x, y){
 		this.gettingHit = false;
 		//Muerto?
 		this.dead = false;
+		//Escena amor
+		this.love = false;
 
 	///////////////////////////////////COLISIONES///////////////////////////////////
 		//Cuando colisiona un sensor del mainBody
@@ -71,13 +73,16 @@ function Pharaoh(scene, x, y){
 					if(bodyB === scene.enemies[i].getSprite().body.parts[1]){
 						//Si no estamos en periodo de invulnerabilidad
 						if(!this.gettingHit){
-							//Nos golpean
-							this.getHit();
-							//Nos ponemos rojos
-							scene.p.pharaoh.setTint(0xff3333)
+							
+							if(!this.dead){
+								//Nos golpean
+								this.getHit();
+								//Nos ponemos rojos
+								scene.p.pharaoh.setTint(0xff3333);
+							}
 							//Al cabo de un tiempo llamamos a invulnerable
 							scene.time.addEvent({
-								delay: 300,
+								delay: 1000,
 								callback: this.invulnerable,
 								callbackScope: scene
 							});
@@ -86,6 +91,34 @@ function Pharaoh(scene, x, y){
 						}
 					}	
 				}
+			}
+			for(var i=0;i<scene.nests.length;i++){
+				for(var j = 0; j < scene.nests[i].enemies.length; j++){
+					if(!scene.nests[i].enemies[j].dead){
+						//Si el bodyB es el shek
+						if(bodyB === scene.nests[i].enemies[j].getSprite().body.parts[1]){
+							//Si no estamos en periodo de invulnerabilidad
+							if(!this.gettingHit){
+								if(!this.dead){
+									//Nos golpean
+									this.getHit();
+									//Nos ponemos rojos
+									scene.p.pharaoh.setTint(0xff3333)
+								}
+								
+								//Al cabo de un tiempo llamamos a invulnerable
+								scene.time.addEvent({
+									delay: 1000,
+									callback: this.invulnerable,
+									callbackScope: scene
+								});
+							}else{
+								return;
+							}
+						}	
+					}
+				}
+				
 			}
 
 
@@ -195,12 +228,13 @@ function Pharaoh(scene, x, y){
 			var movingForce = 0.1;
 			//Actualizamos la vida
 			if(this.health <= 0){
+				this.pharaoh.anims.play("deathP", true);
 				this.dead = true;
 			};
 			//Caida faraón
 			
 			//Si no estoy muerto
-			if(!this.dead){
+			if(!this.dead && !this.love){
 	///////////////////////////////////CONTROLES///////////////////////////////////
 				//Cuando flecha a la izquierda está presionado y el sprite no está quieto
 				if (keys.left.isDown && !this.steady)
