@@ -45,6 +45,12 @@ controls.create = function(){
 	var lflecha = this.add.sprite(1340, 600, 'flecha');
 
 
+	//esc
+	var lesc = this.add.sprite(840, 800, 'esc');
+	//r
+	var lr = this.add.sprite(840, 950, 'r');
+
+
 //////////////////////BOTON BACK////////////////////////////////
 	this.bback = new UIButton(this, 300, 950, 'back1', function(){
 		controls.scene.start(menu)

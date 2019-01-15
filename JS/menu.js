@@ -23,6 +23,10 @@ menu.preload = function(){
 	this.load.image('flechas','Sprites/flechas.png')
 	//flecha
 	this.load.image('flecha','Sprites/flecha.png')
+	//esc
+	this.load.image('esc','Sprites/esc.png')
+	//r (reiniciar)
+	this.load.image('r','Sprites/r.png')
 	//////////////////////////////BOTONES//////////////////////////////
 	//botones volumenes
 	this.load.image('novolumen','Sprites/novolumen.png');
