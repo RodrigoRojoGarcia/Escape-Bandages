@@ -565,9 +565,19 @@ offline.create = function(){
 
     //CAJAS
     //Creamos una cada inservible
-    const caja = this.matter.add.image(1500, 150, 'box', 0, {density: 0.0005 });
-    const utilBox1 = this.matter.add.image(65*120, 0, 'box', 0, {density: 0.0005 });
-    const utilBox2 = this.matter.add.image(68*120, 3*120, 'box', 0, {density: 0.0005 });
+    const caja =  new PurpleBox(this, 1500, 150, 0, 0, 'smallBox', 0, 0.01, 0.1, 1);
+    
+    const utilBox1 = new PurpleBox(this, 65*120, 0, 0, 0, 'smallBox', 0, 0.01, 0.1, 1);
+    const utilBox2 = new PurpleBox(this, 68*120, 3*120, 0, 0, 'smallBox', 0, 0.01, 0.1, 1);
+
+    this.smallBoxes = [];
+    this.smallBoxes[0] = caja;
+    this.smallBoxes[1] = utilBox1;
+    this.smallBoxes[2] = utilBox2;
+
+    for(var i = 0; i < this.smallBoxes.length; i++){
+        this.smallBoxes[i].create();
+    }
 
 }//FIN DEL CREATE
 
@@ -647,7 +657,10 @@ offline.update = function(){
     //Actualización de todas las cajas (recorre el array de todas las cajas)
     for(var i = 0; i < this.box.length; i++){
         this.move = this.move || this.box[i].move;
-        this.box[i].update();
+        this.box[i].update();    
+    }
+    for(var i = 0; i < this.smallBoxes.length; i++){
+        this.smallBoxes[i].update();
     }
     //Actualización de todos los botones (recorre el array de todos los botones)
     for(var i = 0; i < this.buttons.length; i++){

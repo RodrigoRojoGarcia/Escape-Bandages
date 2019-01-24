@@ -17,7 +17,10 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 			mass: massArg
 		});
 		//Cambiamos el mainBody del sprite
-		this.purpleBox.setExistingBody(compoundBody).setFixedRotation().setPosition(x,y);
+		if(this.type == 1){
+			this.purpleBox.setExistingBody(compoundBody).setPosition(x,y);
+		}
+		
 
 	///////////////////////////////////ATRIBUTOS///////////////////////////////////
 		//Se puede mover?
@@ -26,6 +29,9 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 		this.min = min;
 		this.x = x;
 		this.y = y;
+
+		this.type = 0;
+		
 	///////////////////////////////////MÉTODOS///////////////////////////////////
 		//Devuelve el sprite	
 		this.getSprite = function(){
@@ -48,6 +54,13 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 		this.getHeight = function(){
 			return h;
 		}
+
+		this.setType = function(){
+			if(sprite == "PurpleBox1"){
+				this.type = 1;
+				this.purpleBox.setFixedRotation();
+			}
+		}
 		//Variable que selecciona el nombre para la animación dependiendo del sprite introducido
 		var k;
 		//variable auxiliar para usar el sprite dentro del evento del ratón
@@ -55,37 +68,49 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 
 	///////////////////////////////////CREATE///////////////////////////////////
 		this.create = function(){
+			this.setType();
+
 			scene.input.setDraggable(image);
 			scene.input.on('dragstart', function (pointer, gameObject) {
-
 				image.setStatic(true);
-
+				
 			});
-			
-			scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-				if(currentScene.move){
-					for(var i = 0;i<currentScene.box.length;i++){
-						if(currentScene.box[i].move){
-							
-							if(dragY > currentScene.box[i].min && dragY < currentScene.box[i].max){
-								//Solo arrastable en el eje Y        		
-								gameObject.y = dragY;
-							}else if(dragY < currentScene.box[i].min){
-								gameObject.setPosition(currentScene.box[i].x, currentScene.box[i].min);
-							}else if(dragY > gameObject.max){
-								gameObject.setPosition(currentScene.box[i].x, currentScene.box[i].max);
+			if(this.type == 1){
+				scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+					if(currentScene.move){
+						for(var i = 0;i<currentScene.box.length;i++){
+							if(currentScene.box[i].move){
+								if(dragY > currentScene.box[i].min && dragY < currentScene.box[i].max){
+									//Solo arrastable en el eje Y      
+									
+									gameObject.y = dragY;
+								}else if(dragY < currentScene.box[i].min){
+									gameObject.setPosition(currentScene.box[i].x, currentScene.box[i].min);
+								}else if(dragY > gameObject.max){
+									gameObject.setPosition(currentScene.box[i].x, currentScene.box[i].max);
+								}
 							}
 						}
 					}
+				});
+			}
+			else{
+				scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+					for(var i = 0; i < currentScene.smallBoxes.length; i++){
+						if(currentScene.smallBoxes[i].move){
+							
+							gameObject.x = dragX;
+							gameObject.y = dragY;
+						}
+					}
 					
-					
-				}
-			});
+				});
+			}
+			
 
 			scene.input.on('dragend', function (pointer, gameObject) {
-
 				image.setStatic(false);
-
+				
 			});	
 		}//FIN CREATE
 	///////////////////////////////////UPDATE///////////////////////////////////
@@ -101,13 +126,21 @@ function PurpleBox(scene, x, y, min, max, sprite, frictionStaticArg, frictionAir
 			var distance = this.purpleBox.x - playerX;
 			
 			//Colisiones con paredes. Si baja del minimo o sube del maximo se queda en dicha posición
+			if(this.type == 1){
+				this.purpleBox.x = this.x;
+			}
 			
-			this.purpleBox.x = this.x;
 			//Empieza la animación de la caja y se puede arrastrar cuando el faraón esta cerca de ella (izquierda o derecha). 
 			if (playerX < this.purpleBox.x && distance > 0 && distance < 300 || playerX > this.purpleBox.x  && distance < 0 && distance > -300)
 			{
-				this.purpleBox.anims.play('box1', true);
-				this.move = true;
+				if(this.type == 1){
+					this.purpleBox.anims.play('box1', true);
+					this.move = true;
+				}else{
+					this.purpleBox.anims.play('smallBox1', true);
+					this.move = true;
+				}
+				
 			}else{
 				this.purpleBox.setTexture(sprite, 0);
 				this.move = false;

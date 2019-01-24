@@ -108,7 +108,9 @@ menu.preload = function(){
     //BASTET
     this.load.spritesheet("Bastet","Sprites/bastetSpriteSheet.png",{frameWidth: 100, frameHeight: 150});
     //CAJA CON EFECTO
-    this.load.spritesheet("PurpleBox1", "Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
+	this.load.spritesheet("PurpleBox1", "Sprites/purpleBox2SpriteSheet.png",{frameWidth: 175, frameHeight: 200});
+	//CAJA PEQUEÑA CON EFECTO
+    this.load.spritesheet("smallBox", "Sprites/smallBox.png",{frameWidth: 65, frameHeight: 65});
     //FUEGO DEL FARAÓN
     this.load.spritesheet("Fire", "Sprites/firePharaohSprites.png",{frameWidth: 125, frameHeight: 125});
 
@@ -300,6 +302,13 @@ menu.create = function(){
     anims.create({
 		key: 'box1',
 		frames: anims.generateFrameNumbers('PurpleBox1', {start: 1, end: 2}),
+		frameRate: 5,
+		repeat: -1
+	});
+
+	anims.create({
+		key: 'smallBox1',
+		frames: anims.generateFrameNumbers('smallBox', {start: 1, end: 2}),
 		frameRate: 5,
 		repeat: -1
 	});

@@ -102,7 +102,8 @@ level2.create = function(){
     
     this.boxes = [];
     for(var i = 0; i < 2; i++){
-        this.boxes[i] = new Box(this, (4+i)*120+60, 26*120+60, 'box', 0, 0.01, 0.1, 10);
+        this.boxes[i] = new PurpleBox(this, (4+i)*120+60, 26*120+60, 0, 0, 'smallBox', 0, 0.01, 0.1, 1);;
+        
     }
     
     this.scorpionNest = new Nest(this, spawnPointScorpionNest.x + 60, spawnPointScorpionNest.y + 60, 'nest', 'scorpion', 0.04, 0.4, 7000, spawnZoneScorpion, 8);
