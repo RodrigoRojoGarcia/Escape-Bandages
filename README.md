@@ -1,9 +1,9 @@
 ESCAPE BANDAGES
 =======================================================
-Singleplayer mode on: 
-Kongregate: https://www.kongregate.com/games/tricky7377/escape-bandages
-Itch.io: https://ernestojm.itch.io/escape-bandages
-New Grounds: https://www.newgrounds.com/portal/view/724632?updated=1547529437
+Singleplayer mode on:   
+Kongregate: https://www.kongregate.com/games/tricky7377/escape-bandages  
+Itch.io: https://ernestojm.itch.io/escape-bandages  
+New Grounds: https://www.newgrounds.com/portal/view/724632?updated=1547529437  
 
 - Ernesto Jiménez Martínez 	e.jimenezmar.2016@alumnos.urjc.es //	ernesjimenez@hotmail.com // ErnestooJM
 - Irene Núñez Carranza 		i.nunez.2016@alumnos.urjc.es 	//	inmusic.nazul@gmail.com // Eneri21
