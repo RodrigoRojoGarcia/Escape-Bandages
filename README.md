@@ -1,5 +1,7 @@
 ESCAPE BANDAGES
 =======================================================
+Singleplayer mode on: https://www.kongregate.com/games/tricky7377/escape-bandages
+
 
 - Ernesto Jiménez Martínez 	e.jimenezmar.2016@alumnos.urjc.es //	ernesjimenez@hotmail.com // ErnestooJM
 - Irene Núñez Carranza 		i.nunez.2016@alumnos.urjc.es 	//	inmusic.nazul@gmail.com // Eneri21
